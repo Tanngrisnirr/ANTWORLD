@@ -1,0 +1,27 @@
+/* Copyrights and other infos
+
+--test1 Crematogaster antaris--
+head/side:
+Photo by April Nobile / URL: https://www.antweb.org/bigPicture.do?name=casent0173180&shot=h&number=1
+Image Copyright © AntWeb 2002 - 2017. Licensing: Creative Commons Attribution License
+Accessed 20 July 2017
+
+--test2 Dorylus fulvus--
+head/side:
+Photo by Shannon Hartman / URL: https://www.antweb.org/bigPicture.do?name=casent0401739&shot=h&number=1
+Image Copyright © AntWeb 2002 - 2017. Licensing: Creative Commons Attribution License
+Accessed 23 July 2017
+
+--test3 Leptanilla tanakai--
+
+Photo by Will Ericson / URL: https://www.antweb.org/specimenImages.do?name=casent0911453&project=worldants
+Image Copyright © AntWeb 2002 - 2017. Licensing: Creative Commons Attribution License
+Accessed 23 July 2017
+
+--test4 Technomyrmex setosus--
+
+Photo by Michele Esposito / URL: https://www.antweb.org/bigPicture.do?name=casent0919798&shot=p&number=1
+Image Copyright © AntWeb 2002 - 2017. Licensing: Creative Commons Attribution License
+Accessed 23 July 2017
+
+*/

@@ -1,0 +1,29 @@
+/*People behind the scene*/
+
+Olivier Ruiz University DUE GERMANY (Research Gate: https://www.researchgate.net/profile/Olivier_Ruiz)
+> Webmaster and creator of a new conception of ID key 
+> Translator German to (english, french) and french to english
+> Micro-photographer (only pictures with white background or the one s that don t look professionnal)
+> Author's name for picture added as a slide up on mouse:hover.
+
+~_______________________________~
+
+ /*SPECIAL THANK*/
+
+Kormolos : for testing the site and the game.
+
+DMX : for the interesing ideas of how a ID key could look like.
+
+Cekiki : for showing me how a ID key should not look like.
+
+Mom and Dad : for the attention they payed to my education (both literally and figuratively).
+
+~_______________________________~
+
+ /*Site*/
+ 
+Last Udpade: 25th August 2015
+Language: french, english, latin.
+Doctype: HTML5
+Browser outline development: Firefox 40 also tested on IE11, Chrome, Torch and Opera.
+IDE: Notepad++ _ Fillezila _ PAINT2009 _ PAINT.NET

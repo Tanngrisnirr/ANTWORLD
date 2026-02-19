@@ -1,0 +1,42 @@
+# Local-only files (not pushed to GitHub)
+CLAUDE.md
+backups/
+orga/
+sources/
+
+# Large files - ML training data
+TrainingSets/
+
+# Archives (old versions - large)
+archives/
+
+# Academic PDFs (large, external content)
+**/docs/*.pdf
+antworld.org/*/docs/*.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node modules (if used later)
+node_modules/
+
+# Python (if used later)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build outputs
+*.min.js
+*.min.css
+
+# Backup files
+*.bak
+*~
