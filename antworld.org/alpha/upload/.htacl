@@ -1,0 +1,4 @@
+AuthUserFile "/services/users/zukstorage6p1/temnothorax/www/palearcticantkey.eu/upload/.htaclu"
+AuthName Members
+AuthType Basic
+Require valid-user

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<hotpot-jcross-file>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <rdf:Description rdf:about="">
+    <dc:creator>Temnothorax</dc:creator>
+    <dc:title>Genera 01 - Major</dc:title>
+  </rdf:Description>
+</rdf:RDF><version>6</version>
+
+<data>
+<title>Genera 01 - Major</title>
+
+
+
+<timer><seconds>60</seconds><include-timer>0</include-timer></timer><reading>
+<include-reading>0</include-reading>
+<reading-title></reading-title>
+<reading-text></reading-text>
+
+</reading>
+
+<crossword>
+<grid><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>T</cell><cell>H</cell><cell>A</cell><cell>L</cell><cell>E</cell><cell>S</cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>B</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>U</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell>M</cell><cell>Y</cell><cell>R</cell><cell>M</cell><cell>I</cell><cell>C</cell><cell>A</cell><cell></cell><cell></cell><cell>L</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>U</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>I</cell><cell></cell><cell></cell><cell></cell><cell>P</cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell>B</cell><cell></cell><cell>N</cell><cell></cell><cell></cell><cell></cell><cell>A</cell><cell></cell><cell></cell><cell>N</cell><cell></cell><cell></cell><cell></cell><cell>H</cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>L</cell><cell>A</cell><cell>S</cell><cell>I</cell><cell>U</cell><cell>S</cell><cell></cell><cell>T</cell><cell></cell><cell>S</cell><cell>A</cell><cell>M</cell><cell>U</cell><cell>R</cell><cell>A</cell><cell>I</cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell>R</cell><cell></cell><cell></cell><cell></cell><cell>A</cell><cell></cell><cell>T</cell><cell></cell><cell></cell><cell>E</cell><cell></cell><cell></cell><cell></cell><cell>R</cell><cell></cell><cell></cell></row><row><cell></cell><cell>N</cell><cell></cell><cell></cell><cell>B</cell><cell></cell><cell>R</cell><cell>U</cell><cell>B</cell><cell>R</cell><cell>A</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>A</cell><cell></cell><cell></cell></row><row><cell></cell><cell>E</cell><cell></cell><cell></cell><cell>A</cell><cell></cell><cell>U</cell><cell></cell><cell>U</cell><cell></cell><cell></cell><cell></cell><cell>P</cell><cell>H</cell><cell>E</cell><cell>I</cell><cell>D</cell><cell>O</cell><cell>L</cell><cell>E</cell></row><row><cell>N</cell><cell>I</cell><cell>G</cell><cell>E</cell><cell>R</cell><cell></cell><cell>G</cell><cell></cell><cell>L</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>N</cell><cell></cell><cell></cell></row><row><cell></cell><cell>V</cell><cell></cell><cell></cell><cell>U</cell><cell></cell><cell>I</cell><cell></cell><cell>A</cell><cell>U</cell><cell>S</cell><cell>T</cell><cell>R</cell><cell>O</cell><cell>L</cell><cell>A</cell><cell>S</cell><cell>I</cell><cell>U</cell><cell>S</cell></row><row><cell></cell><cell>A</cell><cell></cell><cell></cell><cell>S</cell><cell></cell><cell>N</cell><cell></cell><cell>R</cell><cell></cell><cell></cell><cell></cell><cell>U</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>S</cell><cell></cell><cell></cell></row><row><cell></cell><cell>M</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>O</cell><cell></cell><cell>U</cell><cell></cell><cell></cell><cell></cell><cell>G</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>Y</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>D</cell><cell></cell><cell>M</cell><cell></cell><cell></cell><cell></cell><cell>U</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>R</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>I</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>L</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>M</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>S</cell><cell>U</cell><cell>L</cell><cell>C</cell><cell>I</cell><cell>N</cell><cell>O</cell><cell>D</cell><cell>I</cell><cell>S</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>E</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>S</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>X</cell><cell>E</cell><cell>N</cell><cell>E</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell>P</cell><cell>A</cell><cell>L</cell><cell>L</cell><cell>I</cell><cell>D</cell><cell>U</cell><cell>L</cell><cell>A</cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row></grid>
+
+<clues><item><word>THALES</word><def>Camponotus species with the name of a famous mathematicien of the Antiquity.</def></item><item><word>MYRMICA</word><def>A well known species of this genus is rubra.</def></item><item><word>LASIUS</word><def>One of the most widespread genera in the Palearctic.</def></item><item><word>SAMURAI</word><def>Japanese ant species.... refering to great japanese warrior at the time of Bushido and Shogun.</def></item><item><word>RUBRA</word><def>Myrmica with to forms of gyne (kween): micro- and macrogynes.</def></item><item><word>PHEIDOLE</word><def>The species &quot;pallidula&quot; is the only representent of this genus in France.</def></item><item><word>NIGER</word><def>Independant species of Lasius which have for cryptic species Lasius platythorax.</def></item><item><word>AUSTROLASIUS</word><def>Subgenus of Lasius which smells like lemongrass.</def></item><item><word>SULCINODIS</word><def>Myrmica species describe by Nylander. Petiole dorsal profile ending as a very smooth stair step, without cuff at the thorax attachement.</def></item><item><word>XENE</word><def>Plagiolepis species which parasite the nest of a species of the same genus, Plagiolepis pygmaea.</def></item><item><word>PALLIDULA</word><def>Only Pheidole species in France.</def></item><item><word>TULINAE</word><def>In 2002 Elmes, Radchenko and Actac described a brain new species of Myrmica from Turkey. The ergates should have both, sabuleti and scabrinodis caracteres...</def></item><item><word>BRUNI</word><def>Formica (Coptoformica) with the same name as Carla a well unknown pretty bad french singer. Married to Sarkozy one&apos;s ^^</def></item><item><word>PHARAONIS</word><def>Monomorium species considered as a pest in canadien and french home.  From Egytp.</def></item><item><word>BARBARUS</word><def>Monogyne species of the Messor genus. Head of both, gyne and major are red glabous to dark so we can some times think it&apos;s black.</def></item><item><word>ATTA</word><def>Genus of an gardening ant.</def></item><item><word>SABULARUM</word><def>Chthonolasius described by Bondroit in 1918.</def></item><item><word>NEIVAMYRMEX</word><def>Army ant of spreads in South, central and the south part of North America (Ecitoninae).</def></item><item><word>RUGINODIS</word><def>Myrmica species sister from M. rubra, distinguished from rubra by the dorsal profile of the petiole ending in the shape of a stair step.</def></item><item><word>RUGULOSA</word><def>Myrmica species who takes is name from his rough cuticle. Polycalic, hight polygyn.</def></item><item><word>RUGULOSA</word><def>Myrmica species who takes is name from his rough cuticle. Polycalic, hight polygyn.</def></item></clues>
+</crossword>
+</data>
+
+<hotpot-config-file>
+<jcross>
+<exercise-subtitle></exercise-subtitle>
+<instructions>Complete the crossword, then click on &quot;Check&quot; to check your answer. If you are stuck, you can click on &quot;Hint&quot; to get a free letter. Click on a number in the grid to see the clue or clues for that number.</instructions>
+<guess-correct>Correct! Well done.</guess-correct>
+<guess-incorrect>Some of your answers are incorrect. Incorrect squares have been blanked out.</guess-incorrect>
+<clues-across>Across:</clues-across>
+<clues-down>Down:</clues-down>
+<next-correct-letter>A correct letter has been added.</next-correct-letter>
+<include-keypad>0</include-keypad>
+<include-clue-list>0</include-clue-list>
+<enter-caption>Enter</enter-caption>
+<include-hint>1</include-hint>
+<case-sensitive>0</case-sensitive>
+<next-ex-url></next-ex-url>
+<send-email>0</send-email>
+<separate-javascript-file>0</separate-javascript-file>
+</jcross>
+
+<global>
+<your-score-is>Your score is </your-score-is>
+<check-caption>Check</check-caption>
+<ok-caption>OK</ok-caption>
+<hint-caption>Hint</hint-caption>
+<keypad-characters></keypad-characters>
+<process-for-rtl>0</process-for-rtl>
+<include-scorm-12>0</include-scorm-12>
+<next-ex-caption>=&amp;#x003E;</next-ex-caption>
+<back-caption>&amp;#x003C;=</back-caption>
+<contents-caption>Index</contents-caption>
+<include-next-ex>0</include-next-ex>
+<include-contents>1</include-contents>
+<include-back>1</include-back>
+<contents-url>../../learnandgames.html</contents-url>
+<graphic-url></graphic-url>
+<font-face>Geneva,Arial,sans-serif</font-face>
+<font-size>small</font-size>
+<page-bg-color>#80ff80</page-bg-color>
+<title-color>#0000ff</title-color>
+<ex-bg-color>#ffffff</ex-bg-color>
+<text-color>#000000</text-color>
+<link-color>#0000a0</link-color>
+<vlink-color>#ff0000</vlink-color>
+<nav-bar-color>#004080</nav-bar-color>
+<formmail-url>http://yourserver.com/cgi-bin/FormMail.pl</formmail-url>
+<email>you@yourserver.com</email>
+<name-please>Please enter your name:</name-please>
+<user-string-1>one</user-string-1>
+<user-string-2>two</user-string-2>
+<user-string-3>three</user-string-3>
+<header-code></header-code>
+</global>
+</hotpot-config-file>
+</hotpot-jcross-file>

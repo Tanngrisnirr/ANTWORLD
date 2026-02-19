@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head><title>AntWorld.org | ID Training</title>
+<meta name="description" content="Identification key for the ants of the palearctic region">
+<meta name="keywords" content="ants, Formicidae, identification key, key, antworld">
+<?php include("php/ihead.php"); ?>
+	</head>
+    <body>
+<article>
+
+<div class="test2"><?php include("news/test/test2.php"); ?></div>
+<div class="test3"><?php include("news/test/test3.php"); ?></div>
+<div class="test4"><?php include("news/test/test4.php"); ?></div>
+<div class="test5"><?php include("news/test/test5.php"); ?></div>
+
+<div id="active_test"><?php include("news/test/test1.php"); ?></div>
+
+
+<h2 class="h2four"><span class="icon icon-bug"> Load more IDs</span></h2>
+<div class="group5">
+<ul>
+<li><div id="load2">Test 2</div></li>
+<li><div id="load3">Test 3</div></li>
+<li><div id="load4">Test 4</div></li>
+<li><div id="load5">Test 5</div></li>
+</ul>
+</div>
+
+</article>
+<!-- Only for the training section -->
+<script>
+$(document).ready(function(){
+		$(".test2").hide();$(".test3").hide();$(".test4").hide();$(".test5").hide(); $(".group5").hide();
+		$("#load2").click(function(){$("#active_test").hide(); $(".test3").hide(); $(".test4").hide(); $(".test5").hide();$(".test2").fadeIn();});
+		$("#load3").click(function(){$("#active_test").hide(); $(".test2").hide(); $(".test4").hide(); $(".test5").hide();$(".test3").fadeIn();});
+		$("#load4").click(function(){$("#active_test").hide(); $(".test2").hide(); $(".test3").hide(); $(".test5").hide();$(".test4").fadeIn();});
+		$("#load5").click(function(){$("#active_test").hide(); $(".test2").hide(); $(".test3").hide(); $(".test4").hide();$(".test5").fadeIn();});
+		$(".h2four").click(function(){$(".group5").slideToggle("slow");});
+});
+</script>
+<?php include("php/footer.php"); ?>
+<?php include("js/magglass.js"); ?>
+    </body>
+</html>

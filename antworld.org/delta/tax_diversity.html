@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><title>AntWorld.org | Taxonomy</title>
+<meta name="description" content="Ants of Palearctic listed by region">
+<meta name="keywords" content="ants,Formicidae,Palearctic,species diversity, countries">
+<?php include("php/ihead.php"); ?>
+<script src="js/d3.min.js"></script><script src="js/d3pie.min.js"></script>
+<script src="js/modules/exporting.js"></script>
+<script src="js/modules/offline-exporting.js"></script>
+</head>
+    <body>
+<article>
+<h2 class="h2one">Taxonomical Ant diversity</h2>
+<p4>
+<!--PIE Subfamilies-->
+<div id="cont"></div>
+<script>
+var pie = new d3pie("cont", {
+"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
+"subtitle": {"text": "by Subfamilies","color": "white","fontSize": 25,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 0},
+<!--"footer": {"text": "","color": "white","fontSize": 10,"font": "open sans","location": "bottom-center"},-->
+"size": {"canvasWidth": 700,"canvasHeight": 500,"pieInnerRadius": "80%","pieOuterRadius": "70%"},
+"data": {"sortOrder": "label-desc","content": [
+{"label": "Myrmicinae","value": 426,"color": "#3924c1"},
+{"label": "Formicinae","value": 324,"color": "#24acc1"},
+{"label": "Dorylinae","value": 48,"color": "#e98125"},
+{"label": "Ponerinae","value": 44,"color": "#4daa4b"},
+{"label": "Dolichoderinae","value": 42,"color": "#90c469"},
+{"label": "Amblyoponidae","value": 24,"color": "#daca61"},
+{"label": "Leptanillinae","value": 9,"color": "#e4a14b"},
+{"label": "Proceratiinae","value": 9,"color": "#cb2121"},
+{"label": "Pseudomyrmicinae","value": 1,"color": "#830909"},]},
+"labels": {"outer": {"format": "label-percentage1","pieDistance": 20},"inner": {"format": "none"},
+"mainLabel": {"fontSize": 20,"color": "white"},"percentage": {"color": "white","fontSize": 20,"decimalPlaces": 1},"value": {"color": "white","fontSize": 11},"lines": {"enabled": true},"truncation": {"enabled": true}},
+"effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 20}
+	},
+	"misc": {"gradient": {"enabled": true,"percentage": 100, "segmentStroke": "pink"}
+	}
+});
+</script>
+
+<!--PIE TRIBES -->
+<div id="cont"></div>
+<script>
+var pie = new d3pie("cont", {
+"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
+"subtitle": {"text": "by Tribes","color": "white","fontSize": 25,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 0},
+<!--"footer": {"text": "","color": "white","fontSize": 10,"font": "open sans","location": "bottom-center"},-->
+"size": {"canvasWidth": 790,"canvasHeight": 500,"pieInnerRadius": "80%","pieOuterRadius": "70%"},
+"data": {"sortOrder": "label-desc","content": [
+{"label": "Aenictini","value": 35,"color": "#3924c1"},
+{"label": "Amblyoponini","value": 24,"color": "#24acc1"},
+{"label": "Attini","value": 132,"color": "#e98125"},
+{"label": "Bothriomyrmecini","value": 15,"color": "#4daa4b"},
+{"label": "Camponotinii","value": 123,"color": "#90c469"},
+{"label": "Cerapachynini","value": 12,"color": "#daca61"},
+{"label": "Crematogastrini","value": 184,"color": "#e4a14b"},
+{"label": "Formicinii","value": 89,"color": "#cb2121"},
+{"label": "Lasinii","value": 72,"color": "#830909"},
+{"label": "Leptomyrmecini","value": 2,"color": "#e60000"},
+{"label": "Pagiolepini","value": 42,"color": "#cccc00"},
+{"label": "Ponerini","value": 44,"color": "#e600e6"},
+{"label": "Proceratiini","value": 8,"color": "#a366ff"},
+{"label": "Pseudomyrmecini","value": 1,"color": "#b3ff99"},
+{"label": "Solenopsidini","value": 39,"color": "#996633"},
+{"label": "Stenammini","value": 16,"color": "#00cc99"},
+{"label": "Tapinomini","value": 22,"color": "#8c1aff"},
+]},
+"labels": {
+	"outer": {"format": "label-percentage1","pieDistance": 20},
+	"inner": {"format": "none"},
+	"mainLabel": {"fontSize": 20,"color": "white"},
+		"percentage": {"color": "white","fontSize": 20,"decimalPlaces": 1},
+		"value": {"color": "white","fontSize": 11},
+		"lines": {"enabled": true},
+		"truncation": {"enabled": true}},
+"effects": {
+	"pullOutSegmentOnClick": {
+	"effect": "linear",
+	"speed": 400,
+	"size": 20
+		}
+	},
+	"misc": {"gradient": {"enabled": true,"percentage": 100, "segmentStroke": "pink"}
+	}
+});
+</script>
+
+<!--PIE GENERA
+#Aenictus 35
+#Aphaenogaster 83
+Bothriomyrmex 15
+#Camponotus 71
+Cardiocondyla 11
+#Cataglyphis 32
+Cerapachys 12
+Crematogaster 22
+#Formica 52
+Hypoponera 15
+#Lasius 63
+Lepisiota 7
+Leptanilla 7
+Leptothorax 20
+Messor 29
+Monomorium 24
+#Myrmica 48
+Paratrechina 12
+Pheidole 13
+Plagiolepis 12
+#Polyrhachis 51
+#Ponera 32
+Proformica 10
+Solenopsis 9
+Stigmatomma 12
+Tapinoma 14
+#Temnothorax 57
+#Tetramorium 54
+ -->
+
+<!--PIE Genera -->
+<div id="cont"></div>
+<script>
+var pie = new d3pie("cont", {
+"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
+"subtitle": {"text": "by Genera","color": "white","fontSize": 25,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 0},
+<!--"footer": {"text": "","color": "white","fontSize": 10,"font": "open sans","location": "bottom-center"},-->
+"size": {"canvasWidth": 740,"canvasHeight": 500,"pieInnerRadius": "80%","pieOuterRadius": "70%"},
+"data": {"sortOrder": "label-desc","content": [
+{"label": "Aenictus","value": 35,"color": "#3924c1"},
+{"label": "Aphaenogaster","value": 83,"color": "#24acc1"},
+{"label": "Camponotus","value": 71,"color": "#e98125"},
+{"label": "Cataglyphis","value": 32,"color": "#4daa4b"},
+{"label": "Formica","value": 52,"color": "#90c469"},
+{"label": "Lasius","value": 63,"color": "#daca61"},
+{"label": "Myrmica","value": 48,"color": "#e4a14b"},
+{"label": "Polyrhachis","value": 51,"color": "#cb2121"},
+{"label": "Ponera","value": 32,"color": "#830909"},
+{"label": "Temnothorax","value": 57,"color": "#e60000"},
+{"label": "Tetramorium","value": 54,"color": "#cccc00"},
+]},
+"labels": {
+	"outer": {"format": "label-percentage1","pieDistance": 20},
+	"inner": {"format": "none"},
+	"mainLabel": {"fontSize": 20,"color": "white"},
+		"percentage": {"color": "white","fontSize": 20,"decimalPlaces": 1},
+		"value": {"color": "white","fontSize": 11},
+		"lines": {"enabled": true},
+		"truncation": {"enabled": true}},
+"effects": {
+	"pullOutSegmentOnClick": {
+	"effect": "linear",
+	"speed": 400,
+	"size": 20
+		}
+	},
+	"misc": {"gradient": {"enabled": true,"percentage": 100, "segmentStroke": "pink"}
+	}
+});
+</script>
+</p4>
+</article>
+<?php include("php/footer.php"); ?>
+</div>
+    </body>
+</html>

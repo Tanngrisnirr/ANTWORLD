@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><title>Antworld.org | Geo diversity</title>
+<meta name="description" content="Ants of Palearctic listed by region">
+<meta name="keywords" content="ants,Formicidae,Palearctic,species diversity, countries">
+<link rel="stylesheet" type="text/css" href="css/css_antworld.css" media="screen"/>
+<?php include("php/ihead.php"); ?>
+<!-- HighCharts thing-->
+<script src="js/highcharts.js"></script><script src="/js/themes/default.js"></script>
+<script src="js/modules/exporting.js"></script>
+<script src="js/modules/offline-exporting.js"></script>
+<!-- <script src="js/highmaps.js"></script><script src="/js/highstock.js"></script>
+<script src="js/modules/stock.js"></script><script src="js/modules/map.js"></script> -->
+</head>
+    <body>
+<article>
+<h2 class="h2one">Ant diversity by country</h2>
+<p4>
+<h3 class="h2one">Top 3</h3>
+<!-- Top 3 countries -->
+<div id="species_countries" style="width:99%; height:400px;"></div>
+<script>
+$(function () {
+    var myChart = Highcharts.chart('species_countries', {
+chart: {type: 'bar'},
+title: {text: '', style: {color: 'white', font: 'bold 30px "Trebuchet MS", Verdana, sans-serif'}},
+xAxis: {categories: ['China','Russia','Greece']},
+yAxis: {title: {text: 'For scientific literature, click on "Source" in the navigation bar', style: {color: 'white'}}},
+series: [{name: 'Species', data: [1391,311,286]},{name: 'Genera',data: [113,38,44]},{name: 'Families',data: [12,5,7]},]
+    });
+});
+</script>
+<h3 class="h2one">Top 10</h3>
+<div id="species_countries2" style="width:99%; height:800px;"></div>
+<script>
+$(function () {
+    var myChart = Highcharts.chart('species_countries2', {
+chart: {type: 'bar'},
+title: {text: '', style: {color: 'white', font: 'bold 30px "Trebuchet MS", Verdana, sans-serif'}},
+xAxis: {categories: ['Japan','Morocco','France','Italy','Austria','Kazakhstan','Germany','Belgium','Mongolia','NSUK']},
+yAxis: {title: {text: 'For scientific literature, click on "Source" in the navigation bar', style: {color: 'white'}}},
+series: [{name: 'Species', data: [273,237,213,184,135,117,110,98,76,59]},{name: 'Genera',data: [71,39,40,38,31,25,27,26,17,18]},{name: 'Families',data: [8,9,6,8,5,4,4,5,3,4]},]
+    });
+});
+</script>
+
+</p4>
+</article>
+<?php include("php/footer.php"); ?>
+</div>
+    </body>
+</html>
