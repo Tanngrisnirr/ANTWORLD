@@ -343,7 +343,7 @@ nav > .mandible { display: none; }
 .trail .gallery li a {
     display: block;
     padding: 5px 10px;
-    color: var(--text-muted);
+    color: #87CEEB;
     text-decoration: none;
     font-size: 14px;
     border-radius: 4px;
@@ -351,18 +351,17 @@ nav > .mandible { display: none; }
 }
 .trail .gallery li a:hover {
     background: rgba(135,206,235,0.15);
-    color: var(--accent-primary);
+    color: #fff;
 }
 /* Disabled/unavailable links in gallery */
 .trail .gallery li a.disabled {
-    color: #555;
+    color: #666 !important;
     cursor: not-allowed;
     pointer-events: none;
-    opacity: 0.5;
 }
 .trail .gallery li a.disabled:hover {
     background: none;
-    color: #555;
+    color: #666 !important;
 }
 .trail .gallery li a .icon {
     display: inline-block;
