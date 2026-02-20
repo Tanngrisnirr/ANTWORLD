@@ -1,16 +1,428 @@
 <!DOCTYPE html>
-<html>
-<head><title>Antworld.org</title>
-<meta name="description" content="Identification key for the ants of the palearctic region">
-<meta name="keywords" content="ants, Formicidae, identification key, key">
-<?php include("php/ihead.php"); ?>
+<html lang="en">
+<head>
+    <title>AntWorld.org | Ants of the Palearctic</title>
+    <meta name="description" content="Interactive identification key for the ants of the Palearctic region. Explore ant diversity, taxonomy, and distribution.">
+    <meta name="keywords" content="ants, Formicidae, identification key, Palearctic, myrmecology, ant species">
+    <?php include("php/ihead.php"); ?>
+    <style>
+    /* Nest Gate (intro section) */
+    .nest-gate {
+        text-align: center;
+        padding: 10px 15px;
+        margin: 0 auto 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .nest-gate p {
+        font-size: 1.1em;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 0 auto 20px;
+        padding: 0 10px;
+    }
+    .nest-gate .scout-link {
+        display: inline-block;
+        background: var(--accent-dark);
+        color: white;
+        padding: 15px 35px;
+        border-radius: 8px;
+        font-size: 1.1em;
+        font-weight: bold;
+        text-decoration: none;
+        border: 2px solid var(--accent-secondary);
+        transition: all 0.3s;
+    }
+    .nest-gate .scout-link:hover {
+        background: var(--accent-secondary);
+        box-shadow: 0 0 20px var(--shadow-glow);
+    }
+
+    /* Foraging Grid (quick nav) */
+    .foraging-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+    .chamber {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 25px;
+        width: 200px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .chamber:hover {
+        background: rgba(44, 90, 160, 0.3);
+        border-color: var(--border-accent);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px var(--shadow-dark);
+    }
+    .chamber .antenna {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+        display: block;
+    }
+    .chamber h3 {
+        color: var(--accent-primary);
+        margin: 0 0 10px;
+        font-size: 1.2em;
+    }
+    .chamber p {
+        color: var(--text-muted);
+        font-size: 0.9em;
+        margin: 0;
+    }
+
+    /* Gallery Arch (section headers) */
+    .gallery-arch {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .gallery-arch h2 {
+        color: var(--accent-primary);
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    /* Brood Zone (resources section) */
+    .brood-zone {
+        padding: 20px;
+        margin-bottom: 40px;
+    }
+    .chamber-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    .larva-cell {
+        background: var(--bg-card);
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        transition: border-color 0.3s, transform 0.3s;
+    }
+    .larva-cell:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-3px);
+    }
+    .larva-cell h3 {
+        color: var(--accent-primary);
+        margin: 0 0 10px;
+        font-size: 1.1em;
+    }
+    .larva-cell p {
+        color: var(--text-secondary);
+        font-size: 0.95em;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* Scout Feed (RSS section) */
+    .scout-feed {
+        background: linear-gradient(135deg, rgba(44, 90, 160, 0.2) 0%, var(--bg-card) 100%);
+        border-radius: 12px;
+        margin: 20px;
+        padding: 20px;
+        margin-bottom: 30px;
+        border: 1px solid var(--border-accent);
+    }
+    .scout-feed .gallery-arch {
+        border-bottom: none;
+        padding-bottom: 10px;
+    }
+    .scout-feed .gallery-arch h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .feed-mark {
+        color: #ff6600;
+        font-size: 0.7em;
+        text-decoration: none;
+    }
+    .feed-mark:hover {
+        color: #ff8833;
+    }
+    .antenna-stream {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+    .pheromone {
+        background: var(--bg-overlay);
+        border-radius: 8px;
+        padding: 15px 20px;
+        flex: 1;
+        min-width: 250px;
+        max-width: 350px;
+        border-left: 3px solid var(--border-accent);
+    }
+    .pheromone-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .pheromone-title a {
+        color: var(--accent-primary);
+        text-decoration: none;
+    }
+    .pheromone-title a:hover {
+        text-decoration: underline;
+    }
+    .pheromone-date {
+        color: var(--text-muted);
+        font-size: 0.8em;
+        margin-bottom: 8px;
+    }
+    .pheromone-desc {
+        color: var(--text-secondary);
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+
+    /* Census (stats section) */
+    .census {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        padding: 30px 20px;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        margin: 20px;
+        margin-bottom: 40px;
+    }
+    .tally {
+        text-align: center;
+        min-width: 120px;
+    }
+    .count {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: var(--accent-primary);
+        display: block;
+    }
+    .caste {
+        color: var(--text-muted);
+        font-size: 0.95em;
+        margin-top: 5px;
+    }
+
+    /* Cache (resource cards) */
+    .cache {
+        text-align: center;
+    }
+    .cache-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+    .cache-link:hover {
+        text-decoration: none;
+    }
+    .cache-mark {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 15px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: white;
+    }
+    .cache-mark.antweb { background: linear-gradient(135deg, #c41e3a, #8b0000); }
+    .cache-mark.antwiki { background: linear-gradient(135deg, #2e8b57, #006400); }
+    .cache-mark.glad { background: linear-gradient(135deg, #4169e1, #1e3a8a); }
+
+    /* Founding Text (about section) */
+    .founding-text {
+        padding: 30px 20px;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 40px;
+    }
+    .founding-text h2 {
+        color: var(--accent-primary);
+        margin-bottom: 20px;
+    }
+    .founding-text p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 600px) {
+        .chamber { width: 150px; padding: 15px; }
+        .count { font-size: 2em; }
+    }
+    </style>
 </head>
-    <body>
+<body>
 <article>
-<?php include("news/info/23_09_2017_GLAD.html"); ?>
+
+<!-- Nest Gate -->
+<section class="nest-gate">
+    <p>Interactive dichotomous keys and comprehensive database covering 936 species across the Palearctic region</p>
+    <a href="id/confirmed.ergate_id.html" class="scout-link">Start Identification</a>
+</section>
+
+<!-- Foraging Grid -->
+<section class="foraging-grid">
+    <a href="id/confirmed.ergate_id.html" class="chamber">
+        <span class="antenna icon icon-bug"></span>
+        <h3>Identify</h3>
+        <p>Interactive ID keys for workers and queens</p>
+    </a>
+    <a href="list_species.html" class="chamber">
+        <span class="antenna icon icon-menu2"></span>
+        <h3>Species List</h3>
+        <p>Browse all 936 documented species</p>
+    </a>
+    <a href="geo_diversity.html" class="chamber">
+        <span class="antenna icon icon-stats-bars"></span>
+        <h3>Distribution</h3>
+        <p>Ant diversity by country</p>
+    </a>
+    <a href="tax_diversity.html" class="chamber">
+        <span class="antenna icon icon-pie-chart"></span>
+        <h3>Taxonomy</h3>
+        <p>Species by subfamily & genus</p>
+    </a>
+    <a href="Training.html" class="chamber">
+        <span class="antenna icon icon-dice"></span>
+        <h3>Training</h3>
+        <p>Practice your ID skills</p>
+    </a>
+    <a href="sources.html" class="chamber">
+        <span class="antenna icon icon-books"></span>
+        <h3>Sources</h3>
+        <p>Scientific literature</p>
+    </a>
+</section>
+
+<!-- Scout Feed (RSS) -->
+<section class="scout-feed">
+    <div class="gallery-arch">
+        <h2>Myrmecology News</h2>
+    </div>
+    <div class="antenna-stream" id="rssFeed">
+        <div class="pheromone">
+            <div class="pheromone-title"><a href="#">Loading RSS feed...</a></div>
+        </div>
+    </div>
+</section>
+
+<!-- Census -->
+<section class="census">
+    <div class="tally">
+        <span class="count">936</span>
+        <span class="caste">Species</span>
+    </div>
+    <div class="tally">
+        <span class="count">74</span>
+        <span class="caste">Genera</span>
+    </div>
+    <div class="tally">
+        <span class="count">8</span>
+        <span class="caste">Subfamilies</span>
+    </div>
+    <div class="tally">
+        <span class="count">17</span>
+        <span class="caste">Tribes</span>
+    </div>
+    <div class="tally">
+        <span class="count">30+</span>
+        <span class="caste">ID Keys</span>
+    </div>
+</section>
+
+<!-- Brood Zone (Resources) -->
+<section class="brood-zone">
+    <div class="gallery-arch">
+        <h2>Myrmecology Resources</h2>
+    </div>
+    <div class="chamber-grid">
+        <div class="larva-cell cache">
+            <a href="https://www.antweb.org/" target="_blank" class="cache-link">
+                <div class="cache-mark antweb">AW</div>
+                <h3>AntWeb</h3>
+                <p>World's largest online database of ant images, specimen records, and natural history information.</p>
+            </a>
+        </div>
+        <div class="larva-cell cache">
+            <a href="https://www.antwiki.org/" target="_blank" class="cache-link">
+                <div class="cache-mark antwiki">AWi</div>
+                <h3>AntWiki</h3>
+                <p>Comprehensive wiki resource for ant taxonomy, biology, and natural history information.</p>
+            </a>
+        </div>
+        <div class="larva-cell cache">
+            <a href="http://globalants.org/" target="_blank" class="cache-link">
+                <div class="cache-mark glad">GA</div>
+                <h3>Global Ants (GLAD)</h3>
+                <p>Comprehensive ant trait data at a global scale for research and conservation.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Founding Text -->
+<section class="founding-text">
+    <h2>About AntWorld</h2>
+    <p>AntWorld.org is dedicated to making ant identification accessible to researchers, students, and enthusiasts. Our interactive dichotomous keys guide you through morphological features to identify ant species found across the Palearctic region.</p>
+    <p>All data is freely available for scientific and educational purposes under Creative Commons license.</p>
+</section>
+
 </article>
 
-</br>
 <?php include("php/footer.php"); ?>
-     </body>
+
+<script>
+// RSS Feed Loader
+async function loadRSSFeed() {
+    const rssContainer = document.getElementById('rssFeed');
+    const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=';
+    const feedUrl = 'https://blog.myrmecologicalnews.org/feed/';
+
+    try {
+        const response = await fetch(apiUrl + encodeURIComponent(feedUrl));
+        const data = await response.json();
+
+        if (data.status === 'ok' && data.items) {
+            let html = '';
+            data.items.slice(0, 3).forEach(item => {
+                const date = new Date(item.pubDate).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'short', day: 'numeric'
+                });
+                html += `
+                    <div class="pheromone">
+                        <div class="pheromone-title"><a href="${item.link}" target="_blank">${item.title}</a></div>
+                        <div class="pheromone-date">${date}</div>
+                        <div class="pheromone-desc">${item.description ? item.description.substring(0, 150) + '...' : ''}</div>
+                    </div>
+                `;
+            });
+            rssContainer.innerHTML = html;
+        }
+    } catch (error) {
+        console.log('RSS feed error:', error);
+        rssContainer.innerHTML = '<div class="pheromone"><div class="pheromone-desc">Visit <a href="https://blog.myrmecologicalnews.org/" target="_blank">Myrmecological News Blog</a> for latest ant research news.</div></div>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadRSSFeed);
+</script>
+
+</body>
 </html>
