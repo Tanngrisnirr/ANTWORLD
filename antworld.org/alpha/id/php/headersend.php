@@ -5,5 +5,14 @@
 <link rel="stylesheet" href="../css/antworld-icons.css"/>
 <meta name="description" content="AntWorld Identification Keys">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<?php include("../php/favicon.php"); ?>
-<?php include("../php/scripts.php") ?>
+<!-- Theme Toggle Script - load early to prevent flash -->
+<script>
+(function() {
+    var savedTheme = localStorage.getItem('aw-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+        document.documentElement.classList.add('light-mode');
+    }
+})();
+</script>
+<?php include("../php/header.html"); ?><?php include("../php/nav.php"); ?><?php include("../php/favicon.php"); ?><?php include("../php/scripts.php") ?>
