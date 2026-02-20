@@ -6,15 +6,69 @@
 <link rel="stylesheet" type="text/css" href="css/css_antworld.css" media="screen"/>
 <?php include("php/ihead.php"); ?>
 <!-- HighCharts thing-->
-<script src="js/highcharts.js"></script><script src="/js/themes/default.js"></script>
+<script src="js/highcharts.js"></script><script src="js/themes/default.js"></script>
 <script src="js/modules/exporting.js"></script>
 <script src="js/modules/offline-exporting.js"></script>
-<!-- <script src="js/highmaps.js"></script><script src="/js/highstock.js"></script>
-<script src="js/modules/stock.js"></script><script src="js/modules/map.js"></script> -->
+<style>
+.export-controls {
+    margin: 20px 0;
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    min-width: 180px;
+    min-height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.chart-note {
+    color: #888;
+    font-size: 13px;
+    margin-top: 8px;
+}
+</style>
 </head>
     <body>
 <article>
 <h2 class="h2one">Ant diversity by country</h2>
+
+<div class="export-controls">
+    <button class="export-btn" onclick="exportGeoDataCSV()">
+        Download <span class="format">CSV</span>
+    </button>
+    <button class="export-btn" onclick="exportGeoDataJSON()">
+        Download <span class="format">JSON</span>
+    </button>
+</div>
+
 <p4>
 <h3 class="h2one">Top 3</h3>
 <!-- Top 3 countries -->
@@ -45,8 +99,81 @@ series: [{name: 'Species', data: [273,237,213,184,135,117,110,98,76,59]},{name: 
 </script>
 
 </p4>
+
+<script>
+// Geographic diversity data
+var geoData = {
+    top3: [
+        { country: "China", species: 1391, genera: 113, subfamilies: 12 },
+        { country: "Russia", species: 311, genera: 38, subfamilies: 5 },
+        { country: "Greece", species: 286, genera: 44, subfamilies: 7 }
+    ],
+    top10: [
+        { country: "Japan", species: 273, genera: 71, subfamilies: 8 },
+        { country: "Morocco", species: 237, genera: 39, subfamilies: 9 },
+        { country: "France", species: 213, genera: 40, subfamilies: 6 },
+        { country: "Italy", species: 184, genera: 38, subfamilies: 8 },
+        { country: "Austria", species: 135, genera: 31, subfamilies: 5 },
+        { country: "Kazakhstan", species: 117, genera: 25, subfamilies: 4 },
+        { country: "Germany", species: 110, genera: 27, subfamilies: 4 },
+        { country: "Belgium", species: 98, genera: 26, subfamilies: 5 },
+        { country: "Mongolia", species: 76, genera: 17, subfamilies: 3 },
+        { country: "NSUK", species: 59, genera: 18, subfamilies: 4 }
+    ]
+};
+
+function exportGeoDataCSV() {
+    var csv = 'ANTWORLD.ORG - Geographic Diversity Data\n';
+    csv += 'Exported: ' + new Date().toLocaleString() + '\n\n';
+
+    csv += '=== TOP 3 COUNTRIES ===\n';
+    csv += 'Rank,Country,Species,Genera,Subfamilies\n';
+    geoData.top3.forEach(function(row, i) {
+        csv += (i + 1) + ',"' + row.country + '",' + row.species + ',' + row.genera + ',' + row.subfamilies + '\n';
+    });
+
+    csv += '\n=== TOP 10 COUNTRIES (4-13) ===\n';
+    csv += 'Rank,Country,Species,Genera,Subfamilies\n';
+    geoData.top10.forEach(function(row, i) {
+        csv += (i + 4) + ',"' + row.country + '",' + row.species + ',' + row.genera + ',' + row.subfamilies + '\n';
+    });
+
+    downloadFile(csv, 'antworld_geographic_diversity.csv', 'text/csv;charset=utf-8;');
+}
+
+function exportGeoDataJSON() {
+    var data = {
+        source: 'AntWorld.org',
+        exported: new Date().toISOString(),
+        region: 'Palearctic',
+        description: 'Ant diversity by country rankings',
+        rankings: {
+            top3: geoData.top3.map(function(row, i) {
+                return { rank: i + 1, country: row.country, species: row.species, genera: row.genera, subfamilies: row.subfamilies };
+            }),
+            top4to13: geoData.top10.map(function(row, i) {
+                return { rank: i + 4, country: row.country, species: row.species, genera: row.genera, subfamilies: row.subfamilies };
+            })
+        }
+    };
+
+    downloadFile(JSON.stringify(data, null, 2), 'antworld_geographic_diversity.json', 'application/json;charset=utf-8;');
+}
+
+function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+</script>
+
 </article>
 <?php include("php/footer.php"); ?>
-</div>
-    </body>
+</body>
 </html>
