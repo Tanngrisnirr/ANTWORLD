@@ -32,7 +32,7 @@ $idPath = $inSubfolder ? '' : 'id/';
 	<span class="icon icon-bug"></span><span class="scent">Start ID</span></a></li>
 <li class="worker"><a href="<?php echo $base; ?>morpho.html" title="Ant morphology guide">
 	<span class="icon icon-morpho"></span><span class="scent">Morpho</span></a></li>
-<li class="worker forager"><a href="#" title="Data">
+<li class="worker forager"><a href="javascript:void(0)" title="Data">
 	<span class="icon icon-stats-dots"></span><span class="scent">Data</span></a>
 	<ul class="gallery">
 		<li><a href="<?php echo $base; ?>geo_diversity.html"><span class="icon icon-stats-bars"></span> Geo-diversity</a></li>
@@ -41,7 +41,7 @@ $idPath = $inSubfolder ? '' : 'id/';
 	</ul></li>
 <li class="worker"><a href="<?php echo $base; ?>Training.html" title="Train yourself to identify ants">
 	<span class="icon icon-dice"></span><span class="scent">Training</span></a></li>
-<li class="worker forager"><a href="#" title="Search for Subfamilies and Genera">
+<li class="worker forager"><a href="javascript:void(0)" title="Search for Subfamilies and Genera">
 	<span class="icon icon-link"></span><span class="scent">Jump to</span></a>
 	<ul class="gallery">
 		<li class="category"><span class="icon icon-sort-amount-desc1"></span> Subfamilies</li>
