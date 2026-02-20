@@ -384,7 +384,8 @@ function updateCharts() {
                 }
             },
             min: useLogScale ? 1 : 0,
-            max: null,
+            max: useLogScale ? 10000 : null,
+            tickPositions: useLogScale ? [1, 10, 100, 1000, 10000] : null,
             gridLineColor: 'rgba(255,255,255,0.1)'
         },
         tooltip: {
