@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AntWorld.org | Ant Morphology - Interactive Anatomy Guide</title>
+    <meta name="description" content="Interactive anatomical diagrams of ant morphology with labeled features">
+    <meta name="keywords" content="ant anatomy, morphology, head, mesosoma, metasoma, identification, Formicidae">
+    <?php include("php/ihead.php"); ?>
+    <style>
+/* Morphology page specific styles */
+.morpho-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Tab navigation */
+.morpho-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+.morpho-tab {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+.morpho-tab:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+}
+.morpho-tab.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* Diagram container */
+.diagram-section {
+    display: none;
+}
+.diagram-section.active {
+    display: block;
+}
+
+.diagram-area {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.diagram-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.diagram-wrapper img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* View selector */
+.view-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+.view-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+.view-btn:hover, .view-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* Feature list */
+.feature-list {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.feature-list h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+.feature-item:hover {
+    background: var(--accent-primary);
+    color: #fff;
+}
+.feature-item.active {
+    background: var(--accent-secondary);
+    color: #fff;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+.feature-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    flex-shrink: 0;
+}
+.feature-item:hover .feature-dot,
+.feature-item.active .feature-dot {
+    background: #fff;
+}
+
+/* Toggle labels button */
+.controls-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+.control-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.control-btn:hover {
+    border-color: var(--accent-primary);
+}
+.control-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* SVG label styles */
+.label-point {
+    fill: var(--accent-primary, #87CEEB);
+    stroke: white;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.label-line {
+    stroke: var(--accent-primary, #87CEEB);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 2;
+}
+.label-text {
+    font-family: 'Courier', monospace;
+    font-size: 14px;
+    fill: var(--text-primary, #fff);
+}
+.label.highlight .label-point {
+    fill: #ff6b6b;
+    r: 8;
+    animation: pulse 0.5s ease-in-out 3;
+}
+.label.highlight .label-line {
+    stroke: #ff6b6b;
+    stroke-width: 2.5;
+}
+.label.highlight .label-text {
+    fill: #ff6b6b;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* Labels hidden mode */
+.labels-hidden .label {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Export buttons */
+.export-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 180px;
+    min-height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* Attribution */
+.attribution {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    padding: 10px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+}
+.attribution a {
+    color: var(--accent-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .morpho-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    .morpho-tab {
+        width: 80%;
+        text-align: center;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Print stylesheet for PDF export */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    nav, .controls-row, .export-row, .morpho-tabs {
+        display: none !important;
+    }
+    .diagram-section {
+        display: block !important;
+        page-break-after: always;
+    }
+    .diagram-section:last-of-type {
+        page-break-after: avoid;
+    }
+    .morpho-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .diagram-area, .feature-list {
+        background: #f5f5f5 !important;
+        border: 1px solid #ccc;
+    }
+    .feature-item {
+        background: white !important;
+        border: 1px solid #ddd;
+        color: black !important;
+    }
+    .feature-dot {
+        background: #333 !important;
+    }
+    .view-selector {
+        display: none;
+    }
+    .attribution {
+        background: transparent !important;
+        color: #666 !important;
+    }
+    .attribution a {
+        color: #333 !important;
+    }
+    h2.h2one, h3 {
+        color: black !important;
+    }
+    /* Add section title for print */
+    .diagram-section::before {
+        content: attr(data-print-title);
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 15px;
+        color: black;
+    }
+}
+    </style>
+</head>
+<body>
+<?php include("php/nav.php"); ?>
+<article>
+<h2 class="h2one" data-en="Ant Morphology" data-fr="Morphologie des fourmis">Ant Morphology</h2>
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;" data-en="Interactive anatomy guide - click on a feature name to highlight it on the diagram" data-fr="Guide anatomique interactif - cliquez sur un caractère pour le localiser sur le schéma">
+    Interactive anatomy guide - click on a feature name to highlight it on the diagram
+</p>
+
+<div class="morpho-container">
+    <!-- Tab Navigation -->
+    <div class="morpho-tabs">
+        <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tête">Head</button>
+        <button class="morpho-tab" data-section="mesosoma" data-en="Mesosoma" data-fr="Mésosoma">Mesosoma</button>
+        <button class="morpho-tab" data-section="metasoma" data-en="Metasoma" data-fr="Métasoma">Metasoma</button>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-row">
+        <button class="control-btn active" id="toggleLabels" data-en-show="Show Labels" data-en-hide="Hide Labels" data-fr-show="Afficher" data-fr-hide="Masquer">Show Labels</button>
+        <button class="control-btn" id="langToggle">EN / FR</button>
+    </div>
+
+    <!-- HEAD Section -->
+    <div class="diagram-section active" id="section-head" data-print-title="HEAD (Caput)">
+        <div class="diagram-area">
+            <div class="view-selector">
+                <button class="view-btn active" data-view="frontal">Frontal</button>
+                <button class="view-btn" data-view="lateral">Lateral</button>
+            </div>
+            <div class="diagram-wrapper" id="head-diagram">
+                <!-- SVG with labels will be loaded here or embedded -->
+                <img src="img/morpho/casent0179897_h_1_high.jpg" alt="Ant head frontal view - Lasius niger" id="head-image">
+                <!-- Placeholder for SVG overlay - to be created in Inkscape -->
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <h3 data-en="Head Features (click to highlight)" data-fr="Caractères de la tête (cliquer pour localiser)">Head Features (click to highlight)</h3>
+            <div class="feature-grid">
+                <div class="feature-item" data-feature="scape" data-en="Scape" data-fr="Scape"><span class="feature-dot"></span> <span class="feature-text">Scape</span></div>
+                <div class="feature-item" data-feature="funiculus" data-en="Funiculus" data-fr="Funicule"><span class="feature-dot"></span> <span class="feature-text">Funiculus</span></div>
+                <div class="feature-item" data-feature="clypeus" data-en="Clypeus" data-fr="Clypéus"><span class="feature-dot"></span> <span class="feature-text">Clypeus</span></div>
+                <div class="feature-item" data-feature="mandible" data-en="Mandible" data-fr="Mandibule"><span class="feature-dot"></span> <span class="feature-text">Mandible</span></div>
+                <div class="feature-item" data-feature="eye" data-en="Compound Eye" data-fr="Œil composé"><span class="feature-dot"></span> <span class="feature-text">Compound Eye</span></div>
+                <div class="feature-item" data-feature="frons" data-en="Frons" data-fr="Front"><span class="feature-dot"></span> <span class="feature-text">Frons</span></div>
+                <div class="feature-item" data-feature="vertex" data-en="Vertex" data-fr="Vertex"><span class="feature-dot"></span> <span class="feature-text">Vertex</span></div>
+                <div class="feature-item" data-feature="gena" data-en="Gena" data-fr="Gena"><span class="feature-dot"></span> <span class="feature-text">Gena</span></div>
+                <div class="feature-item" data-feature="frontal-carinae" data-en="Frontal Carinae" data-fr="Carènes frontales"><span class="feature-dot"></span> <span class="feature-text">Frontal Carinae</span></div>
+                <div class="feature-item" data-feature="torulus" data-en="Torulus" data-fr="Torulus"><span class="feature-dot"></span> <span class="feature-text">Torulus</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MESOSOMA Section -->
+    <div class="diagram-section" id="section-mesosoma" data-print-title="MESOSOMA (Thorax)">
+        <div class="diagram-area">
+            <div class="view-selector">
+                <button class="view-btn active" data-view="lateral">Lateral</button>
+                <button class="view-btn" data-view="dorsal">Dorsal</button>
+            </div>
+            <div class="diagram-wrapper" id="mesosoma-diagram">
+                <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant mesosoma lateral view - Lasius niger" id="mesosoma-image">
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <h3 data-en="Mesosoma Features (click to highlight)" data-fr="Caractères du mésosoma (cliquer pour localiser)">Mesosoma Features (click to highlight)</h3>
+            <div class="feature-grid">
+                <div class="feature-item" data-feature="pronotum" data-en="Pronotum" data-fr="Pronotum"><span class="feature-dot"></span> <span class="feature-text">Pronotum</span></div>
+                <div class="feature-item" data-feature="mesonotum" data-en="Mesonotum" data-fr="Mésonotum"><span class="feature-dot"></span> <span class="feature-text">Mesonotum</span></div>
+                <div class="feature-item" data-feature="propodeum" data-en="Propodeum" data-fr="Propodéum"><span class="feature-dot"></span> <span class="feature-text">Propodeum</span></div>
+                <div class="feature-item" data-feature="metapleural-gland" data-en="Metapleural Gland" data-fr="Glande métapleurale"><span class="feature-dot"></span> <span class="feature-text">Metapleural Gland</span></div>
+                <div class="feature-item" data-feature="promesonotal-suture" data-en="Promesonotal Suture" data-fr="Suture promésonotale"><span class="feature-dot"></span> <span class="feature-text">Promesonotal Suture</span></div>
+                <div class="feature-item" data-feature="metanotal-groove" data-en="Metanotal Groove" data-fr="Sillon métanotal"><span class="feature-dot"></span> <span class="feature-text">Metanotal Groove</span></div>
+                <div class="feature-item" data-feature="propodeal-spiracle" data-en="Propodeal Spiracle" data-fr="Spiracle propodéal"><span class="feature-dot"></span> <span class="feature-text">Propodeal Spiracle</span></div>
+                <div class="feature-item" data-feature="coxa" data-en="Coxa" data-fr="Coxa"><span class="feature-dot"></span> <span class="feature-text">Coxa</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- METASOMA Section -->
+    <div class="diagram-section" id="section-metasoma" data-print-title="METASOMA (Abdomen)">
+        <div class="diagram-area">
+            <div class="view-selector">
+                <button class="view-btn active" data-view="lateral">Lateral</button>
+                <button class="view-btn" data-view="dorsal">Dorsal</button>
+            </div>
+            <div class="diagram-wrapper" id="metasoma-diagram">
+                <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant metasoma lateral view - Lasius niger" id="metasoma-image">
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <h3 data-en="Metasoma Features (click to highlight)" data-fr="Caractères du métasoma (cliquer pour localiser)">Metasoma Features (click to highlight)</h3>
+            <div class="feature-grid">
+                <div class="feature-item" data-feature="petiole" data-en="Petiole" data-fr="Pétiole"><span class="feature-dot"></span> <span class="feature-text">Petiole</span></div>
+                <div class="feature-item" data-feature="petiolar-node" data-en="Petiolar Node" data-fr="Nœud pétiolaire"><span class="feature-dot"></span> <span class="feature-text">Petiolar Node</span></div>
+                <div class="feature-item" data-feature="gaster" data-en="Gaster" data-fr="Gastre"><span class="feature-dot"></span> <span class="feature-text">Gaster</span></div>
+                <div class="feature-item" data-feature="tergite" data-en="Tergites" data-fr="Tergites"><span class="feature-dot"></span> <span class="feature-text">Tergites</span></div>
+                <div class="feature-item" data-feature="sternite" data-en="Sternites" data-fr="Sternites"><span class="feature-dot"></span> <span class="feature-text">Sternites</span></div>
+                <div class="feature-item" data-feature="acidopore" data-en="Acidopore" data-fr="Acidopore"><span class="feature-dot"></span> <span class="feature-text">Acidopore</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Buttons -->
+    <div class="export-row">
+        <button class="export-btn" onclick="window.print()" data-en="Print Diagram" data-fr="Imprimer le schéma">
+            <span class="btn-text">Print Diagram</span> <span class="format">PDF</span>
+        </button>
+        <button class="export-btn" onclick="downloadCurrentImage()" data-en="Download Image" data-fr="Télécharger l'image">
+            <span class="btn-text">Download Image</span> <span class="format">JPG</span>
+        </button>
+    </div>
+
+    <!-- Attribution -->
+    <div class="attribution">
+        Images: AntWeb.org (CC BY) | Specimens: CASENT0179897, CASENT0179929 |
+        <a href="https://www.antweb.org/" target="_blank">www.antweb.org</a>
+    </div>
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.morpho-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        // Update tab states
+        document.querySelectorAll('.morpho-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        // Update section visibility
+        const section = this.dataset.section;
+        document.querySelectorAll('.diagram-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('section-' + section).classList.add('active');
+    });
+});
+
+// View switching within sections
+document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const parent = this.closest('.diagram-section');
+        parent.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        // Update image based on view
+        const view = this.dataset.view;
+        const img = parent.querySelector('.diagram-wrapper img');
+        const sectionId = parent.id;
+
+        // Image mapping
+        const images = {
+            'section-head': {
+                'frontal': 'img/morpho/casent0179897_h_1_high.jpg',
+                'lateral': 'img/morpho/casent0179897_p_1_high.jpg'
+            },
+            'section-mesosoma': {
+                'lateral': 'img/morpho/casent0179897_p_1_high.jpg',
+                'dorsal': 'img/morpho/casent0179929_d_1_high.jpg'
+            },
+            'section-metasoma': {
+                'lateral': 'img/morpho/casent0179897_p_1_high.jpg',
+                'dorsal': 'img/morpho/casent0179929_d_1_high.jpg'
+            }
+        };
+
+        if (images[sectionId] && images[sectionId][view]) {
+            img.src = images[sectionId][view];
+        }
+    });
+});
+
+// Toggle labels
+document.getElementById('toggleLabels').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelectorAll('.diagram-wrapper').forEach(wrapper => {
+        wrapper.classList.toggle('labels-hidden');
+    });
+    var isActive = this.classList.contains('active');
+    var showKey = 'data-' + currentLang + '-show';
+    var hideKey = 'data-' + currentLang + '-hide';
+    this.textContent = isActive ? this.getAttribute(showKey) : this.getAttribute(hideKey);
+});
+
+// Feature click to highlight
+document.querySelectorAll('.feature-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const featureId = this.dataset.feature;
+
+        // Remove previous highlights
+        document.querySelectorAll('.feature-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.label').forEach(l => l.classList.remove('highlight'));
+
+        // Add highlight to clicked item
+        this.classList.add('active');
+
+        // Find and highlight SVG element (when SVG labels are added)
+        const svgLabel = document.querySelector(`[data-feature="${featureId}"]`);
+        if (svgLabel && svgLabel.classList.contains('label')) {
+            svgLabel.classList.add('highlight');
+            // Scroll into view if needed
+            svgLabel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Visual feedback - flash the diagram area
+        const diagram = this.closest('.diagram-section').querySelector('.diagram-wrapper');
+        diagram.style.boxShadow = '0 0 20px var(--accent-primary)';
+        setTimeout(() => {
+            diagram.style.boxShadow = 'none';
+        }, 500);
+    });
+});
+
+// Download current image
+function downloadCurrentImage() {
+    const activeSection = document.querySelector('.diagram-section.active');
+    const img = activeSection.querySelector('.diagram-wrapper img');
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.download = img.src.split('/').pop();
+    link.click();
+}
+
+// Language toggle EN/FR
+var currentLang = 'en';
+
+function updateLanguage() {
+    // Update all feature items
+    document.querySelectorAll('.feature-item').forEach(item => {
+        const text = item.querySelector('.feature-text');
+        if (text && item.dataset[currentLang]) {
+            text.textContent = item.dataset[currentLang];
+        }
+    });
+
+    // Update tabs
+    document.querySelectorAll('.morpho-tab[data-en][data-fr]').forEach(el => {
+        el.textContent = el.dataset[currentLang];
+    });
+
+    // Update headers and paragraphs
+    document.querySelectorAll('h2[data-en][data-fr], h3[data-en][data-fr], p[data-en][data-fr]').forEach(el => {
+        el.textContent = el.dataset[currentLang];
+    });
+
+    // Update export buttons
+    document.querySelectorAll('.export-btn[data-en][data-fr]').forEach(el => {
+        const btnText = el.querySelector('.btn-text');
+        if (btnText) {
+            btnText.textContent = el.dataset[currentLang];
+        }
+    });
+
+    // Update toggle labels button
+    var toggleBtn = document.getElementById('toggleLabels');
+    var isActive = toggleBtn.classList.contains('active');
+    var showKey = 'data-' + currentLang + '-show';
+    var hideKey = 'data-' + currentLang + '-hide';
+    toggleBtn.textContent = isActive ? toggleBtn.getAttribute(showKey) : toggleBtn.getAttribute(hideKey);
+
+    // Update language toggle button
+    document.getElementById('langToggle').textContent = currentLang === 'en' ? 'EN / FR' : 'FR / EN';
+}
+
+document.getElementById('langToggle').addEventListener('click', function() {
+    this.classList.toggle('active');
+    currentLang = currentLang === 'en' ? 'fr' : 'en';
+    updateLanguage();
+    localStorage.setItem('morpho-lang', currentLang);
+});
+
+// Load saved language preference
+(function() {
+    var savedLang = localStorage.getItem('morpho-lang');
+    if (savedLang && savedLang !== 'en') {
+        currentLang = savedLang;
+        document.getElementById('langToggle').classList.add('active');
+        updateLanguage();
+    }
+})();
+</script>
+
+<?php include("php/footer.php"); ?>
+</body>
+</html>
