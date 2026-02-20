@@ -373,23 +373,19 @@ function updateCharts() {
         },
         yAxis: {
             type: useLogScale ? 'logarithmic' : 'linear',
-            title: {text: useLogScale ? 'Count (log scale)' : (usePercentScale ? 'Percentage of max' : ''), style: {color: textColor}},
+            title: {text: useLogScale ? 'Count (log scale)' : (usePercentScale ? 'Percentage of global total' : ''), style: {color: textColor}},
             labels: {
                 style: {color: textColor},
                 formatter: function() {
-                    if (useLogScale) {
-                        return Highcharts.numberFormat(this.value, 0);
-                    }
                     if (usePercentScale) {
                         return this.value + '%';
                     }
-                    return this.value;
+                    return Highcharts.numberFormat(this.value, 0);
                 }
             },
             min: useLogScale ? 1 : 0,
-            max: null, // Auto-scale for all modes
-            tickPositions: useLogScale ? [1, 10, 50, 100, 200, 500, 1000, 2000] : null,
-            gridLineColor: useLogScale ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)'
+            max: null,
+            gridLineColor: 'rgba(255,255,255,0.1)'
         },
         tooltip: {
             formatter: function() {
