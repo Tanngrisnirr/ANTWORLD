@@ -5,21 +5,104 @@
 <meta name="keywords" content="ants,Palearctic,Amblyoponinae,Aneuretinae,Dolichoderinae,Dorylinae,Formicinae,Leptanillinae,Martialinae,Myrmicinae,Myrmeciinae,Ponerinae,Proceratiinae,Pseudomyrmicinae">
 <?php include("php/ihead.php"); ?>
 <style>
-th {background-color:#000047; text-align: center; opacity:0.85;
+th {background-color: var(--bg-secondary); text-align: center; opacity:0.85;
 	border: 1px solid rgba(0,0,0,0);
-	-webkit-background-clip: padding-box; /* for Safari */
-    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	-webkit-background-clip: padding-box;
+    background-clip: padding-box;
 	}
+#speciesTable tbody tr {
+    background-color: var(--bg-secondary);
+}
+#speciesTable tbody tr:hover {
+    background-color: var(--bg-tertiary, rgba(50, 50, 90, 0.8));
+}
+.light-mode #speciesTable tbody tr {
+    background-color: rgba(200, 200, 220, 0.4);
+}
+.light-mode #speciesTable tbody tr:hover {
+    background-color: rgba(180, 180, 210, 0.6);
+}
+.export-controls {
+    margin: 20px 0;
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.filter-input {
+    padding: 10px 16px;
+    border: 2px solid var(--accent-primary);
+    border-radius: 6px;
+    width: 300px;
+    font-size: 14px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+.filter-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.3);
+}
+.filter-input::placeholder {
+    color: var(--text-muted, #888);
+}
+.species-count {
+    color: var(--text-muted, #ccc);
+    font-size: 14px;
+}
 </style>
     </head>
     <body>
 <article>
 <?php include("php/top.php"); ?>
 <h2 class="h2one">Ant diversity</h2>
+
+<div class="export-controls">
+    <input type="text" class="filter-input" id="speciesFilter" placeholder="Search species, genus, or subfamily..." onkeyup="filterSpecies()">
+    <span class="species-count" id="speciesCount"></span>
+    <button class="export-btn" onclick="exportSpeciesToCSV()">
+        Download <span class="format">CSV</span>
+    </button>
+    <button class="export-btn" onclick="exportSpeciesToJSON()">
+        Download <span class="format">JSON</span>
+    </button>
+    <button class="export-btn" onclick="exportSpeciesToTXT()">
+        Download <span class="format">TXT</span>
+    </button>
+</div>
+
 <p4>
 Authors in () means the name of the ant as been modified since its original description.
 <br>
-<table>
+<table id="speciesTable">
 <!--15/11/18
 Subfamilies 8 Tribes 17 Genera 74 Species 936
 Aenictini 35 sp
@@ -983,6 +1066,126 @@ Tapinomini 22 sp
 </table>
 </p4>
 </article>
+
+<script>
+// Initialize species count on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateSpeciesCount();
+});
+
+function updateSpeciesCount() {
+    var table = document.getElementById('speciesTable');
+    var rows = table.getElementsByTagName('tr');
+    var visibleCount = 0;
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].style.display !== 'none') {
+            visibleCount++;
+        }
+    }
+    document.getElementById('speciesCount').textContent = 'Showing ' + visibleCount + ' species';
+}
+
+function filterSpecies() {
+    var input = document.getElementById('speciesFilter');
+    var filter = input.value.toLowerCase();
+    var table = document.getElementById('speciesTable');
+    var rows = table.getElementsByTagName('tr');
+
+    for (var i = 1; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName('td');
+        var match = false;
+        for (var j = 0; j < cells.length; j++) {
+            if (cells[j].textContent.toLowerCase().indexOf(filter) > -1) {
+                match = true;
+                break;
+            }
+        }
+        rows[i].style.display = match ? '' : 'none';
+    }
+    updateSpeciesCount();
+}
+
+function getVisibleSpeciesData() {
+    var table = document.getElementById('speciesTable');
+    var rows = table.getElementsByTagName('tr');
+    var data = [];
+
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].style.display !== 'none') {
+            var cells = rows[i].getElementsByTagName('td');
+            if (cells.length >= 2) {
+                var speciesText = cells[0].textContent.trim();
+                var taxonomyText = cells[1].textContent.trim();
+                var taxonomyParts = taxonomyText.split(' / ');
+                data.push({
+                    species: speciesText,
+                    tribe: taxonomyParts[0] || '',
+                    subfamily: taxonomyParts[1] || ''
+                });
+            }
+        }
+    }
+    return data;
+}
+
+function exportSpeciesToCSV() {
+    var data = getVisibleSpeciesData();
+    var csv = 'Species,Tribe,Subfamily\n';
+
+    data.forEach(function(row) {
+        csv += '"' + row.species.replace(/"/g, '""') + '",';
+        csv += '"' + row.tribe.replace(/"/g, '""') + '",';
+        csv += '"' + row.subfamily.replace(/"/g, '""') + '"\n';
+    });
+
+    downloadFile(csv, 'antworld_species_list.csv', 'text/csv;charset=utf-8;');
+}
+
+function exportSpeciesToJSON() {
+    var data = getVisibleSpeciesData();
+    var json = JSON.stringify({
+        source: 'AntWorld.org',
+        exported: new Date().toISOString(),
+        region: 'Palearctic',
+        count: data.length,
+        species: data
+    }, null, 2);
+
+    downloadFile(json, 'antworld_species_list.json', 'application/json;charset=utf-8;');
+}
+
+function exportSpeciesToTXT() {
+    var data = getVisibleSpeciesData();
+    var txt = 'ANTWORLD.ORG - Species List (Palearctic Region)\n';
+    txt += 'Exported: ' + new Date().toLocaleString() + '\n';
+    txt += 'Total species: ' + data.length + '\n';
+    txt += '=' .repeat(60) + '\n\n';
+
+    var currentSubfamily = '';
+    data.forEach(function(row) {
+        if (row.subfamily !== currentSubfamily) {
+            currentSubfamily = row.subfamily;
+            txt += '\n--- ' + currentSubfamily.toUpperCase() + ' ---\n\n';
+        }
+        txt += row.species + ' [' + row.tribe + ']\n';
+    });
+
+    downloadFile(txt, 'antworld_species_list.txt', 'text/plain;charset=utf-8;');
+}
+
+function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+</script>
+
 <?php include("php/footer.php"); ?>
 </div>
     </body>
