@@ -71,30 +71,34 @@
 
 <p4>
 <h3 class="h2one">Top 3</h3>
-<!-- Top 3 countries -->
-<div id="species_countries" style="width:99%; height:400px;"></div>
-<script>
-$(function () {
-    var myChart = Highcharts.chart('species_countries', {
-chart: {type: 'bar'},
-title: {text: '', style: {color: 'white', font: 'bold 30px "Trebuchet MS", Verdana, sans-serif'}},
-xAxis: {categories: ['China','Russia','Greece']},
-yAxis: {title: {text: 'For scientific literature, click on "Source" in the navigation bar', style: {color: 'white'}}},
-series: [{name: 'Species', data: [1391,311,286]},{name: 'Genera',data: [113,38,44]},{name: 'Families',data: [12,5,7]},]
-    });
-});
-</script>
+<div id="species_countries" style="width:100%; height:400px;"></div>
+
 <h3 class="h2one">Top 10</h3>
-<div id="species_countries2" style="width:99%; height:800px;"></div>
+<div id="species_countries2" style="width:100%; height:800px;"></div>
+
 <script>
 $(function () {
-    var myChart = Highcharts.chart('species_countries2', {
-chart: {type: 'bar'},
-title: {text: '', style: {color: 'white', font: 'bold 30px "Trebuchet MS", Verdana, sans-serif'}},
-xAxis: {categories: ['Japan','Morocco','France','Italy','Austria','Kazakhstan','Germany','Belgium','Mongolia','NSUK']},
-yAxis: {title: {text: 'For scientific literature, click on "Source" in the navigation bar', style: {color: 'white'}}},
-series: [{name: 'Species', data: [273,237,213,184,135,117,110,98,76,59]},{name: 'Genera',data: [71,39,40,38,31,25,27,26,17,18]},{name: 'Families',data: [8,9,6,8,5,4,4,5,3,4]},]
-    });
+    var isLight = document.documentElement.classList.contains('light-mode');
+    var textColor = isLight ? '#1a1a2e' : '#ffffff';
+
+    var commonOptions = {
+        chart: {type: 'bar', backgroundColor: 'transparent', spacingLeft: 20, spacingRight: 20},
+        title: {text: ''},
+        xAxis: {labels: {style: {color: textColor, fontSize: '14px'}}},
+        yAxis: {title: {text: ''}, labels: {style: {color: textColor}}},
+        legend: {itemStyle: {color: textColor}},
+        credits: {enabled: false}
+    };
+
+    Highcharts.chart('species_countries', Highcharts.merge(commonOptions, {
+        xAxis: {categories: ['China','Russia','Greece']},
+        series: [{name: 'Species', data: [1391,311,286]},{name: 'Genera',data: [113,38,44]},{name: 'Subfamilies',data: [12,5,7]}]
+    }));
+
+    Highcharts.chart('species_countries2', Highcharts.merge(commonOptions, {
+        xAxis: {categories: ['Japan','Morocco','France','Italy','Austria','Kazakhstan','Germany','Belgium','Mongolia','NSUK']},
+        series: [{name: 'Species', data: [273,237,213,184,135,117,110,98,76,59]},{name: 'Genera',data: [71,39,40,38,31,25,27,26,17,18]},{name: 'Subfamilies',data: [8,9,6,8,5,4,4,5,3,4]}]
+    }));
 });
 </script>
 
