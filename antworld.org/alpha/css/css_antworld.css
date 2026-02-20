@@ -353,6 +353,17 @@ nav > .mandible { display: none; }
     background: rgba(135,206,235,0.15);
     color: var(--accent-primary);
 }
+/* Disabled/unavailable links in gallery */
+.trail .gallery li a.disabled {
+    color: #555;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+.trail .gallery li a.disabled:hover {
+    background: none;
+    color: #555;
+}
 .trail .gallery li a .icon {
     display: inline-block;
     width: 16px;
