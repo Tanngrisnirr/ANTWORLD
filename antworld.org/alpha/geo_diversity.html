@@ -51,8 +51,10 @@
 }
 .chart-note {
     color: #888;
-    font-size: 16px;
-    margin-top: 8px;
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    margin: 5px 0 15px 0;
 }
 .chart-export-buttons {
     display: flex;
@@ -151,10 +153,12 @@
         <span class="filter-label">Scale:</span>
         <label class="region-checkbox"><input type="radio" name="scale" id="scale_linear" checked onchange="updateCharts()"> Linear</label>
         <label class="region-checkbox"><input type="radio" name="scale" id="scale_log" onchange="updateCharts()"> Logarithmic</label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_percent" onchange="updateCharts()"> Percentage</label>
     </span>
 </div>
 
 <p class="data-notice">Data source: <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a> | <span id="country-counter">0 of 0 countries</span> selected (showing top 15)</p>
+<p class="chart-note">Note: Percentages show each country's count relative to global totals (<a href="https://www.antwiki.org/" target="_blank" style="color:#888;">~14,000 species, ~340 genera, 17 subfamilies</a>). These are non-cumulative: a single taxon may be recorded in multiple countries.</p>
 
 <div class="export-controls">
     <button class="export-btn" onclick="exportGeoDataCSV()">
@@ -331,6 +335,28 @@ function updateCharts() {
 
     // Get scale type
     var useLogScale = document.getElementById('scale_log').checked;
+    var usePercentScale = document.getElementById('scale_percent').checked;
+
+    // Global totals for percentage calculation (source: AntWiki/Bolton's Catalogue)
+    var TOTAL_SPECIES = 14000;  // ~14,000 described ant species worldwide
+    var TOTAL_GENERA = 340;     // ~340 extant genera
+    var TOTAL_SUBFAMILIES = 17; // 17 extant subfamilies
+
+    // For percentage mode, convert values to percentages of global totals
+    if (usePercentScale) {
+        series = series.map(function(s) {
+            var totalVal = s.name === 'Species' ? TOTAL_SPECIES : (s.name === 'Genera' ? TOTAL_GENERA : TOTAL_SUBFAMILIES);
+            return {
+                name: s.name,
+                color: s.color,
+                data: s.data.map(function(v) {
+                    return totalVal > 0 ? Math.round((v / totalVal) * 1000) / 10 : 0; // Round to 1 decimal
+                }),
+                originalData: s.data, // Keep original for tooltip
+                totalRef: totalVal    // Reference total for tooltip
+            };
+        });
+    }
 
     mainChart = Highcharts.chart('main_chart', {
         chart: {
@@ -347,23 +373,31 @@ function updateCharts() {
         },
         yAxis: {
             type: useLogScale ? 'logarithmic' : 'linear',
-            title: {text: useLogScale ? 'Count (log scale)' : '', style: {color: textColor}},
+            title: {text: useLogScale ? 'Count (log scale)' : (usePercentScale ? 'Percentage of max' : ''), style: {color: textColor}},
             labels: {
                 style: {color: textColor},
                 formatter: function() {
                     if (useLogScale) {
-                        // Show clean numbers for log scale
                         return Highcharts.numberFormat(this.value, 0);
+                    }
+                    if (usePercentScale) {
+                        return this.value + '%';
                     }
                     return this.value;
                 }
             },
             min: useLogScale ? 1 : 0,
+            max: null, // Auto-scale for all modes
             tickPositions: useLogScale ? [1, 10, 50, 100, 200, 500, 1000, 2000] : null,
             gridLineColor: useLogScale ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)'
         },
         tooltip: {
             formatter: function() {
+                if (usePercentScale) {
+                    var originalVal = this.series.options.originalData ? this.series.options.originalData[this.point.index] : this.y;
+                    var totalRef = this.series.options.totalRef || '?';
+                    return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '%</b> (' + originalVal + ' of ' + totalRef + ' worldwide)';
+                }
                 return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '</b>';
             }
         },

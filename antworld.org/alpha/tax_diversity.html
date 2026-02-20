@@ -5,8 +5,6 @@
 <meta name="keywords" content="ants,Formicidae,Palearctic,species diversity, countries">
 <?php include("php/ihead.php"); ?>
 <script src="js/d3.min.js"></script><script src="js/d3pie.min.js"></script>
-<script src="js/modules/exporting.js"></script>
-<script src="js/modules/offline-exporting.js"></script>
 <style>
 .export-controls {
     margin: 20px 0;
@@ -126,6 +124,24 @@
     border-radius: 50%;
     display: inline-block;
 }
+.chart-filter-panel {
+    margin-top: 10px;
+}
+.filter-header {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.genera-main-chart .chart-filters {
+    margin: 0;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
 .chart-total {
     text-align: center;
     font-size: 18px;
@@ -157,32 +173,30 @@
 /* Genera dual chart layout */
 .genera-charts-wrapper {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
 }
 .genera-main-chart {
-    flex: 1;
-    min-width: 400px;
-    max-width: 700px;
+    flex: 0 0 800px;
+    width: 800px;
+    min-width: 800px;
+    max-width: 800px;
+    overflow: visible;
 }
-.genera-rest-chart {
-    flex: 0 0 450px;
-    padding: 10px;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+.genera-main-chart:last-child {
+    flex: 0 0 780px;
+    width: 780px;
+    min-width: 780px;
+    max-width: 780px;
 }
-@media (max-width: 900px) {
+@media (max-width: 1700px) {
     .genera-charts-wrapper {
+        flex-wrap: wrap;
         flex-direction: column;
         align-items: center;
-    }
-    .genera-rest-chart {
-        flex: 1;
-        width: 100%;
-        max-width: 500px;
+        gap: 60px;
     }
 }
 /* Display options */
@@ -236,7 +250,7 @@
 <div class="chart-tabs">
     <button class="chart-tab active" onclick="showChart('subfamilies')">Subfamilies</button>
     <button class="chart-tab" onclick="showChart('tribes')">Tribes</button>
-    <button class="chart-tab" onclick="showChart('genera')">Top Genera</button>
+    <button class="chart-tab" onclick="showChart('genera')">Genera</button>
 </div>
 
 <div class="display-options">
@@ -334,18 +348,19 @@ var tribesData = [
 {"label": "Pseudomyrmecini","value": 1,"color": "#b3ff99"},
 {"label": "Solenopsidini","value": 39,"color": "#996633"},
 {"label": "Stenammini","value": 16,"color": "#00cc99"},
-{"label": "Tapinomini","value": 22,"color": "#8c1aff"}
+{"label": "Tapinomini","value": 22,"color": "#8c1aff"},
+{"label": "Other tribes","value": 67,"color": "#888888"}
 ];
 var pieTribes = new d3pie("pieTribes", {
 "header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
 "subtitle": {"text": "by Tribes","color": "white","fontSize": 25,"font": "courier"},
 "location": "pie-center","titleSubtitlePadding": 0},
-"size": {"canvasWidth": 900,"canvasHeight": 550,"pieInnerRadius": "80%","pieOuterRadius": "65%"},
-"data": {"sortOrder": "label-desc","content": tribesData},
+"size": {"canvasWidth": 950,"canvasHeight": 600,"pieInnerRadius": "75%","pieOuterRadius": "55%"},
+"data": {"sortOrder": "value-desc","content": tribesData},
 "labels": {
-	"outer": {"format": "label-percentage1","pieDistance": 35},
+	"outer": {"format": "label-percentage1","pieDistance": 45},
 	"inner": {"format": "none"},
-	"mainLabel": {"fontSize": 18,"color": "white"},
+	"mainLabel": {"fontSize": 16,"color": "white"},
 		"percentage": {"color": "white","fontSize": 16,"decimalPlaces": 1},
 		"value": {"color": "white","fontSize": 11},
 		"lines": {"enabled": true},
@@ -398,22 +413,28 @@ Tapinoma 14
 <!--PIE Genera -->
 <div class="chart-container" id="genera-container">
 <div class="chart-total" id="genera-total"></div>
-<div class="chart-filters" id="genera-filters"></div>
 <div class="chart-section">
 <div class="genera-charts-wrapper">
     <div class="genera-main-chart">
         <div id="pieGenera"></div>
+        <div class="chart-filter-panel">
+            <div class="filter-header">Top 11 Genera</div>
+            <div class="chart-filters" id="genera-filters"></div>
+        </div>
     </div>
-    <div class="genera-rest-chart">
-        <h3 style="color: var(--text-primary); text-align: center; margin-bottom: 10px;">Other Genera Breakdown</h3>
-        <div id="pieGeneraRest"></div>
+    <div class="genera-main-chart">
+        <div id="pieGeneraRestEven"></div>
+        <div class="chart-filter-panel">
+            <div class="filter-header">Other Genera</div>
+            <div class="chart-filters" id="genera-rest-filters"></div>
+        </div>
     </div>
 </div>
 <div class="chart-export-row">
     <button class="export-btn" onclick="exportChartSVG('pieGenera', 'genera_chart')">
         Download Main <span class="format">SVG</span>
     </button>
-    <button class="export-btn" onclick="exportChartSVG('pieGeneraRest', 'genera_rest_chart')">
+    <button class="export-btn" onclick="exportChartSVG('pieGeneraRestEven', 'genera_rest_chart')">
         Download Rest <span class="format">SVG</span>
     </button>
     <button class="export-btn" onclick="exportAllGeneraCSV()">
@@ -421,6 +442,56 @@ Tapinoma 14
     </button>
 </div>
 <script>
+// Spectrograph-adjacent colors for subfamilies (Dark/Saturated → Light/Bright)
+var subfamilyColors = {
+    'Myrmicinae':     ['#CC0000', '#FF6633'],  // Red → Orange
+    'Formicinae':     ['#CC6600', '#FFEE33'],  // Orange → Yellow
+    'Dolichoderinae': ['#669900', '#CCFF66'],  // Yellow-Green → Light Lime
+    'Ponerinae':      ['#006644', '#66FFCC'],  // Dark Teal → Light Cyan
+    'Dorylinae':      ['#003366', '#66CCFF'],  // Dark Navy → Sky Blue (saturation)
+    'Amblyoponinae':  ['#330066', '#AA66FF'],  // Dark Indigo → Light Violet (saturation)
+    'Leptanillinae':  ['#660044', '#FF66AA']   // Dark Magenta → Light Pink
+};
+
+// Genus to subfamily mapping
+var genusToSubfamily = {
+    // Top genera
+    'Aphaenogaster': 'Myrmicinae', 'Camponotus': 'Formicinae', 'Lasius': 'Formicinae',
+    'Temnothorax': 'Myrmicinae', 'Tetramorium': 'Myrmicinae', 'Formica': 'Formicinae',
+    'Polyrhachis': 'Formicinae', 'Myrmica': 'Myrmicinae', 'Aenictus': 'Dorylinae',
+    'Cataglyphis': 'Formicinae', 'Ponera': 'Ponerinae',
+    // Rest genera
+    'Messor': 'Myrmicinae', 'Monomorium': 'Myrmicinae', 'Crematogaster': 'Myrmicinae',
+    'Leptothorax': 'Myrmicinae', 'Pheidole': 'Myrmicinae', 'Cardiocondyla': 'Myrmicinae',
+    'Solenopsis': 'Myrmicinae', 'Lepisiota': 'Formicinae', 'Proformica': 'Formicinae',
+    'Paratrechina': 'Formicinae', 'Plagiolepis': 'Formicinae',
+    'Bothriomyrmex': 'Dolichoderinae', 'Tapinoma': 'Dolichoderinae',
+    'Hypoponera': 'Ponerinae', 'Cerapachys': 'Dorylinae',
+    'Stigmatomma': 'Amblyoponinae', 'Leptanilla': 'Leptanillinae'
+};
+
+// Get color for genus based on subfamily (interpolate between two colors)
+function getSubfamilyColor(genus, indexInSubfamily, totalInSubfamily) {
+    var subfamily = genusToSubfamily[genus] || 'Myrmicinae';
+    var colors = subfamilyColors[subfamily] || ['#888888', '#cccccc'];
+    // Interpolate between the two colors based on position
+    var t = totalInSubfamily > 1 ? indexInSubfamily / (totalInSubfamily - 1) : 0.5;
+    return interpolateColor(colors[0], colors[1], t);
+}
+
+function interpolateColor(color1, color2, t) {
+    var r1 = parseInt(color1.slice(1, 3), 16);
+    var g1 = parseInt(color1.slice(3, 5), 16);
+    var b1 = parseInt(color1.slice(5, 7), 16);
+    var r2 = parseInt(color2.slice(1, 3), 16);
+    var g2 = parseInt(color2.slice(3, 5), 16);
+    var b2 = parseInt(color2.slice(5, 7), 16);
+    var r = Math.round(r1 + (r2 - r1) * t);
+    var g = Math.round(g1 + (g2 - g1) * t);
+    var b = Math.round(b1 + (b2 - b1) * t);
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
 // Top genera data
 var topGeneraData = [
 {"label": "Aphaenogaster","value": 83,"color": "#24acc1"},
@@ -436,7 +507,7 @@ var topGeneraData = [
 {"label": "Ponera","value": 32,"color": "#830909"}
 ];
 
-// Rest genera data (other genera)
+// Rest genera data (other genera) - 17 named genera
 var restGeneraData = [
 {"label": "Messor","value": 29,"color": "#ff6b6b"},
 {"label": "Monomorium","value": 24,"color": "#4ecdc4"},
@@ -454,19 +525,24 @@ var restGeneraData = [
 {"label": "Proformica","value": 10,"color": "#00b894"},
 {"label": "Solenopsis","value": 9,"color": "#e84393"},
 {"label": "Lepisiota","value": 7,"color": "#0984e3"},
-{"label": "Leptanilla","value": 7,"color": "#6c5ce7"}
+{"label": "Leptanilla","value": 7,"color": "#6c5ce7"},
+{"label": "Other genera","value": 105,"color": "#888888"}
 ];
 
-// Calculate rest total
+// Total species in top genera
+var topGeneraTotal = topGeneraData.reduce(function(sum, item) { return sum + item.value; }, 0);
+// Total species in rest genera (including "other genera")
 var restTotal = restGeneraData.reduce(function(sum, item) { return sum + item.value; }, 0);
+// Grand total should equal subfamilies total (927)
+var grandTotal = topGeneraTotal + restTotal;
 
-// Combined data for main chart (top + rest)
-var generaData = topGeneraData.concat([{"label": "Other (" + restGeneraData.length + ")","value": restTotal,"color": "#888888"}]);
+// Combined data for main chart (top + others segment)
+var generaData = topGeneraData.concat([{"label": "Others","value": restTotal,"color": "#888888"}]);
 
 var pieGenera = new d3pie("pieGenera", {
-"header": {"title": {"text": "Species","color": "white","fontSize": 40,"font": "courier"},
-"subtitle": {"text": "Top Genera","color": "white","fontSize": 20,"font": "courier"},
-"location": "pie-center","titleSubtitlePadding": 0},
+"header": {"title": {"text": "Species","color": "white","fontSize": 38,"font": "courier"},
+"subtitle": {"text": "by Genera","color": "white","fontSize": 20,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 10},
 "size": {"canvasWidth": 650,"canvasHeight": 480,"pieInnerRadius": "75%","pieOuterRadius": "65%"},
 "data": {"sortOrder": "value-desc","content": generaData},
 "labels": {
@@ -477,27 +553,207 @@ var pieGenera = new d3pie("pieGenera", {
     "value": {"color": "white","fontSize": 11},
     "lines": {"enabled": true},
     "truncation": {"enabled": true}},
-"effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 20}},
+"effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
 "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
 });
 
-var pieGeneraRest = new d3pie("pieGeneraRest", {
-"header": {"title": {"text": "Other","color": "white","fontSize": 28,"font": "courier"},
-"subtitle": {"text": restTotal + " species","color": "#888","fontSize": 16,"font": "courier"},
-"location": "pie-center","titleSubtitlePadding": 0},
-"size": {"canvasWidth": 420,"canvasHeight": 420,"pieInnerRadius": "70%","pieOuterRadius": "60%"},
+// Pull-out of grey segment is handled in showChart() when Genera tab is clicked
+
+// Custom evenly-spaced labels system
+function addEvenlySpacedLabels(containerId, data, total) {
+    var svg = d3.select("#" + containerId + " svg");
+    var n = data.length;
+
+    // Fixed pie dimensions (canvas now 800x480)
+    var centerX = 400;
+    var centerY = 242.5;
+    var pieOuterRadius = 136.5;
+    var labelRadius = pieOuterRadius + 50;
+    var angleOffset = 22.5;  // Slight angle for visual interest
+
+    var labelGroup = svg.append("g").attr("class", "evenly-spaced-labels");
+
+    data.forEach(function(item, i) {
+        // Evenly spaced angle for this label (start at top: -90°)
+        var baseAngle = (i / n) * 360 - 90;
+        var startAngleRad = baseAngle * Math.PI / 180;
+        var endAngleRad = (baseAngle + angleOffset) * Math.PI / 180;
+
+        // Line starts at pie edge, ends at label with slight angular offset
+        var lineStartX = centerX + pieOuterRadius * Math.cos(startAngleRad);
+        var lineStartY = centerY + pieOuterRadius * Math.sin(startAngleRad);
+        var labelX = centerX + labelRadius * Math.cos(endAngleRad);
+        var labelY = centerY + labelRadius * Math.sin(endAngleRad);
+
+        // Draw angled line
+        labelGroup.append("line")
+            .attr("x1", lineStartX).attr("y1", lineStartY)
+            .attr("x2", labelX).attr("y2", labelY)
+            .attr("stroke", item.color).attr("stroke-width", 1).attr("opacity", 0.8);
+
+        // Position label text (use end angle for positioning)
+        var pct = ((item.value / total) * 100).toFixed(1);
+        var normalizedAngle = ((baseAngle + angleOffset + 90) % 360 + 360) % 360;
+        var textAnchor = normalizedAngle > 180 ? "end" : "start";
+        var offsetX = normalizedAngle > 180 ? -5 : 5;
+
+        labelGroup.append("text")
+            .attr("x", labelX + offsetX).attr("y", labelY + 4)
+            .attr("text-anchor", textAnchor)
+            .attr("fill", "white").attr("font-size", "16px").attr("font-family", "arial")
+            .text(item.label + " " + pct + "%");
+    });
+}
+
+// Chart with evenly-spaced custom labels
+var pieGeneraRestEven = new d3pie("pieGeneraRestEven", {
+"header": {"title": {"text": "Others","color": "white","fontSize": 38,"font": "courier"},
+"subtitle": {"text": restTotal + " species","color": "white","fontSize": 20,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 10},
+"size": {"canvasWidth": 800,"canvasHeight": 480,"pieInnerRadius": 102,"pieOuterRadius": 136.5},
 "data": {"sortOrder": "value-desc","content": restGeneraData},
 "labels": {
-    "outer": {"format": "label-percentage1","pieDistance": 20},
+    "outer": {"format": "none"},
     "inner": {"format": "none"},
-    "mainLabel": {"fontSize": 16,"color": "white"},
-    "percentage": {"color": "white","fontSize": 16,"decimalPlaces": 1},
-    "value": {"color": "white","fontSize": 10},
-    "lines": {"enabled": true},
-    "truncation": {"enabled": true}},
-"effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 15}},
+    "lines": {"enabled": false}},
+"effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
 "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
 });
+
+// Add evenly-spaced labels to third chart
+setTimeout(function() { addEvenlySpacedLabels("pieGeneraRestEven", restGeneraData, restTotal); }, 600);
+
+// Align title/subtitle baselines using fixed positions from div base
+function alignChartTitles() {
+    // Fixed y positions (from top of 480px canvas)
+    var titleY = 235;    // Title baseline
+    var subtitleY = 260; // Subtitle baseline
+
+    // Align pieGenera
+    var generaTitle = document.querySelector('#pieGenera .p3_title, #pieGenera [class$="_title"]');
+    var generaSubtitle = document.querySelector('#pieGenera .p3_subtitle, #pieGenera [class$="_subtitle"]');
+    if (generaTitle) generaTitle.setAttribute('y', titleY);
+    if (generaSubtitle) generaSubtitle.setAttribute('y', subtitleY);
+
+    // Align pieGeneraRestEven
+    var restTitle = document.querySelector('#pieGeneraRestEven [class$="_title"]');
+    var restSubtitle = document.querySelector('#pieGeneraRestEven [class$="_subtitle"]');
+    if (restTitle) restTitle.setAttribute('y', titleY);
+    if (restSubtitle) restSubtitle.setAttribute('y', subtitleY);
+}
+setTimeout(alignChartTitles, 700);
+
+function rebuildGeneraWithOrg(mode) {
+    var data = topGeneraData.slice(); // Clone array
+
+    // Always sort by subfamily for color mode
+    data.sort(function(a, b) {
+        var subA = genusToSubfamily[a.label] || '';
+        var subB = genusToSubfamily[b.label] || '';
+        if (subA !== subB) return subA.localeCompare(subB);
+        return b.value - a.value; // Within subfamily, sort by value
+    });
+
+    // Count genera per subfamily and assign gradient colors
+    var subfamilyCounts = {};
+    var subfamilyIndices = {};
+    data.forEach(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        subfamilyCounts[sub] = (subfamilyCounts[sub] || 0) + 1;
+    });
+
+    data = data.map(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        var idx = subfamilyIndices[sub] || 0;
+        subfamilyIndices[sub] = idx + 1;
+        return {
+            label: item.label,
+            value: item.value,
+            color: getSubfamilyColor(item.label, idx, subfamilyCounts[sub])
+        };
+    });
+
+    // Add "others" segment
+    var chartData = data.concat([{"label": restGeneraData.length + " others","value": restTotal,"color": "#888888"}]);
+
+    document.getElementById('pieGenera').innerHTML = '';
+    new d3pie("pieGenera", {
+        "header": {"title": {"text": "Species","color": "white","fontSize": 38,"font": "courier"},
+        "subtitle": {"text": "by Genera","color": "white","fontSize": 20,"font": "courier"},
+        "location": "pie-center","titleSubtitlePadding": 10},
+        "size": {"canvasWidth": 650,"canvasHeight": 480,"pieInnerRadius": "75%","pieOuterRadius": "65%"},
+        "data": {"sortOrder": "none","content": chartData},
+        "labels": {
+            "outer": {"format": "label-percentage1","pieDistance": 25},
+            "inner": {"format": "none"},
+            "mainLabel": {"fontSize": 16,"color": "white"},
+            "percentage": {"color": "white","fontSize": 16,"decimalPlaces": 1},
+            "lines": {"enabled": true},
+            "truncation": {"enabled": true}},
+        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
+        "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+    });
+
+    // Pull out grey segment and align titles
+    setTimeout(function() {
+        var segment = document.querySelector('#pieGenera [data-index="' + data.length + '"]');
+        if (segment && segment.parentNode) {
+            var g = segment.parentNode;
+            g.setAttribute('transform', (g.getAttribute('transform') || '') + ' translate(25, -15)');
+        }
+        alignChartTitles();
+    }, 100);
+}
+
+function rebuildGeneraRestWithOrg(mode) {
+    var data = restGeneraData.slice(); // Clone array
+
+    // Always sort by subfamily for color mode
+    data.sort(function(a, b) {
+        var subA = genusToSubfamily[a.label] || '';
+        var subB = genusToSubfamily[b.label] || '';
+        if (subA !== subB) return subA.localeCompare(subB);
+        return b.value - a.value;
+    });
+
+    // Count genera per subfamily and assign gradient colors
+    var subfamilyCounts = {};
+    var subfamilyIndices = {};
+    data.forEach(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        subfamilyCounts[sub] = (subfamilyCounts[sub] || 0) + 1;
+    });
+
+    data = data.map(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        var idx = subfamilyIndices[sub] || 0;
+        subfamilyIndices[sub] = idx + 1;
+        return {
+            label: item.label,
+            value: item.value,
+            color: getSubfamilyColor(item.label, idx, subfamilyCounts[sub])
+        };
+    });
+
+    var total = data.reduce(function(sum, item) { return sum + item.value; }, 0);
+
+    document.getElementById('pieGeneraRestEven').innerHTML = '';
+    new d3pie("pieGeneraRestEven", {
+        "header": {"title": {"text": "Others","color": "white","fontSize": 38,"font": "courier"},
+        "subtitle": {"text": total + " species","color": "white","fontSize": 20,"font": "courier"},
+        "location": "pie-center","titleSubtitlePadding": 10},
+        "size": {"canvasWidth": 800,"canvasHeight": 480,"pieInnerRadius": 102,"pieOuterRadius": 136.5},
+        "data": {"sortOrder": "none","content": data},
+        "labels": {"outer": {"format": "none"},"inner": {"format": "none"},"lines": {"enabled": false}},
+        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
+        "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+    });
+
+    setTimeout(function() {
+        addEvenlySpacedLabels("pieGeneraRestEven", data, total);
+        alignChartTitles();
+    }, 100);
+}
 
 function exportAllGeneraCSV() {
     var csv = 'Genus,Species Count,Category\n';
@@ -524,9 +780,26 @@ function getDisplayFormat() {
     switch(currentDisplayMode) {
         case 'percentage': return 'label-percentage1';
         case 'value': return 'label-value1';
-        case 'both': return 'label-value2';
+        case 'both': return 'label'; // We'll use modified labels
         default: return 'label-percentage1';
     }
+}
+
+// Create data with combined labels for "both" mode
+function prepareDataForDisplay(data) {
+    if (currentDisplayMode !== 'both') {
+        return data;
+    }
+    var total = data.reduce(function(sum, item) { return sum + item.value; }, 0);
+    return data.map(function(item) {
+        var pctNum = (item.value / total) * 100;
+        var pct = pctNum % 1 === 0 ? pctNum.toFixed(0) : pctNum.toFixed(1);
+        return {
+            label: item.label + ' (' + item.value + '; ' + pct + '%)',
+            value: item.value,
+            color: item.color
+        };
+    });
 }
 
 function setDisplayMode(mode) {
@@ -546,24 +819,44 @@ function setDisplayMode(mode) {
 }
 
 function rebuildGeneraRest() {
-    document.getElementById('pieGeneraRest').innerHTML = '';
-    new d3pie("pieGeneraRest", {
-        "header": {"title": {"text": "Other","color": "white","fontSize": 28,"font": "courier"},
-        "subtitle": {"text": restTotal + " species","color": "#888","fontSize": 16,"font": "courier"},
-        "location": "pie-center","titleSubtitlePadding": 0},
-        "size": {"canvasWidth": 420,"canvasHeight": 420,"pieInnerRadius": "70%","pieOuterRadius": "60%"},
-        "data": {"sortOrder": "value-desc","content": restGeneraData},
+    rebuildGeneraRestFiltered();
+}
+
+function rebuildGeneraRestFiltered() {
+    // Get filtered data based on checkboxes
+    var filteredData = [];
+    document.querySelectorAll('[data-chart="genera-rest"]').forEach(function(cb, index) {
+        if (cb.checked) {
+            filteredData.push(restGeneraData[index]);
+        }
+    });
+
+    var filteredTotal = filteredData.reduce(function(sum, item) { return sum + item.value; }, 0);
+
+    if (filteredData.length === 0) {
+        document.getElementById('pieGeneraRestEven').innerHTML = '<p style="color:white;text-align:center;padding:50px;">Select at least one item</p>';
+        return;
+    }
+
+    document.getElementById('pieGeneraRestEven').innerHTML = '';
+    new d3pie("pieGeneraRestEven", {
+        "header": {"title": {"text": "Others","color": "white","fontSize": 38,"font": "courier"},
+        "subtitle": {"text": filteredTotal + " species","color": "white","fontSize": 20,"font": "courier"},
+        "location": "pie-center","titleSubtitlePadding": 10},
+        "size": {"canvasWidth": 800,"canvasHeight": 480,"pieInnerRadius": 102,"pieOuterRadius": 136.5},
+        "data": {"sortOrder": "value-desc","content": filteredData},
         "labels": {
-            "outer": {"format": getDisplayFormat(),"pieDistance": 20},
+            "outer": {"format": "none"},
             "inner": {"format": "none"},
-            "mainLabel": {"fontSize": 16,"color": "white"},
-            "percentage": {"color": "white","fontSize": 16,"decimalPlaces": 1},
-            "value": {"color": "white","fontSize": 16},
-            "lines": {"enabled": true},
-            "truncation": {"enabled": true}},
-        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 15}},
+            "lines": {"enabled": false}},
+        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
         "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
     });
+    // Re-add evenly-spaced labels and align titles
+    setTimeout(function() {
+        addEvenlySpacedLabels("pieGeneraRestEven", filteredData, filteredTotal);
+        alignChartTitles();
+    }, 100);
 }
 
 function showChart(chartType) {
@@ -582,26 +875,53 @@ function showChart(chartType) {
     // Rebuild chart on first view to fix label positioning
     if (!chartRebuilt[chartType]) {
         setTimeout(function() {
-            rebuildChart(chartType);
+            if (chartType === 'genera') {
+                // Use color scheme rebuild for genera
+                rebuildGeneraWithOrg('subfamily');
+                rebuildGeneraRestWithOrg('subfamily');
+            } else {
+                rebuildChart(chartType);
+            }
             chartRebuilt[chartType] = true;
         }, 50);
+    }
+
+    // Pull out the grey "17 others" segment and align titles when Genera tab is shown
+    if (chartType === 'genera') {
+        setTimeout(function() {
+            var lastIndex = document.querySelectorAll('#pieGenera [data-index]').length - 1;
+            var segment = document.querySelector('#pieGenera [data-index="' + lastIndex + '"]');
+            if (segment && segment.parentNode) {
+                var g = segment.parentNode;
+                var currentTransform = g.getAttribute('transform') || '';
+                if (currentTransform.indexOf('translate(25') === -1) {
+                    g.setAttribute('transform', currentTransform + ' translate(25, -15)');
+                }
+            }
+            alignChartTitles();
+        }, 200);
     }
 }
 
 function updateTotals() {
     var subfamiliesTotal = subfamiliesData.reduce(function(sum, item) { return sum + item.value; }, 0);
     var tribesTotal = tribesData.reduce(function(sum, item) { return sum + item.value; }, 0);
-    var generaTotal = generaData.reduce(function(sum, item) { return sum + item.value; }, 0);
+    // Genera total = top genera + all rest genera (including "other genera")
+    var generaTotal = topGeneraTotal + restTotal;
+    // Count of named genera (excluding "Other genera" and "Other tribes" entries)
+    var namedGeneraCount = topGeneraData.length + restGeneraData.length - 1; // -1 for "Other genera"
+    var namedTribesCount = tribesData.length - 1; // -1 for "Other tribes"
 
     document.getElementById('subfamilies-total').innerHTML = 'Total: <strong>' + subfamiliesTotal + '</strong> species in <strong>' + subfamiliesData.length + '</strong> subfamilies';
-    document.getElementById('tribes-total').innerHTML = 'Total: <strong>' + tribesTotal + '</strong> species in <strong>' + tribesData.length + '</strong> tribes';
-    document.getElementById('genera-total').innerHTML = 'Total: <strong>' + generaTotal + '</strong> species in <strong>' + generaData.length + '</strong> top genera';
+    document.getElementById('tribes-total').innerHTML = 'Total: <strong>' + tribesTotal + '</strong> species in <strong>' + namedTribesCount + '+</strong> tribes';
+    document.getElementById('genera-total').innerHTML = 'Total: <strong>' + generaTotal + '</strong> species in <strong>' + namedGeneraCount + '+</strong> genera';
 }
 
 function buildFilters() {
     buildFilterFor('subfamilies', subfamiliesData);
     buildFilterFor('tribes', tribesData);
-    buildFilterFor('genera', generaData);
+    buildFilterFor('genera', topGeneraData);
+    buildFilterFor('genera-rest', restGeneraData);
 }
 
 function buildFilterFor(type, data) {
@@ -625,7 +945,11 @@ function toggleAllFilters(type, checked) {
     document.querySelectorAll('[data-chart="' + type + '"]').forEach(function(cb) {
         cb.checked = checked;
     });
-    rebuildChart(type);
+    if (type === 'genera-rest') {
+        rebuildGeneraRestFiltered();
+    } else {
+        rebuildChart(type);
+    }
 }
 
 function rebuildChart(type) {
@@ -637,23 +961,26 @@ function rebuildChart(type) {
         config = {
             canvasWidth: 700, canvasHeight: 500,
             pieInnerRadius: "80%", pieOuterRadius: "70%",
-            pieDistance: 20, fontSize: 20, percentSize: 20
+            pieDistance: 20, fontSize: 20, percentSize: 20,
+            sortOrder: "label-desc"
         };
     } else if (type === 'tribes') {
         data = tribesData;
         containerId = 'pieTribes';
         config = {
-            canvasWidth: 900, canvasHeight: 550,
-            pieInnerRadius: "80%", pieOuterRadius: "65%",
-            pieDistance: 35, fontSize: 18, percentSize: 16
+            canvasWidth: 950, canvasHeight: 600,
+            pieInnerRadius: "75%", pieOuterRadius: "55%",
+            pieDistance: 45, fontSize: 16, percentSize: 16,
+            sortOrder: "value-desc"
         };
     } else if (type === 'genera') {
-        data = generaData;
+        data = topGeneraData;
         containerId = 'pieGenera';
         config = {
             canvasWidth: 650, canvasHeight: 480,
             pieInnerRadius: "75%", pieOuterRadius: "65%",
-            pieDistance: 25, fontSize: 16, percentSize: 16
+            pieDistance: 25, fontSize: 16, percentSize: 16,
+            sortOrder: "value-desc"
         };
     }
 
@@ -665,6 +992,11 @@ function rebuildChart(type) {
         }
     });
 
+    // For genera chart, always add the grey "others" segment
+    if (type === 'genera') {
+        filteredData = filteredData.concat([{"label": restGeneraData.length + " others","value": restTotal,"color": "#888888"}]);
+    }
+
     if (filteredData.length === 0) {
         document.getElementById(containerId).innerHTML = '<p style="color:white;text-align:center;padding:50px;">Select at least one item</p>';
         return;
@@ -675,6 +1007,7 @@ function rebuildChart(type) {
 
     // Rebuild chart with filtered data
     var subtitleText = type === 'subfamilies' ? 'by Subfamilies' : (type === 'tribes' ? 'by Tribes' : 'by Genera');
+    var displayData = prepareDataForDisplay(filteredData);
 
     new d3pie(containerId, {
         "header": {
@@ -688,7 +1021,7 @@ function rebuildChart(type) {
             "pieInnerRadius": config.pieInnerRadius,
             "pieOuterRadius": config.pieOuterRadius
         },
-        "data": {"sortOrder": "label-desc","content": filteredData},
+        "data": {"sortOrder": config.sortOrder,"content": displayData},
         "labels": {
             "outer": {"format": getDisplayFormat(),"pieDistance": config.pieDistance},
             "inner": {"format": "none"},
@@ -704,14 +1037,25 @@ function rebuildChart(type) {
 
     // Update total display
     var total = filteredData.reduce(function(sum, item) { return sum + item.value; }, 0);
-    var typeName = type === 'subfamilies' ? 'subfamilies' : (type === 'tribes' ? 'tribes' : 'top genera');
-    document.getElementById(type + '-total').innerHTML = 'Showing: <strong>' + total + '</strong> species in <strong>' + filteredData.length + '</strong> ' + typeName;
+    var typeName = type === 'subfamilies' ? 'subfamilies' : (type === 'tribes' ? 'tribes' : 'genera');
+    var count = type === 'genera' ? filteredData.length - 1 : filteredData.length; // Don't count grey "others" segment
+    document.getElementById(type + '-total').innerHTML = 'Showing: <strong>' + total + '</strong> species in <strong>' + count + '</strong> ' + typeName;
+
+    // Align titles if genera chart
+    if (type === 'genera') {
+        setTimeout(alignChartTitles, 50);
+    }
 }
 
 function addFilterListeners() {
     document.querySelectorAll('.chart-filter-item input').forEach(function(cb) {
         cb.addEventListener('change', function() {
-            rebuildChart(this.getAttribute('data-chart'));
+            var chartType = this.getAttribute('data-chart');
+            if (chartType === 'genera-rest') {
+                rebuildGeneraRestFiltered();
+            } else {
+                rebuildChart(chartType);
+            }
         });
     });
 }
@@ -740,8 +1084,20 @@ function exportChartSVG(containerId, filename) {
         return;
     }
 
+    // Clone SVG to add background without modifying original
+    var svgClone = svg.cloneNode(true);
+    var width = svg.getAttribute('width') || svg.width.baseVal.value || 800;
+    var height = svg.getAttribute('height') || svg.height.baseVal.value || 600;
+
+    // Create background rectangle as first element
+    var bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bgRect.setAttribute('width', width);
+    bgRect.setAttribute('height', height);
+    bgRect.setAttribute('fill', '#1a1a2e');
+    svgClone.insertBefore(bgRect, svgClone.firstChild);
+
     var serializer = new XMLSerializer();
-    var svgString = serializer.serializeToString(svg);
+    var svgString = serializer.serializeToString(svgClone);
     svgString = '<' + '?xml version="1.0" encoding="UTF-8"?' + '>\n' + svgString;
 
     downloadFile(svgString, filename + '.svg', 'image/svg+xml;charset=utf-8;');
@@ -811,7 +1167,7 @@ function exportAllDataCSV() {
         csv += '"' + item.label + '",' + item.value + '\n';
     });
 
-    csv += '\n=== TOP GENERA ===\n';
+    csv += '\n=== GENERA ===\n';
     csv += 'Genus,Species Count\n';
     generaData.forEach(function(item) {
         csv += '"' + item.label + '",' + item.value + '\n';
