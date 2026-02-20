@@ -196,7 +196,7 @@
     <div class="source-legend">
         <span><span class="icon icon-file-pdf"></span> PDF in library</span>
         <span><span class="icon icon-link"></span> External website</span>
-        <span><span class="icon icon-google"></span> Google Scholar search</span>
+        <span><span class="icon icon-search"></span> Google Scholar search</span>
         <span>- No digital source</span>
         <em style="margin-left: auto; opacity: 0.7;">Shift+Click headers for multi-column sort</em>
     </div>
@@ -279,7 +279,7 @@
             <tr><td>Passera, L.; Aron, S.</td><td>2015</td><td>Les fourmis: Comportement, organisation sociale et évolution. NRC Research Press</td><td class="link-web"><a href="http://www.myrmecofourmis.com/bibliotheque/livre/652379"><span class="icon icon-link"></span></a></td></tr>
             <tr><td>Pisarski, B.</td><td>1967</td><td>Fourmis (Hymenoptera: Formicidae) d'Afghanistan récoltées par M. Dr. K. Lindberg. Ann. Zool. (Warsaw) 24: 375-425</td><td class="link-none">-</td></tr>
             <tr><td>Radchenko, A. G.</td><td>1993</td><td>Ants from Vietnam in the collection of the Institute of Zoology, PAS, Warsaw. Ann. Zool. (Warsaw) 44: 75-82</td><td class="link-none">-</td></tr>
-            <tr><td>Roger, J.</td><td>1859</td><td>Beiträge zur Kenntniss der Ameisenfauna der Mittelmeerländer. Berlin Entomol. Z. III</td><td class="link-none"><a href="https://scholar.google.com/scholar?q=Roger+1859+Beiträge+Kenntniss+Ameisenfauna+Mittelmeerländer" target="_blank"><span class="icon icon-google"></span></a></td></tr>
+            <tr><td>Roger, J.</td><td>1859</td><td>Beiträge zur Kenntniss der Ameisenfauna der Mittelmeerländer. Berlin Entomol. Z. III</td><td class="link-none"><a href="https://scholar.google.com/scholar?q=Roger+1859+Beiträge+Kenntniss+Ameisenfauna+Mittelmeerländer" target="_blank"><span class="icon icon-search"></span></a></td></tr>
             <tr><td>Roger, J.</td><td>1862</td><td>Beiträge zur Kenntniss der Ameisenfauna der Mittelmeerländer. II. Berl. Entomol. Z. 6: 255-262</td><td class="link-none">-</td></tr>
             <tr><td>Santschi, F.</td><td>1933</td><td>Étude sur le sous-genre Aphaenogaster Mayr. Rev. Suisse Zool. 40: 389-408</td><td class="link-none">-</td></tr>
             <tr><td>Schenck, C. F.</td><td>1852</td><td>Beschreibung nassauischer Ameisenarten. Jahrb. Ver. Naturkd. Herzogthum Nassau Wiesb. 8: 1-149</td><td class="link-none">-</td></tr>
@@ -325,7 +325,7 @@
             <tr><td>Wu, J.; Wang, C.</td><td>1992</td><td>Hymenoptera: Formicidae. In: Peng, J., Liu, Y. (eds.) Iconography of forest insects in Hunan, China. pp. 1301-1320</td><td class="link-none">-</td></tr>
             <tr><td>Wu, J.; Wang, C.</td><td>1994</td><td>A new genus of ants from Yunnan, China</td><td class="link-pdf"><a href="docs/Wu 1994 - A new genus of ants from Yunnan China.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
             <tr><td>Xu, Z.</td><td>1998</td><td>Two new species of the genera Mystrium and Cryptopone from Yunnan, China</td><td class="link-pdf"><a href="docs/Xu 1998 - Two new species of the genera Mystrium and Cryptopone from Yunnan China.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
-            <tr><td>Xu, Z.</td><td>2000</td><td>Two new genera of ant subfamilies Dorylinae and Ponerinae from Yunnan, China. Zool. Res. 21: 297-302</td><td class="link-none"><a href="https://scholar.google.com/scholar?q=Xu+2000+Two+new+genera+ant+subfamilies+Dorylinae+Ponerinae+Yunnan+China" target="_blank"><span class="icon icon-google"></span></a></td></tr>
+            <tr><td>Xu, Z.</td><td>2000</td><td>Two new genera of ant subfamilies Dorylinae and Ponerinae from Yunnan, China. Zool. Res. 21: 297-302</td><td class="link-none"><a href="https://scholar.google.com/scholar?q=Xu+2000+Two+new+genera+ant+subfamilies+Dorylinae+Ponerinae+Yunnan+China" target="_blank"><span class="icon icon-search"></span></a></td></tr>
             <tr><td>Xu, Z.; He, Q.</td><td>2011</td><td>Description of Myopopone castanea (Smith) from Himalaya Region</td><td class="link-pdf"><a href="docs/Xu 2011 - Description of Myopopone castanea from Himalaya Region.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
             <tr><td>Zhang, W.</td><td>1995</td><td>A new species of Aenictus from Sichuan Province. Entomological Research, First issue: 101-102</td><td class="link-none">-</td></tr>
             <tr><td>Zhou, S.</td><td>2001a</td><td>Ants of Guangxi. Guilin, China: Guangxi Normal University Press, 255 pp.</td><td class="link-none">-</td></tr>
@@ -424,7 +424,7 @@ function sortTable(columnIndex, event) {
         var td = cell;
         if (td.classList.contains("link-pdf") || td.querySelector(".icon-file-pdf")) return 1;
         if (td.classList.contains("link-web") || td.querySelector(".icon-link")) return 2;
-        if (td.classList.contains("link-none") && td.querySelector(".icon-google")) return 3;
+        if (td.classList.contains("link-none") && td.querySelector(".icon-search")) return 3;
         return 4;
     }
 
