@@ -116,6 +116,38 @@
             content: "▼";
             opacity: 1;
         }
+        .sort-badge {
+            display: inline-block;
+            background: #fff;
+            color: #2c5aa0;
+            font-size: 10px;
+            font-weight: bold;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        .source-legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .source-legend span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .source-legend .icon {
+            font-size: 16px;
+        }
         .filter-input {
             padding: 12px 16px;
             border: 2px solid #4a7bc4;
@@ -161,13 +193,21 @@
         </button>
     </div>
 
+    <div class="source-legend">
+        <span><span class="icon icon-file-pdf"></span> PDF in library</span>
+        <span><span class="icon icon-link"></span> External website</span>
+        <span><span class="icon icon-google"></span> Google Scholar search</span>
+        <span>- No digital source</span>
+        <em style="margin-left: auto; opacity: 0.7;">Shift+Click headers for multi-column sort</em>
+    </div>
+
     <table class="sources-table" id="sourcesTable">
         <thead>
             <tr>
-                <th class="author-col sortable" onclick="sortTable(0)">Author(s)</th>
-                <th class="year-col sortable" onclick="sortTable(1)">Year</th>
-                <th class="title-col sortable" onclick="sortTable(2)">Title</th>
-                <th class="source-col">Source</th>
+                <th class="author-col sortable" onclick="sortTable(0, event)">Author(s)</th>
+                <th class="year-col sortable" onclick="sortTable(1, event)">Year</th>
+                <th class="title-col sortable" onclick="sortTable(2, event)">Title</th>
+                <th class="source-col sortable" onclick="sortTable(3, event)">Source</th>
             </tr>
         </thead>
         <tbody>
@@ -320,42 +360,103 @@
 </article>
 
 <script>
-// Sorting state
-var sortDirection = {};
+// Multi-column sorting state: array of {col: index, dir: "asc"|"desc"}
+var sortKeys = [];
 
-function sortTable(columnIndex) {
+function sortTable(columnIndex, event) {
     var table = document.getElementById("sourcesTable");
     var tbody = table.querySelector("tbody");
     var rows = Array.from(tbody.querySelectorAll("tr"));
     var headers = table.querySelectorAll("th.sortable");
 
-    // Toggle sort direction
-    var dir = sortDirection[columnIndex] === "asc" ? "desc" : "asc";
-    sortDirection[columnIndex] = dir;
+    // Check if Shift key is held for multi-column sort
+    var isMultiSort = event && event.shiftKey;
 
-    // Update header classes
+    // Find if this column is already in sort keys
+    var existingIndex = -1;
+    for (var i = 0; i < sortKeys.length; i++) {
+        if (sortKeys[i].col === columnIndex) {
+            existingIndex = i;
+            break;
+        }
+    }
+
+    if (isMultiSort) {
+        // Multi-sort: add or toggle this column
+        if (existingIndex >= 0) {
+            // Toggle direction
+            sortKeys[existingIndex].dir = sortKeys[existingIndex].dir === "asc" ? "desc" : "asc";
+        } else {
+            // Add new sort key
+            sortKeys.push({col: columnIndex, dir: "asc"});
+        }
+    } else {
+        // Single sort: replace all sort keys
+        var newDir = "asc";
+        if (existingIndex >= 0 && sortKeys.length === 1) {
+            newDir = sortKeys[0].dir === "asc" ? "desc" : "asc";
+        }
+        sortKeys = [{col: columnIndex, dir: newDir}];
+    }
+
+    // Update header classes and badges
     headers.forEach(function(h, i) {
         h.classList.remove("asc", "desc");
-        if (i === columnIndex) {
-            h.classList.add(dir);
+        var badge = h.querySelector(".sort-badge");
+        if (badge) badge.remove();
+
+        for (var j = 0; j < sortKeys.length; j++) {
+            if (sortKeys[j].col === i) {
+                h.classList.add(sortKeys[j].dir);
+                if (sortKeys.length > 1) {
+                    var span = document.createElement("span");
+                    span.className = "sort-badge";
+                    span.textContent = (j + 1);
+                    h.appendChild(span);
+                }
+                break;
+            }
         }
     });
 
-    // Sort rows
+    // Helper to get source type priority (PDF=1, Web=2, Scholar=3, None=4)
+    function getSourcePriority(cell) {
+        var td = cell;
+        if (td.classList.contains("link-pdf") || td.querySelector(".icon-file-pdf")) return 1;
+        if (td.classList.contains("link-web") || td.querySelector(".icon-link")) return 2;
+        if (td.classList.contains("link-none") && td.querySelector(".icon-google")) return 3;
+        return 4;
+    }
+
+    // Sort rows by multiple columns
     rows.sort(function(a, b) {
-        var aVal = a.cells[columnIndex].textContent.trim();
-        var bVal = b.cells[columnIndex].textContent.trim();
+        for (var k = 0; k < sortKeys.length; k++) {
+            var col = sortKeys[k].col;
+            var dir = sortKeys[k].dir;
+            var aVal, bVal, cmp;
 
-        // Numeric sort for Year column
-        if (columnIndex === 1) {
-            aVal = parseInt(aVal) || 0;
-            bVal = parseInt(bVal) || 0;
-            return dir === "asc" ? aVal - bVal : bVal - aVal;
+            // Source column (index 3) - sort by type
+            if (col === 3) {
+                aVal = getSourcePriority(a.cells[col]);
+                bVal = getSourcePriority(b.cells[col]);
+                cmp = aVal - bVal;
+            }
+            // Numeric sort for Year column (index 1)
+            else if (col === 1) {
+                aVal = parseInt(a.cells[col].textContent.trim()) || 0;
+                bVal = parseInt(b.cells[col].textContent.trim()) || 0;
+                cmp = aVal - bVal;
+            } else {
+                aVal = a.cells[col].textContent.trim();
+                bVal = b.cells[col].textContent.trim();
+                cmp = aVal.localeCompare(bVal);
+            }
+
+            if (cmp !== 0) {
+                return dir === "asc" ? cmp : -cmp;
+            }
         }
-
-        // Text sort for other columns
-        var cmp = aVal.localeCompare(bVal);
-        return dir === "asc" ? cmp : -cmp;
+        return 0;
     });
 
     // Reappend sorted rows
