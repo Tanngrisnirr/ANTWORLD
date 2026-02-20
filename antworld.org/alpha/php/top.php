@@ -1,1 +1,1 @@
-<a href="#top" target="_self" title="UP !" alt="UP !"><span class="icon icon-circle-up"></span></a>
+<a href="#top" target="_self" title="Back to top" class="back-to-top"><span class="icon icon-circle-up"></span></a>
