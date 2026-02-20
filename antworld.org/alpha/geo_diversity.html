@@ -82,9 +82,9 @@ $(function () {
     var textColor = isLight ? '#1a1a2e' : '#ffffff';
 
     var commonOptions = {
-        chart: {type: 'bar', backgroundColor: 'transparent', spacingLeft: 20, spacingRight: 20},
+        chart: {type: 'bar', backgroundColor: 'transparent', marginLeft: 120, spacingRight: 20},
         title: {text: ''},
-        xAxis: {labels: {style: {color: textColor, fontSize: '14px'}}},
+        xAxis: {labels: {style: {color: textColor, fontSize: '14px'}, x: -10}},
         yAxis: {title: {text: ''}, labels: {style: {color: textColor}}},
         legend: {itemStyle: {color: textColor}},
         credits: {enabled: false}
@@ -177,6 +177,7 @@ function downloadFile(content, filename, mimeType) {
 }
 </script>
 
+<div style="clear:both;"></div>
 </article>
 <?php include("php/footer.php"); ?>
 </body>
