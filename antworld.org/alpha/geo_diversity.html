@@ -47,11 +47,11 @@
     color: white;
     padding: 2px 6px;
     border-radius: 3px;
-    font-size: 12px;
+    font-size: 16px;
 }
 .chart-note {
     color: #888;
-    font-size: 13px;
+    font-size: 16px;
     margin-top: 8px;
 }
 .chart-export-buttons {
@@ -67,7 +67,7 @@
     padding: 6px 14px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 600;
     transition: all 0.2s;
 }
@@ -103,7 +103,7 @@
     cursor: pointer;
     transition: all 0.2s;
     color: var(--text-primary);
-    font-size: 14px;
+    font-size: 16px;
 }
 .region-checkbox:hover {
     background: var(--accent-primary);
@@ -113,6 +113,16 @@
     width: 16px;
     height: 16px;
     cursor: pointer;
+}
+.data-notice {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 16px;
+    font-style: italic;
+    margin: 10px 0;
+}
+.data-notice a {
+    color: var(--accent-primary);
 }
 </style>
 </head>
@@ -131,6 +141,20 @@
     <button class="chart-btn" onclick="selectAllRegions()" style="margin-left:15px;">All</button>
     <button class="chart-btn" onclick="clearAllRegions()">None</button>
 </div>
+
+<div class="region-filters">
+    <span class="filter-label">Show Data:</span>
+    <label class="region-checkbox"><input type="checkbox" id="show_species" checked onchange="updateCharts()"> Species</label>
+    <label class="region-checkbox"><input type="checkbox" id="show_genera" checked onchange="updateCharts()"> Genera</label>
+    <label class="region-checkbox"><input type="checkbox" id="show_subfamilies" checked onchange="updateCharts()"> Subfamilies</label>
+    <span style="margin-left: 20px; border-left: 1px solid var(--border-color); padding-left: 20px;">
+        <span class="filter-label">Scale:</span>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_linear" checked onchange="updateCharts()"> Linear</label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_log" onchange="updateCharts()"> Logarithmic</label>
+    </span>
+</div>
+
+<p class="data-notice">Data source: <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a> | <span id="country-counter">0 of 0 countries</span> selected (showing top 15)</p>
 
 <div class="export-controls">
     <button class="export-btn" onclick="exportGeoDataCSV()">
@@ -151,42 +175,77 @@
 </div>
 
 <script>
-// Complete country data with biogeographic realms
+// Country data from antkeeping.info Top 50 + additional countries
+// Source: https://antkeeping.info/antdb/top-countries-by-number-of-ant-species
+// Genera/subfamilies estimates based on regional averages
 var countryData = [
+    // Australasian
+    {country: 'Australia', species: 1584, genera: 105, subfamilies: 10, realm: 'australasian'},
+    {country: 'New Guinea', species: 836, genera: 85, subfamilies: 9, realm: 'australasian'},
+    {country: 'New Zealand', species: 40, genera: 12, subfamilies: 4, realm: 'australasian'},
+    // Neotropical
+    {country: 'Brazil', species: 1469, genera: 120, subfamilies: 13, realm: 'neotropical'},
+    {country: 'Costa Rica', species: 1032, genera: 95, subfamilies: 11, realm: 'neotropical'},
+    {country: 'Colombia', species: 930, genera: 92, subfamilies: 11, realm: 'neotropical'},
+    {country: 'Ecuador', species: 838, genera: 88, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Panama', species: 814, genera: 85, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Peru', species: 746, genera: 82, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Venezuela', species: 681, genera: 78, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Bolivia', species: 623, genera: 72, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Guatemala', species: 610, genera: 70, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Argentina', species: 598, genera: 68, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Honduras', species: 577, genera: 66, subfamilies: 9, realm: 'neotropical'},
+    {country: 'French Guiana', species: 562, genera: 65, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Guyana', species: 555, genera: 64, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Nicaragua', species: 532, genera: 62, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Paraguay', species: 510, genera: 60, subfamilies: 8, realm: 'neotropical'},
+    {country: 'Suriname', species: 392, genera: 52, subfamilies: 8, realm: 'neotropical'},
+    {country: 'Trinidad and Tobago', species: 352, genera: 48, subfamilies: 8, realm: 'neotropical'},
+    // Indomalayan
+    {country: 'Indonesia', species: 1376, genera: 110, subfamilies: 12, realm: 'indomalayan'},
+    {country: 'Malaysia', species: 903, genera: 90, subfamilies: 11, realm: 'indomalayan'},
+    {country: 'India', species: 793, genera: 85, subfamilies: 11, realm: 'indomalayan'},
+    {country: 'Borneo', species: 740, genera: 82, subfamilies: 10, realm: 'indomalayan'},
+    {country: 'Philippines', species: 579, genera: 65, subfamilies: 9, realm: 'indomalayan'},
+    {country: 'Thailand', species: 502, genera: 60, subfamilies: 9, realm: 'indomalayan'},
+    {country: 'Sri Lanka', species: 333, genera: 48, subfamilies: 8, realm: 'indomalayan'},
+    {country: 'Myanmar', species: 304, genera: 45, subfamilies: 8, realm: 'indomalayan'},
+    {country: 'Vietnam', species: 296, genera: 44, subfamilies: 8, realm: 'indomalayan'},
+    {country: 'Taiwan', species: 289, genera: 43, subfamilies: 8, realm: 'indomalayan'},
+    // Nearctic
+    {country: 'Mexico', species: 1131, genera: 98, subfamilies: 11, realm: 'nearctic'},
+    {country: 'United States', species: 848, genera: 75, subfamilies: 10, realm: 'nearctic'},
+    {country: 'Canada', species: 210, genera: 32, subfamilies: 5, realm: 'nearctic'},
+    // Afrotropical
+    {country: 'Madagascar', species: 848, genera: 75, subfamilies: 10, realm: 'afrotropical'},
+    {country: 'South Africa', species: 668, genera: 70, subfamilies: 10, realm: 'afrotropical'},
+    {country: 'Cameroon', species: 521, genera: 62, subfamilies: 9, realm: 'afrotropical'},
+    {country: 'Kenya', species: 484, genera: 58, subfamilies: 9, realm: 'afrotropical'},
+    {country: 'Gabon', species: 425, genera: 55, subfamilies: 9, realm: 'afrotropical'},
+    {country: 'Zimbabwe', species: 401, genera: 52, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'Ghana', species: 387, genera: 50, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'DR Congo', species: 360, genera: 48, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'Uganda', species: 336, genera: 46, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'Tanzania', species: 271, genera: 42, subfamilies: 8, realm: 'afrotropical'},
     // Palearctic
-    {country: 'China', species: 1391, genera: 113, subfamilies: 12, realm: 'palearctic'},
-    {country: 'Russia', species: 311, genera: 38, subfamilies: 5, realm: 'palearctic'},
-    {country: 'Greece', species: 286, genera: 44, subfamilies: 7, realm: 'palearctic'},
-    {country: 'Japan', species: 273, genera: 71, subfamilies: 8, realm: 'palearctic'},
-    {country: 'Morocco', species: 237, genera: 39, subfamilies: 9, realm: 'palearctic'},
+    {country: 'China', species: 1013, genera: 95, subfamilies: 12, realm: 'palearctic'},
+    {country: 'Turkey', species: 362, genera: 48, subfamilies: 7, realm: 'palearctic'},
+    {country: 'Spain', species: 361, genera: 48, subfamilies: 7, realm: 'palearctic'},
+    {country: 'Greece', species: 341, genera: 46, subfamilies: 7, realm: 'palearctic'},
+    {country: 'Russia', species: 313, genera: 42, subfamilies: 5, realm: 'palearctic'},
+    {country: 'Italy', species: 296, genera: 42, subfamilies: 8, realm: 'palearctic'},
+    {country: 'Japan', species: 291, genera: 65, subfamilies: 8, realm: 'palearctic'},
+    {country: 'Morocco', species: 277, genera: 42, subfamilies: 9, realm: 'palearctic'},
     {country: 'France', species: 213, genera: 40, subfamilies: 6, realm: 'palearctic'},
-    {country: 'Italy', species: 184, genera: 38, subfamilies: 8, realm: 'palearctic'},
+    {country: 'Iran', species: 200, genera: 38, subfamilies: 6, realm: 'palearctic'},
+    {country: 'Portugal', species: 155, genera: 35, subfamilies: 6, realm: 'palearctic'},
     {country: 'Austria', species: 135, genera: 31, subfamilies: 5, realm: 'palearctic'},
-    {country: 'Kazakhstan', species: 117, genera: 25, subfamilies: 4, realm: 'palearctic'},
-    {country: 'Germany', species: 110, genera: 27, subfamilies: 4, realm: 'palearctic'},
+    {country: 'Kazakhstan', species: 125, genera: 28, subfamilies: 4, realm: 'palearctic'},
+    {country: 'Germany', species: 115, genera: 27, subfamilies: 4, realm: 'palearctic'},
+    {country: 'Hungary', species: 126, genera: 28, subfamilies: 5, realm: 'palearctic'},
     {country: 'Belgium', species: 98, genera: 26, subfamilies: 5, realm: 'palearctic'},
     {country: 'Mongolia', species: 76, genera: 17, subfamilies: 3, realm: 'palearctic'},
-    {country: 'UK', species: 59, genera: 18, subfamilies: 4, realm: 'palearctic'},
-    // Afrotropical (sample data - to be expanded)
-    {country: 'South Africa', species: 620, genera: 72, subfamilies: 10, realm: 'afrotropical'},
-    {country: 'Kenya', species: 485, genera: 65, subfamilies: 9, realm: 'afrotropical'},
-    {country: 'Tanzania', species: 410, genera: 58, subfamilies: 8, realm: 'afrotropical'},
-    // Nearctic (sample data)
-    {country: 'USA', species: 1020, genera: 85, subfamilies: 10, realm: 'nearctic'},
-    {country: 'Canada', species: 210, genera: 32, subfamilies: 5, realm: 'nearctic'},
-    {country: 'Mexico', species: 890, genera: 95, subfamilies: 11, realm: 'nearctic'},
-    // Neotropical (sample data)
-    {country: 'Brazil', species: 1500, genera: 120, subfamilies: 13, realm: 'neotropical'},
-    {country: 'Colombia', species: 980, genera: 98, subfamilies: 11, realm: 'neotropical'},
-    {country: 'Peru', species: 750, genera: 88, subfamilies: 10, realm: 'neotropical'},
-    // Indomalayan (sample data)
-    {country: 'India', species: 820, genera: 92, subfamilies: 11, realm: 'indomalayan'},
-    {country: 'Malaysia', species: 690, genera: 85, subfamilies: 10, realm: 'indomalayan'},
-    {country: 'Indonesia', species: 950, genera: 105, subfamilies: 12, realm: 'indomalayan'},
-    // Australasian (sample data)
-    {country: 'Australia', species: 1380, genera: 101, subfamilies: 10, realm: 'australasian'},
-    {country: 'New Zealand', species: 40, genera: 12, subfamilies: 4, realm: 'australasian'},
-    {country: 'Papua New Guinea', species: 450, genera: 68, subfamilies: 9, realm: 'australasian'}
+    {country: 'UK', species: 59, genera: 18, subfamilies: 4, realm: 'palearctic'}
 ];
 
 var mainChart = null;
@@ -224,6 +283,15 @@ function updateCharts() {
     var isLight = document.documentElement.classList.contains('light-mode');
     var textColor = isLight ? '#1a1a2e' : '#ffffff';
 
+    // Update country counter (195 = approx total countries on Earth)
+    var totalCountriesOnEarth = 195;
+    document.getElementById('country-counter').textContent = filtered.length + ' of ' + totalCountriesOnEarth + ' countries (data: ' + countryData.length + ')';
+
+    // Get taxonomical filter states
+    var showSpecies = document.getElementById('show_species').checked;
+    var showGenera = document.getElementById('show_genera').checked;
+    var showSubfamilies = document.getElementById('show_subfamilies').checked;
+
     // Take top 15 for display
     var displayData = filtered.slice(0, 15);
 
@@ -240,6 +308,30 @@ function updateCharts() {
         mainChart.destroy();
     }
 
+    // Build series based on selected taxonomical options
+    var series = [];
+    if (showSpecies) {
+        series.push({name: 'Species', data: speciesData, color: '#058DC7'});
+    }
+    if (showGenera) {
+        series.push({name: 'Genera', data: generaData, color: '#50B432'});
+    }
+    if (showSubfamilies) {
+        series.push({name: 'Subfamilies', data: subfamiliesData, color: '#ED561B'});
+    }
+
+    // If nothing selected, show all
+    if (series.length === 0) {
+        series = [
+            {name: 'Species', data: speciesData, color: '#058DC7'},
+            {name: 'Genera', data: generaData, color: '#50B432'},
+            {name: 'Subfamilies', data: subfamiliesData, color: '#ED561B'}
+        ];
+    }
+
+    // Get scale type
+    var useLogScale = document.getElementById('scale_log').checked;
+
     mainChart = Highcharts.chart('main_chart', {
         chart: {
             type: 'bar',
@@ -254,17 +346,31 @@ function updateCharts() {
             labels: {style: {color: textColor, fontSize: '13px'}, x: -10}
         },
         yAxis: {
-            title: {text: ''},
-            labels: {style: {color: textColor}}
+            type: useLogScale ? 'logarithmic' : 'linear',
+            title: {text: useLogScale ? 'Count (log scale)' : '', style: {color: textColor}},
+            labels: {
+                style: {color: textColor},
+                formatter: function() {
+                    if (useLogScale) {
+                        // Show clean numbers for log scale
+                        return Highcharts.numberFormat(this.value, 0);
+                    }
+                    return this.value;
+                }
+            },
+            min: useLogScale ? 1 : 0,
+            tickPositions: useLogScale ? [1, 10, 50, 100, 200, 500, 1000, 2000] : null,
+            gridLineColor: useLogScale ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)'
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '</b>';
+            }
         },
         legend: {itemStyle: {color: textColor}},
         credits: {enabled: false},
         exporting: {enabled: false},
-        series: [
-            {name: 'Species', data: speciesData, color: '#058DC7'},
-            {name: 'Genera', data: generaData, color: '#50B432'},
-            {name: 'Subfamilies', data: subfamiliesData, color: '#ED561B'}
-        ]
+        series: series
     });
 }
 
