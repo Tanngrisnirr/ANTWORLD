@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/css_antworld.css" type="text/css">
 <link rel="stylesheet" href="css/antworld-icons.css" type="text/css">
-<!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
+<!-- IE9 and below no longer supported (0% market share) -->
 <!-- Theme Toggle Script - load early to prevent flash -->
 <script>
 (function() {
