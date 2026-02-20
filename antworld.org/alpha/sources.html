@@ -40,6 +40,25 @@
         .export-btn .format {
             font-weight: bold;
         }
+        .export-btn-large {
+            background: #1a6b3a;
+            border-color: #2ecc71;
+            font-size: 16px;
+            padding: 12px 24px;
+        }
+        .export-btn-large:hover {
+            background: #239b56;
+            border-color: #58d68d;
+        }
+        .export-btn-large:disabled {
+            background: #555;
+            border-color: #777;
+            cursor: wait;
+        }
+        #pdfProgress {
+            font-size: 12px;
+            margin-left: 5px;
+        }
         .sources-table {
             width: 100%;
             border-collapse: collapse;
@@ -136,6 +155,9 @@
         </button>
         <button class="export-btn" onclick="exportTableToBibTeX()">
             Download <span class="format">BibTeX</span>
+        </button>
+        <button class="export-btn export-btn-large" id="downloadAllPdfs" onclick="downloadAllPDFs()">
+            Download <span class="format">All PDFs</span> <span id="pdfProgress"></span>
         </button>
     </div>
 
@@ -464,6 +486,84 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+</script>
+
+<!-- JSZip for PDF bundle download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+async function downloadAllPDFs() {
+    var btn = document.getElementById('downloadAllPdfs');
+    var progress = document.getElementById('pdfProgress');
+
+    // Collect all PDF links
+    var pdfLinks = [];
+    document.querySelectorAll('a[href$=".pdf"]').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href && href.startsWith('docs/')) {
+            pdfLinks.push(href);
+        }
+    });
+
+    if (pdfLinks.length === 0) {
+        alert('No PDFs found to download.');
+        return;
+    }
+
+    // Disable button and show progress
+    btn.disabled = true;
+    btn.querySelector('.format').textContent = 'Preparing...';
+
+    var zip = new JSZip();
+    var completed = 0;
+    var failed = [];
+
+    // Fetch all PDFs
+    for (var i = 0; i < pdfLinks.length; i++) {
+        var url = pdfLinks[i];
+        var filename = url.split('/').pop();
+
+        progress.textContent = '(' + (i + 1) + '/' + pdfLinks.length + ')';
+
+        try {
+            var response = await fetch(url);
+            if (response.ok) {
+                var blob = await response.blob();
+                zip.file(filename, blob);
+                completed++;
+            } else {
+                failed.push(filename);
+            }
+        } catch (e) {
+            failed.push(filename);
+        }
+    }
+
+    // Generate and download ZIP
+    progress.textContent = '(Zipping...)';
+
+    try {
+        var content = await zip.generateAsync({type: 'blob'}, function(metadata) {
+            progress.textContent = '(' + Math.round(metadata.percent) + '%)';
+        });
+
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = 'antworld_sources_pdfs.zip';
+        link.click();
+        URL.revokeObjectURL(link.href);
+
+        progress.textContent = '';
+        btn.querySelector('.format').textContent = 'All PDFs';
+
+        if (failed.length > 0) {
+            alert('Downloaded ' + completed + ' PDFs. ' + failed.length + ' failed.');
+        }
+    } catch (e) {
+        alert('Error creating ZIP: ' + e.message);
+    }
+
+    btn.disabled = false;
+}
 </script>
 
 <?php include("php/footer.php"); ?>
