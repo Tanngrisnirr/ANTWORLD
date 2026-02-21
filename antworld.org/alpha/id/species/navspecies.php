@@ -6,7 +6,7 @@
 	<li class="topmenu"><a href="../id/morpho.html" style="height:24px; line-height:24px;" target="_blank" title="opens in a new tab"><span class="icon icon-calculator"> Morpho</span></a></li>
 	<li class="topmenu"><a href="#" style="height:24px; line-height:24px;" title="Statistics" alt="Stats"><span class="icon icon-pie-chart"> Statistics</span></a>
 	<ul>
- <li><a href="../stat_countries.html" alt="Ants across countries"><span class="icon icon-stats-dots"> Ants across countries</span></a></li>
+ <li><a href="../../geo_diversity.html" alt="Ants across countries"><span class="icon icon-stats-dots"> Ants across countries</span></a></li>
  <li><a href="../stat_species.html" alt="Ants species"><span class="icon icon-stats-bars"> Ants species</span></a></li>
 	</ul></li>
 	<li class="topmenu"><a href="../id/sources.html" style="height:24px; line-height:24px;" target="_blank" title="Sources" alt="Sources" ><span class="icon icon-books"> Sources</span></a></li>
