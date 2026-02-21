@@ -721,6 +721,16 @@ padding: 0 0 0 0; /*espace entre eux*/ background-color: none; background:none; 
 .icones3 input{margin:auto; font-size:1.5vw;}
 .icones3 li{min-width: 151px; max-width:100%; text-align: left;  margin-left:9%; margin-right:0; padding: 0 5px 5px 0; list-style-type:circle; opacity:0.89; clear: both;}
 
+/* Static image source link - always visible */
+.img-source {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  text-decoration: none;
+  margin-top: 2px;
+}
+.light-mode .img-source { color: #555; }
+
 input:disabled {background:none; border-radius:2px; border:0px;} 
 
 .button{width: 100%; position:relative; margin:auto; cursor:pointer; background:none; color:#87CEEB; border:0px;}
