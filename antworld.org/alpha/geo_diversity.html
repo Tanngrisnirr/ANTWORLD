@@ -50,8 +50,8 @@
     font-size: 16px;
 }
 .chart-note {
-    color: #888;
-    font-size: 14px;
+    color: var(--text-muted);
+    font-size: 16px;
     font-style: italic;
     text-align: center;
     margin: 5px 0 15px 0;
@@ -157,8 +157,9 @@
     </span>
 </div>
 
-<p class="data-notice">Data source: <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a> | <span id="country-counter">0 of 0 countries</span> selected (showing top 15)</p>
+<p class="data-notice">Data sources: <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a>, <a href="https://www.antwiki.org/" target="_blank">AntWiki</a>, <a href="https://antmaps.org/" target="_blank">AntMaps.org</a> | <span id="country-counter">0 of 0 countries</span> selected (showing top 15)</p>
 <p class="chart-note">Note: Percentages show each country's count relative to global totals (<a href="https://www.antwiki.org/" target="_blank" style="color:#888;">~14,000 species, ~340 genera, 17 subfamilies</a>). These are non-cumulative: a single taxon may be recorded in multiple countries.</p>
+<p class="chart-note">Biogeographic realms follow <a href="https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world" target="_blank" style="color:#888;">WWF Terrestrial Ecoregions</a>. Note: Mexico spans the Nearctic-Neotropical interface (<a href="https://pubmed.ncbi.nlm.nih.gov/31828784/" target="_blank" style="color:#888;">Dáttilo et al. 2020</a>).</p>
 
 <div class="export-controls">
     <button class="export-btn" onclick="exportGeoDataCSV()">
@@ -216,7 +217,7 @@ var countryData = [
     {country: 'Myanmar', species: 304, genera: 45, subfamilies: 8, realm: 'indomalayan'},
     {country: 'Vietnam', species: 296, genera: 44, subfamilies: 8, realm: 'indomalayan'},
     {country: 'Taiwan', species: 289, genera: 43, subfamilies: 8, realm: 'indomalayan'},
-    // Nearctic
+    // Nearctic (Mexico spans Nearctic-Neotropical interface, see Dáttilo et al. 2020)
     {country: 'Mexico', species: 1131, genera: 98, subfamilies: 11, realm: 'nearctic'},
     {country: 'United States', species: 848, genera: 75, subfamilies: 10, realm: 'nearctic'},
     {country: 'Canada', species: 210, genera: 32, subfamilies: 5, realm: 'nearctic'},
@@ -369,13 +370,13 @@ function updateCharts() {
         title: {text: ''},
         xAxis: {
             categories: categories,
-            labels: {style: {color: textColor, fontSize: '13px'}, x: -10}
+            labels: {style: {color: textColor, fontSize: '14px'}, x: -10}
         },
         yAxis: {
             type: useLogScale ? 'logarithmic' : 'linear',
-            title: {text: useLogScale ? 'Count (log scale)' : (usePercentScale ? 'Percentage of global total' : ''), style: {color: textColor}},
+            title: {text: useLogScale ? 'Count (log scale)' : (usePercentScale ? 'Percentage of global total' : ''), style: {color: textColor, fontSize: '14px'}},
             labels: {
-                style: {color: textColor},
+                style: {color: textColor, fontSize: '14px'},
                 formatter: function() {
                     if (usePercentScale) {
                         return this.value + '%';
@@ -384,8 +385,12 @@ function updateCharts() {
                 }
             },
             min: useLogScale ? 1 : 0,
-            max: useLogScale ? 10000 : null,
-            tickPositions: useLogScale ? [1, 10, 100, 1000, 10000] : null,
+            tickInterval: useLogScale ? 1 : null,
+            tickLength: 6,
+            tickWidth: 1,
+            tickColor: textColor,
+            lineWidth: 1,
+            lineColor: textColor,
             gridLineColor: 'rgba(255,255,255,0.1)'
         },
         tooltip: {
@@ -538,6 +543,27 @@ function downloadFile(content, filename, mimeType) {
 </script>
 
 <div style="clear:both;"></div>
+
+<h3 class="h2one">Sources & References</h3>
+<div class="sources-list" style="font-size:16px; line-height:1.8; padding:15px; background:var(--bg-secondary); border-radius:8px; margin:20px 0;">
+<p><strong>Species counts:</strong></p>
+<ul style="margin-left:20px;">
+<li><a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info - Top Countries by Number of Ant Species</a></li>
+<li><a href="https://www.antwiki.org/" target="_blank">AntWiki - The Ant Encyclopedia</a></li>
+<li><a href="https://antmaps.org/" target="_blank">AntMaps.org - Economo Lab, OIST</a></li>
+</ul>
+<p style="margin-top:15px;"><strong>Biogeographic realms:</strong></p>
+<ul style="margin-left:20px;">
+<li><a href="https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world" target="_blank">WWF - Terrestrial Ecoregions of the World (TEOW)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Biogeographic_realm" target="_blank">Wikipedia - Biogeographic Realm</a></li>
+<li>Dáttilo W. et al. (2020) <a href="https://pubmed.ncbi.nlm.nih.gov/31828784/" target="_blank">"Mexico ants: incidence and abundance along the Nearctic-Neotropical interface"</a> - <em>Ecology</em> 101(4):e02944</li>
+</ul>
+<p style="margin-top:15px;"><strong>Global totals:</strong></p>
+<ul style="margin-left:20px;">
+<li>Bolton's Catalogue & <a href="https://www.antwiki.org/wiki/Diversity" target="_blank">AntWiki Diversity Statistics</a> (~14,000 species, ~340 genera, 17 subfamilies)</li>
+</ul>
+</div>
+
 </article>
 <?php include("php/footer.php"); ?>
 </body>
