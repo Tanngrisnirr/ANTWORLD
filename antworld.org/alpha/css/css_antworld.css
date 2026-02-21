@@ -724,7 +724,7 @@ padding: 0 0 0 0; /*espace entre eux*/ background-color: none; background:none; 
 /* Static image source link - always visible */
 .img-source {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   color: #666;
   text-decoration: none;
   margin-top: 2px;
