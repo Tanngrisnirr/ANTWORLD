@@ -206,25 +206,8 @@ tr {max-width:45%; height:auto;}
  }
 /*PREFERENCES FIN*/
 
-/*BODY - Flexbox sticky footer layout */
-html {
-    height: 100%;
-}
-body {
-    padding-top: 0;
-    margin-top: 0;
-    background-color: var(--bg-primary);
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-article, main, .main-content {
-    flex: 1 0 auto; /* Grow to fill space, push footer down */
-}
-footer.aw-footer {
-    flex-shrink: 0; /* Don't shrink footer */
-}
+/*BODY*/
+body{padding-top:0; margin-top:0; background-color: var(--bg-primary); height:100%; transition: background-color 0.3s ease, color 0.3s ease;}
 /*BODY FIN*/
 
 /*HEADER*/
@@ -700,28 +683,17 @@ box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 2px 2px rgba(0, 0, 0, 0.25)
 
 
 /*ARTICLE ID*/
-/* Copyright/source attribution - static text link */
-.copyright {
-  display: block;
-  width: auto;
-  margin: 0.25em 0;
-  padding: 2px 6px;
-  font-size: 0.75em;
-  text-align: left;
-  opacity: 0.8;
-}
-.copyright a {
-  color: #666;
-  text-decoration: none;
-  border-bottom: 1px dotted #999;
-}
-.copyright a:hover {
-  color: #2c5aa0;
-  border-bottom-color: #2c5aa0;
-}
-.light-mode .copyright a { color: #555; }
-/* Legacy icon-based copyright (if still used) */
-.copyright img { border-radius: 15px; width: 30px; height: 30px; }
+.copyright{position: absolute;  width: 30px; height: 30px; border-radius: 15px; z-index:900;
+  margin: 0 0 0 0; /*padding (haut, droite, bas, gauche) entre les autres blocs*/
+  padding: 0 0 0 0; /*padding (haut, droite, bas, gauche) entre eux*/ background-color: none; opacity:1; cursor:pointer;}
+.copyright img{border-radius: 15px;}
+.copyright img:active{width: 30px; height: 30px; border-radius: 15px;}
+
+/*delete when u1 gone on all pages*/
+.copyright u1{font-size: 16px; font-style: bold; padding:0 0 0 0; /*padding (haut, droite, bas, gauche)*/
+   border-radius: 5px;}
+.copyright ul ul {display: none; position: absolute; left: 0px; top: 0px; margin:0px; padding: 0px; background-color: grey; opacity:1;}
+.copyright:hover ul.niveau2, li li:hover ul.niveau3 {display: block; border-radius: 5px;}
 /* --- */
 
 .icones{display: inline-block; vertical-align:top; min-width: 180px; max-width:23%;
@@ -781,7 +753,7 @@ input:disabled {background:none; border-radius:2px; border:0px;}
 /*ARTICLE FIN*/
 
 /*FOOTER*/
-/* Sleek footer with pipe separators - sticky to viewport bottom */
+/* Sleek footer with pipe separators */
 footer.aw-footer {
     display: flex;
     flex-wrap: wrap;
@@ -789,9 +761,11 @@ footer.aw-footer {
     align-items: center;
     gap: 0;
     background: var(--bg-secondary);
-    padding: 15px 20px;
-    margin-top: auto; /* Push to bottom of flex container */
+    padding: 12px 20px;
+    margin-top: 20px;
     border-radius: 8px 8px 0 0;
+    padding: 15px 20px;
+    margin-top: 30px;
     text-align: center;
     font-size: 16px;
     color: var(--text-muted);
