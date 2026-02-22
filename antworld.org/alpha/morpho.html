@@ -1,176 +1,760 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>Antworld.org | Morphometrics</title>
-  <meta name="description" content="Identification key for the ants of the palearctic region">
-  <meta name="keywords" content="ants, Formicidae, identification key, key">
-<?php include("php/ihead.php"); ?>
+<head>
+    <title>AntWorld.org | Ant Morphology - Interactive Anatomy Guide</title>
+    <meta name="description" content="Interactive anatomical diagrams and morphometric definitions for ant identification">
+    <meta name="keywords" content="ant anatomy, morphology, morphometry, head, mesosoma, metasoma, identification, Formicidae">
+    <?php include("php/ihead.php"); ?>
+    <style>
+/* Morphology page specific styles */
+.morpho-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Tab navigation */
+.morpho-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+.morpho-tab {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+.morpho-tab:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+}
+.morpho-tab.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* Diagram container */
+.diagram-section {
+    display: none;
+}
+.diagram-section.active {
+    display: block;
+}
+
+.diagram-area {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.diagram-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.diagram-wrapper img,
+.diagram-wrapper object {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* SVG diagram display */
+.morpho-svg, .morpho-img {
+    display: none;
+}
+.morpho-svg.active, .morpho-img.active {
+    display: block;
+}
+
+/* View selector */
+.view-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+.view-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+.view-btn:hover, .view-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* Feature list */
+.feature-list {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.feature-list h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+.feature-item:hover {
+    background: var(--accent-primary);
+    color: #fff;
+}
+.feature-item.active {
+    background: var(--accent-secondary);
+    color: #fff;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+.feature-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    flex-shrink: 0;
+}
+.feature-item:hover .feature-dot,
+.feature-item.active .feature-dot {
+    background: #fff;
+}
+
+/* Toggle labels button */
+.controls-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+.control-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.control-btn:hover {
+    border-color: var(--accent-primary);
+}
+.control-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* SVG label styles */
+.label-point {
+    fill: var(--accent-primary, #87CEEB);
+    stroke: white;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.label-line {
+    stroke: var(--accent-primary, #87CEEB);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 2;
+}
+.label-text {
+    font-family: 'Courier', monospace;
+    font-size: 14px;
+    fill: var(--text-primary, #fff);
+}
+.label.highlight .label-point {
+    fill: #ff6b6b;
+    r: 8;
+    animation: pulse 0.5s ease-in-out 3;
+}
+.label.highlight .label-line {
+    stroke: #ff6b6b;
+    stroke-width: 2.5;
+}
+.label.highlight .label-text {
+    fill: #ff6b6b;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* Labels hidden mode */
+.labels-hidden .label {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Export buttons */
+.export-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 180px;
+    min-height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* Attribution */
+.attribution {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    padding: 10px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+}
+.attribution a {
+    color: var(--accent-primary);
+}
+
+/* Measurements section styles */
+.measurements-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px 0;
+    line-height: 1.8;
+}
+.measurements-section p {
+    color: var(--text-primary);
+}
+.measurements-section b {
+    color: var(--accent-primary);
+    font-size: 1.1em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .morpho-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    .morpho-tab {
+        width: 80%;
+        text-align: center;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Print stylesheet for PDF export */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    nav, .controls-row, .export-row, .morpho-tabs {
+        display: none !important;
+    }
+    .diagram-section {
+        display: block !important;
+        page-break-after: always;
+    }
+    .diagram-section:last-of-type {
+        page-break-after: avoid;
+    }
+    .morpho-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .diagram-area, .feature-list, .measurements-section {
+        background: #f5f5f5 !important;
+        border: 1px solid #ccc;
+    }
+    .feature-item {
+        background: white !important;
+        border: 1px solid #ddd;
+        color: black !important;
+    }
+    .feature-dot {
+        background: #333 !important;
+    }
+    .view-selector {
+        display: none;
+    }
+    .attribution {
+        background: transparent !important;
+        color: #666 !important;
+    }
+    .attribution a {
+        color: #333 !important;
+    }
+    h2.h2one, h3 {
+        color: black !important;
+    }
+    .diagram-section::before {
+        content: attr(data-print-title);
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 15px;
+        color: black;
+    }
+    .measurements-section {
+        color: black !important;
+    }
+    .measurements-section b {
+        color: #333 !important;
+    }
+}
+    </style>
 </head>
+<body>
 <article>
+<h2 class="h2one" data-en="Ant Morphology" data-fr="Morphologie des fourmis">Ant Morphology</h2>
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;" data-en="Interactive anatomy guide - click on a feature name to highlight it on the diagram" data-fr="Guide anatomique interactif - cliquez sur un caractere pour le localiser sur le schema">
+    Interactive anatomy guide - click on a feature name to highlight it on the diagram
+</p>
 
-<h2 class="h2one">Morphometry</h2>
-<?php include("php/top.php"); ?>
-<img id="english" src="img/uk-us_flag_40x40.png" title="English"/>
-<img id="francais" src="img/drapeau_francais_40x40.jpg" title="En Francais"/>
+<div class="morpho-container">
+    <!-- Tab Navigation -->
+    <div class="morpho-tabs">
+        <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tete">Head</button>
+        <button class="morpho-tab" data-section="mesosoma" data-en="Mesosoma" data-fr="Mesosoma">Mesosoma</button>
+        <button class="morpho-tab" data-section="metasoma" data-en="Metasoma" data-fr="Metasoma">Metasoma</button>
+        <button class="morpho-tab" data-section="measurements" data-en="Measurements" data-fr="Mesures">Measurements</button>
+    </div>
 
-<span class="en">
-<p>EN !<br />
-<b>CL</b> Maximal Length measured in the mediane line, from posterior side of the head to fore border of the clypeus (S264). Échancrure bord postérieur de la tête et l'incision du bord antérieur du clypeus raccourcissent <b>CL</b>.</br>
-<b>CI</b> <b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100<br />
-<b>CW</b> maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.<br />
-<b>ClyPub</b> = décompte unilatéral de toutes les soies pubescentes qui dépassent de plus de 10 µm de l'arête antérieure du clypeus. 
-Ce décompte débute sur le plan sagittal de la fosse tentoriale (un enfoncement cuticulaire en forme de pointe sur le bord 
-postérieur du clypeus, S280) et s'achève à l'extrémité latérale du clypeus. Diviser ce nombre de chaque côtés du clypeus par deux.
-<b>ClypSet</b> = présence de rangées de chètes déterminantes sur le clypeus (S281). La signification des chiffres 1 à 5 se décline le patron de distribution suivant :
-1: soies présentes toutes au plus à l'extrémité antérieure du clypeus (chètes apicales) ou totalement absentes,<br />
-2: -en outre- présence de chètes retirés en position post-apicale, environs sur le bord antérieur du clypeus ;<br />
-3: de plus, présence d'une à quelques chètes dans un troisième plan encore un peu plus en arrière ;<br />
-4: ainsi, présence de quelques chètes dans les régions les plus postérieures du clypeus (Plan 4 et 5) ;<br />
-5: clypeus avec des chètes décollées éparses sur toute sa surface.<br />
-<b>CS</b> moyenne arithmétique de CW et CL.<br />
-<b>CUHL</b> plus grande longueur de soie sur le côté arrière de la tête.<br />
-<b>EYE</b> moyenne arithmétique du grand et petit diamètre des yeux à chaque fois mesurés à près toutes les structures ommatidiennes visibles.<br />
-- <b>EL</b> <b>L</b>onger° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br />
-- <b>ES</b> <b>S</b>mall° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included<br />
-<b>EyeHL</b> longueur des plus longues soies au niveau des yeux, y compris les soies microscopiques, visibles seulement à partir d'un grossissement G ≥ 150x.<br />
-<b>FD</b> Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae.<br />If <b>FD</b> is not defined because frontal carinae converge frontal anterior the <b>FRS</b> level, <b>FD</b> is taken to be equal to <b>FRS</b>.<br />
-<b>FR</b> divergence frontale maximale des moulures frontales.<br />
-<b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus. If these dorsal lamellae do not laterally surpass the frontal carinae, the imaginary line between the deepest points
-of scape corner pits may be taken as the reference line. These pits take up the inner corner of the scape base when the scape is fully switched caudad and produce a
- dark triangular shadow in the lateral frontal lobes immediately posterior to the dorsal lamellae of the scape joint capsule. Only measured if <b>FD</b> is not defined.<br />
-<b>GHL</b> longueur des soies les plus longues de la surface dorsale de t1 en excluant les soies au bord postérieur du segment. Chez Chthonolasius sera mesurée à la transition fronto-dorsale du t1 vue de profil.<br />
-<b>HTL</b> longueur des tibias arrières, mesuré d'un point A qui sera marqué au niveau de l'étranglement  du côté intérieur, jusqu'à l'extrémité la plus distale des tibias (S265).<br />
-<b>HTMAX</b> diamètre maximal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>HTMIN</b> diamètre minimal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>IF2</b> rapport de la longueur médiane du 2ème article sur sa largeur maximale mesurée du point de vue du côté supérieur du scape.<br />
-<b>MetHL</b> longueur des plus longues soies du métapleurales, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>ML</b> <b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (i.e., where coarse structure of dorsal pronotum and fine structure of anteriormost pronotum meet); equivalent measuring also
-possible in lateral view. (S266).<br />
-<b>MH</b> hauteur maximale du mésosome chez les mâles et les femelles, mesurée verticalement depuis le ligne dorsale du mésonotum et scutellum vue de profil (S266).<br />
-<b>MnHL</b> longueur des plus longues soies sur le mésonotum.<br />
-<b>mPnHL</b> longueur médiane des soies du pronotum.  Règle de mesure : chercher une soie dressée très longue sur le pronotum, noter le milieu de cette longueur et des longueurs des 5 soies suivantes [les plus longues].
->>> on obtient ainsi 2 nombres ; une médiane et une moyenne/médiane.<br />
-<b>MW</b> maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For the ergates only the max width of the Pronotom*, for the reproductives max width of the mesosome* before the tegulae.<br />
-<b>nCH</b>  décompte unilatéral des soies qui se dressent à plus de 10 µm depuis le contour de l'occiput, vers l'avant, jusqu'au bords antérieurs des yeux. Cela s’ajuste si bien à la tête, que la CL maximale se trouve dans le plan de la feuille.<br />
-<b>nCU</b> vue de profil, décompte unilatéral des soies dépassant de plus de 10 µm de la face ventrale de la tête.<br />
-<b>nCOXA</b> décompte unilatéral des soies qui dépassent de plus de 10 µm de la surface cranaire des coxas antérieurs.<br />
-<b>nHT</b> décompte unilatéral des soies qui dépassent de plus de 10 µm strictement du côté rectiligne des tibias arrières (chez Lasius s. str. > 20 µm).<br />
-<b>nHTFl</b> décompte unilatéral des soies qui se dressent à l'arête extérieure du côté renflé des tibias arrières -il en est ainsi pour chaque arête, qui se prolonge vers l'extérieure, lorsque les tibias sont rejetés vers le postérieur.
-Les soies toujours présentes à l'apex de l'arête externe ne sont pas prises en compte (un pendant de l'éperon tibial à l'apex de l'arête intérieure). Dans le cas d'une importante pilosité avec des longueurs de poils différentes 
-(par exemple chez Formica exsecta), seules les soies de premier ordre seront comptées! [Plus de 10 µm]<br />
-<b>nMet</b> décompte unilatéral des soies érectiles de la métapleure, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>nPn</b> décompte unilatéral des soies érectiles à la surface du pronotum.<br />
-<b>nPE</b> décompte unilatéral des soies érectiles à la surface du PEtiole.<br />
-<b>nPR</b> décompte unilatéral des soies érectiles à la surface du PRopodeum.<br />
-<b>nSc</b> décompte unilatéral des soies qui se détachent de plus de 10 µm de la partie supérieure du Scape.<br />
-<b>OceSet</b>  Présence (=1), absence (=0) de setae érectiles de plus de 10 µm dans le triangle ocellaire.<br />
-<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Using the cross-scaled ocular micrometer the head is adjusted to the measuring position of <b>CL</b>; caudal measuring point: median posterior margin of head as average between peaks and valleys of microsculpture; frontal measuring point: median head at the level of the posterior eye margin; average of left and right postocular dis- tance is calculated.<br />
-<b>PLF</b> longueur des soies pubescentes de la tête entre les carinae frontales. Valeur significative sur 6 mesures pour chaque individu.<br />
-<b>PDCL</b> écart médian de la pubescence sur le clypeus. La longueur d'une ligne médiane, du bord postérieur médian du clypeus jusqu'à l'extrémité* fronto-latérale de la voûte du clypeus, sera divisée par le nombre de soies pubescentes entrecoupant ou frôlant cette ligne (S267).<br />
-<b>PDF</b> écart médian de la pubescence sur un ligne de mesure transversale sur le front, frontal par rapport aux ocelles. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDG</b> écart médian de la pubescence sur une ligne de mesure transversale au milieu de la surface dorsale du 1er tergite gastrique. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDI</b> indexe des épines propodéales mesuré en vue latérale de manière à ce que les pointes des épines se superposent : écart X de la pointe de l'épine au centre du stigmate propodéal, divisé par l'écart Y le plus court du centre du stigmate propodéal au bord postérieur du propodeum (S268).<br />
-<b>PEH</b> Maximum <b>PE</b>tiole <b>H</b>eight. The straight section of the ventral petiolar profile at node level is the reference line perpendicular to which the maximum height of the petiole node is measured. The dorsal measuring point is not necessarily positioned at the node top.<br />
-<b>PEHL</b> plus grande longueur de soie sur le dos du pétiole.<br />
-<b>PEW</b> maximum <b>PE</b>tiole <b>W</b>idth.<br />
-<b>PnHL</b> <b>H</b>ighest <b>L</b>ength of longest hair of pronotum (<b>Pn</b>); arithmetic mean of both sides.<br />
-<b>PPW</b> Postpetiole (<b>PP</b>) maximum <b>W</b>idth (profile view).<br />
-<b>PPH</b> Postpetiole (<b>PP</b>) maximum <b>H</b>eight, measured perpendicular to a line defined by the suture between dorsal and ventral sclerites (profile view).<br />
-<b>SL</b> longueur maximale du scape mesurable. L'attache du scape et le moignon de celui-ci tout comme l'élargissement de la corne du scape en forme de lobe (comme chez Myrmica) ne sont pas pris en compte (S269, S270).<br />
-<b>SLd</b> SLd Maximum straight line scape length in dorsal view, excluding articular condyle; taken as arithmetic mean of both scapes. The scape is tilted to a position perpendicular to the swivelling plane of the funiculus segment. longueur maximale du scape mesurable en vue dorsale ; l'élargissement en forme de lobe de la corne du scape sera prise en compte, l'attache du scape et le moignon de celui-ci ne le sont toujours pas (seulement chez Tetramorium).<br />
-<b>SMAX</b> diamètre maximal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SMIN</b> diamètre minimal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SP</b> longueur des épines propodéales, mesuré d'un angle de vue dorsal à frontodorsal : écart de la pointe de l'épine jusqu'au point de la base de l'épine qui se situe à la même hauteur que le point le plus frontal d'entre les courbures formées par les bases des épines.<br />
-<b>SPBA</b> plus petit écart des arêtes extérieures à la base des épines (S75).<br />
-<b>SPST</b> écart depuis le centre du stigmate propodéal à la pointe des épines dorsales.<br />
-<b>SPTI</b> écart maximal des centres [où ?] aux pointes des épines propodéales/ écart maximal des milieux des épines propodéales à leur pointes.<br />
-<b>SPWI</b> SPWI Maximum distance between outer margins of spines; measured in dorsofrontal view.  [ici, arête des pointes et non de la base des épines comme SPBA] (S75).<br />
-<b>sqPDF</b> racine carrée de l'écart médian entre les pubescences du triangle ocellaire. PDF = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Mesure exacte seulement possible sur une surface propre en laissant de côté les zones ou la pubescence est détériorée, nécessite une haute résolution optique et un éclairage optimal pour visualiser l'intégralité de la longueur des soies pubescentes.<br />
-<b>sqPDG</b> racine carrée de l'écart médian entre les pubescences à la surface dorsale du premier tergite abdominal. PDG = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Conditions optimales de mesures, voir spPDF.<br />
-<b>TERG</b> agencement, numérotations des soies du tergite abdominal le plus antérieur avec au moins une soie érectile de plus de 10 µm. En ayant soin de regarder le bord postérieur de chaque segment , à cet endroit se trouvent souvent de telles des soies.<br />
-<a title="Total Length" style="cursor:help;"><b>TL</b></a>Total Lenght. Measured from the head to the pygidium.<br />
-</p>	</span>
+    <!-- Controls (hidden for measurements tab) -->
+    <div class="controls-row" id="diagramControls">
+        <button class="control-btn active" id="toggleLabels" data-en-show="Show Labels" data-en-hide="Hide Labels" data-fr-show="Afficher" data-fr-hide="Masquer">Show Labels</button>
+        <button class="control-btn" id="langToggle">EN / FR</button>
+    </div>
 
-<span class="fr">
-<p>FR !<br />
-<b>CL</b> longueur maximale mesurable du cranium au niveau de la ligne médiane, mesurée du bord postérieur de la tête jusqu'au bord antérieur du clypeus (S264). Échancrure bord postérieur de la tête et l'incision du bord antérieur du clypeus raccourcissent <b>CL</b>.</br>
-<b>CI</b> <b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100<br />
-<b>CW</b> maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.<br />
-<b>ClyPub</b> = décompte unilatéral de toutes les soies pubescentes qui dépassent de plus de 10 µm de l'arête antérieure du clypeus. 
-Ce décompte débute sur le plan sagittal de la fosse tentoriale (un enfoncement cuticulaire en forme de pointe sur le bord 
-postérieur du clypeus, S280) et s'achève à l'extrémité latérale du clypeus. Diviser ce nombre de chaque côtés du clypeus par deux.
-<b>ClypSet</b> = présence de rangées de chètes déterminantes sur le clypeus (S281). La signification des chiffres 1 à 5 se décline le patron de distribution suivant :
-1: soies présentes toutes au plus à l'extrémité antérieure du clypeus (chètes apicales) ou totalement absentes,<br />
-2: -en outre- présence de chètes retirés en position post-apicale, environs sur le bord antérieur du clypeus ;<br />
-3: de plus, présence d'une à quelques chètes dans un troisième plan encore un peu plus en arrière ;<br />
-4: ainsi, présence de quelques chètes dans les régions les plus postérieures du clypeus (Plan 4 et 5) ;<br />
-5: clypeus avec des chètes décollées éparses sur toute sa surface.<br />
-<b>CS</b> moyenne arithmétique de CW et CL.<br />
-<b>CUHL</b> plus grande longueur de soie sur le côté arrière de la tête.<br />
-<b>EYE</b> moyenne arithmétique du grand et petit diamètre des yeux à chaque fois mesurés à près toutes les structures ommatidiennes visibles.<br />
-- <b>EL</b> <b>L</b>onger° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br />
-- <b>ES</b> <b>S</b>mall° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included<br />
-<b>EyeHL</b> longueur des plus longues soies au niveau des yeux, y compris les soies microscopiques, visibles seulement à partir d'un grossissement G ≥ 150x.<br />
-<b>FD</b> Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae.<br />If <b>FD</b> is not defined because frontal carinae converge frontal anterior the <b>FRS</b> level, <b>FD</b> is taken to be equal to <b>FRS</b>.<br />
-<b>FR</b> divergence frontale maximale des moulures frontales.<br />
-<b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus. If these dorsal lamellae do not laterally surpass the frontal carinae, the imaginary line between the deepest points
-of scape corner pits may be taken as the reference line. These pits take up the inner corner of the scape base when the scape is fully switched caudad and produce a
- dark triangular shadow in the lateral frontal lobes immediately posterior to the dorsal lamellae of the scape joint capsule. Only measured if <b>FD</b> is not defined.<br />
-<b>GHL</b> longueur des soies les plus longues de la surface dorsale de t1 en excluant les soies au bord postérieur du segment. Chez Chthonolasius sera mesurée à la transition fronto-dorsale du t1 vue de profil.<br />
-<b>HTL</b> longueur des tibias arrières, mesuré d'un point A qui sera marqué au niveau de l'étranglement  du côté intérieur, jusqu'à l'extrémité la plus distale des tibias (S265).<br />
-<b>HTMAX</b> diamètre maximal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>HTMIN</b> diamètre minimal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>IF2</b> rapport de la longueur médiane du 2ème article sur sa largeur maximale mesurée du point de vue du côté supérieur du scape.<br />
-<b>MetHL</b> longueur des plus longues soies du métapleurales, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>ML</b> <b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (i.e., where coarse structure of dorsal pronotum and fine structure of anteriormost pronotum meet); equivalent measuring also
-possible in lateral view. (S266).<br />
-<b>MH</b> hauteur maximale du mésosome chez les mâles et les femelles, mesurée verticalement depuis le ligne dorsale du mésonotum et scutellum vue de profil (S266).<br />
-<b>MnHL</b> longueur des plus longues soies sur le mésonotum.<br />
-<b>mPnHL</b> longueur médiane des soies du pronotum.  Règle de mesure : chercher une soie dressée très longue sur le pronotum, noter le milieu de cette longueur et des longueurs des 5 soies suivantes [les plus longues].
->>> on obtient ainsi 2 nombres ; une médiane et une moyenne/médiane.<br />
-<b>MW</b> maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For the ergates only the max width of the Pronotom*, for the reproductives max width of the mesosome* before the tegulae.<br />
-<b>nCH</b>  décompte unilatéral des soies qui se dressent à plus de 10 µm depuis le contour de l'occiput, vers l'avant, jusqu'au bords antérieurs des yeux. Cela s’ajuste si bien à la tête, que la CL maximale se trouve dans le plan de la feuille.<br />
-<b>nCU</b> vue de profil, décompte unilatéral des soies dépassant de plus de 10 µm de la face ventrale de la tête.<br />
-<b>nCOXA</b> décompte unilatéral des soies qui dépassent de plus de 10 µm de la surface cranaire des coxas antérieurs.<br />
-<b>nHT</b> décompte unilatéral des soies qui dépassent de plus de 10 µm strictement du côté rectiligne des tibias arrières (chez Lasius s. str. > 20 µm).<br />
-<b>nHTFl</b> décompte unilatéral des soies qui se dressent à l'arête extérieure du côté renflé des tibias arrières -il en est ainsi pour chaque arête, qui se prolonge vers l'extérieure, lorsque les tibias sont rejetés vers le postérieur.
-Les soies toujours présentes à l'apex de l'arête externe ne sont pas prises en compte (un pendant de l'éperon tibial à l'apex de l'arête intérieure). Dans le cas d'une importante pilosité avec des longueurs de poils différentes 
-(par exemple chez Formica exsecta), seules les soies de premier ordre seront comptées! [Plus de 10 µm]<br />
-<b>nMet</b> décompte unilatéral des soies érectiles de la métapleure, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>nPn</b> décompte unilatéral des soies érectiles à la surface du pronotum.<br />
-<b>nPE</b> décompte unilatéral des soies érectiles à la surface du PEtiole.<br />
-<b>nPR</b> décompte unilatéral des soies érectiles à la surface du PRopodeum.<br />
-<b>nSc</b> décompte unilatéral des soies qui se détachent de plus de 10 µm de la partie supérieure du Scape.<br />
-<b>OceSet</b>  Présence (=1), absence (=0) de setae érectiles de plus de 10 µm dans le triangle ocellaire.<br />
-<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Using the cross-scaled ocular micrometer the head is adjusted to the measuring position of <b>CL</b>; caudal measuring point: median posterior margin of head as average between peaks and valleys of microsculpture; frontal measuring point: median head at the level of the posterior eye margin; average of left and right postocular dis- tance is calculated.<br />
-<b>PLF</b> longueur des soies pubescentes de la tête entre les carinae frontales. Valeur significative sur 6 mesures pour chaque individu.<br />
-<b>PDCL</b> écart médian de la pubescence sur le clypeus. La longueur d'une ligne médiane, du bord postérieur médian du clypeus jusqu'à l'extrémité* fronto-latérale de la voûte du clypeus, sera divisée par le nombre de soies pubescentes entrecoupant ou frôlant cette ligne (S267).<br />
-<b>PDF</b> écart médian de la pubescence sur un ligne de mesure transversale sur le front, frontal par rapport aux ocelles. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDG</b> écart médian de la pubescence sur une ligne de mesure transversale au milieu de la surface dorsale du 1er tergite gastrique. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDI</b> indexe des épines propodéales mesuré en vue latérale de manière à ce que les pointes des épines se superposent : écart X de la pointe de l'épine au centre du stigmate propodéal, divisé par l'écart Y le plus court du centre du stigmate propodéal au bord postérieur du propodeum (S268).<br />
-<b>PEH</b> Maximum <b>PE</b>tiole <b>H</b>eight. The straight section of the ventral petiolar profile at node level is the reference line perpendicular to which the maximum height of the petiole node is measured. The dorsal measuring point is not necessarily positioned at the node top.<br />
-<b>PEHL</b> plus grande longueur de soie sur le dos du pétiole.<br />
-<b>PEW</b> maximum <b>PE</b>tiole <b>W</b>idth.<br />
-<b>PnHL</b> <b>H</b>ighest <b>L</b>ength of longest hair of pronotum (<b>Pn</b>); arithmetic mean of both sides.<br />
-<b>PPW</b> Postpetiole (<b>PP</b>) maximum <b>W</b>idth (profile view).<br />
-<b>PPH</b> Postpetiole (<b>PP</b>) maximum <b>H</b>eight, measured perpendicular to a line defined by the suture between dorsal and ventral sclerites (profile view).<br />
-<b>SL</b> longueur maximale du scape mesurable. L'attache du scape et le moignon de celui-ci tout comme l'élargissement de la corne du scape en forme de lobe (comme chez Myrmica) ne sont pas pris en compte (S269, S270).<br />
-<b>SLd</b> SLd Maximum straight line scape length in dorsal view, excluding articular condyle; taken as arithmetic mean of both scapes. The scape is tilted to a position perpendicular to the swivelling plane of the funiculus segment. longueur maximale du scape mesurable en vue dorsale ; l'élargissement en forme de lobe de la corne du scape sera prise en compte, l'attache du scape et le moignon de celui-ci ne le sont toujours pas (seulement chez Tetramorium).<br />
-<b>SMAX</b> diamètre maximal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SMIN</b> diamètre minimal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SP</b> longueur des épines propodéales, mesuré d'un angle de vue dorsal à frontodorsal : écart de la pointe de l'épine jusqu'au point de la base de l'épine qui se situe à la même hauteur que le point le plus frontal d'entre les courbures formées par les bases des épines.<br />
-<b>SPBA</b> plus petit écart des arêtes extérieures à la base des épines (S75).<br />
-<b>SPST</b> écart depuis le centre du stigmate propodéal à la pointe des épines dorsales.<br />
-<b>SPTI</b> écart maximal des centres [où ?] aux pointes des épines propodéales/ écart maximal des milieux des épines propodéales à leur pointes.<br />
-<b>SPWI</b> SPWI Maximum distance between outer margins of spines; measured in dorsofrontal view.  [ici, arête des pointes et non de la base des épines comme SPBA] (S75).<br />
-<b>sqPDF</b> racine carrée de l'écart médian entre les pubescences du triangle ocellaire. PDF = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Mesure exacte seulement possible sur une surface propre en laissant de côté les zones ou la pubescence est détériorée, nécessite une haute résolution optique et un éclairage optimal pour visualiser l'intégralité de la longueur des soies pubescentes.<br />
-<b>sqPDG</b> racine carrée de l'écart médian entre les pubescences à la surface dorsale du premier tergite abdominal. PDG = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Conditions optimales de mesures, voir spPDF.<br />
-<b>TERG</b> agencement, numérotations des soies du tergite abdominal le plus antérieur avec au moins une soie érectile de plus de 10 µm. En ayant soin de regarder le bord postérieur de chaque segment , à cet endroit se trouvent souvent de telles des soies.<br />
-<a title="Total Length" style="cursor:help;"><b>TL</b></a>Total Lenght. Measured from the head to the pygidium.<br />
-</p>	</span>
-</article>
+    <!-- HEAD Section -->
+    <div class="diagram-section active" id="section-head" data-print-title="HEAD (Caput)">
+        <div class="diagram-area">
+            <div class="view-selector">
+                <button class="view-btn active" data-view="frontal">Frontal</button>
+                <button class="view-btn" data-view="lateral">Lateral</button>
+            </div>
+            <div class="diagram-wrapper" id="head-diagram">
+                <!-- Frontal view SVG (default) -->
+                <object data="img/morpho/svg/ant_head_frontal_v1.svg"
+                        type="image/svg+xml"
+                        id="head-svg-frontal"
+                        class="morpho-svg active"
+                        style="max-width: 100%; height: auto;">
+                    <img src="img/morpho/casent0179897_h_1_high.jpg" alt="Ant head frontal view">
+                </object>
+                <!-- Lateral view (fallback to JPG for now) -->
+                <img src="img/morpho/casent0179897_p_1_high.jpg"
+                     alt="Ant head lateral view - Lasius niger"
+                     id="head-image-lateral"
+                     class="morpho-img"
+                     style="display: none; max-width: 100%; height: auto;">
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <h3 data-en="Head Features (click to highlight)" data-fr="Caracteres de la tete (cliquer pour localiser)">Head Features (click to highlight)</h3>
+            <div class="feature-grid">
+                <div class="feature-item" data-feature="scape" data-en="Scape" data-fr="Scape"><span class="feature-dot"></span> <span class="feature-text">Scape</span></div>
+                <div class="feature-item" data-feature="funiculus" data-en="Funiculus" data-fr="Funicule"><span class="feature-dot"></span> <span class="feature-text">Funiculus</span></div>
+                <div class="feature-item" data-feature="clypeus" data-en="Clypeus" data-fr="Clypeus"><span class="feature-dot"></span> <span class="feature-text">Clypeus</span></div>
+                <div class="feature-item" data-feature="mandible" data-en="Mandible" data-fr="Mandibule"><span class="feature-dot"></span> <span class="feature-text">Mandible</span></div>
+                <div class="feature-item" data-feature="eye" data-en="Compound Eye" data-fr="Oeil compose"><span class="feature-dot"></span> <span class="feature-text">Compound Eye</span></div>
+                <div class="feature-item" data-feature="frons" data-en="Frons" data-fr="Front"><span class="feature-dot"></span> <span class="feature-text">Frons</span></div>
+                <div class="feature-item" data-feature="vertex" data-en="Vertex" data-fr="Vertex"><span class="feature-dot"></span> <span class="feature-text">Vertex</span></div>
+                <div class="feature-item" data-feature="gena" data-en="Gena" data-fr="Gena"><span class="feature-dot"></span> <span class="feature-text">Gena</span></div>
+                <div class="feature-item" data-feature="frontal-carinae" data-en="Frontal Carinae" data-fr="Carenes frontales"><span class="feature-dot"></span> <span class="feature-text">Frontal Carinae</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MESOSOMA Section -->
+    <div class="diagram-section" id="section-mesosoma" data-print-title="MESOSOMA (Thorax)">
+        <div class="diagram-area">
+            <div class="view-selector">
+                <button class="view-btn active" data-view="lateral">Lateral</button>
+                <button class="view-btn" data-view="dorsal">Dorsal</button>
+            </div>
+            <div class="diagram-wrapper" id="mesosoma-diagram">
+                <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant mesosoma lateral view - Lasius niger" id="mesosoma-image">
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <h3 data-en="Mesosoma Features (click to highlight)" data-fr="Caracteres du mesosoma (cliquer pour localiser)">Mesosoma Features (click to highlight)</h3>
+            <div class="feature-grid">
+                <div class="feature-item" data-feature="pronotum" data-en="Pronotum" data-fr="Pronotum"><span class="feature-dot"></span> <span class="feature-text">Pronotum</span></div>
+                <div class="feature-item" data-feature="mesonotum" data-en="Mesonotum" data-fr="Mesonotum"><span class="feature-dot"></span> <span class="feature-text">Mesonotum</span></div>
+                <div class="feature-item" data-feature="propodeum" data-en="Propodeum" data-fr="Propodeum"><span class="feature-dot"></span> <span class="feature-text">Propodeum</span></div>
+                <div class="feature-item" data-feature="metapleural-gland" data-en="Metapleural Gland" data-fr="Glande metapleurale"><span class="feature-dot"></span> <span class="feature-text">Metapleural Gland</span></div>
+                <div class="feature-item" data-feature="promesonotal-suture" data-en="Promesonotal Suture" data-fr="Suture promesontale"><span class="feature-dot"></span> <span class="feature-text">Promesonotal Suture</span></div>
+                <div class="feature-item" data-feature="metanotal-groove" data-en="Metanotal Groove" data-fr="Sillon metanotal"><span class="feature-dot"></span> <span class="feature-text">Metanotal Groove</span></div>
+                <div class="feature-item" data-feature="propodeal-spiracle" data-en="Propodeal Spiracle" data-fr="Spiracle propodeal"><span class="feature-dot"></span> <span class="feature-text">Propodeal Spiracle</span></div>
+                <div class="feature-item" data-feature="coxa" data-en="Coxa" data-fr="Coxa"><span class="feature-dot"></span> <span class="feature-text">Coxa</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- METASOMA Section -->
+    <div class="diagram-section" id="section-metasoma" data-print-title="METASOMA (Abdomen)">
+        <div class="diagram-area">
+            <div class="view-selector">
+                <button class="view-btn active" data-view="lateral">Lateral</button>
+                <button class="view-btn" data-view="dorsal">Dorsal</button>
+            </div>
+            <div class="diagram-wrapper" id="metasoma-diagram">
+                <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant metasoma lateral view - Lasius niger" id="metasoma-image">
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <h3 data-en="Metasoma Features (click to highlight)" data-fr="Caracteres du metasoma (cliquer pour localiser)">Metasoma Features (click to highlight)</h3>
+            <div class="feature-grid">
+                <div class="feature-item" data-feature="petiole" data-en="Petiole" data-fr="Petiole"><span class="feature-dot"></span> <span class="feature-text">Petiole</span></div>
+                <div class="feature-item" data-feature="petiolar-node" data-en="Petiolar Node" data-fr="Noeud petiolaire"><span class="feature-dot"></span> <span class="feature-text">Petiolar Node</span></div>
+                <div class="feature-item" data-feature="gaster" data-en="Gaster" data-fr="Gastre"><span class="feature-dot"></span> <span class="feature-text">Gaster</span></div>
+                <div class="feature-item" data-feature="tergite" data-en="Tergites" data-fr="Tergites"><span class="feature-dot"></span> <span class="feature-text">Tergites</span></div>
+                <div class="feature-item" data-feature="sternite" data-en="Sternites" data-fr="Sternites"><span class="feature-dot"></span> <span class="feature-text">Sternites</span></div>
+                <div class="feature-item" data-feature="acidopore" data-en="Acidopore" data-fr="Acidopore"><span class="feature-dot"></span> <span class="feature-text">Acidopore</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEASUREMENTS Section -->
+    <div class="diagram-section" id="section-measurements" data-print-title="MORPHOMETRIC MEASUREMENTS">
+        <div class="measurements-section">
+            <h3 data-en="Morphometric Definitions" data-fr="Definitions morphometriques">Morphometric Definitions</h3>
+            <p>
+<b>CL</b> Maximal Length measured in the median line, from posterior side of the head to fore border of the clypeus (S264).<br>
+<b>CI</b> <b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100<br>
+<b>CW</b> Maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.<br>
+<b>ClyPub</b> Unilateral count of all pubescent setae projecting more than 10 µm from the anterior edge of the clypeus.<br>
+<b>ClypSet</b> Presence of determining setal rows on the clypeus (S281). Values 1-5 indicate distribution pattern.<br>
+<b>CS</b> Cephalic Size: arithmetic mean of CW and CL.<br>
+<b>CUHL</b> Greatest length of setae on the posterior side of the head.<br>
+<b>EYE</b> Arithmetic mean of EL and ES.<br>
+<b>EL</b> Longer diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br>
+<b>ES</b> Smaller diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br>
+<b>EyeHL</b> Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x.<br>
+<b>FD</b> Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS.<br>
+<b>FR</b> Maximum frontal divergence of frontal carinae.<br>
+<b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus.<br>
+<b>GHL</b> Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border.<br>
+<b>HTL</b> <b>H</b>ind <b>T</b>ibia <b>L</b>ength, measured from inner constriction point to distal tip (S265).<br>
+<b>HTMAX</b> Maximum diameter of hind tibiae (measured at middle of tibiae).<br>
+<b>HTMIN</b> Minimum diameter of hind tibiae (measured at middle of tibiae).<br>
+<b>IF2</b> Ratio of median length of 2nd article to its maximum width measured from upper side of scape.<br>
+<b>MetHL</b> Length of longest metapleural setae, below lower edge of propodeal spiracle.<br>
+<b>ML</b> <b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (S266).<br>
+<b>MH</b> Maximum <b>M</b>esosoma <b>H</b>eight, measured vertically from dorsal line of mesonotum/scutellum in profile view (S266).<br>
+<b>MnHL</b> Length of longest setae on mesonotum.<br>
+<b>mPnHL</b> Median length of pronotal setae.<br>
+<b>MW</b> Maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For workers: max width of pronotum; for reproductives: max width before tegulae.<br>
+<b>nCH</b> Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins.<br>
+<b>nCU</b> Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head.<br>
+<b>nCOXA</b> Unilateral count of setae projecting more than 10 µm from cranial surface of fore coxae.<br>
+<b>nHT</b> Unilateral count of setae projecting more than 10 µm strictly from straight side of hind tibiae (Lasius s. str. > 20 µm).<br>
+<b>nHTFl</b> Unilateral count of setae at outer edge of swollen side of hind tibiae.<br>
+<b>nMet</b> Unilateral count of erectile metapleural setae, below lower edge of propodeal spiracle.<br>
+<b>nPn</b> Unilateral count of erectile setae on pronotum surface.<br>
+<b>nPE</b> Unilateral count of erectile setae on petiole surface.<br>
+<b>nPR</b> Unilateral count of erectile setae on propodeum surface.<br>
+<b>nSc</b> Unilateral count of setae projecting more than 10 µm from upper part of scape.<br>
+<b>OceSet</b> Presence (=1) or absence (=0) of erectile setae more than 10 µm in ocellar triangle.<br>
+<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Distance from posterior eye margin to median posterior head margin.<br>
+<b>PLF</b> Length of pubescent setae on head between frontal carinae. Significant value on 6 measurements per individual.<br>
+<b>PDCL</b> Median pubescence spacing on clypeus (S267).<br>
+<b>PDF</b> Median pubescence spacing on transverse measurement line on frons, frontal to ocelli.<br>
+<b>PDG</b> Median pubescence spacing on transverse measurement line at middle of dorsal surface of 1st gastric tergite.<br>
+<b>PDI</b> Propodeal spine index measured in lateral view (S268).<br>
+<b>PEH</b> Maximum <b>PE</b>tiole <b>H</b>eight. Measured perpendicular to straight section of ventral petiolar profile at node level.<br>
+<b>PEHL</b> Greatest length of setae on dorsum of petiole.<br>
+<b>PEW</b> Maximum <b>PE</b>tiole <b>W</b>idth.<br>
+<b>PnHL</b> <b>H</b>ighest <b>L</b>ength of longest hair of pronotum; arithmetic mean of both sides.<br>
+<b>PPW</b> <b>P</b>ost<b>P</b>etiole maximum <b>W</b>idth (profile view).<br>
+<b>PPH</b> <b>P</b>ost<b>P</b>etiole maximum <b>H</b>eight, measured perpendicular to suture between dorsal and ventral sclerites (profile view).<br>
+<b>SL</b> Maximum <b>S</b>cape <b>L</b>ength, excluding articular condyle and basal lobe (S269, S270).<br>
+<b>SLd</b> Maximum straight line scape length in dorsal view, excluding articular condyle; arithmetic mean of both scapes.<br>
+<b>SMAX</b> Maximum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.<br>
+<b>SMIN</b> Minimum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.<br>
+<b>SP</b> Propodeal <b>SP</b>ine length, measured in dorsofrontal view from spine tip to base curve.<br>
+<b>SPBA</b> Smallest distance between outer edges at <b>SP</b>ine <b>BA</b>ses (S75).<br>
+<b>SPST</b> Distance from center of propodeal spiracle to tip of dorsal spines.<br>
+<b>SPTI</b> Maximum distance from spine centers to propodeal spine tips.<br>
+<b>SPWI</b> Maximum distance between outer margins of <b>SP</b>ine tips (S75).<br>
+<b>sqPDF</b> Square root of median pubescence spacing in ocellar triangle (S283).<br>
+<b>sqPDG</b> Square root of median pubescence spacing on dorsal surface of first abdominal tergite (S283).<br>
+<b>TERG</b> Arrangement/numbering of setae on anteriormost abdominal tergite with at least one erectile seta more than 10 µm.<br>
+<b>TL</b> <b>T</b>otal <b>L</b>ength. Measured from head to pygidium.<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- Export Buttons -->
+    <div class="export-row">
+        <button class="export-btn" onclick="window.print()" data-en="Print Diagram" data-fr="Imprimer le schema">
+            <span class="btn-text">Print Diagram</span> <span class="format">PDF</span>
+        </button>
+        <button class="export-btn" onclick="downloadCurrentImage()" data-en="Download Image" data-fr="Telecharger l'image">
+            <span class="btn-text">Download Image</span> <span class="format">JPG</span>
+        </button>
+    </div>
+
+    <!-- Attribution -->
+    <div class="attribution">
+        Images: AntWeb.org (CC BY) | Specimens: CASENT0179897, CASENT0179929 |
+        <a href="https://www.antweb.org/" target="_blank">www.antweb.org</a>
+    </div>
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.morpho-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        // Update tab states
+        document.querySelectorAll('.morpho-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        // Update section visibility
+        const section = this.dataset.section;
+        document.querySelectorAll('.diagram-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('section-' + section).classList.add('active');
+
+        // Show/hide diagram controls based on section
+        const controls = document.getElementById('diagramControls');
+        if (section === 'measurements') {
+            controls.style.display = 'none';
+        } else {
+            controls.style.display = 'flex';
+        }
+    });
+});
+
+// View switching within sections
+document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const parent = this.closest('.diagram-section');
+        parent.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const view = this.dataset.view;
+        const sectionId = parent.id;
+        const wrapper = parent.querySelector('.diagram-wrapper');
+
+        // Handle head section with SVG
+        if (sectionId === 'section-head') {
+            const svgFrontal = wrapper.querySelector('#head-svg-frontal');
+            const imgLateral = wrapper.querySelector('#head-image-lateral');
+
+            if (view === 'frontal') {
+                svgFrontal.classList.add('active');
+                imgLateral.classList.remove('active');
+            } else {
+                svgFrontal.classList.remove('active');
+                imgLateral.classList.add('active');
+            }
+        } else {
+            // Other sections use simple img switching
+            const img = wrapper.querySelector('img');
+            const images = {
+                'section-mesosoma': {
+                    'lateral': 'img/morpho/casent0179897_p_1_high.jpg',
+                    'dorsal': 'img/morpho/casent0179929_d_1_high.jpg'
+                },
+                'section-metasoma': {
+                    'lateral': 'img/morpho/casent0179897_p_1_high.jpg',
+                    'dorsal': 'img/morpho/casent0179929_d_1_high.jpg'
+                }
+            };
+
+            if (images[sectionId] && images[sectionId][view]) {
+                img.src = images[sectionId][view];
+            }
+        }
+    });
+});
+
+// Toggle labels
+document.getElementById('toggleLabels').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.querySelectorAll('.diagram-wrapper').forEach(wrapper => {
+        wrapper.classList.toggle('labels-hidden');
+    });
+    var isActive = this.classList.contains('active');
+    var showKey = 'data-' + currentLang + '-show';
+    var hideKey = 'data-' + currentLang + '-hide';
+    this.textContent = isActive ? this.getAttribute(showKey) : this.getAttribute(hideKey);
+});
+
+// Feature click to highlight
+document.querySelectorAll('.feature-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const featureId = this.dataset.feature;
+        const section = this.closest('.diagram-section');
+
+        // Remove previous highlights from feature items
+        section.querySelectorAll('.feature-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+
+        // Try to highlight in embedded SVG (via object element)
+        const svgObject = section.querySelector('object.morpho-svg.active');
+        if (svgObject && svgObject.contentDocument) {
+            const svgDoc = svgObject.contentDocument;
+            // Remove previous SVG highlights
+            svgDoc.querySelectorAll('.label').forEach(l => l.classList.remove('highlight'));
+            // Add highlight to matching label
+            const svgLabel = svgDoc.querySelector('[data-feature="' + featureId + '"]');
+            if (svgLabel) {
+                svgLabel.classList.add('highlight');
+            }
+        }
+
+        // Visual feedback - flash the diagram area
+        const diagram = section.querySelector('.diagram-wrapper');
+        if (diagram) {
+            diagram.style.boxShadow = '0 0 20px var(--accent-primary)';
+            setTimeout(function() {
+                diagram.style.boxShadow = 'none';
+            }, 500);
+        }
+    });
+});
+
+// Download current image
+function downloadCurrentImage() {
+    const activeSection = document.querySelector('.diagram-section.active');
+    const img = activeSection.querySelector('.diagram-wrapper img');
+    if (img) {
+        const link = document.createElement('a');
+        link.href = img.src;
+        link.download = img.src.split('/').pop();
+        link.click();
+    }
+}
+
+// Language toggle EN/FR
+var currentLang = 'en';
+
+function updateLanguage() {
+    // Update all feature items
+    document.querySelectorAll('.feature-item').forEach(function(item) {
+        const text = item.querySelector('.feature-text');
+        if (text && item.dataset[currentLang]) {
+            text.textContent = item.dataset[currentLang];
+        }
+    });
+
+    // Update tabs
+    document.querySelectorAll('.morpho-tab[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
+
+    // Update headers and paragraphs
+    document.querySelectorAll('h2[data-en][data-fr], h3[data-en][data-fr], p[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
+
+    // Update export buttons
+    document.querySelectorAll('.export-btn[data-en][data-fr]').forEach(function(el) {
+        const btnText = el.querySelector('.btn-text');
+        if (btnText) {
+            btnText.textContent = el.dataset[currentLang];
+        }
+    });
+
+    // Update toggle labels button
+    var toggleBtn = document.getElementById('toggleLabels');
+    var isActive = toggleBtn.classList.contains('active');
+    var showKey = 'data-' + currentLang + '-show';
+    var hideKey = 'data-' + currentLang + '-hide';
+    toggleBtn.textContent = isActive ? toggleBtn.getAttribute(showKey) : toggleBtn.getAttribute(hideKey);
+
+    // Update language toggle button
+    document.getElementById('langToggle').textContent = currentLang === 'en' ? 'EN / FR' : 'FR / EN';
+}
+
+document.getElementById('langToggle').addEventListener('click', function() {
+    this.classList.toggle('active');
+    currentLang = currentLang === 'en' ? 'fr' : 'en';
+    updateLanguage();
+    localStorage.setItem('morpho-lang', currentLang);
+});
+
+// Load saved language preference
+(function() {
+    var savedLang = localStorage.getItem('morpho-lang');
+    if (savedLang && savedLang !== 'en') {
+        currentLang = savedLang;
+        document.getElementById('langToggle').classList.add('active');
+        updateLanguage();
+    }
+})();
+</script>
+
 <?php include("php/footer.php"); ?>
-</body></html>
+</article>
+</body>
+</html>

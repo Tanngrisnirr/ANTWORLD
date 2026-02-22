@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     width="900" height="600" viewBox="0 0 900 600"
+     id="ant-mesosoma-lateral">
+
+  <title>Ant Mesosoma - Lateral View</title>
+  <desc>Scientific diagram of ant mesosoma anatomy, lateral view. For interactive morphology guide.</desc>
+
+  <sodipodi:namedview
+     inkscape:document-units="px"
+     inkscape:zoom="1"
+     inkscape:cx="450"
+     inkscape:cy="300"/>
+
+  <defs>
+    <style>
+      .label-point { fill: #2c5aa0; stroke: white; stroke-width: 2; cursor: pointer; }
+      .label-line { stroke: #2c5aa0; stroke-width: 1.5; stroke-dasharray: 4 2; }
+      .label-text { font-family: 'Liberation Sans', Arial, sans-serif; font-size: 12px; fill: #1a1a2e; }
+      .outline { fill: none; stroke: #000; stroke-width: 2; }
+      .features { fill: none; stroke: #000; stroke-width: 1; }
+      .suture { fill: none; stroke: #000; stroke-width: 1; stroke-dasharray: 3 2; }
+      .setae { fill: none; stroke: #000; stroke-width: 0.5; }
+      .label.highlight .label-point { fill: #e74c3c; }
+      .label.highlight .label-line { stroke: #e74c3c; stroke-width: 2; }
+      .label.highlight .label-text { fill: #e74c3c; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Layer: Background -->
+  <g inkscape:groupmode="layer" id="layer-background" inkscape:label="background">
+    <rect x="0" y="0" width="900" height="600" fill="#ffffff"/>
+  </g>
+
+  <!-- Layer: Reference (import casent0179897_p_1_high.jpg here) -->
+  <g inkscape:groupmode="layer" id="layer-reference" inkscape:label="reference" style="opacity:0.5">
+    <!-- Import: File > Import > casent0179897_p_1_high.jpg -->
+    <!-- Then crop/position to show only mesosoma region -->
+    <text x="450" y="300" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#999">
+      [Import casent0179897_p_1_high.jpg here - mesosoma region]
+    </text>
+  </g>
+
+  <!-- Layer: Outline - Trace mesosoma outline -->
+  <g inkscape:groupmode="layer" id="layer-outline" inkscape:label="outline">
+    <!-- TODO: Trace mesosoma outline using Bezier tool -->
+  </g>
+
+  <!-- Layer: Features - Sutures, spiracles -->
+  <g inkscape:groupmode="layer" id="layer-features" inkscape:label="features">
+    <!-- TODO: Add promesonotal suture, metanotal groove, spiracles -->
+  </g>
+
+  <!-- Layer: Sculpture -->
+  <g inkscape:groupmode="layer" id="layer-sculpture" inkscape:label="sculpture">
+    <!-- TODO: Add surface texture -->
+  </g>
+
+  <!-- Layer: Setae -->
+  <g inkscape:groupmode="layer" id="layer-setae" inkscape:label="setae">
+    <!-- TODO: Add hairs/setae -->
+  </g>
+
+  <!-- Layer: Points -->
+  <g inkscape:groupmode="layer" id="layer-points" inkscape:label="points">
+  </g>
+
+  <!-- Layer: Labels -->
+  <g inkscape:groupmode="layer" id="layer-labels" inkscape:label="labels">
+
+    <!-- Label: Pronotum -->
+    <g class="label" data-feature="pronotum">
+      <circle class="label-point" cx="200" cy="180" r="5"/>
+      <line class="label-line" x1="200" y1="180" x2="100" y2="80"/>
+      <text class="label-text" x="95" y="75" text-anchor="end" data-en="Pronotum" data-fr="Pronotum">Pronotum</text>
+    </g>
+
+    <!-- Label: Mesonotum -->
+    <g class="label" data-feature="mesonotum">
+      <circle class="label-point" cx="350" cy="150" r="5"/>
+      <line class="label-line" x1="350" y1="150" x2="350" y2="60"/>
+      <text class="label-text" x="350" y="50" text-anchor="middle" data-en="Mesonotum" data-fr="Mesonotum">Mesonotum</text>
+    </g>
+
+    <!-- Label: Propodeum -->
+    <g class="label" data-feature="propodeum">
+      <circle class="label-point" cx="550" cy="200" r="5"/>
+      <line class="label-line" x1="550" y1="200" x2="650" y2="100"/>
+      <text class="label-text" x="655" y="95" data-en="Propodeum" data-fr="Propodeum">Propodeum</text>
+    </g>
+
+    <!-- Label: Metapleural Gland -->
+    <g class="label" data-feature="metapleural-gland">
+      <circle class="label-point" cx="520" cy="380" r="5"/>
+      <line class="label-line" x1="520" y1="380" x2="650" y2="420"/>
+      <text class="label-text" x="655" y="425" data-en="Metapleural Gland" data-fr="Glande metapleurale">Metapleural Gland</text>
+    </g>
+
+    <!-- Label: Promesonotal Suture -->
+    <g class="label" data-feature="promesonotal-suture">
+      <circle class="label-point" cx="280" cy="220" r="5"/>
+      <line class="label-line" x1="280" y1="220" x2="100" y2="280"/>
+      <text class="label-text" x="95" y="285" text-anchor="end" data-en="Promesonotal Suture" data-fr="Suture promesontale">Promesonotal Suture</text>
+    </g>
+
+    <!-- Label: Metanotal Groove -->
+    <g class="label" data-feature="metanotal-groove">
+      <circle class="label-point" cx="450" cy="200" r="5"/>
+      <line class="label-line" x1="450" y1="200" x2="450" y2="100"/>
+      <text class="label-text" x="450" y="90" text-anchor="middle" data-en="Metanotal Groove" data-fr="Sillon metanotal">Metanotal Groove</text>
+    </g>
+
+    <!-- Label: Propodeal Spiracle -->
+    <g class="label" data-feature="propodeal-spiracle">
+      <circle class="label-point" cx="480" cy="280" r="5"/>
+      <line class="label-line" x1="480" y1="280" x2="650" y2="300"/>
+      <text class="label-text" x="655" y="305" data-en="Propodeal Spiracle" data-fr="Spiracle propodeal">Propodeal Spiracle</text>
+    </g>
+
+    <!-- Label: Coxa (foreleg) -->
+    <g class="label" data-feature="coxa">
+      <circle class="label-point" cx="180" cy="420" r="5"/>
+      <line class="label-line" x1="180" y1="420" x2="100" y2="480"/>
+      <text class="label-text" x="95" y="485" text-anchor="end" data-en="Coxa" data-fr="Coxa">Coxa</text>
+    </g>
+
+  </g>
+
+</svg>
