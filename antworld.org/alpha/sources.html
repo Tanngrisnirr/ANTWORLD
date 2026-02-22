@@ -208,8 +208,7 @@
         <span><span class="icon icon-file-pdf"></span> PDF in library</span>
         <span><span class="icon icon-link"></span> External website</span>
         <span><span class="icon icon-search"></span> Google Scholar search</span>
-        <span>- No digital source</span>
-        <em style="margin-left: auto; opacity: 0.7;">Shift+Click headers for multi-column sort</em>
+        <em style="margin-left: auto; opacity: 0.7;">Click Source header to cycle: PDF → Scholar → Web</em>
     </div>
 
     <table class="sources-table" id="sourcesTable">
@@ -344,6 +343,12 @@
             <tr><td>Zhou, S.</td><td>2001b</td><td>A new species of the genus Liometopum Mayr from Guangxi, China</td><td class="link-pdf"><a href="docs/Zhou 2001 - A new species of the ant genus Liometopum Mayr from Guangxi China.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
             <tr><td>Zhou, S.; Chen, Z.</td><td>1999</td><td>Study of army ants (Hymenoptera: Formicidae) of Guangxi. Guangxi Sci. 6(1): 63-64</td><td class="link-none">-</td></tr>
             <tr><td>Zhou, S.; Zheng, Z.</td><td>1997</td><td>Three new species of Formicidae from Guangxi. Entomotaxonomia 19(1): 47-51</td><td class="link-none">-</td></tr>
+            <tr><td>D'Ettorre, P.; Heinze, J.</td><td>2001</td><td>Sociobiology of slave-making ants. Acta Ethol. 3: 67-82</td><td class="link-pdf"><a href="docs/Sociobiology of slave making ants - Patricia D 2001.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
+            <tr><td>Heller, G.</td><td>2004</td><td>Aggressive behaviour of Formica workers against freshly emerged workers of Polyergus rufescens. Myrmecologische Nachrichten 6: 7-9</td><td class="link-pdf"><a href="docs/formica_slave_against_polyergus_rufescens_imago_gerhard_heller_2004.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
+            <tr><td>Johnson, C. A. et al.</td><td>2001</td><td>Changes in the cuticular hydrocarbon profile of the slave-maker ant queen, Polyergus breviceps Emery, after killing a Formica host queen. J. Chem. Ecol. 27: 1787-1804</td><td class="link-pdf"><a href="docs/polyergus_breviceps_johnson_et al_2001_jce.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
+            <tr><td>Katayama, M.</td><td>2013</td><td>Predatory behaviours of Discothyrea kamiteta on spider eggs. Asian Myrmecology 5: 35-40</td><td class="link-pdf"><a href="docs/Predatory behaviours of Dyscothyrea kamiteta on spider eggs katayama_2013.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
+            <tr><td>Mori, A. et al.</td><td>2013</td><td>Mating and post-mating behaviour of the European amazon ant, Polyergus rufescens. Insectes Sociaux 60: 451-461</td><td class="link-pdf"><a href="docs/mating and post-mating behavior of the european amazon ant polyergus rufescens 2013.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
+            <tr><td>Yano, M.</td><td>1911</td><td>A new slave-making ant from Japan. Psyche 18: 110-112</td><td class="link-pdf"><a href="docs/A new slave-making ant from Japan Yano 1911.pdf"><span class="icon icon-file-pdf"></span></a></td></tr>
         </tbody>
     </table>
 
@@ -377,40 +382,76 @@
 // Multi-column sorting state: array of {col: index, dir: "asc"|"desc"}
 var sortKeys = [];
 
+// Source type priority cycle: pdf -> scholar -> web -> pdf
+var sourceTypePriority = 'pdf';
+var sourceTypeCycle = ['pdf', 'scholar', 'web'];
+
+// Get priority based on selected type (selected type = 1, others follow)
+function getSourcePriorityByType(cell, priorityType) {
+    var isPdf = cell.classList.contains("link-pdf") || cell.querySelector(".icon-file-pdf");
+    var isWeb = cell.classList.contains("link-web") || cell.querySelector(".icon-link");
+    var isScholar = cell.classList.contains("link-search") || cell.querySelector(".icon-search");
+
+    if (priorityType === 'pdf') {
+        if (isPdf) return 1;
+        if (isScholar) return 2;
+        if (isWeb) return 3;
+        return 4;
+    } else if (priorityType === 'scholar') {
+        if (isScholar) return 1;
+        if (isPdf) return 2;
+        if (isWeb) return 3;
+        return 4;
+    } else if (priorityType === 'web') {
+        if (isWeb) return 1;
+        if (isPdf) return 2;
+        if (isScholar) return 3;
+        return 4;
+    }
+    return 4;
+}
+
 function sortTable(columnIndex, event) {
     var table = document.getElementById("sourcesTable");
     var tbody = table.querySelector("tbody");
     var rows = Array.from(tbody.querySelectorAll("tr"));
     var headers = table.querySelectorAll("th.sortable");
 
-    // Check if Shift key is held for multi-column sort
-    var isMultiSort = event && event.shiftKey;
-
-    // Find if this column is already in sort keys
-    var existingIndex = -1;
-    for (var i = 0; i < sortKeys.length; i++) {
-        if (sortKeys[i].col === columnIndex) {
-            existingIndex = i;
-            break;
-        }
-    }
-
-    if (isMultiSort) {
-        // Multi-sort: add or toggle this column
-        if (existingIndex >= 0) {
-            // Toggle direction
-            sortKeys[existingIndex].dir = sortKeys[existingIndex].dir === "asc" ? "desc" : "asc";
-        } else {
-            // Add new sort key
-            sortKeys.push({col: columnIndex, dir: "asc"});
-        }
+    // Special handling for Source column (index 3): cycle through types
+    if (columnIndex === 3) {
+        var currentIdx = sourceTypeCycle.indexOf(sourceTypePriority);
+        sourceTypePriority = sourceTypeCycle[(currentIdx + 1) % sourceTypeCycle.length];
+        sortKeys = [{col: 3, dir: "asc"}];
     } else {
-        // Single sort: replace all sort keys
-        var newDir = "asc";
-        if (existingIndex >= 0 && sortKeys.length === 1) {
-            newDir = sortKeys[0].dir === "asc" ? "desc" : "asc";
+        // Check if Shift key is held for multi-column sort
+        var isMultiSort = event && event.shiftKey;
+
+        // Find if this column is already in sort keys
+        var existingIndex = -1;
+        for (var i = 0; i < sortKeys.length; i++) {
+            if (sortKeys[i].col === columnIndex) {
+                existingIndex = i;
+                break;
+            }
         }
-        sortKeys = [{col: columnIndex, dir: newDir}];
+
+        if (isMultiSort) {
+            // Multi-sort: add or toggle this column
+            if (existingIndex >= 0) {
+                // Toggle direction
+                sortKeys[existingIndex].dir = sortKeys[existingIndex].dir === "asc" ? "desc" : "asc";
+            } else {
+                // Add new sort key
+                sortKeys.push({col: columnIndex, dir: "asc"});
+            }
+        } else {
+            // Single sort: replace all sort keys
+            var newDir = "asc";
+            if (existingIndex >= 0 && sortKeys.length === 1) {
+                newDir = sortKeys[0].dir === "asc" ? "desc" : "asc";
+            }
+            sortKeys = [{col: columnIndex, dir: newDir}];
+        }
     }
 
     // Update header classes and badges
@@ -433,13 +474,9 @@ function sortTable(columnIndex, event) {
         }
     });
 
-    // Helper to get source type priority (PDF=1, Web=2, Scholar=3, None=4)
+    // Helper to get source type priority based on current mode
     function getSourcePriority(cell) {
-        var td = cell;
-        if (td.classList.contains("link-pdf") || td.querySelector(".icon-file-pdf")) return 1;
-        if (td.classList.contains("link-web") || td.querySelector(".icon-link")) return 2;
-        if (td.classList.contains("link-none") && td.querySelector(".icon-search")) return 3;
-        return 4;
+        return getSourcePriorityByType(cell, sourceTypePriority);
     }
 
     // Sort rows by multiple columns
@@ -603,8 +640,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<!-- JSZip for PDF bundle download -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<!-- JSZip for PDF bundle download (local copy) -->
+<script src="js/jszip.min.js"></script>
 <script>
 async function downloadAllPDFs() {
     var btn = document.getElementById('downloadAllPdfs');
@@ -636,11 +673,13 @@ async function downloadAllPDFs() {
     for (var i = 0; i < pdfLinks.length; i++) {
         var url = pdfLinks[i];
         var filename = url.split('/').pop();
+        // URL-encode the filename to handle spaces and special characters
+        var encodedUrl = 'docs/' + encodeURIComponent(filename);
 
         progress.textContent = '(' + (i + 1) + '/' + pdfLinks.length + ')';
 
         try {
-            var response = await fetch(url);
+            var response = await fetch(encodedUrl);
             if (response.ok) {
                 var blob = await response.blob();
                 zip.file(filename, blob);

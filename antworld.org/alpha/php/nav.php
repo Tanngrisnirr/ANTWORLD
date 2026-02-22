@@ -1,10 +1,26 @@
 <?php
 // Determine base paths based on current directory
-$inSubfolder = (strpos($_SERVER['REQUEST_URI'], '/id/') !== false ||
-                strpos($_SERVER['REQUEST_URI'], '/species/') !== false ||
-                strpos($_SERVER['REQUEST_URI'], '/games/') !== false);
-$base = $inSubfolder ? '../' : '';
-$idPath = $inSubfolder ? '' : 'id/';
+$inSpecies = strpos($_SERVER['REQUEST_URI'], '/id/species/') !== false;
+$inId = strpos($_SERVER['REQUEST_URI'], '/id/') !== false && !$inSpecies;
+$inGames = strpos($_SERVER['REQUEST_URI'], '/games/') !== false;
+
+// $base = path to alpha/ root
+// $toId = path to id/ folder (for id page links)
+if ($inSpecies) {
+    $base = '../../';
+    $toId = '../';
+} elseif ($inId) {
+    $base = '../';
+    $toId = ''; // Already in id/, no prefix needed
+} elseif ($inGames) {
+    $base = '../';
+    $toId = 'id/';
+} else {
+    $base = '';
+    $toId = 'id/';
+}
+// Keep $idPath as alias for backwards compatibility
+$idPath = $toId;
 ?>
 <nav>
 <input id="mandible-toggle" class="mandible" type="checkbox">
@@ -28,7 +44,7 @@ $idPath = $inSubfolder ? '' : 'id/';
 <ul class="trail">
 <li class="worker"><a href="<?php echo $base; ?>index.html">
 	<span class="icon icon-home"></span><span class="scent">Home</span></a></li>
-<li class="worker"><a href="<?php echo $base.$idPath; ?>confirmed.ergate_id.html">
+<li class="worker"><a href="<?php echo $toId; ?>confirmed.ergate_id.html">
 	<span class="icon icon-bug"></span><span class="scent">Start ID</span></a></li>
 <li class="worker"><a href="<?php echo $base; ?>morpho.html" title="Ant morphology guide">
 	<span class="icon icon-morpho"></span><span class="scent">Morpho</span></a></li>
@@ -45,33 +61,33 @@ $idPath = $inSubfolder ? '' : 'id/';
 	<span class="icon icon-link"></span><span class="scent">Jump to</span></a>
 	<ul class="gallery">
 		<li class="category"><span class="icon icon-sort-amount-desc1"></span> Subfamilies</li>
-		<li><a href="<?php echo $base.$idPath; ?>aenictinae_ergate.html">Aenictinae</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>amblyoponinae_ergate.html">Amblyoponinae</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>cerapachys&leptogenys_ergate.html">Cerapachyini</a></li>
+		<li><a href="<?php echo $toId; ?>aenictinae_ergate.html">Aenictinae</a></li>
+		<li><a href="<?php echo $toId; ?>amblyoponinae_ergate.html">Amblyoponinae</a></li>
+		<li><a href="<?php echo $toId; ?>cerapachys&leptogenys_ergate.html">Cerapachyini</a></li>
 		<li><a href="#" class="disabled">Dorylinae</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>formicinae_ergate.html">Formicinae</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>leptanillinae_ergate.html">Leptanillinae</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>palm_ergate_id.html">Myrmicinae</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>ponerinae_ergate.html">Ponerinae</a></li>
+		<li><a href="<?php echo $toId; ?>formicinae_ergate.html">Formicinae</a></li>
+		<li><a href="<?php echo $toId; ?>leptanillinae_ergate.html">Leptanillinae</a></li>
+		<li><a href="<?php echo $toId; ?>palm_ergate_id.html">Myrmicinae</a></li>
+		<li><a href="<?php echo $toId; ?>ponerinae_ergate.html">Ponerinae</a></li>
 		<li><a href="#" class="disabled">Proceratiinae</a></li>
 		<li class="category"><span class="icon icon-sort-amount-desc1"></span> Genera</li>
-		<li><a href="<?php echo $base.$idPath; ?>acropyga_ergate.html">Acropyga</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>aenictinae_ergate.html">Aenictus</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>amblyoponinae_ergate.html">Amblyopone</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>leptanillinae_ergate.html">Anomalomyrma</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>lasiini_ergate.html">Anoplolepis</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>camponotini_ergate.html">Camponotus</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>cerapachys_ergate.html">Cerapachys</a></li>
+		<li><a href="<?php echo $toId; ?>acropyga_ergate.html">Acropyga</a></li>
+		<li><a href="<?php echo $toId; ?>aenictinae_ergate.html">Aenictus</a></li>
+		<li><a href="<?php echo $toId; ?>amblyoponinae_ergate.html">Amblyopone</a></li>
+		<li><a href="<?php echo $toId; ?>leptanillinae_ergate.html">Anomalomyrma</a></li>
+		<li><a href="<?php echo $toId; ?>lasiini_ergate.html">Anoplolepis</a></li>
+		<li><a href="<?php echo $toId; ?>camponotini_ergate.html">Camponotus</a></li>
+		<li><a href="<?php echo $toId; ?>cerapachys_ergate.html">Cerapachys</a></li>
 		<li><a href="#" class="disabled">Dorylus</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>lasius_ergate.html">Lasius</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>leptanilla_ergate.html">Leptanilla</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>littleformicinae_ergate.html">Plagiolepis</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>polyergus_ergate.html">Polyergus</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>camponotini_ergate.html">Polyrhachis</a></li>
+		<li><a href="<?php echo $toId; ?>lasius_ergate.html">Lasius</a></li>
+		<li><a href="<?php echo $toId; ?>leptanilla_ergate.html">Leptanilla</a></li>
+		<li><a href="<?php echo $toId; ?>littleformicinae_ergate.html">Plagiolepis</a></li>
+		<li><a href="<?php echo $toId; ?>polyergus_ergate.html">Polyergus</a></li>
+		<li><a href="<?php echo $toId; ?>camponotini_ergate.html">Polyrhachis</a></li>
 		<li><a href="#" class="disabled">Ponera</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>lasiini_ergate.html">Prenolepis</a></li>
+		<li><a href="<?php echo $toId; ?>lasiini_ergate.html">Prenolepis</a></li>
 		<li><a href="#" class="disabled">Proceratium</a></li>
-		<li><a href="<?php echo $base.$idPath; ?>leptanillinae_ergate.html">Protanilla</a></li>
+		<li><a href="<?php echo $toId; ?>leptanillinae_ergate.html">Protanilla</a></li>
 	</ul></li>
 <li class="worker"><a href="<?php echo $base; ?>sources.html" title="Sources">
 	<span class="icon icon-books"></span><span class="scent">Sources</span></a></li>

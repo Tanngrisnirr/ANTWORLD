@@ -1,0 +1,33 @@
+# MCP Tools - ANTWORLD Project
+
+## GitHub MCP
+URL: https://api.githubcopilot.com/mcp/
+Permet a Claude d'interagir directement avec GitHub:
+- Creer/reviewer des pull requests
+- Lire/commenter les issues
+- Parcourir le contenu des repos
+- Verifier le statut CI/CD
+
+## Playwright MCP
+Commande: npx -y @playwright/mcp@latest
+Donne a Claude un vrai navigateur pour:
+- Tester le site visuellement
+- Prendre des screenshots
+- Cliquer sur des boutons, remplir des formulaires
+- Verifier le rendu des pages
+
+## Configuration Container Podman
+Container: antworld
+Port expose: 8090 -> 80
+Mount: antworld.org -> /var/www/html
+
+URLs d'acces:
+- http://localhost:8090/alpha/ (site principal - AntWorld.org)
+- http://localhost:8090/beta/ (en developpement)
+- http://localhost:8090/delta/ (en developpement)
+
+Pour tester avec Playwright, demander a Claude:
+"Ouvre http://localhost:8090/alpha/ et verifie [ce que tu veux tester]"
+
+## Demarrer le container
+podman start antworld mariadb
