@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     width="900" height="500" viewBox="0 0 900 500"
+     id="ant-metasoma-lateral">
+
+  <title>Ant Metasoma - Lateral View</title>
+  <desc>Scientific diagram of ant metasoma anatomy, lateral view. For interactive morphology guide.</desc>
+
+  <sodipodi:namedview
+     inkscape:document-units="px"
+     inkscape:zoom="1"
+     inkscape:cx="450"
+     inkscape:cy="250"/>
+
+  <defs>
+    <style>
+      .label-point { fill: #2c5aa0; stroke: white; stroke-width: 2; cursor: pointer; }
+      .label-line { stroke: #2c5aa0; stroke-width: 1.5; stroke-dasharray: 4 2; }
+      .label-text { font-family: 'Liberation Sans', Arial, sans-serif; font-size: 12px; fill: #1a1a2e; }
+      .outline { fill: none; stroke: #000; stroke-width: 2; }
+      .features { fill: none; stroke: #000; stroke-width: 1; }
+      .setae { fill: none; stroke: #000; stroke-width: 0.5; }
+      .label.highlight .label-point { fill: #e74c3c; }
+      .label.highlight .label-line { stroke: #e74c3c; stroke-width: 2; }
+      .label.highlight .label-text { fill: #e74c3c; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Layer: Background -->
+  <g inkscape:groupmode="layer" id="layer-background" inkscape:label="background">
+    <rect x="0" y="0" width="900" height="500" fill="#ffffff"/>
+  </g>
+
+  <!-- Layer: Reference (import casent0179897_p_1_high.jpg here) -->
+  <g inkscape:groupmode="layer" id="layer-reference" inkscape:label="reference" style="opacity:0.5">
+    <!-- Import: File > Import > casent0179897_p_1_high.jpg -->
+    <!-- Then crop/position to show only metasoma region -->
+    <text x="450" y="250" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#999">
+      [Import casent0179897_p_1_high.jpg here - metasoma region]
+    </text>
+  </g>
+
+  <!-- Layer: Outline - Trace metasoma outline -->
+  <g inkscape:groupmode="layer" id="layer-outline" inkscape:label="outline">
+    <!-- TODO: Trace petiole, postpetiole (if present), gaster outline -->
+  </g>
+
+  <!-- Layer: Features - Segments, spiracles -->
+  <g inkscape:groupmode="layer" id="layer-features" inkscape:label="features">
+    <!-- TODO: Add tergite/sternite divisions, spiracles -->
+  </g>
+
+  <!-- Layer: Sculpture -->
+  <g inkscape:groupmode="layer" id="layer-sculpture" inkscape:label="sculpture">
+    <!-- TODO: Add surface texture -->
+  </g>
+
+  <!-- Layer: Setae -->
+  <g inkscape:groupmode="layer" id="layer-setae" inkscape:label="setae">
+    <!-- TODO: Add hairs/setae -->
+  </g>
+
+  <!-- Layer: Points -->
+  <g inkscape:groupmode="layer" id="layer-points" inkscape:label="points">
+  </g>
+
+  <!-- Layer: Labels -->
+  <g inkscape:groupmode="layer" id="layer-labels" inkscape:label="labels">
+
+    <!-- Label: Petiole -->
+    <g class="label" data-feature="petiole">
+      <circle class="label-point" cx="150" cy="250" r="5"/>
+      <line class="label-line" x1="150" y1="250" x2="80" y2="150"/>
+      <text class="label-text" x="75" y="145" text-anchor="end" data-en="Petiole" data-fr="Petiole">Petiole</text>
+    </g>
+
+    <!-- Label: Petiolar Node -->
+    <g class="label" data-feature="petiolar-node">
+      <circle class="label-point" cx="160" cy="200" r="5"/>
+      <line class="label-line" x1="160" y1="200" x2="80" y2="100"/>
+      <text class="label-text" x="75" y="95" text-anchor="end" data-en="Petiolar Node" data-fr="Noeud petiolaire">Petiolar Node</text>
+    </g>
+
+    <!-- Label: Gaster -->
+    <g class="label" data-feature="gaster">
+      <circle class="label-point" cx="500" cy="200" r="5"/>
+      <line class="label-line" x1="500" y1="200" x2="500" y2="80"/>
+      <text class="label-text" x="500" y="70" text-anchor="middle" data-en="Gaster" data-fr="Gastre">Gaster</text>
+    </g>
+
+    <!-- Label: Tergites -->
+    <g class="label" data-feature="tergite">
+      <circle class="label-point" cx="450" cy="150" r="5"/>
+      <line class="label-line" x1="450" y1="150" x2="750" y2="100"/>
+      <text class="label-text" x="755" y="105" data-en="Tergites" data-fr="Tergites">Tergites</text>
+    </g>
+
+    <!-- Label: Sternites -->
+    <g class="label" data-feature="sternite">
+      <circle class="label-point" cx="500" cy="320" r="5"/>
+      <line class="label-line" x1="500" y1="320" x2="750" y2="350"/>
+      <text class="label-text" x="755" y="355" data-en="Sternites" data-fr="Sternites">Sternites</text>
+    </g>
+
+    <!-- Label: Acidopore (Formicinae only) -->
+    <g class="label" data-feature="acidopore">
+      <circle class="label-point" cx="780" cy="250" r="5"/>
+      <line class="label-line" x1="780" y1="250" x2="850" y2="200"/>
+      <text class="label-text" x="855" y="205" data-en="Acidopore" data-fr="Acidopore">Acidopore</text>
+    </g>
+
+  </g>
+
+</svg>
