@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generator="SimpleSitemapGenerator/1.2.0" -->
-<!-- sitemap-generator-url="http://www.antczak.org"
-                          sitemap-generator-version="1.2.0" -->
-<!-- generated-on="2015-08-24T22:41:19+00:00" -->
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9                                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-                         <url><loc>http://palearcticantkey.eu</loc></url><url><loc>http://palearcticantkey.eu/id/aenictinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/amblyoponinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/</loc></url><url><loc>http://palearcticantkey.eu/id/cerapachyinae&amp;proceratiinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/pdf_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/formicinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/leptanillinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/palm_ergate_id.html</loc></url><url><loc>http://palearcticantkey.eu/id/acropyga_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/lasinii_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/camponotus_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/cerapachys_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/lasius_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/leptanilla_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/littleformicinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/polyergus_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/id/camponotinii_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/palm_ergate_id.html</loc></url><url><loc>http://palearcticantkey.eu/confirmed.ergate_id.html</loc></url><url><loc>http://palearcticantkey.eu/formicinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/camponotinii_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/lasinii_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/littleformicinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/pdf_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/polyergus_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/lasius_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/leptanilla_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/leptanilla_sp_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/aenictinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/leptanillinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/myrmicinae_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/acropyga_atopodon_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/acropyga_rhyzomyrma1_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/acropyga_rhyzomyrma2_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/acropyga_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/cerapachys&amp;leptogenys_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/cauto&amp;chthonolasius_ergate.html</loc></url><url><loc>http://palearcticantkey.eu/polyrhachis_2.4_ergate.html</loc></url></urlset>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Generated: 2026-02-19 -->
+  <!-- Main Pages -->
+  <url><loc>https://antworld.org/</loc><lastmod>2026-02-19</lastmod><priority>1.0</priority></url>
+  <url><loc>https://antworld.org/list_species.html</loc><lastmod>2026-02-19</lastmod><priority>0.9</priority></url>
+  <url><loc>https://antworld.org/geo_diversity.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/tax_diversity.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/morpho.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/Training.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/sources.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/credits.html</loc><lastmod>2026-02-19</lastmod><priority>0.5</priority></url>
+  <url><loc>https://antworld.org/privacy.html</loc><lastmod>2026-02-19</lastmod><priority>0.3</priority></url>
+
+  <!-- Identification Keys -->
+  <url><loc>https://antworld.org/id/confirmed.ergate_id.html</loc><lastmod>2026-02-19</lastmod><priority>0.9</priority></url>
+  <url><loc>https://antworld.org/id/formicinae_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/id/myrmicinae_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/id/palm_ergate_id.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/id/pdf_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/id/ponerinae_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://antworld.org/id/aenictinae_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/amblyoponinae_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/leptanillinae_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/lasius_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/lasiini_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/camponotini_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/littleformicinae_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/polyergus_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/acropyga_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/acropyga_rhyzomyrma2_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/id/cerapachys_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/cerapachys%26leptogenys_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/cauto%26chthonolasius_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/id/leptanilla_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/leptanilla_sp_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/id/crematogaster.html</loc><lastmod>2026-02-19</lastmod><priority>0.7</priority></url>
+  <url><loc>https://antworld.org/id/polyrhachis1.1_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/id/polyrhachis2_4_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+
+  <!-- Species Pages -->
+  <url><loc>https://antworld.org/id/species/polyergus_rufescens_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/id/species/polyergus_nigerrimus_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/id/species/polyergus_samurai_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+  <url><loc>https://antworld.org/id/species/discothyrea_kamiteta_ergate.html</loc><lastmod>2026-02-19</lastmod><priority>0.6</priority></url>
+</urlset>

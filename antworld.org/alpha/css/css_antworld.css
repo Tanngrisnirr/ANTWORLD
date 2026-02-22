@@ -130,8 +130,11 @@
     --shadow-dark: rgba(0, 0, 0, 0.1);
 }
 
-/* Global font: Inter (open source) with Arial fallback */
-* { font-family: 'Inter', Arial, Helvetica, sans-serif; }
+/* System font stack + box-sizing reset */
+*, *::before, *::after {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    box-sizing: border-box;
+}
 
 a {padding: 0; text-decoration: none; color: var(--text-primary); opacity:1.0;}
 a:active{background-color:none; text-decoration: none; color: var(--text-primary);}
@@ -139,6 +142,7 @@ a:hover{color: var(--text-primary); font-weight: bold; text-shadow: 0px 0px 5px 
 h2{padding-top:10px; text-align:center; color: var(--accent-primary); font-size:1.8em;}
 h3{padding-top:8px; text-align:center; color: var(--accent-primary); font-size:1.4em;}
 .pone, .ptwo, .pthree{max-width:98%; margin-left:25%; position:relative; text-align:center; color: var(--text-primary); font-size:2vw; opacity:0;}
+.h2one, .h2two, .h2three, .h2four{position:relative; left:0; text-align:center; color: var(--accent-primary); font-size:1.6em; cursor:pointer; opacity:1;}
 .h2two:hover, .h2three:hover, .h2four:hover{color: var(--text-primary); font-weight: bold; text-shadow: 0px 0px 5px var(--text-primary); opacity:1;}
 .left{max-width:98%; position:relative; text-align:center; color: var(--text-primary); font-size:2vw;}
 p{color: var(--text-primary); text-align:left; word-wrap: break-word; font-size:20px;}
@@ -206,8 +210,19 @@ tr {max-width:45%; height:auto;}
  }
 /*PREFERENCES FIN*/
 
-/*BODY*/
-body{padding-top:0; margin-top:0; background-color: var(--bg-primary); height:100%; transition: background-color 0.3s ease, color 0.3s ease;}
+/*BODY - Flexbox sticky footer */
+html { height: 100%; overflow-x: hidden; }
+body {
+    padding-top: 0;
+    margin-top: 0;
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+article, main { flex: 1; }
 /*BODY FIN*/
 
 /*HEADER*/
@@ -220,7 +235,7 @@ nav {
     margin: 0;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     padding: 5px 15px;
     position: relative;
@@ -521,7 +536,10 @@ nav > .mandible { display: none; }
 /*SLIDES*/
 .group1{max-height: 255px; width: auto; text-align:center; margin-top: 0px; padding-left:5px; overflow: scroll; overflow-x:hidden;}
 .group2{max-height: 255px; width: auto; text-align:center; margin-top: 5px; padding-left:5px; overflow: scroll; overflow-x:hidden;}
-.group3, .group4, .group5{max-height: 255px; width: auto; text-align:center; margin-top: 0px; padding-left:10px; overflow: scroll; overflow:hidden;}
+.group3, .group4, .group5{max-height: 255px; width: 100%; text-align:center; margin-top: 0px; padding-left:10px; overflow: scroll; overflow:hidden;}
+.group5 ul{list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:10px; padding:0; margin:0;}
+.group5 li{display:inline-block; cursor:pointer; padding:5px 15px; background:var(--bg-secondary); border-radius:5px;}
+.group5 li:hover{background:var(--accent-primary); color:white;}
 .div a:visited {color:#00FF00;}
 #grp1:hover a{color:white;}
 #grp1, #grp2{color:white; margin-bottom:5px;}
@@ -568,15 +586,11 @@ nav > .mandible { display: none; }
   padding: 210px 10px 50px 50px; background-color: none;}
 .cascade title{color:red;}
 .cascade img:hover{box-shadow:0px 0px 30px white;}
-#waterwheel-carousel {overflow:hidden; margin: 0 0 0 0;}
-#waterwheel-carousel img {visibility:hidden; /* hide images until carousel positions them */}
-#waterwheel-carousel img:hover {cursor:pointer;}
-
 
 /*Captions on pictures*/
 #mainwrapper {max-width: 679px; height: auto; margin: 0 auto 0 auto; text-align: center; background-color:none;}
-#mainwrapper #box-1 {width: 334px; height: 337px; position:relative; float: left; margin: 0 5px 5px 0; overflow: hidden; background-color:none;}
-#mainwrapper #box-2 {width: 334px; height: 232px; position:relative; float: left; overflow: hidden; background-color:none;}
+#mainwrapper #box-1 {width: 334px; height: 367px; position:relative; float: left; margin: 0 5px 5px 0; overflow: visible; background-color:none;}
+#mainwrapper #box-2 {width: 334px; height: 262px; position:relative; float: left; overflow: visible; background-color:none;}
 
 #mainwrapper .box img {position:relative; display:inline-block; align: middle;
 transition: all 300ms ease-out;}
@@ -584,12 +598,9 @@ transition: all 300ms ease-out;}
 #mainwrapper .box .caption {position: absolute; left: 0; background-color: rgba(0,0,0,0.8); color: white;z-index: 100;
 transition: all 300ms ease-out;}
     
-/*Comes from bottom*/
-#mainwrapper .box .simple-caption {width: 340px; height: 30px; display: block; bottom: -30px;}
-.simple-caption p{font-size:20px; margin: 0 auto 0 auto; text-align: center;}
-
-/*Mouvement from bottom*/
-#mainwrapper .box:hover .simple-caption {transform: translateY(-100%);}
+/*Static caption - always visible below image*/
+#mainwrapper .box .simple-caption {width: 340px; height: 30px; display: block; position: relative; bottom: 0; background-color: rgba(0,0,0,0.8);}
+#mainwrapper .simple-caption p{font-size:14px; margin: 0; text-align: center; padding-top: 5px;}
 /*------*/
 
 
@@ -630,12 +641,14 @@ transition: all 300ms ease-out;}
 #id2wrapper .box:active img{width: 302px; height: 302px;}
 
 #blind .caption{background-color: rgba(0,0,0,0.8); color: white; z-index: 100;
-border-radius: 0 0 14px 14px;}
+border-radius: 0 0 14px 14px;
+transition: all 300ms ease-out;}
 
-/* Static caption - always visible */
-#blind .simple-caption {width: 100%; height: auto; display: block; margin-top: 4px; border-radius: 0 0 14px 14px;}
-.simple-caption p{font-size: 14px; margin: 0 auto 0 auto; text-align: center;}
-#blind{width: 151px; height: auto; margin: auto; z-index: 99;}
+/*Comes from bottom 2 - static version*/
+#blind .simple-caption {width: 100%; height: 30px; display: block; bottom: -30px; margin-left:-5px; border-radius: 0 0 14px 14px; opacity:1;}
+.simple-caption p{font-size:14px; margin: 0 auto 0 auto; text-align: center;}
+
+#blind{width: 151px; height:185px; margin: auto; z-index: 99;}
 #blind:active{width: 307px; margin: auto;}
 /*------*/
 
@@ -666,13 +679,11 @@ transition: all 300ms ease-out;}
 
 
 /*Magnifying glass*/
-
-* {margin: 0; padding: 0;}
-.magnify {width: 337px; margin: 0; position: relative;}
-.large-1, .large-2{width: 175px; height: 175px; position: absolute; border-radius: 100%;
+.magnify, .magnify-1, .magnify-2 {width: 337px; margin: 0; position: relative; cursor: crosshair;}
+.large-1, .large-2{width: 175px; height: 175px; position: absolute; border-radius: 100%; pointer-events: none;
 box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 2px 2px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);}
 /*To solve overlap bug at the edges during magnification*/
-.small {display: block;}
+.small, .small-1, .small-2 {display: block;}
 /*------*/
 
 

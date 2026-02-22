@@ -2,34 +2,27 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-		        <!--[if lt IE 9]>
-                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-                <![endif]-->
 <meta http-equiv="language" content="english, en">
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 <link rel="stylesheet" type="text/css" href="../css/antworld.css" media="screen"/>
         <title>Palearctic Ant Key</title>
-		    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<!-- Using local jQuery only - no external dependencies -->
+<script src="../js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript">
  $(document).ready(function(){
  $(".en").hide();
- $(".en").fadeIn(1000, "swing");
+ $(".en").fadeIn(1000);
         $(".fr").hide();
  $("#francais").click(function(){
         $(".en").hide();
-        $(".fr").fadeIn(2000, "swing");
+        $(".fr").fadeIn(2000);
  });
  $("#english").click(function(){
-        $(".en").fadeIn(2000, "swing");
+        $(".en").fadeIn(2000);
  $(".fr").fadeOut();
  });
  	});
 	</script>
-		<script src="mobile/fastclick/lib/fastclick.js" type="text/javascript">
-		window.addEventListener('load', function() {
-		new FastClick(document.body);}, false);</script>
-<script src="../js/jquery_1_11_3_jquery_min.js"></script>
 <script>
 $(document).ready(function(){
 		$(".group1").hide();
@@ -54,14 +47,14 @@ $(document).ready(function(){
 </script>
     </head>  
     <body><header><h1>Ants of the Palearctic <em>version September 2015</em></h1></header>
-<?php include("navigation_contributors.php"); ?>
+<?php include("nav.php"); ?>
 <article>
 </br>
 <?php
     if (isset($_POST['speudo']) AND $_POST['speudo'] ==  "contributor" && isset($_POST['mot_de_passe']) AND $_POST['mot_de_passe'] ==  "&45141%") // Si le mot de passe est bon
     {
     ?>
-<?php include("php/top.php"); ?>
+<?php include("top.php"); ?>
 <img id="english" src="../img/uk-us_flag_40x40.png" title="English"/>
 <img id="francais" src="../img/drapeau_francais_40x40.jpg" title="En Francais"/>
 <span class="en"><h2>How to contribute</h2>
@@ -78,8 +71,8 @@ Once done, don't forget to log out !
 <p4>
 Pour signaler;</br>
 - Une erreur d'affichage cliquez sur<a href="contributions/" style="height:24px; line-height:24px;" title="Ajouter impression d'écran" alt="Ajouter impression d'écran"><span class="icon icon-blocked"> Erreur d'affichage</span>.</a></br>
-- Une faute d'orthographe ou de syntaxe, une question, une idée  cliquez ici<a href="mailto:contact@palearcticantkey.eu?subject=faute_de_langue" style="height:24px; line-height:24px;" title="Envoyer par mail" alt="Envoyer par mail"><span class="icon icon-cross"> Erreur de langue</span></a>.</br>
-- Une question, une idée cliquez ici<a href="mailto:contact@palearcticantkey.eu?subject=question/idee" style="height:24px; line-height:24px;" title="Envoyer par mail" alt="Envoyer par mail"><span class="icon icon-cross"> Question/idée</span></a>.</br>
+- Une faute d'orthographe ou de syntaxe, une question, une idée  cliquez ici<a href="mailto:info@antworld.org?subject=faute_de_langue" style="height:24px; line-height:24px;" title="Envoyer par mail" alt="Envoyer par mail"><span class="icon icon-cross"> Erreur de langue</span></a>.</br>
+- Une question, une idée cliquez ici<a href="mailto:info@antworld.org?subject=question/idee" style="height:24px; line-height:24px;" title="Envoyer par mail" alt="Envoyer par mail"><span class="icon icon-cross"> Question/idée</span></a>.</br>
 </p4>
 </div>
 <h3 id="grp4">Ajouter du contenu <span class="icon icon-sort-amount-desc"></span></h3>
@@ -108,6 +101,6 @@ Pour ajouter:</br>
     {echo 'Mot de passe et/ou speudo incorrect(s)';}
 ?>
 </article>
-<?php include("footer_contributors.php"); ?>
+<?php include("footer.php"); ?>
     </body>
 </html>
