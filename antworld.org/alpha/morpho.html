@@ -260,17 +260,14 @@
     border-radius: 4px;
 }
 
-/* Attribution */
-.attribution {
+/* Image source */
+.img-source {
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     color: var(--text-muted);
-    margin-top: 20px;
-    padding: 10px;
-    background: var(--bg-secondary);
-    border-radius: 6px;
+    margin-top: 10px;
 }
-.attribution a {
+.img-source a {
     color: var(--accent-primary);
 }
 
@@ -303,6 +300,126 @@
     .feature-grid {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+/* Measurements panel */
+.measurements-panel {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.measurements-panel h4 {
+    color: var(--text-primary);
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    text-align: center;
+}
+.measurement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+}
+.measurement-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+.measurement-checkbox:hover {
+    background: var(--accent-primary);
+    color: #fff;
+}
+.measurement-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--accent-primary);
+}
+.measurement-checkbox .abbrev {
+    font-weight: bold;
+    color: #e74c3c;
+    min-width: 40px;
+}
+.measurement-checkbox:hover .abbrev {
+    color: #fff;
+}
+/* Panel controls row (toggle + buttons) */
+.panel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+.panel-controls button {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+.panel-controls button:hover {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* Toggle switch */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.toggle-switch input {
+    display: none;
+}
+.toggle-slider {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: 13px;
+    transition: all 0.3s;
+}
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    top: 1px;
+    left: 2px;
+    transition: all 0.3s;
+}
+.toggle-switch input:checked + .toggle-slider {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+.toggle-switch input:checked + .toggle-slider::before {
+    background: #fff;
+    transform: translateX(24px);
+}
+.toggle-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-primary);
 }
 
 /* Print stylesheet for PDF export */
@@ -340,11 +457,10 @@
     .view-selector {
         display: none;
     }
-    .attribution {
-        background: transparent !important;
+    .img-source {
         color: #666 !important;
     }
-    .attribution a {
+    .img-source a {
         color: #333 !important;
     }
     h2.h2one, h3 {
@@ -371,9 +487,6 @@
 <body>
 <article>
 <h2 class="h2one" data-en="Ant Morphology" data-fr="Morphologie des fourmis">Ant Morphology</h2>
-<p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;" data-en="Interactive anatomy guide - click on a feature name to highlight it on the diagram" data-fr="Guide anatomique interactif - cliquez sur un caractere pour le localiser sur le schema">
-    Interactive anatomy guide - click on a feature name to highlight it on the diagram
-</p>
 
 <div class="morpho-container">
     <!-- Tab Navigation -->
@@ -386,8 +499,58 @@
 
     <!-- Controls (hidden for measurements tab) -->
     <div class="controls-row" id="diagramControls">
-        <button class="control-btn active" id="toggleLabels" data-en-show="Show Labels" data-en-hide="Hide Labels" data-fr-show="Afficher" data-fr-hide="Masquer">Show Labels</button>
         <button class="control-btn" id="langToggle">EN / FR</button>
+    </div>
+
+    <!-- Measurements Panel (shown only for head tab with SVG) -->
+    <div class="measurements-panel" id="measurementsPanel">
+        <div class="panel-controls">
+            <label class="toggle-switch">
+                <input type="checkbox" id="toggleLabels" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
+            </label>
+            <button id="clearMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
+            <button id="showAllMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
+        </div>
+        <h4 data-en="Morphometric Measurements" data-fr="Mesures morphometriques">Morphometric Measurements</h4>
+        <div class="measurement-grid" id="measurementGrid">
+            <label class="measurement-checkbox">
+                <input type="checkbox" data-measure="CL">
+                <span class="abbrev">CL</span>
+                <span class="name" data-en="Cephalic Length" data-fr="Longueur cephalique">Cephalic Length</span>
+            </label>
+            <label class="measurement-checkbox">
+                <input type="checkbox" data-measure="CW">
+                <span class="abbrev">CW</span>
+                <span class="name" data-en="Cephalic Width" data-fr="Largeur cephalique">Cephalic Width</span>
+            </label>
+            <label class="measurement-checkbox">
+                <input type="checkbox" data-measure="EL">
+                <span class="abbrev">EL</span>
+                <span class="name" data-en="Eye Length" data-fr="Longueur de l'oeil">Eye Length</span>
+            </label>
+            <label class="measurement-checkbox">
+                <input type="checkbox" data-measure="ES">
+                <span class="abbrev">ES</span>
+                <span class="name" data-en="Eye Shorter" data-fr="Largeur de l'oeil">Eye Shorter</span>
+            </label>
+            <label class="measurement-checkbox">
+                <input type="checkbox" data-measure="SL">
+                <span class="abbrev">SL</span>
+                <span class="name" data-en="Scape Length" data-fr="Longueur du scape">Scape Length</span>
+            </label>
+            <label class="measurement-checkbox">
+                <input type="checkbox" data-measure="FRS">
+                <span class="abbrev">FRS</span>
+                <span class="name" data-en="Frontal Suture" data-fr="Suture frontale">Frontal Suture</span>
+            </label>
+            <label class="measurement-checkbox">
+                <input type="checkbox" data-measure="PoOC">
+                <span class="abbrev">PoOC</span>
+                <span class="name" data-en="Postocular Dist." data-fr="Distance postoculaire">Postocular Dist.</span>
+            </label>
+        </div>
     </div>
 
     <!-- HEAD Section -->
@@ -413,21 +576,7 @@
                      class="morpho-img"
                      style="display: none; max-width: 100%; height: auto;">
             </div>
-        </div>
-
-        <div class="feature-list">
-            <h3 data-en="Head Features (click to highlight)" data-fr="Caracteres de la tete (cliquer pour localiser)">Head Features (click to highlight)</h3>
-            <div class="feature-grid">
-                <div class="feature-item" data-feature="scape" data-en="Scape" data-fr="Scape"><span class="feature-dot"></span> <span class="feature-text">Scape</span></div>
-                <div class="feature-item" data-feature="funiculus" data-en="Funiculus" data-fr="Funicule"><span class="feature-dot"></span> <span class="feature-text">Funiculus</span></div>
-                <div class="feature-item" data-feature="clypeus" data-en="Clypeus" data-fr="Clypeus"><span class="feature-dot"></span> <span class="feature-text">Clypeus</span></div>
-                <div class="feature-item" data-feature="mandible" data-en="Mandible" data-fr="Mandibule"><span class="feature-dot"></span> <span class="feature-text">Mandible</span></div>
-                <div class="feature-item" data-feature="eye" data-en="Compound Eye" data-fr="Oeil compose"><span class="feature-dot"></span> <span class="feature-text">Compound Eye</span></div>
-                <div class="feature-item" data-feature="frons" data-en="Frons" data-fr="Front"><span class="feature-dot"></span> <span class="feature-text">Frons</span></div>
-                <div class="feature-item" data-feature="vertex" data-en="Vertex" data-fr="Vertex"><span class="feature-dot"></span> <span class="feature-text">Vertex</span></div>
-                <div class="feature-item" data-feature="gena" data-en="Gena" data-fr="Gena"><span class="feature-dot"></span> <span class="feature-text">Gena</span></div>
-                <div class="feature-item" data-feature="frontal-carinae" data-en="Frontal Carinae" data-fr="Carenes frontales"><span class="feature-dot"></span> <span class="feature-text">Frontal Carinae</span></div>
-            </div>
+            <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> - AntWeb.org (CC BY)</p>
         </div>
     </div>
 
@@ -442,20 +591,6 @@
                 <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant mesosoma lateral view - Lasius niger" id="mesosoma-image">
             </div>
         </div>
-
-        <div class="feature-list">
-            <h3 data-en="Mesosoma Features (click to highlight)" data-fr="Caracteres du mesosoma (cliquer pour localiser)">Mesosoma Features (click to highlight)</h3>
-            <div class="feature-grid">
-                <div class="feature-item" data-feature="pronotum" data-en="Pronotum" data-fr="Pronotum"><span class="feature-dot"></span> <span class="feature-text">Pronotum</span></div>
-                <div class="feature-item" data-feature="mesonotum" data-en="Mesonotum" data-fr="Mesonotum"><span class="feature-dot"></span> <span class="feature-text">Mesonotum</span></div>
-                <div class="feature-item" data-feature="propodeum" data-en="Propodeum" data-fr="Propodeum"><span class="feature-dot"></span> <span class="feature-text">Propodeum</span></div>
-                <div class="feature-item" data-feature="metapleural-gland" data-en="Metapleural Gland" data-fr="Glande metapleurale"><span class="feature-dot"></span> <span class="feature-text">Metapleural Gland</span></div>
-                <div class="feature-item" data-feature="promesonotal-suture" data-en="Promesonotal Suture" data-fr="Suture promesontale"><span class="feature-dot"></span> <span class="feature-text">Promesonotal Suture</span></div>
-                <div class="feature-item" data-feature="metanotal-groove" data-en="Metanotal Groove" data-fr="Sillon metanotal"><span class="feature-dot"></span> <span class="feature-text">Metanotal Groove</span></div>
-                <div class="feature-item" data-feature="propodeal-spiracle" data-en="Propodeal Spiracle" data-fr="Spiracle propodeal"><span class="feature-dot"></span> <span class="feature-text">Propodeal Spiracle</span></div>
-                <div class="feature-item" data-feature="coxa" data-en="Coxa" data-fr="Coxa"><span class="feature-dot"></span> <span class="feature-text">Coxa</span></div>
-            </div>
-        </div>
     </div>
 
     <!-- METASOMA Section -->
@@ -467,18 +602,6 @@
             </div>
             <div class="diagram-wrapper" id="metasoma-diagram">
                 <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant metasoma lateral view - Lasius niger" id="metasoma-image">
-            </div>
-        </div>
-
-        <div class="feature-list">
-            <h3 data-en="Metasoma Features (click to highlight)" data-fr="Caracteres du metasoma (cliquer pour localiser)">Metasoma Features (click to highlight)</h3>
-            <div class="feature-grid">
-                <div class="feature-item" data-feature="petiole" data-en="Petiole" data-fr="Petiole"><span class="feature-dot"></span> <span class="feature-text">Petiole</span></div>
-                <div class="feature-item" data-feature="petiolar-node" data-en="Petiolar Node" data-fr="Noeud petiolaire"><span class="feature-dot"></span> <span class="feature-text">Petiolar Node</span></div>
-                <div class="feature-item" data-feature="gaster" data-en="Gaster" data-fr="Gastre"><span class="feature-dot"></span> <span class="feature-text">Gaster</span></div>
-                <div class="feature-item" data-feature="tergite" data-en="Tergites" data-fr="Tergites"><span class="feature-dot"></span> <span class="feature-text">Tergites</span></div>
-                <div class="feature-item" data-feature="sternite" data-en="Sternites" data-fr="Sternites"><span class="feature-dot"></span> <span class="feature-text">Sternites</span></div>
-                <div class="feature-item" data-feature="acidopore" data-en="Acidopore" data-fr="Acidopore"><span class="feature-dot"></span> <span class="feature-text">Acidopore</span></div>
             </div>
         </div>
     </div>
@@ -502,6 +625,7 @@
 <b>FD</b> Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS.<br>
 <b>FR</b> Maximum frontal divergence of frontal carinae.<br>
 <b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus.<br>
+<b>ΔFr</b> <b>Frontal Triangle</b>. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally.<br>
 <b>GHL</b> Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border.<br>
 <b>HTL</b> <b>H</b>ind <b>T</b>ibia <b>L</b>ength, measured from inner constriction point to distal tip (S265).<br>
 <b>HTMAX</b> Maximum diameter of hind tibiae (measured at middle of tibiae).<br>
@@ -524,7 +648,7 @@
 <b>nPR</b> Unilateral count of erectile setae on propodeum surface.<br>
 <b>nSc</b> Unilateral count of setae projecting more than 10 µm from upper part of scape.<br>
 <b>OceSet</b> Presence (=1) or absence (=0) of erectile setae more than 10 µm in ocellar triangle.<br>
-<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Distance from posterior eye margin to median posterior head margin.<br>
+<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Measured along median line from median occipital margin to median head at level of posterior eye margin.<br>
 <b>PLF</b> Length of pubescent setae on head between frontal carinae. Significant value on 6 measurements per individual.<br>
 <b>PDCL</b> Median pubescence spacing on clypeus (S267).<br>
 <b>PDF</b> Median pubescence spacing on transverse measurement line on frons, frontal to ocelli.<br>
@@ -561,12 +685,6 @@
         <button class="export-btn" onclick="downloadCurrentImage()" data-en="Download Image" data-fr="Telecharger l'image">
             <span class="btn-text">Download Image</span> <span class="format">JPG</span>
         </button>
-    </div>
-
-    <!-- Attribution -->
-    <div class="attribution">
-        Images: AntWeb.org (CC BY) | Specimens: CASENT0179897, CASENT0179929 |
-        <a href="https://www.antweb.org/" target="_blank">www.antweb.org</a>
     </div>
 </div>
 
@@ -637,17 +755,22 @@ document.querySelectorAll('.view-btn').forEach(btn => {
     });
 });
 
-// Toggle labels
-document.getElementById('toggleLabels').addEventListener('click', function() {
-    this.classList.toggle('active');
-    document.querySelectorAll('.diagram-wrapper').forEach(wrapper => {
-        wrapper.classList.toggle('labels-hidden');
+// Toggle morphology labels (checkbox)
+function updateMorphologyLabels() {
+    var show = document.getElementById('toggleLabels').checked;
+    document.querySelectorAll('object.morpho-svg').forEach(function(obj) {
+        if (obj.contentDocument) {
+            var labelsLayer = obj.contentDocument.getElementById('layer-labels');
+            if (labelsLayer) {
+                labelsLayer.style.display = show ? 'inline' : 'none';
+            }
+        }
     });
-    var isActive = this.classList.contains('active');
-    var showKey = 'data-' + currentLang + '-show';
-    var hideKey = 'data-' + currentLang + '-hide';
-    this.textContent = isActive ? this.getAttribute(showKey) : this.getAttribute(hideKey);
-});
+}
+document.getElementById('toggleLabels').addEventListener('change', updateMorphologyLabels);
+
+// Initialize when SVG loads
+document.getElementById('head-svg-frontal').addEventListener('load', updateMorphologyLabels);
 
 // Feature click to highlight
 document.querySelectorAll('.feature-item').forEach(item => {
@@ -725,12 +848,10 @@ function updateLanguage() {
         }
     });
 
-    // Update toggle labels button
-    var toggleBtn = document.getElementById('toggleLabels');
-    var isActive = toggleBtn.classList.contains('active');
-    var showKey = 'data-' + currentLang + '-show';
-    var hideKey = 'data-' + currentLang + '-hide';
-    toggleBtn.textContent = isActive ? toggleBtn.getAttribute(showKey) : toggleBtn.getAttribute(hideKey);
+    // Update toggle label text
+    document.querySelectorAll('.toggle-label[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
 
     // Update language toggle button
     document.getElementById('langToggle').textContent = currentLang === 'en' ? 'EN / FR' : 'FR / EN';
@@ -752,6 +873,330 @@ document.getElementById('langToggle').addEventListener('click', function() {
         updateLanguage();
     }
 })();
+
+// =============================================================================
+// MORPHOMETRIC MEASUREMENTS SYSTEM
+// =============================================================================
+
+// Measurement data for head frontal view
+// Coordinates based on SVG viewBox 0 28 800 645
+var headMeasurements = {
+    CL: {
+        name: { en: 'Cephalic Length', fr: 'Longueur cephalique' },
+        description: 'Median line, posterior head to clypeus border',
+        view: 'frontal',
+        // Vertical line from head/background contrast (y=85) to lowest red clypeus point (y=608)
+        endpoints: [[400, 85], [400, 608]],
+        offset: 60  // Offset dimension line to the right
+    },
+    CW: {
+        name: { en: 'Cephalic Width', fr: 'Largeur cephalique' },
+        description: 'Maximum width including eyes',
+        view: 'frontal',
+        // Horizontal line just above eyes, head dark/background light boundary
+        endpoints: [[150, 260], [640, 260]],
+        offset: -40  // Offset dimension line upward
+    },
+    EL: {
+        name: { en: 'Eye Length', fr: 'Longueur de l\'oeil' },
+        description: 'Longer diameter of elliptic eye',
+        view: 'frontal',
+        // VERTICAL line spanning eye height (right eye)
+        endpoints: [[595, 270], [595, 450]],
+        offset: 30
+    },
+    ES: {
+        name: { en: 'Eye Shorter', fr: 'Largeur de l\'oeil' },
+        description: 'Shorter diameter of elliptic eye',
+        view: 'frontal',
+        // Horizontal line showing eye width at middle
+        endpoints: [[555, 360], [635, 360]],
+        offset: -25
+    },
+    SL: {
+        name: { en: 'Scape Length', fr: 'Longueur du scape' },
+        description: 'Maximum scape length, excluding condyle',
+        view: 'frontal',
+        // Along LEFT scape (antenna)
+        endpoints: [[295, 195], [140, 70]],
+        offset: -20
+    },
+    FRS: {
+        name: { en: 'Frontal Suture Distance', fr: 'Distance suture frontale' },
+        description: 'Distance between frontal carinae at base',
+        view: 'frontal',
+        // Horizontal between left and right frontal carinae (lower position)
+        endpoints: [[310, 350], [490, 350]],
+        offset: -25
+    },
+    PoOC: {
+        name: { en: 'Postocular Distance', fr: 'Distance postoculaire' },
+        description: 'Median line from occipital margin to level of posterior eye margin',
+        view: 'frontal',
+        // Vertical on median axis from posterior head margin to y-level of posterior eye margin
+        endpoints: [[400, 85], [400, 205]],
+        offset: 25
+    }
+};
+
+// SVG namespace for creating elements
+var SVG_NS = 'http://www.w3.org/2000/svg';
+
+/**
+ * Draw a dimension line with perpendicular ticks (technical drawing style)
+ * @param {SVGDocument} svgDoc - The SVG document
+ * @param {string} id - Measurement ID (e.g., 'CL')
+ * @param {Object} data - Measurement data object
+ */
+function drawMeasurement(svgDoc, id, data) {
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+
+    // Check if already drawn
+    if (svgDoc.querySelector('[data-measurement="' + id + '"]')) return;
+
+    var p1 = data.endpoints[0];
+    var p2 = data.endpoints[1];
+    var offset = data.offset || 0;
+
+    // Calculate line direction and perpendicular
+    var dx = p2[0] - p1[0];
+    var dy = p2[1] - p1[1];
+    var length = Math.sqrt(dx * dx + dy * dy);
+    var ux = dx / length;  // Unit vector along line
+    var uy = dy / length;
+    var px = -uy;  // Perpendicular unit vector
+    var py = ux;
+
+    // Offset the dimension line
+    var o1 = [p1[0] + px * offset, p1[1] + py * offset];
+    var o2 = [p2[0] + px * offset, p2[1] + py * offset];
+
+    // Create measurement group
+    var g = svgDoc.createElementNS(SVG_NS, 'g');
+    g.setAttribute('class', 'measurement');
+    g.setAttribute('data-measurement', id);
+
+    // Extension lines (from feature to dimension line)
+    if (Math.abs(offset) > 10) {
+        var ext1 = svgDoc.createElementNS(SVG_NS, 'line');
+        ext1.setAttribute('class', 'measure-line');
+        ext1.setAttribute('x1', p1[0]);
+        ext1.setAttribute('y1', p1[1]);
+        ext1.setAttribute('x2', o1[0]);
+        ext1.setAttribute('y2', o1[1]);
+        ext1.setAttribute('stroke-dasharray', '4 2');
+        ext1.setAttribute('opacity', '0.6');
+        g.appendChild(ext1);
+
+        var ext2 = svgDoc.createElementNS(SVG_NS, 'line');
+        ext2.setAttribute('class', 'measure-line');
+        ext2.setAttribute('x1', p2[0]);
+        ext2.setAttribute('y1', p2[1]);
+        ext2.setAttribute('x2', o2[0]);
+        ext2.setAttribute('y2', o2[1]);
+        ext2.setAttribute('stroke-dasharray', '4 2');
+        ext2.setAttribute('opacity', '0.6');
+        g.appendChild(ext2);
+    }
+
+    // Main dimension line
+    var line = svgDoc.createElementNS(SVG_NS, 'line');
+    line.setAttribute('class', 'measure-line');
+    line.setAttribute('x1', o1[0]);
+    line.setAttribute('y1', o1[1]);
+    line.setAttribute('x2', o2[0]);
+    line.setAttribute('y2', o2[1]);
+    g.appendChild(line);
+
+    // Perpendicular tick marks at endpoints (technical drawing style)
+    var tickLen = 12;
+    var tick1 = svgDoc.createElementNS(SVG_NS, 'line');
+    tick1.setAttribute('class', 'measure-tick');
+    tick1.setAttribute('x1', o1[0] - ux * tickLen / 2);
+    tick1.setAttribute('y1', o1[1] - uy * tickLen / 2);
+    tick1.setAttribute('x2', o1[0] + ux * tickLen / 2);
+    tick1.setAttribute('y2', o1[1] + uy * tickLen / 2);
+    g.appendChild(tick1);
+
+    var tick2 = svgDoc.createElementNS(SVG_NS, 'line');
+    tick2.setAttribute('class', 'measure-tick');
+    tick2.setAttribute('x1', o2[0] - ux * tickLen / 2);
+    tick2.setAttribute('y1', o2[1] - uy * tickLen / 2);
+    tick2.setAttribute('x2', o2[0] + ux * tickLen / 2);
+    tick2.setAttribute('y2', o2[1] + uy * tickLen / 2);
+    g.appendChild(tick2);
+
+    // Label at midpoint
+    var mid = [(o1[0] + o2[0]) / 2, (o1[1] + o2[1]) / 2];
+    // Offset label slightly from line
+    var labelOffset = 16;
+    var labelX = mid[0] + px * labelOffset;
+    var labelY = mid[1] + py * labelOffset;
+
+    // Background rect for label readability
+    var labelName = data.name[currentLang] || data.name.en;
+    var labelText = id;
+
+    var bg = svgDoc.createElementNS(SVG_NS, 'rect');
+    bg.setAttribute('class', 'measure-bg');
+    bg.setAttribute('x', labelX - 18);
+    bg.setAttribute('y', labelY - 12);
+    bg.setAttribute('width', 36);
+    bg.setAttribute('height', 18);
+    bg.setAttribute('rx', 3);
+    g.appendChild(bg);
+
+    var text = svgDoc.createElementNS(SVG_NS, 'text');
+    text.setAttribute('class', 'measure-label');
+    text.setAttribute('x', labelX);
+    text.setAttribute('y', labelY);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('data-en', data.name.en);
+    text.setAttribute('data-fr', data.name.fr);
+    text.textContent = labelText;
+    g.appendChild(text);
+
+    layer.appendChild(g);
+}
+
+/**
+ * Remove a specific measurement from SVG
+ */
+function removeMeasurement(svgDoc, id) {
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+    var existing = layer.querySelector('[data-measurement="' + id + '"]');
+    if (existing) {
+        existing.remove();
+    }
+}
+
+/**
+ * Clear all measurements from SVG
+ */
+function clearAllMeasurements(svgDoc) {
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (layer) {
+        layer.innerHTML = '';
+    }
+}
+
+/**
+ * Get the SVG document from the object element
+ */
+function getHeadSvgDoc() {
+    var svgObject = document.getElementById('head-svg-frontal');
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    return null;
+}
+
+/**
+ * Toggle a measurement on/off
+ */
+function toggleMeasurement(id, show) {
+    var svgDoc = getHeadSvgDoc();
+    if (!svgDoc) return;
+
+    // Find existing measurement group in SVG and show/hide it
+    var measureGroup = svgDoc.querySelector('[data-measurement="' + id + '"]');
+    if (measureGroup) {
+        measureGroup.style.display = show ? 'inline' : 'none';
+    }
+}
+
+// Initialize measurement checkboxes
+document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        var measureId = this.dataset.measure;
+        toggleMeasurement(measureId, this.checked);
+    });
+});
+
+// Clear all measurements button
+document.getElementById('clearMeasurements').addEventListener('click', function() {
+    // Uncheck all checkboxes and hide all measurements
+    document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+        cb.checked = false;
+        var measureId = cb.dataset.measure;
+        toggleMeasurement(measureId, false);
+    });
+});
+
+// Show all measurements button
+document.getElementById('showAllMeasurements').addEventListener('click', function() {
+    var svgDoc = getHeadSvgDoc();
+    if (!svgDoc) return;
+
+    document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+        cb.checked = true;
+        var measureId = cb.dataset.measure;
+        toggleMeasurement(measureId, true);
+    });
+});
+
+// Hide measurements panel when not on head tab or when in lateral view
+function updateMeasurementsPanelVisibility() {
+    var panel = document.getElementById('measurementsPanel');
+    var activeTab = document.querySelector('.morpho-tab.active');
+    var activeView = document.querySelector('#section-head .view-btn.active');
+
+    if (activeTab && activeTab.dataset.section === 'head' &&
+        activeView && activeView.dataset.view === 'frontal') {
+        panel.style.display = 'block';
+    } else {
+        panel.style.display = 'none';
+        // Hide measurements when leaving head frontal view
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, false);
+        });
+    }
+}
+
+// Update panel visibility on tab change
+document.querySelectorAll('.morpho-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        setTimeout(updateMeasurementsPanelVisibility, 10);
+    });
+});
+
+// Update panel visibility on view change (within head section)
+document.querySelectorAll('#section-head .view-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        setTimeout(updateMeasurementsPanelVisibility, 10);
+    });
+});
+
+// Initial visibility check
+setTimeout(updateMeasurementsPanelVisibility, 100);
+
+// Update measurement labels when language changes
+var originalUpdateLanguage = updateLanguage;
+updateLanguage = function() {
+    originalUpdateLanguage();
+
+    // Update measurement panel elements
+    document.querySelectorAll('#measurementsPanel [data-en][data-fr]').forEach(function(el) {
+        if (el.classList.contains('name')) {
+            el.textContent = el.dataset[currentLang];
+        } else {
+            el.textContent = el.dataset[currentLang];
+        }
+    });
+
+    // Update labels in SVG (if measurements are shown)
+    var svgDoc = getHeadSvgDoc();
+    if (svgDoc) {
+        svgDoc.querySelectorAll('.measure-label[data-en][data-fr]').forEach(function(el) {
+            // Labels just show abbreviation, no need to change
+        });
+    }
+};
 </script>
 
 <?php include("php/footer.php"); ?>
