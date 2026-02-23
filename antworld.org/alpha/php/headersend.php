@@ -1,6 +1,5 @@
 <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 <meta name="author" content="Ruiz Georges">
-<!-- IE9 and below no longer supported -->
 <link rel="stylesheet" href="../css/css_antworld.css"/>
 <link rel="stylesheet" href="../css/antworld-icons.css"/>
 <meta name="description" content="AntWorld Identification Keys">

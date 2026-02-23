@@ -4,7 +4,6 @@
 <!-- System font stack - no external requests -->
 <link rel="stylesheet" href="css/css_antworld.css" type="text/css">
 <link rel="stylesheet" href="css/antworld-icons.css" type="text/css">
-<!-- IE9 and below no longer supported (0% market share) -->
 <!-- Theme Toggle Script - load early to prevent flash -->
 <script>
 (function() {

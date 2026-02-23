@@ -126,52 +126,84 @@
 .data-notice a {
     color: var(--accent-primary);
 }
+/* Sidebar layout */
+.geo-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+.geo-main {
+    flex: 1;
+    min-width: 0;
+}
+.geo-sidebar {
+    flex: 0 0 280px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 15px;
+    position: sticky;
+    top: 20px;
+}
+.geo-sidebar h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+.geo-sidebar .region-filters {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+.geo-sidebar .region-checkbox {
+    font-size: 13px;
+    padding: 4px 8px;
+}
+.geo-sidebar .filter-label {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.geo-sidebar .export-controls {
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+}
+.geo-sidebar .export-btn {
+    min-width: auto;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    min-height: 36px;
+    margin: 0;
+}
+.geo-sidebar .chart-btn {
+    padding: 4px 10px;
+    font-size: 13px;
+}
+@media (max-width: 900px) {
+    .geo-layout {
+        flex-direction: column;
+    }
+    .geo-sidebar {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+}
 </style>
 </head>
     <body>
 <article>
 <h2 class="h2one">Ant diversity by country</h2>
 
-<div class="region-filters">
-    <span class="filter-label">Biogeographic Realms:</span>
-    <label class="region-checkbox"><input type="checkbox" id="palearctic" checked onchange="updateCharts()"> Palearctic</label>
-    <label class="region-checkbox"><input type="checkbox" id="afrotropical" onchange="updateCharts()"> Afrotropical</label>
-    <label class="region-checkbox"><input type="checkbox" id="nearctic" onchange="updateCharts()"> Nearctic</label>
-    <label class="region-checkbox"><input type="checkbox" id="neotropical" onchange="updateCharts()"> Neotropical</label>
-    <label class="region-checkbox"><input type="checkbox" id="indomalayan" onchange="updateCharts()"> Indomalayan</label>
-    <label class="region-checkbox"><input type="checkbox" id="australasian" onchange="updateCharts()"> Australasian</label>
-    <button class="chart-btn" onclick="selectAllRegions()" style="margin-left:15px;">All</button>
-    <button class="chart-btn" onclick="clearAllRegions()">None</button>
-</div>
-
-<div class="region-filters">
-    <span class="filter-label">Show Data:</span>
-    <label class="region-checkbox"><input type="checkbox" id="show_species" checked onchange="updateCharts()"> Species</label>
-    <label class="region-checkbox"><input type="checkbox" id="show_genera" checked onchange="updateCharts()"> Genera</label>
-    <label class="region-checkbox"><input type="checkbox" id="show_subfamilies" checked onchange="updateCharts()"> Subfamilies</label>
-    <span style="margin-left: 20px; border-left: 1px solid var(--border-color); padding-left: 20px;">
-        <span class="filter-label">Scale:</span>
-        <label class="region-checkbox"><input type="radio" name="scale" id="scale_linear" checked onchange="updateCharts()"> Linear</label>
-        <label class="region-checkbox"><input type="radio" name="scale" id="scale_log" onchange="updateCharts()"> Logarithmic</label>
-        <label class="region-checkbox"><input type="radio" name="scale" id="scale_percent" onchange="updateCharts()"> Percentage</label>
-    </span>
-</div>
-
-<p class="data-notice">Data sources: <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a>, <a href="https://www.antwiki.org/" target="_blank">AntWiki</a>, <a href="https://antmaps.org/" target="_blank">AntMaps.org</a> | <span id="country-counter">0 of 0 countries</span> selected (showing top 15)</p>
-<p class="chart-note">Note: Percentages show each country's count relative to global totals (<a href="https://www.antwiki.org/" target="_blank" style="color:#888;">~14,000 species, ~340 genera, 17 subfamilies</a>). These are non-cumulative: a single taxon may be recorded in multiple countries.</p>
-<p class="chart-note">Biogeographic realms follow <a href="https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world" target="_blank" style="color:#888;">WWF Terrestrial Ecoregions</a>. Note: Mexico spans the Nearctic-Neotropical interface (<a href="https://pubmed.ncbi.nlm.nih.gov/31828784/" target="_blank" style="color:#888;">Dáttilo et al. 2020</a>).</p>
-
-<div class="export-controls">
-    <button class="export-btn" onclick="exportGeoDataCSV()">
-        Download <span class="format">CSV</span>
-    </button>
-    <button class="export-btn" onclick="exportGeoDataJSON()">
-        Download <span class="format">JSON</span>
-    </button>
-</div>
-
+<div class="geo-layout">
+<div class="geo-main">
 <p4>
-<h3 class="h2one">Species Richness by Country</h3>
+<h3 class="h2one" id="chart-title">Species Richness by Country</h3>
 <div id="main_chart" style="width:100%; height:500px;"></div>
 <div class="chart-export-buttons">
     <button class="chart-btn" onclick="exportChartLocal('png')">PNG</button>
@@ -283,10 +315,39 @@ function getFilteredData() {
     });
 }
 
+function updateChartTitle() {
+    var showSpecies = document.getElementById('show_species').checked;
+    var showGenera = document.getElementById('show_genera').checked;
+    var showSubfamilies = document.getElementById('show_subfamilies').checked;
+
+    var levels = [];
+    if (showSpecies) levels.push('species');
+    if (showGenera) levels.push('genus');
+    if (showSubfamilies) levels.push('subfamily');
+
+    var titleEl = document.getElementById('chart-title');
+
+    // If none or all selected, show all three levels
+    if (levels.length === 0 || levels.length === 3) {
+        titleEl.textContent = 'Richness at species, genus and subfamily level';
+    } else if (levels.length === 1) {
+        // Single level - capitalize first letter
+        var level = levels[0];
+        var singular = level.charAt(0).toUpperCase() + level.slice(1);
+        titleEl.textContent = singular + ' Richness by Country';
+    } else {
+        // Two levels
+        titleEl.textContent = 'Richness at ' + levels[0] + ' and ' + levels[1] + ' level';
+    }
+}
+
 function updateCharts() {
     var filtered = getFilteredData();
     var isLight = document.documentElement.classList.contains('light-mode');
     var textColor = isLight ? '#1a1a2e' : '#ffffff';
+
+    // Update chart title based on selected taxonomic levels
+    updateChartTitle();
 
     // Update country counter (195 = approx total countries on Earth)
     var totalCountriesOnEarth = 195;
@@ -427,11 +488,26 @@ function clearAllRegions() {
 function exportChartLocal(format) {
     if (!mainChart) return;
 
-    // Get SVG from chart
+    // Get current scale settings to preserve in export
+    var useLogScale = document.getElementById('scale_log').checked;
+    var usePercentScale = document.getElementById('scale_percent').checked;
+
+    // Build yAxis export options based on current settings
+    var yAxisOptions = {
+        type: useLogScale ? 'logarithmic' : 'linear',
+        min: useLogScale ? 1 : 0,
+        labels: {
+            style: {color: '#1a1a2e'},
+            formatter: usePercentScale ? function() { return this.value + '%'; } : null
+        },
+        title: {style: {color: '#1a1a2e'}}
+    };
+
+    // Get SVG from chart with preserved scale type and formatters
     var svg = mainChart.getSVG({
         chart: {backgroundColor: '#ffffff'},
         xAxis: {labels: {style: {color: '#1a1a2e'}}},
-        yAxis: {labels: {style: {color: '#1a1a2e'}}},
+        yAxis: yAxisOptions,
         legend: {itemStyle: {color: '#1a1a2e'}}
     });
 
@@ -482,7 +558,54 @@ function downloadBlob(blob, filename) {
 }
 </script>
 
+<p class="data-notice">Data sources: <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a>, <a href="https://www.antwiki.org/" target="_blank">AntWiki</a>, <a href="https://antmaps.org/" target="_blank">AntMaps.org</a> | <span id="country-counter">0 of 0 countries</span> selected (showing top 15)</p>
+<p class="chart-note">Note: Percentages show each country's count relative to global totals (<a href="https://www.antwiki.org/" target="_blank" style="color:#888;">~14,000 species, ~340 genera, 17 subfamilies</a>). These are non-cumulative: a single taxon may be recorded in multiple countries.</p>
+<p class="chart-note">Biogeographic realms follow <a href="https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world" target="_blank" style="color:#888;">WWF Terrestrial Ecoregions</a>. Note: Mexico spans the Nearctic-Neotropical interface (<a href="https://pubmed.ncbi.nlm.nih.gov/31828784/" target="_blank" style="color:#888;">Dáttilo et al. 2020</a>).</p>
+
 </p4>
+</div><!-- end geo-main -->
+
+<!-- Sidebar with controls -->
+<div class="geo-sidebar">
+    <h4>Biogeographic Realms</h4>
+    <div class="region-filters">
+        <label class="region-checkbox"><input type="checkbox" id="palearctic" checked onchange="updateCharts()"> Palearctic</label>
+        <label class="region-checkbox"><input type="checkbox" id="afrotropical" onchange="updateCharts()"> Afrotropical</label>
+        <label class="region-checkbox"><input type="checkbox" id="nearctic" onchange="updateCharts()"> Nearctic</label>
+        <label class="region-checkbox"><input type="checkbox" id="neotropical" onchange="updateCharts()"> Neotropical</label>
+        <label class="region-checkbox"><input type="checkbox" id="indomalayan" onchange="updateCharts()"> Indomalayan</label>
+        <label class="region-checkbox"><input type="checkbox" id="australasian" onchange="updateCharts()"> Australasian</label>
+        <div style="display:flex; gap:5px; margin-top:5px;">
+            <button class="chart-btn" onclick="selectAllRegions()">All</button>
+            <button class="chart-btn" onclick="clearAllRegions()">None</button>
+        </div>
+    </div>
+
+    <h4>Show Data</h4>
+    <div class="region-filters">
+        <label class="region-checkbox"><input type="checkbox" id="show_species" checked onchange="updateCharts()"> Species</label>
+        <label class="region-checkbox"><input type="checkbox" id="show_genera" checked onchange="updateCharts()"> Genera</label>
+        <label class="region-checkbox"><input type="checkbox" id="show_subfamilies" checked onchange="updateCharts()"> Subfamilies</label>
+    </div>
+
+    <h4>Scale</h4>
+    <div class="region-filters">
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_linear" checked onchange="updateCharts()"> Linear</label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_log" onchange="updateCharts()"> Logarithmic</label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_percent" onchange="updateCharts()"> Percentage</label>
+    </div>
+
+    <h4>Export Data</h4>
+    <div class="export-controls">
+        <button class="export-btn" onclick="exportGeoDataCSV()">
+            Download <span class="format">CSV</span>
+        </button>
+        <button class="export-btn" onclick="exportGeoDataJSON()">
+            Download <span class="format">JSON</span>
+        </button>
+    </div>
+</div><!-- end geo-sidebar -->
+</div><!-- end geo-layout -->
 
 <script>
 // Export functions - use filtered data based on selected regions
