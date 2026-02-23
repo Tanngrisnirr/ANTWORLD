@@ -19,8 +19,8 @@
   <sodipodi:namedview
      inkscape:document-units="px"
      inkscape:zoom="1.4766397"
-     inkscape:cx="421.56527"
-     inkscape:cy="310.8409"
+     inkscape:cx="421.56526"
+     inkscape:cy="310.84089"
      id="namedview1"
      pagecolor="#ffffff"
      bordercolor="#000000"
@@ -34,7 +34,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer-labels"
+     inkscape:current-layer="layer-background"
      showguides="true" />
   <defs
      id="defs1">
@@ -212,7 +212,7 @@
       .measurement .measure-tick { stroke: #ff0000; stroke-width: 2; }
       .measurement .measure-label {
         font-family: sans-serif;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
         fill: #ff0000;
         stroke: #000000;
@@ -530,7 +530,7 @@
        class="label"
        data-feature="scape"
        id="g9"
-       transform="translate(30.446137,4.151746)"
+       transform="translate(27.060071,52.233888)"
        inkscape:label="Scapus.grp">
       <circle
          class="label-point"
@@ -563,7 +563,7 @@
        data-feature="funiculus"
        id="g10"
        inkscape:label="Funiculus,grp"
-       transform="translate(17.060723,-7.5825435)">
+       transform="translate(31.959415,50.657798)">
       <circle
          class="label-point"
          cx="647.03546"
@@ -833,38 +833,42 @@
       <line
          class="measure-line"
          x1="555"
-         y1="360"
+         y1="350.51901"
          x2="635"
-         y2="360"
+         y2="350.51901"
          id="ES-line"
          inkscape:label="ES.line"
          style="stroke:#ff0000;stroke-width:2" />
       <line
          class="measure-tick"
          x1="555"
-         y1="350"
+         y1="340.51901"
          x2="555"
-         y2="370"
+         y2="360.51901"
          id="ES-tick1"
          inkscape:label="ES.tick1"
          style="stroke:#ff0000;stroke-width:2" />
       <line
          class="measure-tick"
          x1="635"
-         y1="350"
+         y1="340.51901"
          x2="635"
-         y2="370"
+         y2="360.51901"
          id="ES-tick2"
          inkscape:label="ES.tick2"
          style="stroke:#ff0000;stroke-width:2" />
       <text
          class="measure-label"
-         x="595"
-         y="340"
-         text-anchor="middle"
-         id="ES-label"
+         x="505.78067"
+         y="427.95657"
+         id="EL-label-5"
          inkscape:label="ES.metric"
-         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#ff0000">ES</text>
+         transform="scale(1.142329,0.87540453)"
+         style="font-weight:bold;font-size:15.9922px;font-family:sans-serif;display:inline;fill:#ff0000;stroke:#000000;stroke-width:1.1423;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan3"
+           x="505.78067"
+           y="427.95657">ES</tspan></text>
     </g>
     <!-- FRS: Frontal Suture Distance - between frontal carinae -->
     <g

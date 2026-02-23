@@ -139,8 +139,10 @@
 .genera-main-chart .chart-filters {
     margin: 0;
     padding: 10px;
-    max-height: 200px;
-    overflow-y: auto;
+}
+#genera-rest-filters {
+    max-height: none;
+    overflow-y: visible;
 }
 .chart-total {
     text-align: center;
@@ -170,34 +172,20 @@
     background: var(--accent-primary);
     color: white;
 }
-/* Genera dual chart layout */
+/* Genera dual chart layout - stacked column */
 .genera-charts-wrapper {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
 }
 .genera-main-chart {
-    flex: 0 0 800px;
-    width: 800px;
-    min-width: 800px;
+    width: 100%;
     max-width: 800px;
     overflow: visible;
 }
 .genera-main-chart:last-child {
-    flex: 0 0 780px;
-    width: 780px;
-    min-width: 780px;
-    max-width: 780px;
-}
-@media (max-width: 1700px) {
-    .genera-charts-wrapper {
-        flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center;
-        gap: 60px;
-    }
+    max-width: 800px;
 }
 /* Display options */
 .display-options {
@@ -232,38 +220,154 @@
 .display-option input {
     display: none;
 }
+/* Sidebar layout */
+.tax-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+}
+.tax-main {
+    flex: 1;
+    min-width: 0;
+    overflow: visible;
+}
+.tax-sidebar-wrapper {
+    flex: 0 0 280px;
+    width: 280px;
+    min-width: 280px;
+}
+.tax-sidebar {
+    width: 280px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 15px;
+    box-sizing: border-box;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    z-index: 100;
+}
+.tax-sidebar.sticky-active {
+    position: fixed;
+    top: 80px;
+}
+/* Chart background toggle */
+.bg-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.bg-toggle-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.bg-toggle-btn.dark {
+    background: #1a1a2e;
+    color: white;
+}
+.bg-toggle-btn.light {
+    background: #ffffff;
+    color: #1a1a2e;
+}
+.bg-toggle-btn.active {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px var(--accent-primary);
+}
+/* Chart background styles */
+.chart-section.light-bg {
+    background: #ffffff;
+    border-radius: 12px;
+}
+.chart-section.light-bg svg text {
+    fill: #1a1a2e !important;
+}
+.chart-section.light-bg .evenly-spaced-labels text {
+    fill: #1a1a2e !important;
+}
+.chart-section.light-bg .evenly-spaced-labels line {
+    stroke: #1a1a2e !important;
+}
+.chart-section.light-bg .evenly-spaced-labels circle {
+    fill: #1a1a2e !important;
+}
+.tax-sidebar h4 {
+    margin: 0 0 15px 0;
+    color: var(--text-primary);
+    font-size: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+.tax-sidebar .export-controls {
+    flex-direction: column;
+    margin: 0 0 20px 0;
+    padding: 0;
+    gap: 10px;
+}
+.tax-sidebar .export-btn {
+    width: 100%;
+    margin: 0;
+    min-width: unset;
+}
+.tax-sidebar .display-options {
+    flex-direction: column;
+    margin: 0;
+    padding: 10px;
+    gap: 8px;
+}
+.tax-sidebar .display-option {
+    width: 100%;
+    justify-content: center;
+}
+@media (max-width: 1200px) {
+    .tax-layout {
+        flex-direction: column;
+    }
+    .tax-sidebar-wrapper {
+        flex: none;
+        width: 100%;
+        min-width: unset;
+    }
+    .tax-sidebar {
+        width: 100%;
+        position: static !important;
+    }
+    .tax-sidebar .export-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tax-sidebar .export-btn {
+        width: auto;
+        min-width: 180px;
+    }
+    .tax-sidebar .display-options {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tax-sidebar .display-option {
+        width: auto;
+    }
+}
 </style>
 </head>
     <body>
 <article>
 <h2 class="h2one">Taxonomical Ant diversity</h2>
 
-<div class="export-controls">
-    <button class="export-btn" onclick="exportAllDataCSV()">
-        Download All <span class="format">CSV</span>
-    </button>
-    <button class="export-btn" onclick="exportAllDataJSON()">
-        Download All <span class="format">JSON</span>
-    </button>
-</div>
+<div class="tax-layout">
+<div class="tax-main">
 
 <div class="chart-tabs">
     <button class="chart-tab active" onclick="showChart('subfamilies')">Subfamilies</button>
     <button class="chart-tab" onclick="showChart('tribes')">Tribes</button>
     <button class="chart-tab" onclick="showChart('genera')">Genera</button>
-</div>
-
-<div class="display-options">
-    <span style="color: var(--text-muted); margin-right: 10px;">Display:</span>
-    <label class="display-option active" onclick="setDisplayMode('percentage')">
-        <input type="radio" name="displayMode" value="percentage" checked> Percentage
-    </label>
-    <label class="display-option" onclick="setDisplayMode('value')">
-        <input type="radio" name="displayMode" value="value"> Numbers
-    </label>
-    <label class="display-option" onclick="setDisplayMode('both')">
-        <input type="radio" name="displayMode" value="both"> Both
-    </label>
 </div>
 
 <p4>
@@ -273,17 +377,6 @@
 <div class="chart-filters" id="subfamilies-filters"></div>
 <div class="chart-section">
 <div id="pieSubfamilies"></div>
-<div class="chart-export-row">
-    <button class="export-btn" onclick="exportChartSVG('pieSubfamilies', 'subfamilies_chart')">
-        Download Chart <span class="format">SVG</span>
-    </button>
-    <button class="export-btn" onclick="exportChartPNG('pieSubfamilies', 'subfamilies_chart')">
-        Download Chart <span class="format">PNG</span>
-    </button>
-    <button class="export-btn" onclick="exportDataCSV(subfamiliesData, 'subfamilies_data')">
-        Download Data <span class="format">CSV</span>
-    </button>
-</div>
 <script>
 var subfamiliesData = [
 {"label": "Myrmicinae","value": 426,"color": "#3924c1"},
@@ -319,17 +412,6 @@ var pieSubfamilies = new d3pie("pieSubfamilies", {
 <div class="chart-filters" id="tribes-filters"></div>
 <div class="chart-section">
 <div id="pieTribes"></div>
-<div class="chart-export-row">
-    <button class="export-btn" onclick="exportChartSVG('pieTribes', 'tribes_chart')">
-        Download Chart <span class="format">SVG</span>
-    </button>
-    <button class="export-btn" onclick="exportChartPNG('pieTribes', 'tribes_chart')">
-        Download Chart <span class="format">PNG</span>
-    </button>
-    <button class="export-btn" onclick="exportDataCSV(tribesData, 'tribes_data')">
-        Download Data <span class="format">CSV</span>
-    </button>
-</div>
 <script>
 var tribesData = [
 {"label": "Aenictini","value": 35,"color": "#3924c1"},
@@ -429,17 +511,6 @@ Tapinoma 14
             <div class="chart-filters" id="genera-rest-filters"></div>
         </div>
     </div>
-</div>
-<div class="chart-export-row">
-    <button class="export-btn" onclick="exportChartSVG('pieGenera', 'genera_chart')">
-        Download Main <span class="format">SVG</span>
-    </button>
-    <button class="export-btn" onclick="exportChartSVG('pieGeneraRestEven', 'genera_rest_chart')">
-        Download Rest <span class="format">SVG</span>
-    </button>
-    <button class="export-btn" onclick="exportAllGeneraCSV()">
-        Download All Data <span class="format">CSV</span>
-    </button>
 </div>
 <script>
 // Spectrograph-adjacent colors for subfamilies (Dark/Saturated → Light/Bright)
@@ -559,7 +630,7 @@ var pieGenera = new d3pie("pieGenera", {
 
 // Pull-out of grey segment is handled in showChart() when Genera tab is clicked
 
-// Custom evenly-spaced labels system
+// Custom labels with lines attached to actual pie segments
 function addEvenlySpacedLabels(containerId, data, total) {
     var svg = d3.select("#" + containerId + " svg");
     var n = data.length;
@@ -568,40 +639,58 @@ function addEvenlySpacedLabels(containerId, data, total) {
     var centerX = 400;
     var centerY = 242.5;
     var pieOuterRadius = 136.5;
-    var labelRadius = pieOuterRadius + 50;
-    var angleOffset = 22.5;  // Slight angle for visual interest
+    var labelRadius = pieOuterRadius + 55;
 
     var labelGroup = svg.append("g").attr("class", "evenly-spaced-labels");
 
+    // Calculate actual segment angles based on data values
+    // d3pie starts at top (-90°) and goes clockwise, sorted by value-desc
+    var cumulativeAngle = -90; // Start at top
+
     data.forEach(function(item, i) {
-        // Evenly spaced angle for this label (start at top: -90°)
-        var baseAngle = (i / n) * 360 - 90;
-        var startAngleRad = baseAngle * Math.PI / 180;
-        var endAngleRad = (baseAngle + angleOffset) * Math.PI / 180;
+        // Calculate this segment's angular size based on its value
+        var segmentAngle = (item.value / total) * 360;
 
-        // Line starts at pie edge, ends at label with slight angular offset
-        var lineStartX = centerX + pieOuterRadius * Math.cos(startAngleRad);
-        var lineStartY = centerY + pieOuterRadius * Math.sin(startAngleRad);
-        var labelX = centerX + labelRadius * Math.cos(endAngleRad);
-        var labelY = centerY + labelRadius * Math.sin(endAngleRad);
+        // Middle angle of this segment (where the line should attach)
+        var segmentMidAngle = cumulativeAngle + (segmentAngle / 2);
+        var segmentMidRad = segmentMidAngle * Math.PI / 180;
 
-        // Draw angled line
+        // Label positioned at same angle as segment (not evenly spaced)
+        var labelAngleRad = segmentMidRad;
+
+        // Line starts at the actual segment on the pie edge
+        var lineStartX = centerX + pieOuterRadius * Math.cos(segmentMidRad);
+        var lineStartY = centerY + pieOuterRadius * Math.sin(segmentMidRad);
+
+        // Label position (at segment angle, close to segment)
+        var labelX = centerX + labelRadius * Math.cos(labelAngleRad);
+        var labelY = centerY + labelRadius * Math.sin(labelAngleRad);
+
+        // Draw line from segment to label
         labelGroup.append("line")
             .attr("x1", lineStartX).attr("y1", lineStartY)
             .attr("x2", labelX).attr("y2", labelY)
-            .attr("stroke", item.color).attr("stroke-width", 1).attr("opacity", 0.8);
+            .attr("stroke", item.color).attr("stroke-width", 1.5).attr("opacity", 0.9);
 
-        // Position label text (use end angle for positioning)
+        // Small dot at segment attachment point
+        labelGroup.append("circle")
+            .attr("cx", lineStartX).attr("cy", lineStartY)
+            .attr("r", 3).attr("fill", item.color);
+
+        // Position label text
         var pct = ((item.value / total) * 100).toFixed(1);
-        var normalizedAngle = ((baseAngle + angleOffset + 90) % 360 + 360) % 360;
+        var normalizedAngle = ((segmentMidAngle + 90) % 360 + 360) % 360;
         var textAnchor = normalizedAngle > 180 ? "end" : "start";
-        var offsetX = normalizedAngle > 180 ? -5 : 5;
+        var offsetX = normalizedAngle > 180 ? -8 : 8;
 
         labelGroup.append("text")
             .attr("x", labelX + offsetX).attr("y", labelY + 4)
             .attr("text-anchor", textAnchor)
-            .attr("fill", "white").attr("font-size", "16px").attr("font-family", "arial")
+            .attr("fill", "white").attr("font-size", "14px").attr("font-family", "arial")
             .text(item.label + " " + pct + "%");
+
+        // Move to next segment
+        cumulativeAngle += segmentAngle;
     });
 }
 
@@ -900,6 +989,49 @@ function showChart(chartType) {
             }
             alignChartTitles();
         }, 200);
+        // Enable sticky sidebar for genera
+        enableStickySidebar(true);
+    } else {
+        // Disable sticky sidebar for other tabs
+        enableStickySidebar(false);
+    }
+}
+
+// Sticky sidebar for genera only
+var stickyEnabled = false;
+var sidebarScrollHandler = null;
+
+function enableStickySidebar(enable) {
+    var sidebar = document.querySelector('.tax-sidebar');
+    var wrapper = document.querySelector('.tax-sidebar-wrapper');
+    if (!sidebar || !wrapper) return;
+
+    stickyEnabled = enable;
+
+    if (enable) {
+        // Add scroll handler
+        if (!sidebarScrollHandler) {
+            sidebarScrollHandler = function() {
+                if (!stickyEnabled) return;
+
+                var scrollY = window.scrollY || window.pageYOffset;
+                var wrapperRect = wrapper.getBoundingClientRect();
+                var wrapperTop = wrapper.offsetTop;
+                var headerOffset = 80;
+
+                if (wrapperRect.top < headerOffset) {
+                    sidebar.classList.add('sticky-active');
+                } else {
+                    sidebar.classList.remove('sticky-active');
+                }
+            };
+            window.addEventListener('scroll', sidebarScrollHandler);
+        }
+        // Trigger initial check
+        sidebarScrollHandler();
+    } else {
+        // Remove sticky class
+        sidebar.classList.remove('sticky-active');
     }
 }
 
@@ -1089,12 +1221,21 @@ function exportChartSVG(containerId, filename) {
     var width = svg.getAttribute('width') || svg.width.baseVal.value || 800;
     var height = svg.getAttribute('height') || svg.height.baseVal.value || 600;
 
+    // Use current background setting
+    var bgColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#ffffff' : '#1a1a2e';
+    var textColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#1a1a2e' : 'white';
+
     // Create background rectangle as first element
     var bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     bgRect.setAttribute('width', width);
     bgRect.setAttribute('height', height);
-    bgRect.setAttribute('fill', '#1a1a2e');
+    bgRect.setAttribute('fill', bgColor);
     svgClone.insertBefore(bgRect, svgClone.firstChild);
+
+    // Update text colors in clone
+    svgClone.querySelectorAll('text').forEach(function(text) {
+        text.setAttribute('fill', textColor);
+    });
 
     var serializer = new XMLSerializer();
     var svgString = serializer.serializeToString(svgClone);
@@ -1111,8 +1252,18 @@ function exportChartPNG(containerId, filename) {
         return;
     }
 
+    // Clone SVG and apply background/text colors
+    var svgClone = svg.cloneNode(true);
+    var bgColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#ffffff' : '#1a1a2e';
+    var textColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#1a1a2e' : 'white';
+
+    // Update text colors in clone for PNG rendering
+    svgClone.querySelectorAll('text').forEach(function(text) {
+        text.setAttribute('fill', textColor);
+    });
+
     var serializer = new XMLSerializer();
-    var svgString = serializer.serializeToString(svg);
+    var svgString = serializer.serializeToString(svgClone);
     var svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
     var url = URL.createObjectURL(svgBlob);
 
@@ -1122,7 +1273,7 @@ function exportChartPNG(containerId, filename) {
         canvas.width = svg.width.baseVal.value || 800;
         canvas.height = svg.height.baseVal.value || 600;
         var ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#1a1a2e';
+        ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0);
 
@@ -1206,9 +1357,175 @@ function downloadFile(content, filename, mimeType) {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
+
+// Get current active chart info
+function getCurrentChart() {
+    var activeContainer = document.querySelector('.chart-container.active');
+    if (!activeContainer) return null;
+
+    var id = activeContainer.id;
+    if (id === 'subfamilies-container') return { containerId: 'pieSubfamilies', name: 'subfamilies_chart' };
+    if (id === 'tribes-container') return { containerId: 'pieTribes', name: 'tribes_chart' };
+    if (id === 'genera-container') return { containerId: 'pieGenera', name: 'genera_chart' };
+    return null;
+}
+
+function exportCurrentChartSVG() {
+    var chart = getCurrentChart();
+    if (chart) exportChartSVG(chart.containerId, chart.name);
+}
+
+function exportCurrentChartPNG() {
+    var chart = getCurrentChart();
+    if (chart) exportChartPNG(chart.containerId, chart.name);
+}
+
+function exportCurrentChartJPEG() {
+    var chart = getCurrentChart();
+    if (chart) exportChartJPEG(chart.containerId, chart.name);
+}
+
+function exportChartJPEG(containerId, filename) {
+    var container = document.getElementById(containerId);
+    var svg = container.querySelector('svg');
+    if (!svg) {
+        alert('Chart not found');
+        return;
+    }
+
+    // Clone SVG and apply background/text colors
+    var svgClone = svg.cloneNode(true);
+    var bgColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#ffffff' : '#1a1a2e';
+    var textColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#1a1a2e' : 'white';
+
+    // Update text colors in clone
+    svgClone.querySelectorAll('text').forEach(function(text) {
+        text.setAttribute('fill', textColor);
+    });
+
+    var serializer = new XMLSerializer();
+    var svgString = serializer.serializeToString(svgClone);
+    var svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+    var url = URL.createObjectURL(svgBlob);
+
+    var img = new Image();
+    img.onload = function() {
+        var canvas = document.createElement('canvas');
+        canvas.width = svg.width.baseVal.value || 800;
+        canvas.height = svg.height.baseVal.value || 600;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        var jpegUrl = canvas.toDataURL('image/jpeg', 0.95);
+        var a = document.createElement('a');
+        a.href = jpegUrl;
+        a.download = filename + '.jpg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    img.src = url;
+}
 </script>
 
 </p4>
+
+</div><!-- end tax-main -->
+
+<div class="tax-sidebar-wrapper">
+<div class="tax-sidebar">
+    <h4>Chart Background</h4>
+    <div class="bg-toggle">
+        <button class="bg-toggle-btn dark active" onclick="setChartBackground('dark')">Dark</button>
+        <button class="bg-toggle-btn light" onclick="setChartBackground('light')">Light</button>
+    </div>
+
+    <h4>Display Mode</h4>
+    <div class="display-options">
+        <label class="display-option active" onclick="setDisplayMode('percentage')">
+            <input type="radio" name="displayMode" value="percentage" checked> Percentage
+        </label>
+        <label class="display-option" onclick="setDisplayMode('value')">
+            <input type="radio" name="displayMode" value="value"> Numbers
+        </label>
+        <label class="display-option" onclick="setDisplayMode('both')">
+            <input type="radio" name="displayMode" value="both"> Both
+        </label>
+    </div>
+
+    <h4>Export Chart</h4>
+    <div class="export-controls">
+        <button class="export-btn" onclick="exportCurrentChartSVG()">
+            Chart <span class="format">SVG</span>
+        </button>
+        <button class="export-btn" onclick="exportCurrentChartPNG()">
+            Chart <span class="format">PNG</span>
+        </button>
+        <button class="export-btn" onclick="exportCurrentChartJPEG()">
+            Chart <span class="format">JPEG</span>
+        </button>
+    </div>
+
+    <h4>Export Data</h4>
+    <div class="export-controls">
+        <button class="export-btn" onclick="exportAllDataCSV()">
+            Download All <span class="format">CSV</span>
+        </button>
+        <button class="export-btn" onclick="exportAllDataJSON()">
+            Download All <span class="format">JSON</span>
+        </button>
+    </div>
+</div><!-- end tax-sidebar -->
+</div><!-- end tax-sidebar-wrapper -->
+
+<script>
+var currentChartBg = 'dark';
+
+function setChartBackground(mode) {
+    currentChartBg = mode;
+    var sections = document.querySelectorAll('.chart-section');
+    var textColor = mode === 'light' ? '#1a1a2e' : 'white';
+
+    // Update toggle buttons
+    document.querySelectorAll('.bg-toggle-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.classList.contains(mode)) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Update chart sections
+    sections.forEach(function(section) {
+        if (mode === 'light') {
+            section.classList.add('light-bg');
+        } else {
+            section.classList.remove('light-bg');
+        }
+    });
+
+    // Update all SVG text elements
+    document.querySelectorAll('.chart-section svg text').forEach(function(text) {
+        text.style.fill = textColor;
+    });
+
+    // Update d3pie labels and titles
+    document.querySelectorAll('.chart-section [class*="_title"], .chart-section [class*="_subtitle"]').forEach(function(el) {
+        el.style.fill = textColor;
+    });
+
+    // Update evenly spaced labels
+    document.querySelectorAll('.evenly-spaced-labels text').forEach(function(text) {
+        text.style.fill = textColor;
+    });
+}
+
+</script>
+
+</div><!-- end tax-layout -->
+
 <div style="clear:both;"></div>
 </article>
 <?php include("php/footer.php"); ?>

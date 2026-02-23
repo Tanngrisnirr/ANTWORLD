@@ -92,6 +92,11 @@ $idPath = $toId;
 <li class="worker"><a href="<?php echo $base; ?>sources.html" title="Sources">
 	<span class="icon icon-books"></span><span class="scent">Sources</span></a></li>
 <li class="worker">
+	<button class="lang-toggle" id="langToggleNav" title="Toggle EN/FR" aria-label="Toggle language">
+		<span class="lang-text">EN</span>
+	</button>
+</li>
+<li class="worker">
 	<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" aria-label="Toggle theme">
 		<span class="theme-icon theme-icon-moon"></span>
 		<span class="theme-switch"></span>

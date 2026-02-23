@@ -13,24 +13,6 @@ if ($inSpecies) {
 <script src="<?php echo $jsPath; ?>jquery-3.1.1.min.js"></script>
 <script>
 $(document).ready(function(){
-	// Simple easing fallback if plugin not loaded
-	if (!jQuery.easing.easeInOutQuint) {
-		jQuery.easing.easeInOutQuint = function(x, t, b, c, d) {
-			if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
-			return c/2*((t-=2)*t*t*t*t + 2) + b;
-		};
-	}
-	jQuery.easing.def = 'easeInOutQuint';
-
-	// Animations
-	$(".h2one").animate({left: '18%', opacity: '1.0'}, 1700);
-	$(".h2two").delay(500).animate({left: '18%', opacity: '1.0'}, 1700);
-	$(".h2three").delay(1000).animate({left: '18%', opacity: '1.0'}, 1700);
-	$(".h2four").animate({left: '18%', opacity: '1.0'}, 1700);
-	$(".pone").animate({right: '13%', opacity: '1.0'}, 2000);
-	$(".ptwo").delay(500).animate({right: '13%', opacity: '1.0'}, 2000);
-	$(".pthree").delay(1000).animate({right: '13%', opacity: '1.0'}, 2000);
-
 	// Page interactions
 	$(".group1, .group2, .group3, .group4, .fr, .active_olivier, .active_example").hide();
 
