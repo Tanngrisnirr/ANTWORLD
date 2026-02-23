@@ -157,25 +157,25 @@ th {background-color: var(--bg-secondary); text-align: center; opacity:0.85;
     <body>
 <article>
 <?php include("php/top.php"); ?>
-<h2 class="h2one">Ant diversity</h2>
+<h2 class="h2one"><?= t('list.title') ?></h2>
 
 <div class="export-controls">
-    <input type="text" class="filter-input" id="speciesFilter" placeholder="Search species, genus, or subfamily..." onkeyup="filterSpecies()">
+    <input type="text" class="filter-input" id="speciesFilter" placeholder="<?= t('list.search_placeholder') ?>" onkeyup="filterSpecies()">
     <span class="species-count" id="speciesCount"></span>
     <button class="export-btn" onclick="exportSpeciesToCSV()">
-        Download <span class="format">CSV</span>
+        <?= t('ui.download') ?> <span class="format">CSV</span>
     </button>
     <button class="export-btn" onclick="exportSpeciesToJSON()">
-        Download <span class="format">JSON</span>
+        <?= t('ui.download') ?> <span class="format">JSON</span>
     </button>
     <button class="export-btn" onclick="exportSpeciesToTXT()">
-        Download <span class="format">TXT</span>
+        <?= t('ui.download') ?> <span class="format">TXT</span>
     </button>
 </div>
 
 <div class="filter-section">
     <div class="filter-group">
-        <span class="filter-label">Subfamilies:</span>
+        <span class="filter-label"><?= t('list.filter_subfamilies') ?></span>
         <label class="filter-checkbox"><input type="checkbox" data-subfamily="Amblyoponinae" checked onchange="filterSpecies()"> Amblyoponinae</label>
         <label class="filter-checkbox"><input type="checkbox" data-subfamily="Dolichoderinae" checked onchange="filterSpecies()"> Dolichoderinae</label>
         <label class="filter-checkbox"><input type="checkbox" data-subfamily="Dorylinae" checked onchange="filterSpecies()"> Dorylinae</label>
@@ -185,13 +185,13 @@ th {background-color: var(--bg-secondary); text-align: center; opacity:0.85;
         <label class="filter-checkbox"><input type="checkbox" data-subfamily="Ponerinae" checked onchange="filterSpecies()"> Ponerinae</label>
         <label class="filter-checkbox"><input type="checkbox" data-subfamily="Proceratiinae" checked onchange="filterSpecies()"> Proceratiinae</label>
         <label class="filter-checkbox"><input type="checkbox" data-subfamily="Pseudomyrmicinae" checked onchange="filterSpecies()"> Pseudomyrmicinae</label>
-        <button class="filter-btn" onclick="toggleAllSubfamilies(true)">All</button>
-        <button class="filter-btn" onclick="toggleAllSubfamilies(false)">None</button>
+        <button class="filter-btn" onclick="toggleAllSubfamilies(true)"><?= t('ui.all') ?></button>
+        <button class="filter-btn" onclick="toggleAllSubfamilies(false)"><?= t('ui.none') ?></button>
     </div>
 </div>
 
 <p4>
-Authors in () means the name of the ant as been modified since its original description.
+<?= t('list.author_note') ?>
 <br>
 <table id="speciesTable">
 <!--15/11/18

@@ -4,7 +4,7 @@
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Lasinii and Plagiolepinii Tribes">
 		<meta name="keywords" content="Lepisiota,Lasinii,Plagiolepis,ampeloni,Paratrechina,ergate,Nylanderia,Paraparatrechina,Proformica,Egypt,Marocco,Palearctic,Japan,France,Germany,Switzerland">
-		<meta name="author" content="Ruiz Georges">
+		<meta name="author" content="AntWorld.org">
 		<link rel="stylesheet" href="../css/css_antworld.css"/>
 		<link rel="stylesheet" href="../css/antworld-icons.css"/>
 
@@ -16,15 +16,15 @@
 <body>
 <?php include("../php/nav.php") ?>
 <article>
-<h2 class="h2one">Lasiini & Plagiolepinii Tribes</h2>
+<h2 class="h2one"><?= lang() === "fr" ? "Tribus Lasiini et Plagiolepinii" : "Lasiini & Plagiolepinii Tribes" ?></h2>
 
 <!--Lepisiota-->
- <div class="icones"><a href"lepisiota.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Lepisiota" onclic="location.href='lepisiota.html';"></a>
+ <div class="icones"><a href"lepisiota.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Lepisiota" onclic="location.href='lepisiota.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Mesonotum stretched out.</li>
-  <li>Metathoracic stigmates (<b>Mtst</b>) extremely close together</li>
-  <li>Propodeal stigmates (<b>Ppst</b>) always included at the base of the propodeal spines (<b>Ppsp</b>)</li>
-  <li>Egypt, Morocco<br>
+  <li><?= lang() === "fr" ? "Mésonotum étiré" : "Mesonotum stretched out" ?>.</li>
+  <li><?= lang() === "fr" ? "Stigmates métathoraciques" : "Metathoracic stigmata" ?> (<b>Mtst</b>) <?= lang() === "fr" ? "extrêmement rapprochés" : "extremely close together" ?></li>
+  <li><?= lang() === "fr" ? "Stigmates propodéaux" : "Propodeal stigmata" ?> (<b>Ppst</b>) <?= lang() === "fr" ? "toujours inclus à la base des épines propodéales" : "always included at the base of the propodeal spines" ?> (<b>Ppsp</b>)</li>
+  <li><?= lang() === "fr" ? "Égypte, Maroc" : "Egypt, Morocco" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
    <a href"lepisiota_bipartita.html"><i><strong><b>L</b>episiota bipartita</strong></i></a>,<a href"lepisiota_frauenfeldi.html"><i><strong><b>f</b>rauenfeldi</strong></i></a>
@@ -43,11 +43,11 @@
 <a class="caption simple-caption" href="http://www.myrmecofourmis.com/galerie/photo/640605" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Myrmecofourmis</p></a>
 </div>
-  <li>Small : <b>CL > 600 µm</b></li>
-  <li>Antennae with 11 or 12 segments</li>
-  <li>Sagitale line of thorax in dorsal view cross 3 distincts parts. Metanotum (<b>Mt</b>) vestigial or absent</li>
-  <li>Metathoracal stigmata (<b>Mtst</b>) near from each other in dorsal view</li>
-  <li> Whole Palaearctic<br>
+  <li><?= lang() === "fr" ? "Petit" : "Small" ?> : <b>CL > 600 µm</b></li>
+  <li><?= lang() === "fr" ? "Antennes à 11 ou 12 segments" : "Antennae with 11 or 12 segments" ?></li>
+  <li><?= lang() === "fr" ? "Ligne sagittale du thorax en vue dorsale traverse 3 parties distinctes. Métanotum" : "Sagittal line of thorax in dorsal view crosses 3 distinct parts. Metanotum" ?> (<b>Mt</b>) <?= lang() === "fr" ? "vestigial ou absent" : "vestigial or absent" ?></li>
+  <li><?= lang() === "fr" ? "Stigmates métathoraciques" : "Metathoracal stigmata" ?> (<b>Mtst</b>) <?= lang() === "fr" ? "proches l'un de l'autre en vue dorsale" : "near from each other in dorsal view" ?></li>
+  <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palaearctic" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
     <a href"acropyga_ergate.html"><i><strong><b>A</b>cropyga</strong></i></a>
@@ -62,14 +62,14 @@
   </div>
 
 <!--Plagiolepis-->
-  <div class="icones"><a href"plagiolepis_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Plagiolepis" onclic="location.href='plagiolepis_ergate.html';"></a>
+  <div class="icones"><a href"plagiolepis_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Plagiolepis" onclic="location.href='plagiolepis_ergate.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Very small : <b>CL < 600 µm</b></li>
-  <li>Antennae with 11 segments</li>
-  <li>Sagitale line of thorax in dorsal view cross 4 distincts parts because of a well developped<a title="Metanotum" style="cursor:help;"><b>Mt</b></a></li>
-  <li>Metathoracal stigmata (<b>Mtst</b>) more distant from each other</li>
-  <li><b>Exception: </b><i><strong>Plagiolepis ampeloni</strong></i></li>
-  <li>France, Germany, Switzerland<br>
+  <li><?= lang() === "fr" ? "Très petit" : "Very small" ?> : <b>CL < 600 µm</b></li>
+  <li><?= lang() === "fr" ? "Antennes à 11 segments" : "Antennae with 11 segments" ?></li>
+  <li><?= lang() === "fr" ? "Ligne sagittale du thorax en vue dorsale traverse 4 parties distinctes en raison d'un" : "Sagittal line of thorax in dorsal view crosses 4 distinct parts because of a well developed" ?> <a title="<?= lang() === "fr" ? "Métanotum" : "Metanotum" ?>" style="cursor:help;"><b>Mt</b></a> <?= lang() === "fr" ? "bien développé" : "" ?></li>
+  <li><?= lang() === "fr" ? "Stigmates métathoraciques" : "Metathoracal stigmata" ?> (<b>Mtst</b>) <?= lang() === "fr" ? "plus éloignés l'un de l'autre" : "more distant from each other" ?></li>
+  <li><b><?= lang() === "fr" ? "Exception" : "Exception" ?>: </b><i><strong>Plagiolepis ampeloni</strong></i></li>
+  <li><?= lang() === "fr" ? "France, Allemagne, Suisse" : "France, Germany, Switzerland" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a href"P_alluaudi_ergate.html"><i><strong><b>a</b>lluaudi</strong></i></a>,<a href"P_ampeloni_ergate.html"><i><strong><b>a</b>mpeloni</strong></i></a>,<a href"P_ancyrensis_ergate.html"><i><strong><b>a</b>ncyrensis</strong></i></a>
@@ -82,13 +82,13 @@
   </div>
 
 <!--Paratrechina-->
-   <div class="icones"><a href"paratrechina.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Paratrechina" onclic="location.href='paratrechina.html';"></a>
+   <div class="icones"><a href"paratrechina.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Paratrechina" onclic="location.href='paratrechina.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Rear tibia no long: <br><b>HTL/CW > XX</b> </li>
-  <li>Sagitale line of thorax in dorsal view cross 3 distincts parts. <a title="Metanotum" style="cursor:help;"><b>Mt</b></a>vestigial or absent</li>
-  <li>Scapus very long: <br><b>SL/CL > 1,13</b> for Nylanderia</li>
-  <li><b>MN</b> and <b>Pp</b></li>
-  <li>Egypt, Japan, Morocco<br>
+  <li><?= lang() === "fr" ? "Tibia postérieur court" : "Rear tibia not long" ?>: <br><b>HTL/CW > XX</b> </li>
+  <li><?= lang() === "fr" ? "Ligne sagittale du thorax en vue dorsale traverse 3 parties distinctes." : "Sagittal line of thorax in dorsal view crosses 3 distinct parts." ?> <a title="<?= lang() === "fr" ? "Métanotum" : "Metanotum" ?>" style="cursor:help;"><b>Mt</b></a> <?= lang() === "fr" ? "vestigial ou absent" : "vestigial or absent" ?></li>
+  <li><?= lang() === "fr" ? "Scape très long" : "Scapus very long" ?>: <br><b>SL/CL > 1,13</b> <?= lang() === "fr" ? "pour" : "for" ?> Nylanderia</li>
+  <li><b>MN</b> <?= lang() === "fr" ? "et" : "and" ?> <b>Pp</b></li>
+  <li><?= lang() === "fr" ? "Égypte, Japon, Maroc" : "Egypt, Japan, Morocco" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a href"nylanderia.html"><i><strong><b>N</b>ylanderia</strong></i></a>

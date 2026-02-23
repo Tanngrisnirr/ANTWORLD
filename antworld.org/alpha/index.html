@@ -224,15 +224,15 @@
 
 <!-- Nest Gate -->
 <section class="nest-gate">
-    <p>Interactive dichotomous keys and comprehensive database covering 936 species across the Palearctic region</p>
-    <a href="id/confirmed.ergate_id.html" class="scout-link">Start Identification</a>
+    <p><?= t('index.intro') ?></p>
+    <a href="id/confirmed.ergate_id.html" class="scout-link"><?= t('index.start_id') ?></a>
 </section>
 
 
 <!-- Scout Feed (RSS) -->
 <section class="scout-feed">
     <div class="gallery-arch">
-        <h2>Myrmecology News</h2>
+        <h2><?= t('index.news_title') ?></h2>
     </div>
     <div class="antenna-stream" id="rssFeed">
         <div class="pheromone">
@@ -245,51 +245,51 @@
 <section class="census">
     <div class="tally">
         <span class="count">936</span>
-        <span class="caste">Species</span>
+        <span class="caste"><?= t('index.stats.species') ?></span>
     </div>
     <div class="tally">
         <span class="count">74</span>
-        <span class="caste">Genera</span>
+        <span class="caste"><?= t('index.stats.genera') ?></span>
     </div>
     <div class="tally">
         <span class="count">8</span>
-        <span class="caste">Subfamilies</span>
+        <span class="caste"><?= t('index.stats.subfamilies') ?></span>
     </div>
     <div class="tally">
         <span class="count">17</span>
-        <span class="caste">Tribes</span>
+        <span class="caste"><?= t('index.stats.tribes') ?></span>
     </div>
     <div class="tally">
         <span class="count">30+</span>
-        <span class="caste">ID Keys</span>
+        <span class="caste"><?= t('index.stats.id_keys') ?></span>
     </div>
 </section>
 
 <!-- Brood Zone (Resources) -->
 <section class="brood-zone">
     <div class="gallery-arch">
-        <h2>Myrmecology Resources</h2>
+        <h2><?= t('index.resources_title') ?></h2>
     </div>
     <div class="chamber-grid">
         <div class="larva-cell cache">
             <a href="https://www.antweb.org/" target="_blank" class="cache-link">
                 <img src="icon/Logo_AntWeb_20260220.png" alt="AntWeb" class="cache-mark">
                 <h3>AntWeb</h3>
-                <p>World's largest online database of ant images, specimen records, and natural history information.</p>
+                <p><?= t('index.resources.antweb_desc') ?></p>
             </a>
         </div>
         <div class="larva-cell cache">
             <a href="https://www.antwiki.org/" target="_blank" class="cache-link">
                 <img src="icon/Logo_AntWiki_20260220.png" alt="AntWiki" class="cache-mark">
                 <h3>AntWiki</h3>
-                <p>Comprehensive wiki resource for ant taxonomy, biology, and natural history information.</p>
+                <p><?= t('index.resources.antwiki_desc') ?></p>
             </a>
         </div>
         <div class="larva-cell cache">
             <a href="http://globalants.org/" target="_blank" class="cache-link">
                 <img src="icon/Logo_GlobalAntsDatabase_20260220.png" alt="Global Ants Database" class="cache-mark">
                 <h3>Global Ants (GLAD)</h3>
-                <p>Comprehensive ant trait data at a global scale for research and conservation.</p>
+                <p><?= t('index.resources.globalants_desc') ?></p>
             </a>
         </div>
     </div>
@@ -297,9 +297,9 @@
 
 <!-- Founding Text -->
 <section class="founding-text">
-    <h2>About AntWorld</h2>
-    <p>AntWorld.org is dedicated to making ant identification accessible to researchers, students, and enthusiasts. Our interactive dichotomous keys guide you through morphological features to identify ant species found across the Palearctic region.</p>
-    <p>All data is freely available for scientific and educational purposes under Creative Commons license.</p>
+    <h2><?= t('index.about_title') ?></h2>
+    <p><?= t('index.about_p1') ?></p>
+    <p><?= t('index.about_p2') ?></p>
 </section>
 
 </article>

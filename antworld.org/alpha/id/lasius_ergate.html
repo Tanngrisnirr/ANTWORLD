@@ -4,7 +4,7 @@
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Lasius Genus">
 		<meta name="keywords" content="Lasius,ergate,Austrolasius,Cauto-/Chthonolasius,Chthonolasius,Dendrolasius,sensu stricto,baodaoensis,septemstruma,sauteri,China,Japan,Taiwan,Hainan,Guangxi,Jiangxi,Yaku-shima,Kyushu,Shikoku,Mikura-jima,India,Sri Lanka,Indonesia,Singapor,Papua New Guinea,Solomon Island,Australia">
-		<meta name="author" content="Ruiz Georges">
+		<meta name="author" content="AntWorld.org">
 		<link rel="stylesheet" href="../css/css_antworld.css"/>
 		<link rel="stylesheet" href="../css/antworld-icons.css"/>
 
@@ -16,50 +16,50 @@
 <body>
 <?php include("../php/nav.php") ?>
 <article>
-<h2 class="h2one"><i><strong>Lasius</strong></i> subgenera</h2>
+<h2 class="h2one"><i><strong>Lasius</strong></i> <?= lang() === "fr" ? "sous-genres" : "subgenera" ?></h2>
 
 <!--Australasius-->
-  <div class="icones"><a href"austrolasius.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Austrolasius" onclic="location.href='austrolasius.html';"></a>
+  <div class="icones"><a href"austrolasius.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Austrolasius" onclic="location.href='austrolasius.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Homogeneous, light yellow to reddish yellow.</li>
-  <li><a title="Head width" style="cursor:help;"><b>CW</b></a> 600 to 1280 µm<br><a title="Head width" style="cursor:help;"><b>CW</b></a> < 1,1 <a title="Propodeum und Mesonotum" style="cursor:help;"><b>Mn*Pp</b></a><br><b>EYE/CS > 0,170</b><br><b>(EL+EW)</b> > 0,168 <b>(HL+HW)</b><br><b>M6/HL > 1,30</b></li>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a> profile, low thick and rounded at its extremity</li>
-  <li>Sides of the head very convex</li>
-  <li>Living animals smell like lemongrass</li>
-  <li> Whole Palearctic<br>
+  <li><?= lang() === "fr" ? "Homogène, jaune clair à jaune rougeâtre" : "Homogeneous, light yellow to reddish yellow" ?>.</li>
+  <li><a title="<?= lang() === "fr" ? "Largeur de tête" : "Head width" ?>" style="cursor:help;"><b>CW</b></a> 600 to 1280 µm<br><a title="<?= lang() === "fr" ? "Largeur de tête" : "Head width" ?>" style="cursor:help;"><b>CW</b></a> < 1,1 <a title="Propodeum und Mesonotum" style="cursor:help;"><b>Mn*Pp</b></a><br><b>EYE/CS > 0,170</b><br><b>(EL+EW)</b> > 0,168 <b>(HL+HW)</b><br><b>M6/HL > 1,30</b></li>
+  <li><?= lang() === "fr" ? "Profil du" : "Profile of" ?> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a>, <?= lang() === "fr" ? "bas épais et arrondi à son extrémité" : "low thick and rounded at its extremity" ?></li>
+  <li><?= lang() === "fr" ? "Côtés de la tête très convexes" : "Sides of the head very convex" ?></li>
+  <li><?= lang() === "fr" ? "Les animaux vivants sentent la citronnelle" : "Living animals smell like lemongrass" ?></li>
+  <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palearctic" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
-  <a href"austrolasius_austriacus_ergate.html"><i><strong><b>a</b>ustriacus</i><strong></a>
-  <br><a href"austrolasius_carniolicus_ergate.html"><i><strong><b>c</b>arniolicus</i><strong></a>
-  <br><a href"austrolasius_reginae_ergate.html"><i><strong><b>r</b>eginae</i><strong></a>
+  <a href="austrolasius_austriacus_ergate.html"><i><b>a</b>ustriacus</i></a>
+  <br><a href="austrolasius_carniolicus_ergate.html"><i><b>c</b>arniolicus</i></a>
+  <br><a href="austrolasius_reginae_ergate.html"><i><b>r</b>eginae</i></a>
 	</ul></ul></div></li>
   </div>
   
 <!--Canto- and Chthonolasius-->
 <div class="icones"><a href="cauto&chthonolasius_ergate.html"><input type="button" class="long_button"  style="cursor: pointer" value="Cauto-/Chthonolasius" onclick="location.href='cauto&chthonolasius_ergate.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Homogeneous, light yellow to reddish yellow.</li>
-  <li><a title="Head width" style="cursor:help;"><b>CW</b></a> 600 to 1280 µm
-  <br><a title="Head width" style="cursor:help;"><b>CW</b></a> < 1,1 <a title="Propodeum und Mesonotum" style="cursor:help;"><b>Mn*Pp</b></a>
+  <li><?= lang() === "fr" ? "Homogène, jaune clair à jaune rougeâtre" : "Homogeneous, light yellow to reddish yellow" ?>.</li>
+  <li><a title="<?= lang() === "fr" ? "Largeur de tête" : "Head width" ?>" style="cursor:help;"><b>CW</b></a> 600 to 1280 µm
+  <br><a title="<?= lang() === "fr" ? "Largeur de tête" : "Head width" ?>" style="cursor:help;"><b>CW</b></a> < 1,1 <a title="Propodeum und Mesonotum" style="cursor:help;"><b>Mn*Pp</b></a>
   <br><b>EYE/CS > 0,170</b><br><b>EL+EW)</b> > 0,168 <b>(HL+HW)</b>
   <br><b>M6/HL > 1,30</b></li>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a> profile, the more thin with a pointed extremity</li>
-  <li> Hungary, South Slovakia, South Austria<br>
+  <li><?= lang() === "fr" ? "Profil du" : "Profile of" ?> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a>, <?= lang() === "fr" ? "plus mince avec une extrémité pointue" : "the more thin with a pointed extremity" ?></li>
+  <li><?= lang() === "fr" ? "Hongrie, sud de la Slovaquie, sud de l'Autriche" : "Hungary, South Slovakia, South Austria" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
-  <a href"cautolasius_ergate.html"><i><strong><b>C</b>autolasius</i><strong></a>
-  <br><a href="cauto&chthonolasius_ergate.html"><i><strong><b>C</b>hthonolasius</i><strong></a>
+  <a href="cautolasius_ergate.html"><i><b>C</b>autolasius</i></a>
+  <br><a href="cauto&chthonolasius_ergate.html"><i><b>C</b>hthonolasius</i></a>
 	</ul></ul></div></li>
   </div>
 
 <!--Dendrolasius-->
-<div class="icones"><a href"dendrolasius_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Dendrolasius" onclic="location.href='dendrolasius_ergate.html';"></a>
+<div class="icones"><a href"dendrolasius_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Dendrolasius" onclic="location.href='dendrolasius_ergate.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Shiny, dark brown to black</li><li><a title="Head width" style="cursor:help;"><b>CW</b></a> 1250 to 1550 µm</li>
-  <li>Cordiform head, vertex clearly depressed</li>
-  <li>Head large compare to the Mesosome: <a title="Head width" style="cursor:help;"><b>CW</b></a> > 1,1<a title="Propodeum und Mesonotum" style="cursor:help;"><b>Mn*Pp</b></a></li>
-  <li>Living animals smell like citronellal</li>
-  <li> North, central and West Europa</li>
+  <li><?= lang() === "fr" ? "Brillant, brun foncé à noir" : "Shiny, dark brown to black" ?></li><li><a title="<?= lang() === "fr" ? "Largeur de tête" : "Head width" ?>" style="cursor:help;"><b>CW</b></a> 1250 to 1550 µm</li>
+  <li><?= lang() === "fr" ? "Tête cordiforme, vertex nettement déprimé" : "Cordiform head, vertex clearly depressed" ?></li>
+  <li><?= lang() === "fr" ? "Tête large par rapport au mésosome" : "Head large compared to the Mesosome" ?>: <a title="<?= lang() === "fr" ? "Largeur de tête" : "Head width" ?>" style="cursor:help;"><b>CW</b></a> > 1,1<a title="Propodeum und Mesonotum" style="cursor:help;"><b>Mn*Pp</b></a></li>
+  <li><?= lang() === "fr" ? "Les animaux vivants sentent le citronellal" : "Living animals smell like citronellal" ?></li>
+  <li><?= lang() === "fr" ? "Europe du Nord, Centrale et de l'Ouest" : "North, Central and West Europe" ?></li>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a href"dendrolasius_capitatus_ergate.html"><i><strong><b>c</b>apitatus</strong></i></a>
@@ -72,14 +72,14 @@
   </div>
 
 <!--Lasius sensu stricto-->
-<div class="icones"> <a href".html"><input type="button" class="long_button_no" disabled title="Under construction" value="sensu stricto" onclic="location.href='.html';"></a>
+<div class="icones"> <a href".html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="sensu stricto" onclic="location.href='.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Matt body, black as jet for the dark parts</li><li><b>CW 600 to 1280 µm</b></li>
-  <li>Head less cordiform and less large: <a title="Head width" style="cursor:help;"><b>CW</b></a> < 1,1 <b>Mn*Pp</b>
+  <li><?= lang() === "fr" ? "Corps mat, noir de jais pour les parties sombres" : "Matt body, black as jet for the dark parts" ?></li><li><b>CW 600 to 1280 µm</b></li>
+  <li><?= lang() === "fr" ? "Tête moins cordiforme et moins large" : "Head less cordiform and less large" ?>: <a title="<?= lang() === "fr" ? "Largeur de tête" : "Head width" ?>" style="cursor:help;"><b>CW</b></a> < 1,1 <b>Mn*Pp</b>
   <br><b>EYE/CS > 0,170</b>
   <br><b>(EL+EW)</b> > 0,168 <b>(HL+HW)</b></li>
-  <li>Maxillary palps (Mxp) very long and flattened under the sides of the head, extend at least to the anterior border of the eyes. <b>M6/HL > 1,30</b></li>
-  <li> Whole Palearctic<br>
+  <li><?= lang() === "fr" ? "Palpes maxillaires très longs et aplatis sous les côtés de la tête, s'étendant au moins jusqu'au bord antérieur des yeux" : "Maxillary palps (Mxp) very long and flattened under the sides of the head, extend at least to the anterior border of the eyes" ?>. <b>M6/HL > 1,30</b></li>
+  <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palearctic" ?><br>
        <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a href"lasius_alienus_ergate"><i><strong><b>a</b>lienus</strong></i></a>

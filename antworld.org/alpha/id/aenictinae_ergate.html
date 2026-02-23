@@ -4,7 +4,7 @@
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Aenictinae Subfamily">
 		<meta name="keywords" content="Aenictinae,ergate,Aenictus,maroccanus,vaucheri,rhodiensis,dlusskyi,Morocco,Egypt">
-		<meta name="author" content="Ruiz Georges">
+		<meta name="author" content="AntWorld.org">
 		<link rel="stylesheet" href="../css/css_antworld.css"/>
 		<link rel="stylesheet" href="../css/antworld-icons.css"/>
 
@@ -16,49 +16,47 @@
     <body>
 <?php include("../php/nav.php") ?>
 <article>
-<h2 class="h2one"><i><strong>Aenictus</strong></i> Genus</h2>
+<h2 class="h2one"><i><strong>Aenictus</strong></i> <?= lang() === "fr" ? "Genre" : "Genus" ?></h2>
 
 <!--Maroccanus-->
-  <div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="maroccanus" size="200" onclic="location.href='_ergate.html';"></a>
+  <div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="maroccanus" size="200" onclic="location.href='_ergate.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-   <span style="color:red"><li>Mandibles without teeth</li></span>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a> with a sharp ventrally dent directed backwards</li>
-  <li>Mandibles without teeth</li>
-  <li>Head with slightly concave occipital margin and distinctly pointed occipital corners</li>
-  <li>Head and thorax densely finely punctured, appearing matt and whole body is brown</li>
-  <li>Funiculus always: 11 articles</li>
-  <li>Somewhere in the sun...</li>
+   <span style="color:red"><li><?= lang() === "fr" ? "Mandibules sans dents" : "Mandibles without teeth" ?></li></span>
+  <li><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "avec une dent ventrale acérée dirigée vers l'arrière" : "with a sharp ventrally dent directed backwards" ?></li>
+  <li><?= lang() === "fr" ? "Mandibules sans dents" : "Mandibles without teeth" ?></li>
+  <li><?= lang() === "fr" ? "Tête avec un bord occipital légèrement concave et des angles occipitaux nettement pointus" : "Head with slightly concave occipital margin and distinctly pointed occipital corners" ?></li>
+  <li><?= lang() === "fr" ? "Tête et thorax densément et finement ponctués, d'apparence mate, et corps entier brun" : "Head and thorax densely finely punctured, appearing matt and whole body is brown" ?></li>
+  <li><?= lang() === "fr" ? "Funiculus toujours : 11 articles" : "Funiculus always: 11 articles" ?></li>
 </div>
 
 <!--Vaucheri-->
-<div class="icones"><a href"aenictus_vaucheri_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="vaucheri" onclic="location.href='aenictus_vaucheri_ergate.html';"></a>
+<div class="icones"><a href"aenictus_vaucheri_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="vaucheri" onclic="location.href='aenictus_vaucheri_ergate.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Mandibles 7 to 8 teeth</li>
-  <li>Form of anterior margin of the head</li>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a> & <a title="Post PEtiole" style="cursor:help;"><b>PPE</b></a> ventrally with round teeth directed vorwards but no posteriorly spines</li>
-  <li>Nummerus setae scattered the margin of head and dorsal of the mesosoma, less long on <a title="Propodeum" style="cursor:help;"><b>Pp</b></a><br>Erectil from cuticule between : <b>64.5</b> and <b>129 µm</b></li>
-  <li>Morocco</li>
+  <li><?= lang() === "fr" ? "Mandibules à 7 à 8 dents" : "Mandibles 7 to 8 teeth" ?></li>
+  <li><?= lang() === "fr" ? "Forme du bord antérieur de la tête" : "Form of anterior margin of the head" ?></li>
+  <li><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> & <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "ventralement avec des dents rondes dirigées vers l'avant mais sans épines postérieures" : "ventrally with round teeth directed forwards but no posteriorly spines" ?></li>
+  <li><?= lang() === "fr" ? "Nombreuses soies dispersées sur le bord de la tête et le dos du mésosoma" : "Numerous setae scattered the margin of head and dorsal of the mesosoma" ?>, <?= lang() === "fr" ? "moins longues sur" : "less long on" ?> <a title="Propodeum" style="cursor:help;"><b>Pp</b></a><br><?= lang() === "fr" ? "Érectiles depuis la cuticule entre" : "Erectile from cuticle between" ?> : <b>64.5</b> <?= lang() === "fr" ? "et" : "and" ?> <b>129 µm</b></li>
+  <li><?= lang() === "fr" ? "Maroc" : "Morocco" ?></li>
 </div>
 
 <!--Rhodiensis-->
-<div class="icones"><a href"aenictus_rhodiensis_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="rhodiensis" onclic="location.href='aenictus_rhodiensis_ergate.html';"></a>
+<div class="icones"><a href"aenictus_rhodiensis_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="rhodiensis" onclic="location.href='aenictus_rhodiensis_ergate.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Mandibles with 5 teeth</li>
-  <li><a title="Pronotum" style="cursor:help;"><b>PN</b></a> with well developed ventral strip (posterior)</li>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a> & <a title="Post PEtiole" style="cursor:help;"><b>PPE</b></a> ventrally with round teeth directed forwards and 2 posteriorly spines directed backwards</li>
-  <li>Nummerus medium setae dense on face, margin of head and dorsal <a title="Pronotum" style="cursor:help;"><b>PN</b></a>, erectile from cuticle between: <b>86</b> and <b>129 µm</b></li>
-  <li>Egypt</li>
+  <li><?= lang() === "fr" ? "Mandibules à 5 dents" : "Mandibles with 5 teeth" ?></li>
+  <li><a title="Pronotum" style="cursor:help;"><b>PN</b></a> <?= lang() === "fr" ? "avec une bande ventrale bien développée (postérieure)" : "with well developed ventral strip (posterior)" ?></li>
+  <li><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> & <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "ventralement avec des dents rondes dirigées vers l'avant et 2 épines postérieures dirigées vers l'arrière" : "ventrally with round teeth directed forwards and 2 posteriorly spines directed backwards" ?></li>
+  <li><?= lang() === "fr" ? "Nombreuses soies moyennes denses sur la face, le bord de la tête et le pronotum dorsal" : "Numerous medium setae dense on face, margin of head and dorsal Pronotum" ?>, <?= lang() === "fr" ? "érectiles depuis la cuticule entre" : "erectile from cuticle between" ?>: <b>86</b> <?= lang() === "fr" ? "et" : "and" ?> <b>129 µm</b></li>
+  <li><?= lang() === "fr" ? "Égypte" : "Egypt" ?></li>
 </div>
 
 <!--Dlusskyi-->
-<div class="icones"><a href"aenictus_dlusskyi_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="dlusskyi" onclic="location.href='aenictus_dlusskyi_ergate.html';"></a>
+<div class="icones"><a href"aenictus_dlusskyi_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="dlusskyi" onclic="location.href='aenictus_dlusskyi_ergate.html';"></a>
 <?php include("../php/CCblanc.php"); ?>
-  <li>Mandibles with 5 teeth</li>
-  <li><a title="Pronotum" style="cursor:help;"><b>PN</b></a> with less developed ventral strip</li>
-  <li><a title="Petiole" style="cursor:help;"><b>PE</b></a> & <a title="Post PEtiole" style="cursor:help;"><b>PPE</b></a> ventrally with sharp teeth directed forwards</li>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a> & <a title="Post PEtiole" style="cursor:help;"><b>PPE</b></a> dorsally and <b>Coxa III</b> posteriorly with spines directed backwards</li>
-  <li>Nummerus long setae scattered on face, margin of head and dorsal <a title="Pronotum" style="cursor:help;"><b>PN</b></a>, erectile from cuticle between: <b>86</b> and <b>129 µm</b></li>
-  <li>Somewhere in the sun...</li>
+  <li><?= lang() === "fr" ? "Mandibules à 5 dents" : "Mandibles with 5 teeth" ?></li>
+  <li><a title="Pronotum" style="cursor:help;"><b>PN</b></a> <?= lang() === "fr" ? "avec une bande ventrale moins développée" : "with less developed ventral strip" ?></li>
+  <li><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> & <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "ventralement avec des dents pointues dirigées vers l'avant" : "ventrally with sharp teeth directed forwards" ?></li>
+  <li><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> & <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "dorsalement et" : "dorsally and" ?> <b>Coxa III</b> <?= lang() === "fr" ? "postérieurement avec des épines dirigées vers l'arrière" : "posteriorly with spines directed backwards" ?></li>
+  <li><?= lang() === "fr" ? "Nombreuses soies longues dispersées sur la face, le bord de la tête et le pronotum dorsal" : "Numerous long setae scattered on face, margin of head and dorsal Pronotum" ?>, <?= lang() === "fr" ? "érectiles depuis la cuticule entre" : "erectile from cuticle between" ?>: <b>86</b> <?= lang() === "fr" ? "et" : "and" ?> <b>129 µm</b></li>
 </div>
 </article>
 <?php include("../php/footer.php"); ?>

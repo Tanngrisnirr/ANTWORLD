@@ -4,7 +4,7 @@
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Lasinii Tribe">
 		<meta name="keywords" content="Lasius,Lasius s. str.,ergate,Prenolepis,Acropyga,Anoplolepis,gracilipes,Austrolasius,Cautolasius,Chthonolasius,Dendrolasius,kinomurai,jiangxiensis,Japan,Asia,Taiwan,nipponensis,palearctica,sauteri,yaeyamensis">
-		<meta name="author" content="Ruiz Georges">
+		<meta name="author" content="AntWorld.org">
 		<link rel="stylesheet" href="../css/css_antworld.css"/>
 		<link rel="stylesheet" href="../css/antworld-icons.css"/>
 
@@ -16,10 +16,10 @@
 <body>
 <?php include("../php/nav.php") ?>
 <article>
-<h2 class="h2one">Lasinii Tribe</h2>
+<h2 class="h2one"><?= lang() === "fr" ? "Tribu des Lasiini" : "Lasiini Tribe" ?></h2>
 
 <!--Anoplolepis-->
- <div class="icones"><a href"anoplolepis.html"><input type="button" class="long_button_no" disabled title="Under construction" value="A. gracilipes" onclic="location.href='anoplolepis.html';"></a>
+ <div class="icones"><a href"anoplolepis.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="A. gracilipes" onclic="location.href='anoplolepis.html';"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/formicinae/anoplolepis/anoplolepis_gracilipes_mini.png" typeof="foaf:Image" alt="Anoplolepis thorax">
@@ -28,8 +28,8 @@
 <a class="caption simple-caption" href="https://www.antweb.org/bigPicture.do?name=casent0188536&shot=p&number=1" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>AntWeb</p></a>
 </div>
-  <li>Thorax slender, <a title="Pronotum" style="cursor:help;"><b>PN</b></a> and <b>MN</b> forming a "roof" in profile view</li>
-  <li><a title="dorsal view" style="cursor:help;"><b>dview</b></a>:
+  <li><?= lang() === "fr" ? "Thorax élancé," : "Thorax slender," ?> <a title="Pronotum" style="cursor:help;"><b>PN</b></a> <?= lang() === "fr" ? "et" : "and" ?> <b>MN</b> <?= lang() === "fr" ? "formant un \"toit\" en vue de profil" : "forming a \"roof\" in profile view" ?></li>
+  <li><a title="<?= lang() === "fr" ? "vue dorsale" : "dorsal view" ?>" style="cursor:help;"><b>dview</b></a>:
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/formicinae/anoplolepis/anoplolepis_gracilipes_dorsal_mini.png" WIDTH=151 HEIGHT=75 onmouseout="this.height=75; this.width=151" onclick="this.height=111; this.width=270" typeof="foaf:Image" alt="Anoplolepis thorax"/>
@@ -38,11 +38,11 @@
 <a class="caption simple-caption" href="https://www.antweb.org/bigPicture.do?name=casent0188536&shot=d&number=1" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>AntWeb</p></a>
 </div>
-  <br>- Coxa I entirely visible
-  <br>- Posterior part of Mn covers the <a title="Propodeum" style="cursor:help;"><b>PP</b></a> in all its anterior width
-  <br>- <a title="Pronotum" style="cursor:help;"><b>PN</b></a> is the hat and Mn is the stand (do you see... the morel!)</li>
-  <li>Antennae with 11 segments</li> 
-  <li>Japan<br>
+  <br>- <?= lang() === "fr" ? "Coxa I entièrement visible" : "Coxa I entirely visible" ?>
+  <br>- <?= lang() === "fr" ? "Partie postérieure du Mn recouvre le" : "Posterior part of Mn covers the" ?> <a title="Propodeum" style="cursor:help;"><b>PP</b></a> <?= lang() === "fr" ? "sur toute sa largeur antérieure" : "in all its anterior width" ?>
+  <br>- <a title="Pronotum" style="cursor:help;"><b>PN</b></a> <?= lang() === "fr" ? "est le chapeau et Mn est le pied (voyez-vous... la morille !)" : "is the hat and Mn is the stand (do you see... the morel!)" ?></li>
+  <li><?= lang() === "fr" ? "Antennes à 11 segments" : "Antennae with 11 segments" ?></li>
+  <li><?= lang() === "fr" ? "Japon" : "Japan" ?><br>
   </li>
   </div>
   
@@ -56,10 +56,10 @@
 <a class="caption simple-caption" href="http://www.myrmecofourmis.com/galerie/photo/640605" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Myrmecofourmis</p></a>
 </div>
-  <li>Rear tibia no long: <b>HTL/CW  < 1,50</b></li>
-  <li>Scapus very long: <b>SL/CL < 1,10</b></li>
-  <li><b>MN</b> and <a title="Propodeum" style="cursor:help;"><b>PP</b></a> only partially fused</li>
-  <li> Whole Palaearctic<br>
+  <li><?= lang() === "fr" ? "Tibia postérieur court" : "Rear tibia not long" ?>: <b>HTL/CW < 1,50</b></li>
+  <li><?= lang() === "fr" ? "Scape très long" : "Scapus very long" ?>: <b>SL/CL < 1,10</b></li>
+  <li><b>MN</b> <?= lang() === "fr" ? "et" : "and" ?> <a title="Propodeum" style="cursor:help;"><b>PP</b></a> <?= lang() === "fr" ? "seulement partiellement fusionnés" : "only partially fused" ?></li>
+  <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palaearctic" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
 	<a href="lasius_ergate.html"><i><strong><b>A</b>ustrolasius</strong></i></a>
@@ -72,12 +72,12 @@
   </div>
   
 <!--Prenolepis-->
-  <div class="icones"><a href"prenolepis.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Prenolepis" onclic="location.href='prenolepis.html';"></a>
+  <div class="icones"><a href"prenolepis.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Prenolepis" onclic="location.href='prenolepis.html';"></a>
 <?php include("../php/CCblanc.php") ?>
-  <li>Rear tibia not long: <br> <b>HTL/CW < 1,50</b></li>
-  <li>Scapus very long: <br> <b>SL/CL > 1,13</b></li>
-  <li><b>MN</b> and <a title="Propodeum" style="cursor:help;"><b>PP</b></a> well fused</li>
-  <li> Hungary, South Slovakia, South Austria<br>
+  <li><?= lang() === "fr" ? "Tibia postérieur court" : "Rear tibia not long" ?>: <br> <b>HTL/CW < 1,50</b></li>
+  <li><?= lang() === "fr" ? "Scape très long" : "Scapus very long" ?>: <br> <b>SL/CL > 1,13</b></li>
+  <li><b>MN</b> <?= lang() === "fr" ? "et" : "and" ?> <a title="Propodeum" style="cursor:help;"><b>PP</b></a> <?= lang() === "fr" ? "bien fusionnés" : "well fused" ?></li>
+  <li><?= lang() === "fr" ? "Hongrie, sud de la Slovaquie, sud de l'Autriche" : "Hungary, South Slovakia, South Austria" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a href"prenolepis_nitens.html"><i><strong><b>n</b>itens</strong></i></a>
@@ -88,11 +88,11 @@
 <!--Acropyga-->
   <div class="icones"><a href="acropyga_ergate.html"><input type="button" class="long_button"  style="cursor: pointer" value="Acropyga" onclick="location.href='acropyga_ergate.html';"></a>
 <?php include("../php/CCblanc.php") ?>
-  <li>Posterior extremities of the cranium angular. Vertex notched in the middle or at least planar</li>
-  <li>Frontal groove (<b>Fg</b>) forms a marked protrusion from the top of the vertex to the upper edge of the <a title="Frontal Triangle" style="cursor:help;"><b>∆fr</b></a>.
-  <br>Face like <i><strong>Pheidole pallidula</strong></i></li>
-  <li>Eyes reduced, just above the posterior horizon of the antennal sockets</li>
-  <li> East Asia, Japan<br>
+  <li><?= lang() === "fr" ? "Extrémités postérieures du crâne anguleuses. Vertex entaillé au milieu ou au moins plan" : "Posterior extremities of the cranium angular. Vertex notched in the middle or at least planar" ?></li>
+  <li><?= lang() === "fr" ? "Sillon frontal" : "Frontal groove" ?> (<b>Fg</b>) <?= lang() === "fr" ? "formant une protubérance marquée du sommet du vertex au bord supérieur du" : "forms a marked protrusion from the top of the vertex to the upper edge of the" ?> <a title="<?= lang() === "fr" ? "Triangle frontal" : "Frontal Triangle" ?>" style="cursor:help;"><b>∆fr</b></a>.
+  <br><?= lang() === "fr" ? "Face semblable à" : "Face like" ?> <i><strong>Pheidole pallidula</strong></i></li>
+  <li><?= lang() === "fr" ? "Yeux réduits, juste au-dessus de l'horizon postérieur des cavités antennaires" : "Eyes reduced, just above the posterior horizon of the antennal sockets" ?></li>
+  <li><?= lang() === "fr" ? "Asie de l'Est, Japon" : "East Asia, Japan" ?><br>
       <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a href"acropyga_jiangxiensis"><i><strong><b>j</b>iangxiensis</strong></i></a>

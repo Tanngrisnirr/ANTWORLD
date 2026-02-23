@@ -198,12 +198,12 @@
 </head>
     <body>
 <article>
-<h2 class="h2one">Ant diversity by country</h2>
+<h2 class="h2one"><?= t('geo.title') ?></h2>
 
 <div class="geo-layout">
 <div class="geo-main">
 <p4>
-<h3 class="h2one" id="chart-title">Species Richness by Country</h3>
+<h3 class="h2one" id="chart-title"><?= t('geo.chart_title') ?></h3>
 <div id="main_chart" style="width:100%; height:500px;"></div>
 <div class="chart-export-buttons">
     <button class="chart-btn" onclick="exportChartLocal('png')">PNG</button>
@@ -567,41 +567,41 @@ function downloadBlob(blob, filename) {
 
 <!-- Sidebar with controls -->
 <div class="geo-sidebar">
-    <h4>Biogeographic Realms</h4>
+    <h4><?= t('geo.biogeographic_realms') ?></h4>
     <div class="region-filters">
-        <label class="region-checkbox"><input type="checkbox" id="palearctic" checked onchange="updateCharts()"> Palearctic</label>
-        <label class="region-checkbox"><input type="checkbox" id="afrotropical" onchange="updateCharts()"> Afrotropical</label>
-        <label class="region-checkbox"><input type="checkbox" id="nearctic" onchange="updateCharts()"> Nearctic</label>
-        <label class="region-checkbox"><input type="checkbox" id="neotropical" onchange="updateCharts()"> Neotropical</label>
-        <label class="region-checkbox"><input type="checkbox" id="indomalayan" onchange="updateCharts()"> Indomalayan</label>
-        <label class="region-checkbox"><input type="checkbox" id="australasian" onchange="updateCharts()"> Australasian</label>
+        <label class="region-checkbox"><input type="checkbox" id="palearctic" checked onchange="updateCharts()"> <?= t('geo.realms.palearctic') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="afrotropical" onchange="updateCharts()"> <?= t('geo.realms.afrotropical') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="nearctic" onchange="updateCharts()"> <?= t('geo.realms.nearctic') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="neotropical" onchange="updateCharts()"> <?= t('geo.realms.neotropical') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="indomalayan" onchange="updateCharts()"> <?= t('geo.realms.indomalayan') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="australasian" onchange="updateCharts()"> <?= t('geo.realms.australasian') ?></label>
         <div style="display:flex; gap:5px; margin-top:5px;">
-            <button class="chart-btn" onclick="selectAllRegions()">All</button>
-            <button class="chart-btn" onclick="clearAllRegions()">None</button>
+            <button class="chart-btn" onclick="selectAllRegions()"><?= t('ui.all') ?></button>
+            <button class="chart-btn" onclick="clearAllRegions()"><?= t('ui.none') ?></button>
         </div>
     </div>
 
-    <h4>Show Data</h4>
+    <h4><?= t('geo.show_data') ?></h4>
     <div class="region-filters">
-        <label class="region-checkbox"><input type="checkbox" id="show_species" checked onchange="updateCharts()"> Species</label>
-        <label class="region-checkbox"><input type="checkbox" id="show_genera" checked onchange="updateCharts()"> Genera</label>
-        <label class="region-checkbox"><input type="checkbox" id="show_subfamilies" checked onchange="updateCharts()"> Subfamilies</label>
+        <label class="region-checkbox"><input type="checkbox" id="show_species" checked onchange="updateCharts()"> <?= t('geo.species') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="show_genera" checked onchange="updateCharts()"> <?= t('geo.genera') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="show_subfamilies" checked onchange="updateCharts()"> <?= t('geo.subfamilies') ?></label>
     </div>
 
-    <h4>Scale</h4>
+    <h4><?= t('geo.scale') ?></h4>
     <div class="region-filters">
-        <label class="region-checkbox"><input type="radio" name="scale" id="scale_linear" checked onchange="updateCharts()"> Linear</label>
-        <label class="region-checkbox"><input type="radio" name="scale" id="scale_log" onchange="updateCharts()"> Logarithmic</label>
-        <label class="region-checkbox"><input type="radio" name="scale" id="scale_percent" onchange="updateCharts()"> Percentage</label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_linear" checked onchange="updateCharts()"> <?= t('geo.linear') ?></label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_log" onchange="updateCharts()"> <?= t('geo.logarithmic') ?></label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_percent" onchange="updateCharts()"> <?= t('geo.percentage') ?></label>
     </div>
 
-    <h4>Export Data</h4>
+    <h4><?= t('geo.export_data') ?></h4>
     <div class="export-controls">
         <button class="export-btn" onclick="exportGeoDataCSV()">
-            Download <span class="format">CSV</span>
+            <?= t('ui.download') ?> <span class="format">CSV</span>
         </button>
         <button class="export-btn" onclick="exportGeoDataJSON()">
-            Download <span class="format">JSON</span>
+            <?= t('ui.download') ?> <span class="format">JSON</span>
         </button>
     </div>
 </div><!-- end geo-sidebar -->
