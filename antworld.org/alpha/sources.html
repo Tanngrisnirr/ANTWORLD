@@ -184,40 +184,40 @@
 </head>
 <body>
 <article>
-    <h2 class="h2one">Bibliography and References</h2>
+    <h2 class="h2one"><?= t('sources.title') ?></h2>
     <?php include("php/top.php"); ?>
 
     <div class="sources-controls">
-        <input type="text" class="filter-input" id="sourceFilter" placeholder="Search author, year, title..." onkeyup="filterTable()">
+        <input type="text" class="filter-input" id="sourceFilter" placeholder="<?= t('sources.search_placeholder') ?>" onkeyup="filterTable()">
         <span class="source-count" id="sourceCount"></span>
         <button class="export-btn" onclick="exportTableToCSV('antworld_sources.csv')">
-            Download <span class="format">CSV</span>
+            <?= t('ui.download') ?> <span class="format">CSV</span>
         </button>
         <button class="export-btn" onclick="exportTableToJSON()">
-            Download <span class="format">JSON</span>
+            <?= t('ui.download') ?> <span class="format">JSON</span>
         </button>
         <button class="export-btn" onclick="exportTableToBibTeX()">
-            Download <span class="format">BibTeX</span>
+            <?= t('ui.download') ?> <span class="format">BibTeX</span>
         </button>
         <button class="export-btn export-btn-large" id="downloadAllPdfs" onclick="downloadAllPDFs()">
-            Download <span class="format">All PDFs</span> <span id="pdfProgress"></span>
+            <?= t('ui.download') ?> <span class="format">All PDFs</span> <span id="pdfProgress"></span>
         </button>
     </div>
 
     <div class="source-legend">
-        <span><span class="icon icon-file-pdf"></span> PDF in library</span>
-        <span><span class="icon icon-link"></span> External website</span>
-        <span><span class="icon icon-search"></span> Google Scholar search</span>
-        <em style="margin-left: auto; opacity: 0.7;">Click Source header to cycle: PDF → Scholar → Web</em>
+        <span><span class="icon icon-file-pdf"></span> <?= t('sources.legend_pdf') ?></span>
+        <span><span class="icon icon-link"></span> <?= t('sources.legend_web') ?></span>
+        <span><span class="icon icon-search"></span> <?= t('sources.legend_scholar') ?></span>
+        <em style="margin-left: auto; opacity: 0.7;"><?= t('sources.legend_tip') ?></em>
     </div>
 
     <table class="sources-table" id="sourcesTable">
         <thead>
             <tr>
-                <th class="author-col sortable" onclick="sortTable(0, event)">Author(s)</th>
-                <th class="year-col sortable" onclick="sortTable(1, event)">Year</th>
-                <th class="title-col sortable" onclick="sortTable(2, event)">Title</th>
-                <th class="source-col sortable" onclick="sortTable(3, event)">Source</th>
+                <th class="author-col sortable" onclick="sortTable(0, event)"><?= t('sources.table.author') ?></th>
+                <th class="year-col sortable" onclick="sortTable(1, event)"><?= t('sources.table.year') ?></th>
+                <th class="title-col sortable" onclick="sortTable(2, event)"><?= t('sources.table.title') ?></th>
+                <th class="source-col sortable" onclick="sortTable(3, event)"><?= t('sources.table.source') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -363,13 +363,13 @@
         </tbody>
     </table>
 
-    <h2 class="h2two">Online Resources</h2>
+    <h2 class="h2two"><?= t('sources.online_resources') ?></h2>
     <table class="sources-table" id="resourcesTable">
         <thead>
             <tr>
-                <th>Resource</th>
-                <th>Description</th>
-                <th>Link</th>
+                <th><?= t('sources.resource') ?></th>
+                <th><?= t('sources.description') ?></th>
+                <th><?= t('sources.link') ?></th>
             </tr>
         </thead>
         <tbody>

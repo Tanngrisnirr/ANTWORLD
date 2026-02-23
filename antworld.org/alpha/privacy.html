@@ -9,24 +9,24 @@
     <body>
 <article>
 <br>
-<h2 class="h2one">Privacy policy</h2>
+<h2 class="h2one"><?= t('privacy.title') ?></h2>
 <br>
 <br>
 <p class="left2">
-We do not:<br>
-- Display ads of any kind,<br>
-- Share any data to third parties for advertisement purposes,<br>
-- Track you movements outside the website,<br>
-- Use cookies or store any information on your computer that is not necessary for the good functioning of the website<br>
+<?= t('privacy.we_do_not') ?><br>
+- <?= t('privacy.not_ads') ?><br>
+- <?= t('privacy.not_share') ?><br>
+- <?= t('privacy.not_track') ?><br>
+- <?= t('privacy.not_cookies') ?><br>
 <br>
-We do:<br>
-- Collect IP addresses,<br>
-- Number of clicks of a designated IP address on the website, but not on what contend,<br>
-- Approximate time spend by an IP address on the website at a given day,<br>
-- Look for the provenance of inbound IP addresses and links,<br>
-- Store code in your cache that allow an appropriate rendering of the website like the header or the css, thus improving the loading speed of the pages<br>
+<?= t('privacy.we_do') ?><br>
+- <?= t('privacy.do_ip') ?><br>
+- <?= t('privacy.do_clicks') ?><br>
+- <?= t('privacy.do_time') ?><br>
+- <?= t('privacy.do_origin') ?><br>
+- <?= t('privacy.do_cache') ?><br>
 <br>
-We hope this summary has answered all of your questions, if not we are here to answer any question you may have: <a href="mailto:info@antworld.org">Contact Us</a>
+<?= t('privacy.contact_us') ?> <a href="mailto:info@antworld.org">Contact Us</a>
 </p>
 </article>
 <br><br>

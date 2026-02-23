@@ -359,15 +359,15 @@
 </head>
     <body>
 <article>
-<h2 class="h2one">Taxonomical Ant diversity</h2>
+<h2 class="h2one"><?= t('tax.title') ?></h2>
 
 <div class="tax-layout">
 <div class="tax-main">
 
 <div class="chart-tabs">
-    <button class="chart-tab active" onclick="showChart('subfamilies')">Subfamilies</button>
-    <button class="chart-tab" onclick="showChart('tribes')">Tribes</button>
-    <button class="chart-tab" onclick="showChart('genera')">Genera</button>
+    <button class="chart-tab active" onclick="showChart('subfamilies')"><?= t('tax.subfamilies') ?></button>
+    <button class="chart-tab" onclick="showChart('tribes')"><?= t('tax.tribes') ?></button>
+    <button class="chart-tab" onclick="showChart('genera')"><?= t('tax.genera') ?></button>
 </div>
 
 <p4>
@@ -1437,26 +1437,26 @@ function exportChartJPEG(containerId, filename) {
 
 <div class="tax-sidebar-wrapper">
 <div class="tax-sidebar">
-    <h4>Chart Background</h4>
+    <h4><?= t('tax.chart_background') ?></h4>
     <div class="bg-toggle">
-        <button class="bg-toggle-btn dark active" onclick="setChartBackground('dark')">Dark</button>
-        <button class="bg-toggle-btn light" onclick="setChartBackground('light')">Light</button>
+        <button class="bg-toggle-btn dark active" onclick="setChartBackground('dark')"><?= t('tax.dark') ?></button>
+        <button class="bg-toggle-btn light" onclick="setChartBackground('light')"><?= t('tax.light') ?></button>
     </div>
 
-    <h4>Display Mode</h4>
+    <h4><?= t('tax.display_mode') ?></h4>
     <div class="display-options">
         <label class="display-option active" onclick="setDisplayMode('percentage')">
-            <input type="radio" name="displayMode" value="percentage" checked> Percentage
+            <input type="radio" name="displayMode" value="percentage" checked> <?= t('tax.percentage') ?>
         </label>
         <label class="display-option" onclick="setDisplayMode('value')">
-            <input type="radio" name="displayMode" value="value"> Numbers
+            <input type="radio" name="displayMode" value="value"> <?= t('tax.numbers') ?>
         </label>
         <label class="display-option" onclick="setDisplayMode('both')">
-            <input type="radio" name="displayMode" value="both"> Both
+            <input type="radio" name="displayMode" value="both"> <?= t('tax.both') ?>
         </label>
     </div>
 
-    <h4>Export Chart</h4>
+    <h4><?= t('tax.export_chart') ?></h4>
     <div class="export-controls">
         <button class="export-btn" onclick="exportCurrentChartSVG()">
             Chart <span class="format">SVG</span>
@@ -1469,13 +1469,13 @@ function exportChartJPEG(containerId, filename) {
         </button>
     </div>
 
-    <h4>Export Data</h4>
+    <h4><?= t('tax.export_data') ?></h4>
     <div class="export-controls">
         <button class="export-btn" onclick="exportAllDataCSV()">
-            Download All <span class="format">CSV</span>
+            <?= t('tax.download_all') ?> <span class="format">CSV</span>
         </button>
         <button class="export-btn" onclick="exportAllDataJSON()">
-            Download All <span class="format">JSON</span>
+            <?= t('tax.download_all') ?> <span class="format">JSON</span>
         </button>
     </div>
 </div><!-- end tax-sidebar -->

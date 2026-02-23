@@ -1,5 +1,6 @@
+<?php include_once("../php/international.php"); ?>
 <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
-<meta name="author" content="Ruiz Georges">
+<meta name="author" content="AntWorld.org">
 <link rel="stylesheet" href="../css/css_antworld.css"/>
 <link rel="stylesheet" href="../css/antworld-icons.css"/>
 <meta name="description" content="AntWorld Identification Keys">

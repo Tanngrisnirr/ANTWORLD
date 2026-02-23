@@ -1,4 +1,9 @@
 <?php
+// Ensure international.php is loaded (for pages that don't use ihead.php)
+if (!function_exists('t')) {
+    include_once(__DIR__ . '/international.php');
+}
+
 // Determine base paths based on current directory
 $inSpecies = strpos($_SERVER['REQUEST_URI'], '/id/species/') !== false;
 $inId = strpos($_SERVER['REQUEST_URI'], '/id/') !== false && !$inSpecies;

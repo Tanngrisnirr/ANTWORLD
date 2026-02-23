@@ -4,7 +4,7 @@
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Myrmicinae Subfamily">
 		<meta name="keywords" content="Pyramica,Strongylognathus,Harpagoxenus,Anergates,Teleutomyrmex,Crematogaster,Myrmicinae,ergate,Palearctic,argiola,baudueri,benten,canina,bircothrix,hexamera,hirashimai,hiroshimensis,incerta,japonica,kichijo,leptothrix,masukoi,mazu,membranifera,morisitai,mutica,rostrataeformis,sauteri,tenuipilis,tenuissima,terayamai">
-		<meta name="author" content="Ruiz Georges">
+		<meta name="author" content="AntWorld.org">
 		<link rel="stylesheet" href="../css/css_antworld.css"/>
 		<link rel="stylesheet" href="../css/antworld-icons.css"/>
 
@@ -16,9 +16,9 @@
 <body>
 <?php include("../php/nav.php") ?>
 <article>
- <h2 class="h2one">Myrmicinae Subfamily</h2>
+ <h2 class="h2one"><?= lang() === "fr" ? "Sous-famille des Myrmicinae" : "Myrmicinae Subfamily" ?></h2>
 
-  <div class="icones"><a href"pyramica_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Pyramica" onclic="location.href='_ergate.html';"></a>
+  <div class="icones"><a href"pyramica_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Pyramica" onclic="location.href='_ergate.html';"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/myrmicinae/pyramica_baudueri.face.jpg" typeof="foaf:publications" alt="of Pyramica baudueri's face"/>
@@ -27,9 +27,9 @@
 <a class="caption simple-caption" href="http://ant.miyakyo-u.ac.jp/E/Taxo/F403--.html" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>C. Emery</p></a>
 </div>
-  <li>Funiculus max. 5 articles</li>
-  <li>Head heart shaped in<a title="frontal view" style="cursor:help;"><b>fview</b></a></li>
-  <li>Wester Palearctic<br>
+  <li><?= lang() === "fr" ? "Funicule max. 5 articles" : "Funiculus max. 5 articles" ?></li>
+  <li><?= lang() === "fr" ? "Tête en forme de cœur en" : "Head heart shaped in" ?> <a title="<?= lang() === "fr" ? "vue frontale" : "frontal view" ?>" style="cursor:help;"><b>fview</b></a></li>
+  <li><?= lang() === "fr" ? "Paléarctique occidental" : "Western Palearctic" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a ref="_ergate.html"><i><strong>argiola</strong></i></a>,<a ref="_ergate.html"><i><strong><b>b</b>audueri</strong></i></a>,<a ref="_ergate.html"><i><strong><b>b</b>enten</strong></i></a>
@@ -44,7 +44,7 @@
 </div>
 
 <!--Strongylognathus-->
-  <div class="icones"><a href="strong_mandibules_ergate.html"></a><input type="button" class="button_no" disabled title="Under construction" value="Sharp mandibules" onclic="location.href='strong_mandibules_ergate.html';"></a>
+  <div class="icones"><a href="strong_mandibules_ergate.html"></a><input type="button" class="button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Sharp mandibules" onclic="location.href='strong_mandibules_ergate.html';"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/myrmicinae/harpagoxenus_sublaevis_strongyloghathus_testacea.face.png" title="AntWeb" typeof="foaf:Organization" alt="Image Strongylognathus testaceus face"/>
@@ -53,9 +53,9 @@
 <a class="caption simple-caption" href="https://www.antweb.org/description.do?subfamily=myrmicinae&genus=strongylognathus&rank=genus&project=allantwebants" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>AntWeb</p></a>
 </div>
-  <li>Sword- or shear-like mandibles :
-  <a ref="strongylognathus_ergate.html"><i><strong>Strongylognathus</strong></i></a>(right)
-  <a ref="harpagoxenus_ergate.html"><i><strong>Harpagoxenus</strong></i></a> (left)</li>
+  <li><?= lang() === "fr" ? "Mandibules en forme de sabre ou de cisaille" : "Sword- or shear-like mandibles" ?> :
+  <a ref="strongylognathus_ergate.html"><i><strong>Strongylognathus</strong></i></a> (<?= lang() === "fr" ? "droite" : "right" ?>)
+  <a ref="harpagoxenus_ergate.html"><i><strong>Harpagoxenus</strong></i></a> (<?= lang() === "fr" ? "gauche" : "left" ?>)</li>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/myrmicinae/teleutomyrmex_anergates.png" title="AntWeb" typeof="foaf:Image" alt="Image face of keft Teleutomyrmex and right Anergates"/>
@@ -66,12 +66,12 @@
     href="https://www.antweb.org/specimenImages.do?name=focol2107&project=allantwebants"
     target="_blank"><p>AntWeb</p></a>
 </div>
-  <li><a title="Clypeus" style="cursor:help;"><b>Cly</b></a> far pressed in : <a ref="_ergate.html"><i><strong>anergates</strong></i></a></li>
-  <li><a title="Clypeus" style="cursor:help;"><b>Cly</b></a> almost flat : <a ref="_ergate.html"><i><strong><b>T</b>eleutomyrmex</strong></i></a></li>
+  <li><a title="<?= lang() === "fr" ? "Clypéus" : "Clypeus" ?>" style="cursor:help;"><b>Cly</b></a> <?= lang() === "fr" ? "fortement enfoncé" : "far pressed in" ?> : <a ref="_ergate.html"><i><strong>Anergates</strong></i></a></li>
+  <li><a title="<?= lang() === "fr" ? "Clypéus" : "Clypeus" ?>" style="cursor:help;"><b>Cly</b></a> <?= lang() === "fr" ? "presque plat" : "almost flat" ?> : <a ref="_ergate.html"><i><strong>Teleutomyrmex</strong></i></a></li>
   </div>
 
 <!--Crematogaster-->
-  <div class="icones"> <a href="crematogaster_ergate.html"></a><input type="button" class="long_button_no" disabled title="Under construction" value="Crematogaster" onclic="location.href='crematogaster_ergate.html';"></a>
+  <div class="icones"> <a href="crematogaster_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Crematogaster" onclic="location.href='crematogaster_ergate.html';"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/myrmicinae/crematogaster_hespera.peprofil_mini.png" title="AntWeb" typeof="foaf:Image" alt="Image Crematogaster hespera petiole, profile view"/>
@@ -80,8 +80,8 @@
 <a class="caption simple-caption" href="http://www.antweb.org/bigPicture.do?name=casent0005669&shot=p&number=1" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>AntWeb</p></a>
 </div>
-  <li>PPE dorsal in <a title="First abdomen tergite" style="cursor:help;"><b>t1</b></a> insered</li>
-  <li>Gaster heart shaped in <a title="dorsal view" style="cursor:help;"><b>dview</b></a></li>
+  <li><?= lang() === "fr" ? "Post-pétiole inséré dorsalement dans" : "Post-Petiole dorsal in" ?> <a title="<?= lang() === "fr" ? "Premier tergite abdominal" : "First abdomen tergite" ?>" style="cursor:help;"><b>t1</b></a></li>
+  <li><?= lang() === "fr" ? "Gastre en forme de cœur en" : "Gaster heart shaped in" ?> <a title="<?= lang() === "fr" ? "vue dorsale" : "dorsal view" ?>" style="cursor:help;"><b>dview</b></a></li>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/myrmicinae/crematogaster_hespera.gasterdo.png" title="April Nobile / From www.antweb.org. Accessed 18 April 2014" typeof="foaf:Image" alt="Image Crematogaster hespera gaster heart-like in dorsal view"/>
@@ -90,7 +90,7 @@
 <a class="caption simple-caption" href="https://www.antweb.org/bigPicture.do?name=casent0005669&shot=d&number=1" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>AntWeb</p></a>
 </div>
-  <li>South Palearctic, in Northern in artificially warm compounds<br>
+  <li><?= lang() === "fr" ? "Paléarctique méridional, au nord dans des milieux artificiellement chauds" : "South Palearctic, in Northern in artificially warm compounds" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a ref="_ergate.html"><i><strong>afghanica</strong></i></a>, <a ref="_ergate.html"><i><strong>antaris</strong></i></a>, <a ref="_ergate.html"><i><strong>auberti</strong></i></a>
@@ -107,7 +107,7 @@
   </div>
 
 <!--Myrmica-->
-  <div class="icones"> <a href="_ergate.html"></a><input type="button" class="button_no" disabled title="Under construction" value="other Myrmicinae" onclic="location.href='myrmica_ergate.html';"></a>
+  <div class="icones"> <a href="_ergate.html"></a><input type="button" class="button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="other Myrmicinae" onclic="location.href='myrmica_ergate.html';"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/myrmicinae/myrmica_rubra.peprofile.png" title="AntWeb" typeof="foaf:Image" alt="Image petiole Myrmica rubra profile"/>
@@ -116,8 +116,8 @@
 <a class="caption simple-caption" href="https://www.antweb.org/bigPicture.do?name=casent0010684&shot=p&number=1" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>AntWeb</p></a>
 </div>
-  <li>PPE median or ventromedian in <a title="First abdomen tergite" style="cursor:help;"><b>t1</b></a> insered</li>
-  <li>Gaster heart else shaped in <a title="dorsal view" style="cursor:help;"><b>dview</b></a></li>
+  <li><?= lang() === "fr" ? "Post-pétiole inséré médianement ou ventro-médianement dans" : "Post-Petiole median or ventromedian in" ?> <a title="<?= lang() === "fr" ? "Premier tergite abdominal" : "First abdomen tergite" ?>" style="cursor:help;"><b>t1</b></a></li>
+  <li><?= lang() === "fr" ? "Gastre d'autre forme en" : "Gaster else shaped in" ?> <a title="<?= lang() === "fr" ? "vue dorsale" : "dorsal view" ?>" style="cursor:help;"><b>dview</b></a></li>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/myrmicinae/myrmica_rubra.pedorsal.png" title="Erin Prado / From www.antweb.org. Accessed 18 April 2014" typeof="foaf:Image" alt="Image Crematogaster hespera gaster heart-like in dorsal view"/>
@@ -126,7 +126,7 @@
 <a class="caption simple-caption" href="https://www.antweb.org/bigPicture.do?name=casent0010684&shot=d&number=1" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>AntWeb</p></a>
 </div>
-  <li> Whole palearctic up to 73 °N<br>
+  <li><?= lang() === "fr" ? "Paléarctique entier jusqu'à 73° N" : "Whole Palearctic up to 73 °N" ?><br>
            <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
   <a ref="_ergate.html"><b>F</b>ormicoxenini</a>

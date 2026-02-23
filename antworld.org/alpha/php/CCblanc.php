@@ -4,5 +4,5 @@
 	</div>
 </div>
 <a class="caption simple-caption" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en" target="_blank" title="empty" typeof="foaf:publications" alt="copyright link" >
-    <p>G. Ruiz</p></a>
+    <p>AntWorld.org</p></a>
 </div>

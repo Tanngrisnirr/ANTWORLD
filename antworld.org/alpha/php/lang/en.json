@@ -28,6 +28,177 @@
     "search": "Search",
     "close": "Close",
     "loading": "Loading...",
-    "error": "Error"
+    "error": "Error",
+    "show": "Show",
+    "hide": "Hide",
+    "reset": "Reset",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "save": "Save",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "index": {
+    "intro": "Interactive dichotomous keys and comprehensive database covering 936 species across the Palearctic region",
+    "start_id": "Start Identification",
+    "news_title": "Myrmecology News",
+    "resources_title": "Myrmecology Resources",
+    "about_title": "About AntWorld",
+    "about_p1": "AntWorld.org is dedicated to making ant identification accessible to researchers, students, and enthusiasts. Our interactive dichotomous keys guide you through morphological features to identify ant species found across the Palearctic region.",
+    "about_p2": "All data is freely available for scientific and educational purposes under Creative Commons license.",
+    "stats": {
+      "species": "Species",
+      "genera": "Genera",
+      "subfamilies": "Subfamilies",
+      "tribes": "Tribes",
+      "id_keys": "ID Keys"
+    },
+    "resources": {
+      "antweb_desc": "World's largest online database of ant images, specimen records, and natural history information.",
+      "antwiki_desc": "Comprehensive wiki resource for ant taxonomy, biology, and natural history information.",
+      "globalants_desc": "Comprehensive ant trait data at a global scale for research and conservation."
+    }
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "we_do_not": "We do not:",
+    "not_ads": "Display ads of any kind,",
+    "not_share": "Share any data to third parties for advertisement purposes,",
+    "not_track": "Track your movements outside the website,",
+    "not_cookies": "Use cookies or store any information on your computer that is not necessary for the good functioning of the website",
+    "we_do": "We do:",
+    "do_ip": "Collect IP addresses,",
+    "do_clicks": "Number of clicks of a designated IP address on the website, but not on what content,",
+    "do_time": "Approximate time spend by an IP address on the website at a given day,",
+    "do_origin": "Look for the provenance of inbound IP addresses and links,",
+    "do_cache": "Store code in your cache that allow an appropriate rendering of the website like the header or the css, thus improving the loading speed of the pages",
+    "contact_us": "We hope this summary has answered all of your questions, if not we are here to answer any question you may have:"
+  },
+  "credits": {
+    "role": "Role",
+    "role_desc": "Building the site, design html5 and css3, coding in javascript and php and all that uninteresting stuff...",
+    "searching_for": "Searching for",
+    "seeking_translators": "Translators in the following languages: russian, japanese, chinese. Interested?",
+    "join_us": "Join Us",
+    "image_credits": "Image Credits",
+    "image_credits_intro": "Ant specimen photographs throughout this website come from several sources. Each image links to its original source.",
+    "antweb_desc": "the world's largest online database of ant images and specimen records.",
+    "antweb_license": "Images shared under",
+    "antweb_photographers": "Photographers include: April Nobile, Will Ericson, Erin Prado, Shannon Hartman, and many other contributors at the California Academy of Sciences.",
+    "jad_desc": "High-quality specimen photographs and drawings of Japanese ant species.",
+    "data_sources": "Data Sources",
+    "data_sources_intro": "Species counts and distribution data from:"
+  },
+  "sources": {
+    "title": "Bibliography and References",
+    "search_placeholder": "Search author, year, title...",
+    "sources_count": "sources",
+    "legend_pdf": "PDF in library",
+    "legend_web": "External website",
+    "legend_scholar": "Google Scholar search",
+    "legend_tip": "Click Source header to cycle: PDF → Scholar → Web",
+    "table": {
+      "author": "Author(s)",
+      "year": "Year",
+      "title": "Title",
+      "source": "Source"
+    },
+    "online_resources": "Online Resources",
+    "resource": "Resource",
+    "description": "Description",
+    "link": "Link"
+  },
+  "training": {
+    "load_more": "Load more IDs",
+    "test": "Test"
+  },
+  "geo": {
+    "title": "Ant diversity by country",
+    "chart_title": "Species Richness by Country",
+    "richness_all": "Richness at species, genus and subfamily level",
+    "richness_single": "Richness by Country",
+    "richness_two": "Richness at",
+    "level": "level",
+    "biogeographic_realms": "Biogeographic Realms",
+    "realms": {
+      "palearctic": "Palearctic",
+      "afrotropical": "Afrotropical",
+      "nearctic": "Nearctic",
+      "neotropical": "Neotropical",
+      "indomalayan": "Indomalayan",
+      "australasian": "Australasian"
+    },
+    "show_data": "Show Data",
+    "species": "Species",
+    "genera": "Genera",
+    "subfamilies": "Subfamilies",
+    "scale": "Scale",
+    "linear": "Linear",
+    "logarithmic": "Logarithmic",
+    "percentage": "Percentage",
+    "export_data": "Export Data",
+    "sources_references": "Sources & References",
+    "data_sources": "Data sources:",
+    "countries_selected": "countries selected",
+    "showing_top": "showing top 15"
+  },
+  "tax": {
+    "title": "Taxonomical Ant diversity",
+    "subfamilies": "Subfamilies",
+    "tribes": "Tribes",
+    "genera": "Genera",
+    "top_genera": "Top 11 Genera",
+    "other_genera": "Other Genera",
+    "chart_background": "Chart Background",
+    "dark": "Dark",
+    "light": "Light",
+    "display_mode": "Display Mode",
+    "percentage": "Percentage",
+    "numbers": "Numbers",
+    "both": "Both",
+    "export_chart": "Export Chart",
+    "export_data": "Export Data",
+    "download_all": "Download All",
+    "total": "Total",
+    "showing": "Showing",
+    "species_in": "species in"
+  },
+  "list": {
+    "title": "Ant diversity",
+    "search_placeholder": "Search species, genus, or subfamily...",
+    "filter_subfamilies": "Subfamilies:",
+    "author_note": "Authors in () means the name of the ant has been modified since its original description.",
+    "table": {
+      "subfamily": "Subfamily",
+      "tribe": "Tribe",
+      "genus": "Genus",
+      "species": "Species",
+      "author": "Author",
+      "year": "Year"
+    }
+  },
+  "morpho": {
+    "title": "Ant Morphology - Interactive Anatomy Guide",
+    "tabs": {
+      "full_body": "Full Body",
+      "head": "Head",
+      "mesosoma": "Mesosoma",
+      "petiole": "Petiole",
+      "gaster": "Gaster",
+      "measurements": "Measurements"
+    },
+    "views": {
+      "dorsal": "Dorsal",
+      "lateral": "Lateral",
+      "frontal": "Frontal"
+    },
+    "controls": {
+      "labels": "Labels",
+      "blind": "Blind"
+    },
+    "features": "Anatomical Features",
+    "export_diagram": "Export Diagram",
+    "source": "Source"
   }
 }
