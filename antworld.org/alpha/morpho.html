@@ -7,28 +7,34 @@
     <?php include("php/ihead.php"); ?>
     <style>
 /* Morphology page specific styles */
+h2.h2one {
+    text-align: center !important;
+    margin: 10px 0;
+    width: 100%;
+    display: block;
+}
 .morpho-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px 20px;
 }
 
 /* Tab navigation */
 .morpho-tabs {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 8px;
+    margin: 5px 0;
     flex-wrap: wrap;
 }
 .morpho-tab {
     background: var(--bg-secondary);
     color: var(--text-primary);
-    border: 2px solid var(--border-color);
-    padding: 12px 30px;
-    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 6px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -85,17 +91,17 @@
 .view-selector {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
+    gap: 8px;
+    margin: 5px 0 10px 0;
 }
 .view-btn {
     background: var(--bg-tertiary);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-    padding: 8px 20px;
-    border-radius: 20px;
+    padding: 4px 12px;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 11px;
     transition: all 0.2s;
 }
 .view-btn:hover, .view-btn.active {
@@ -159,7 +165,7 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin: 15px 0;
+    margin: 5px 0;
     flex-wrap: wrap;
 }
 .control-btn {
@@ -302,26 +308,53 @@
     }
 }
 
+/* Head section with side panel */
+.head-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+.head-layout .diagram-area {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+.head-layout .measurements-panel {
+    flex: 0 0 280px;
+    position: sticky;
+    top: 20px;
+    margin-top: 0;
+    align-self: flex-start;
+}
+@media (max-width: 900px) {
+    .head-layout {
+        flex-direction: column;
+    }
+    .head-layout .measurements-panel {
+        flex: none;
+        width: 100%;
+    }
+}
+
 /* Measurements panel */
 .measurements-panel {
     background: var(--bg-secondary);
     border-radius: 12px;
-    padding: 20px;
-    margin: 20px 0;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 15px;
+    margin: 0;
 }
 .measurements-panel h4 {
     color: var(--text-primary);
-    margin: 0 0 15px 0;
-    font-size: 16px;
+    margin: 0 0 10px 0;
+    font-size: 14px;
     text-align: center;
 }
 .measurement-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 .measurement-checkbox {
     display: flex;
@@ -356,20 +389,26 @@
 /* Panel controls row (toggle + buttons) */
 .panel-controls {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.panel-controls .toggle-switch {
+    margin-bottom: 5px;
+}
+.panel-buttons {
+    display: flex;
+    gap: 8px;
 }
 .panel-controls button {
     background: var(--bg-tertiary);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     transition: all 0.2s;
 }
 .panel-controls button:hover {
@@ -491,7 +530,7 @@
 <div class="morpho-container">
     <!-- Tab Navigation -->
     <div class="morpho-tabs">
-        <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tete">Head</button>
+        <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tête">Head</button>
         <button class="morpho-tab" data-section="mesosoma" data-en="Mesosoma" data-fr="Mesosoma">Mesosoma</button>
         <button class="morpho-tab" data-section="metasoma" data-en="Metasoma" data-fr="Metasoma">Metasoma</button>
         <button class="morpho-tab" data-section="measurements" data-en="Measurements" data-fr="Mesures">Measurements</button>
@@ -502,64 +541,14 @@
         <button class="control-btn" id="langToggle">EN / FR</button>
     </div>
 
-    <!-- Measurements Panel (shown only for head tab with SVG) -->
-    <div class="measurements-panel" id="measurementsPanel">
-        <div class="panel-controls">
-            <label class="toggle-switch">
-                <input type="checkbox" id="toggleLabels" checked>
-                <span class="toggle-slider"></span>
-                <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
-            </label>
-            <button id="clearMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
-            <button id="showAllMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
-        </div>
-        <h4 data-en="Morphometric Measurements" data-fr="Mesures morphometriques">Morphometric Measurements</h4>
-        <div class="measurement-grid" id="measurementGrid">
-            <label class="measurement-checkbox">
-                <input type="checkbox" data-measure="CL">
-                <span class="abbrev">CL</span>
-                <span class="name" data-en="Cephalic Length" data-fr="Longueur cephalique">Cephalic Length</span>
-            </label>
-            <label class="measurement-checkbox">
-                <input type="checkbox" data-measure="CW">
-                <span class="abbrev">CW</span>
-                <span class="name" data-en="Cephalic Width" data-fr="Largeur cephalique">Cephalic Width</span>
-            </label>
-            <label class="measurement-checkbox">
-                <input type="checkbox" data-measure="EL">
-                <span class="abbrev">EL</span>
-                <span class="name" data-en="Eye Length" data-fr="Longueur de l'oeil">Eye Length</span>
-            </label>
-            <label class="measurement-checkbox">
-                <input type="checkbox" data-measure="ES">
-                <span class="abbrev">ES</span>
-                <span class="name" data-en="Eye Shorter" data-fr="Largeur de l'oeil">Eye Shorter</span>
-            </label>
-            <label class="measurement-checkbox">
-                <input type="checkbox" data-measure="SL">
-                <span class="abbrev">SL</span>
-                <span class="name" data-en="Scape Length" data-fr="Longueur du scape">Scape Length</span>
-            </label>
-            <label class="measurement-checkbox">
-                <input type="checkbox" data-measure="FRS">
-                <span class="abbrev">FRS</span>
-                <span class="name" data-en="Frontal Suture" data-fr="Suture frontale">Frontal Suture</span>
-            </label>
-            <label class="measurement-checkbox">
-                <input type="checkbox" data-measure="PoOC">
-                <span class="abbrev">PoOC</span>
-                <span class="name" data-en="Postocular Dist." data-fr="Distance postoculaire">Postocular Dist.</span>
-            </label>
-        </div>
-    </div>
-
     <!-- HEAD Section -->
     <div class="diagram-section active" id="section-head" data-print-title="HEAD (Caput)">
+        <div class="view-selector">
+            <button class="view-btn active" data-view="frontal">Frontal</button>
+            <button class="view-btn" data-view="lateral">Lateral</button>
+        </div>
+        <div class="head-layout">
         <div class="diagram-area">
-            <div class="view-selector">
-                <button class="view-btn active" data-view="frontal">Frontal</button>
-                <button class="view-btn" data-view="lateral">Lateral</button>
-            </div>
             <div class="diagram-wrapper" id="head-diagram">
                 <!-- Frontal view SVG (default) -->
                 <object data="img/morpho/svg/ant_head_frontal_v1.svg"
@@ -577,6 +566,57 @@
                      style="display: none; max-width: 100%; height: auto;">
             </div>
             <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> - AntWeb.org (CC BY)</p>
+        </div>
+        <!-- Measurements Panel (side panel) -->
+        <div class="measurements-panel" id="measurementsPanel">
+            <div class="panel-controls">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleLabels" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
+                </label>
+                <button id="clearMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
+                <button id="showAllMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
+            </div>
+            <h4 data-en="Morphometric Measurements" data-fr="Mesures morphométriques">Morphometric Measurements</h4>
+            <div class="measurement-grid" id="measurementGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="CL" checked>
+                    <span class="abbrev">CL</span>
+                    <span class="name" data-en="Cephalic Length" data-fr="Longueur céphalique">Cephalic Length</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="CW" checked>
+                    <span class="abbrev">CW</span>
+                    <span class="name" data-en="Cephalic Width" data-fr="Largeur céphalique">Cephalic Width</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="EL" checked>
+                    <span class="abbrev">EL</span>
+                    <span class="name" data-en="Eye Length" data-fr="Longueur de l'œil">Eye Length</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="ES" checked>
+                    <span class="abbrev">ES</span>
+                    <span class="name" data-en="Eye Shorter" data-fr="Largeur de l'œil">Eye Shorter</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="SL" checked>
+                    <span class="abbrev">SL</span>
+                    <span class="name" data-en="Scape Length" data-fr="Longueur du scape">Scape Length</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="FRS" checked>
+                    <span class="abbrev">FRS</span>
+                    <span class="name" data-en="Frontal Suture" data-fr="Suture frontale">Frontal Suture</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="PoOC" checked>
+                    <span class="abbrev">PoOC</span>
+                    <span class="name" data-en="Postocular Dist." data-fr="Distance postoculaire">Postocular Dist.</span>
+                </label>
+            </div>
+        </div>
         </div>
     </div>
 
@@ -1147,6 +1187,12 @@ function updateMeasurementsPanelVisibility() {
     if (activeTab && activeTab.dataset.section === 'head' &&
         activeView && activeView.dataset.view === 'frontal') {
         panel.style.display = 'block';
+        // Restore measurements when returning to frontal view
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, true);
+        });
     } else {
         panel.style.display = 'none';
         // Hide measurements when leaving head frontal view
