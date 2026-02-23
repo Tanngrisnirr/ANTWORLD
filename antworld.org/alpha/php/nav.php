@@ -41,26 +41,27 @@ $idPath = $toId;
     </svg>
     <span class="scape">▼</span>
 </label>
-<ul class="trail">
+<div class="trail">
+<ul class="nav-links">
 <li class="worker"><a href="<?php echo $base; ?>index.html">
-	<span class="icon icon-home"></span><span class="scent">Home</span></a></li>
+	<span class="icon icon-home"></span><span class="scent"><?= t('nav.home') ?></span></a></li>
 <li class="worker"><a href="<?php echo $toId; ?>confirmed.ergate_id.html">
-	<span class="icon icon-bug"></span><span class="scent">Start ID</span></a></li>
+	<span class="icon icon-bug"></span><span class="scent"><?= t('nav.start_id') ?></span></a></li>
 <li class="worker"><a href="<?php echo $base; ?>morpho.html" title="Ant morphology guide">
-	<span class="icon icon-morpho"></span><span class="scent">Morpho</span></a></li>
+	<span class="icon icon-morpho"></span><span class="scent"><?= t('nav.morpho') ?></span></a></li>
 <li class="worker forager"><a href="javascript:void(0)" title="Data">
-	<span class="icon icon-stats-dots"></span><span class="scent">Data</span></a>
+	<span class="icon icon-stats-dots"></span><span class="scent"><?= t('nav.data') ?></span></a>
 	<ul class="gallery">
-		<li><a href="<?php echo $base; ?>geo_diversity.html"><span class="icon icon-stats-bars"></span> Geo-diversity</a></li>
-		<li><a href="<?php echo $base; ?>tax_diversity.html"><span class="icon icon-pie-chart"></span> Taxo-diversity</a></li>
-		<li><a href="<?php echo $base; ?>list_species.html"><span class="icon icon-menu2"></span> Species list</a></li>
+		<li><a href="<?php echo $base; ?>geo_diversity.html"><span class="icon icon-stats-bars"></span> <?= t('nav.geo_diversity') ?></a></li>
+		<li><a href="<?php echo $base; ?>tax_diversity.html"><span class="icon icon-pie-chart"></span> <?= t('nav.taxo_diversity') ?></a></li>
+		<li><a href="<?php echo $base; ?>list_species.html"><span class="icon icon-menu2"></span> <?= t('nav.species_list') ?></a></li>
 	</ul></li>
 <li class="worker"><a href="<?php echo $base; ?>Training.html" title="Train yourself to identify ants">
-	<span class="icon icon-dice"></span><span class="scent">Training</span></a></li>
+	<span class="icon icon-dice"></span><span class="scent"><?= t('nav.training') ?></span></a></li>
 <li class="worker forager"><a href="javascript:void(0)" title="Search for Subfamilies and Genera">
-	<span class="icon icon-link"></span><span class="scent">Jump to</span></a>
+	<span class="icon icon-link"></span><span class="scent"><?= t('nav.jump_to') ?></span></a>
 	<ul class="gallery">
-		<li class="category"><span class="icon icon-sort-amount-desc1"></span> Subfamilies</li>
+		<li class="category"><span class="icon icon-sort-amount-desc1"></span> <?= t('nav.subfamilies') ?></li>
 		<li><a href="<?php echo $toId; ?>aenictinae_ergate.html">Aenictinae</a></li>
 		<li><a href="<?php echo $toId; ?>amblyoponinae_ergate.html">Amblyoponinae</a></li>
 		<li><a href="<?php echo $toId; ?>cerapachys&leptogenys_ergate.html">Cerapachyini</a></li>
@@ -70,7 +71,7 @@ $idPath = $toId;
 		<li><a href="<?php echo $toId; ?>palm_ergate_id.html">Myrmicinae</a></li>
 		<li><a href="<?php echo $toId; ?>ponerinae_ergate.html">Ponerinae</a></li>
 		<li><a href="#" class="disabled">Proceratiinae</a></li>
-		<li class="category"><span class="icon icon-sort-amount-desc1"></span> Genera</li>
+		<li class="category"><span class="icon icon-sort-amount-desc1"></span> <?= t('nav.genera') ?></li>
 		<li><a href="<?php echo $toId; ?>acropyga_ergate.html">Acropyga</a></li>
 		<li><a href="<?php echo $toId; ?>aenictinae_ergate.html">Aenictus</a></li>
 		<li><a href="<?php echo $toId; ?>amblyoponinae_ergate.html">Amblyopone</a></li>
@@ -90,20 +91,19 @@ $idPath = $toId;
 		<li><a href="<?php echo $toId; ?>leptanillinae_ergate.html">Protanilla</a></li>
 	</ul></li>
 <li class="worker"><a href="<?php echo $base; ?>sources.html" title="Sources">
-	<span class="icon icon-books"></span><span class="scent">Sources</span></a></li>
-<li class="worker">
+	<span class="icon icon-books"></span><span class="scent"><?= t('nav.sources') ?></span></a></li>
+</ul>
+<div class="nav-controls">
 	<button class="lang-toggle" id="langToggleNav" title="Toggle EN/FR" aria-label="Toggle language">
-		<span class="lang-text">EN</span>
+		<img class="lang-flag" src="<?= $base ?>img/<?= lang() === 'fr' ? 'drapeau_francais_40x40.jpg' : 'uk-us_flag_40x40.png' ?>" alt="<?= strtoupper(lang()) ?>">
 	</button>
-</li>
-<li class="worker">
 	<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" aria-label="Toggle theme">
 		<span class="theme-icon theme-icon-moon"></span>
 		<span class="theme-switch"></span>
 		<span class="theme-icon theme-icon-sun"></span>
 	</button>
-</li>
-</ul>
+</div>
+</div>
 </nav>
 <script>
 // Theme toggle functionality

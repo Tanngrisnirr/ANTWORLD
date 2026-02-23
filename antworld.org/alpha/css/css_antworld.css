@@ -97,19 +97,26 @@
 .lang-toggle {
     display: flex;
     align-items: center;
-    padding: 4px 10px;
+    justify-content: center;
+    padding: 2px;
     cursor: pointer;
-    border: 1px solid var(--accent-primary);
-    border-radius: 4px;
+    border: 2px solid var(--accent-primary);
+    border-radius: 50%;
     background: transparent;
-    color: var(--accent-primary);
-    font-size: 12px;
-    font-weight: bold;
     transition: all 0.3s;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
 }
 .lang-toggle:hover {
-    background: var(--accent-primary);
-    color: #fff;
+    border-color: #fff;
+    transform: scale(1.1);
+}
+.lang-flag {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 .theme-icon-sun {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2387CEEB' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cpath d='M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42'/%3E%3C/svg%3E");
@@ -298,8 +305,17 @@ nav > .mandible { display: none; }
     50% { box-shadow: 0 0 25px rgba(135, 206, 235, 0.8); }
 }
 
-/* Trail (main menu) */
+/* Trail (main menu container) */
 .trail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    z-index: 999;
+}
+
+/* Nav links (main navigation items) */
+.nav-links {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -307,16 +323,26 @@ nav > .mandible { display: none; }
     margin: 0;
     padding: 0;
     list-style: none;
-    z-index: 999;
+    max-width: 980px; /* Caps width but allows shrinking */
+    flex: 1;          /* Takes available space */
+    min-width: 0;     /* Allows shrinking below content size */
+}
+
+/* Nav controls (flag + theme toggle) */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
 }
 
 /* Worker (menu item) */
-.trail > .worker {
+.nav-links > .worker {
     position: relative;
     display: flex;
     align-items: center;
 }
-.trail > .worker > a {
+.nav-links > .worker > a {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -327,19 +353,19 @@ nav > .mandible { display: none; }
     font-weight: bold;
     transition: color 0.2s, text-shadow 0.2s;
 }
-.trail > .worker > a:hover {
+.nav-links > .worker > a:hover {
     color: var(--text-primary);
     text-shadow: 0 0 10px var(--text-primary);
 }
 
 /* Scent (text label) - visible on wide screens */
-.trail > .worker .scent {
+.nav-links > .worker .scent {
     display: inline;
     color: var(--accent-primary);
 }
 
-/* Icons in trail */
-.trail > .worker > a > .icon {
+/* Icons in nav-links */
+.nav-links > .worker > a > .icon {
     display: flex;
     align-items: center;
     width: 28px;
@@ -350,7 +376,7 @@ nav > .mandible { display: none; }
 }
 
 /* Gallery (submenu dropdown) */
-.trail .gallery {
+.nav-links .gallery {
     display: none;
     position: absolute;
     top: 100%;
@@ -366,13 +392,13 @@ nav > .mandible { display: none; }
     box-shadow: 0 4px 15px var(--shadow-dark);
     z-index: 1000;
 }
-.trail .forager:hover > .gallery {
+.nav-links .forager:hover > .gallery {
     display: block;
 }
-.trail .gallery li {
+.nav-links .gallery li {
     margin: 2px 0;
 }
-.trail .gallery li a {
+.nav-links .gallery li a {
     display: block;
     padding: 5px 10px;
     color: #87CEEB;
@@ -381,21 +407,21 @@ nav > .mandible { display: none; }
     border-radius: 4px;
     white-space: nowrap;
 }
-.trail .gallery li a:hover {
+.nav-links .gallery li a:hover {
     background: rgba(135,206,235,0.15);
     color: #fff;
 }
 /* Disabled/unavailable links in gallery */
-.trail .gallery li a.disabled {
+.nav-links .gallery li a.disabled {
     color: #666 !important;
     cursor: not-allowed;
     pointer-events: none;
 }
-.trail .gallery li a.disabled:hover {
+.nav-links .gallery li a.disabled:hover {
     background: none;
     color: #666 !important;
 }
-.trail .gallery li a .icon {
+.nav-links .gallery li a .icon {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -405,7 +431,7 @@ nav > .mandible { display: none; }
     background-repeat: no-repeat;
 }
 /* Category headers in gallery */
-.trail .gallery .category {
+.nav-links .gallery .category {
     padding: 8px 10px 4px;
     color: var(--text-muted);
     font-size: 16px;
@@ -414,24 +440,34 @@ nav > .mandible { display: none; }
     border-top: 1px solid var(--border-color);
     margin-top: 5px;
 }
-.trail .gallery .category:first-child {
+.nav-links .gallery .category:first-child {
     border-top: none;
     margin-top: 0;
 }
 
 /* ========================================
    RESPONSIVE BREAKPOINTS
-   >1100px: logo + icons + text (scent)
+   >1300px: full layout
+   1100-1300px: controls stack vertically
    600-1100px: logo + icons only
    <600px: logo only with dropdown
    ======================================== */
+
+/* Tight desktop (1100-1300px): stack controls vertically */
+@media screen and (max-width: 1300px) and (min-width: 1101px) {
+  .nav-controls {
+    flex-direction: column;
+    max-width: none;
+    gap: 4px;
+  }
+}
 
 /* Medium screens (600-1100px): hide scent (text), icons spread across width */
 @media screen and (max-width: 1100px) and (min-width: 601px) {
   nav {
     display: flex;
     align-items: center;
-    padding-right: 20px;
+    padding-right: 10px;
   }
   .trail {
     flex: 1;
@@ -441,21 +477,32 @@ nav > .mandible { display: none; }
     gap: 0;
     padding-right: 10px;
   }
-  .trail > .worker {
+  .nav-links {
     display: flex !important;
-    flex: 1;
+    gap: 0;
+    width: auto; /* Reset fixed width - icons only, no jumping issue */
+    flex-shrink: 1;
+  }
+  .nav-links > .worker {
+    display: flex !important;
     justify-content: center;
   }
-  .trail > .worker > a {
-    padding: 10px 15px;
+  .nav-links > .worker > a {
+    padding: 8px 10px;
     gap: 0;
   }
-  .trail > .worker > a > .icon {
-    width: 32px;
-    height: 32px;
+  .nav-links > .worker > a > .icon {
+    width: 28px;
+    height: 28px;
   }
-  .trail > .worker .scent {
+  .nav-links > .worker .scent {
     display: none !important;
+  }
+  .nav-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    max-width: none;
   }
 }
 
@@ -509,12 +556,18 @@ nav > .mandible { display: none; }
     display: flex !important;
   }
 
-  /* Workers in dropdown */
-  .trail > .worker {
+  /* Nav links in dropdown */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+  }
+  .nav-links > .worker {
     display: block !important;
     width: 100%;
   }
-  .trail > .worker > a {
+  .nav-links > .worker > a {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -522,12 +575,22 @@ nav > .mandible { display: none; }
     font-size: 16px;
     white-space: nowrap;
   }
-  .trail > .worker .scent {
+  .nav-links > .worker .scent {
     display: inline !important;
   }
 
+  /* Nav controls in dropdown */
+  .nav-controls {
+    display: flex;
+    gap: 10px;
+    padding: 10px 10px 5px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 8px;
+    width: 100%;
+  }
+
   /* Galleries (submenus) - hidden by default, show on hover */
-  .trail .gallery {
+  .nav-links .gallery {
     position: static;
     display: none;
     padding-left: 15px;
@@ -537,7 +600,7 @@ nav > .mandible { display: none; }
     max-height: 200px;
     overflow-y: auto;
   }
-  .trail .forager:hover > .gallery {
+  .nav-links .forager:hover > .gallery {
     display: block;
   }
 

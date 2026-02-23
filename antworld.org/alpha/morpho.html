@@ -950,10 +950,12 @@ document.querySelectorAll('.morpho-tab').forEach(tab => {
 
         // Show/hide diagram controls based on section
         const controls = document.getElementById('diagramControls');
-        if (section === 'measurements') {
-            controls.style.display = 'none';
-        } else {
-            controls.style.display = 'flex';
+        if (controls) {
+            if (section === 'measurements') {
+                controls.style.display = 'none';
+            } else {
+                controls.style.display = 'flex';
+            }
         }
     });
 });
