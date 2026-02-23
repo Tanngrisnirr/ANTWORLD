@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "Home",
+    "start_id": "Start ID",
+    "morpho": "Morpho",
+    "data": "Data",
+    "geo_diversity": "Geo-diversity",
+    "taxo_diversity": "Taxo-diversity",
+    "species_list": "Species list",
+    "training": "Training",
+    "jump_to": "Jump to",
+    "subfamilies": "Subfamilies",
+    "genera": "Genera",
+    "sources": "Sources"
+  },
+  "footer": {
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "credits": "Credits",
+    "updated": "Updated"
+  },
+  "ui": {
+    "download": "Download",
+    "export": "Export",
+    "all": "All",
+    "none": "None",
+    "select": "Select",
+    "search": "Search",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "Error"
+  }
+}

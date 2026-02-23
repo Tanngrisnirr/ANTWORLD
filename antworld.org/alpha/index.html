@@ -38,47 +38,6 @@
         box-shadow: 0 0 20px var(--shadow-glow);
     }
 
-    /* Foraging Grid (quick nav) */
-    .foraging-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        padding: 20px;
-        margin-bottom: 40px;
-    }
-    .chamber {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 25px;
-        width: 200px;
-        text-align: center;
-        text-decoration: none;
-        transition: all 0.3s;
-    }
-    .chamber:hover {
-        background: rgba(44, 90, 160, 0.3);
-        border-color: var(--border-accent);
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px var(--shadow-dark);
-    }
-    .chamber .antenna {
-        font-size: 2.5em;
-        margin-bottom: 15px;
-        display: block;
-    }
-    .chamber h3 {
-        color: var(--accent-primary);
-        margin: 0 0 10px;
-        font-size: 1.2em;
-    }
-    .chamber p {
-        color: var(--text-muted);
-        font-size: 0.9em;
-        margin: 0;
-    }
-
     /* Gallery Arch (section headers) */
     .gallery-arch {
         padding: 15px 20px;
@@ -269,39 +228,6 @@
     <a href="id/confirmed.ergate_id.html" class="scout-link">Start Identification</a>
 </section>
 
-<!-- Foraging Grid -->
-<section class="foraging-grid">
-    <a href="id/confirmed.ergate_id.html" class="chamber">
-        <span class="antenna icon icon-bug"></span>
-        <h3>Identify</h3>
-        <p>Interactive ID keys for workers and queens</p>
-    </a>
-    <a href="list_species.html" class="chamber">
-        <span class="antenna icon icon-menu2"></span>
-        <h3>Species List</h3>
-        <p>Browse all 936 documented species</p>
-    </a>
-    <a href="geo_diversity.html" class="chamber">
-        <span class="antenna icon icon-stats-bars"></span>
-        <h3>Distribution</h3>
-        <p>Ant diversity by country</p>
-    </a>
-    <a href="tax_diversity.html" class="chamber">
-        <span class="antenna icon icon-pie-chart"></span>
-        <h3>Taxonomy</h3>
-        <p>Species by subfamily & genus</p>
-    </a>
-    <a href="Training.html" class="chamber">
-        <span class="antenna icon icon-dice"></span>
-        <h3>Training</h3>
-        <p>Practice your ID skills</p>
-    </a>
-    <a href="sources.html" class="chamber">
-        <span class="antenna icon icon-books"></span>
-        <h3>Sources</h3>
-        <p>Scientific literature</p>
-    </a>
-</section>
 
 <!-- Scout Feed (RSS) -->
 <section class="scout-feed">

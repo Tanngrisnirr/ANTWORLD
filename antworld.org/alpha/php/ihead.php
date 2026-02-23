@@ -1,5 +1,5 @@
+<?php include_once(__DIR__ . '/international.php'); ?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta http-equiv="language" content="english, en">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- System font stack - no external requests -->
 <link rel="stylesheet" href="css/css_antworld.css" type="text/css">

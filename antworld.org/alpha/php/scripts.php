@@ -11,6 +11,7 @@ if ($inSpecies) {
 }
 ?>
 <script src="<?php echo $jsPath; ?>jquery-3.1.1.min.js"></script>
+<script src="<?php echo $jsPath; ?>lang.js"></script>
 <script>
 $(document).ready(function(){
 	// Page interactions

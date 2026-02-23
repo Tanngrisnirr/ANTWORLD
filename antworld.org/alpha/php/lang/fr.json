@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "start_id": "Identifier",
+    "morpho": "Morpho",
+    "data": "Données",
+    "geo_diversity": "Géo-diversité",
+    "taxo_diversity": "Taxo-diversité",
+    "species_list": "Liste des espèces",
+    "training": "Entraînement",
+    "jump_to": "Aller à",
+    "subfamilies": "Sous-familles",
+    "genera": "Genres",
+    "sources": "Sources"
+  },
+  "footer": {
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "credits": "Crédits",
+    "updated": "Mis à jour"
+  },
+  "ui": {
+    "download": "Télécharger",
+    "export": "Exporter",
+    "all": "Tout",
+    "none": "Aucun",
+    "select": "Sélectionner",
+    "search": "Rechercher",
+    "close": "Fermer",
+    "loading": "Chargement...",
+    "error": "Erreur"
+  }
+}
