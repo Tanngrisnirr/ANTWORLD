@@ -212,6 +212,23 @@
 </div>
 
 <script>
+// Translations for JavaScript
+var T = {
+    countLog: '<?= t("geo.count_log") ?>',
+    percentGlobal: '<?= t("geo.percent_global") ?>',
+    ofWorldwide: '<?= t("geo.of_worldwide") ?>',
+    worldwide: '<?= t("geo.worldwide") ?>',
+    species: '<?= t("geo.series_species") ?>',
+    genera: '<?= t("geo.series_genera") ?>',
+    subfamilies: '<?= t("geo.series_subfamilies") ?>',
+    richnessAll: '<?= t("geo.richness_all") ?>',
+    richnessSingle: '<?= t("geo.richness_single") ?>',
+    richnessTwo: '<?= t("geo.richness_two") ?>',
+    level: '<?= t("geo.level") ?>',
+    countriesSelected: '<?= t("geo.countries_selected") ?>',
+    showingTop: '<?= t("geo.showing_top") ?>'
+};
+
 // Country data from antkeeping.info Top 50 + additional countries
 // Source: https://antkeeping.info/antdb/top-countries-by-number-of-ant-species
 // Genera/subfamilies estimates based on regional averages
@@ -321,23 +338,23 @@ function updateChartTitle() {
     var showSubfamilies = document.getElementById('show_subfamilies').checked;
 
     var levels = [];
-    if (showSpecies) levels.push('species');
-    if (showGenera) levels.push('genus');
-    if (showSubfamilies) levels.push('subfamily');
+    if (showSpecies) levels.push(T.species.toLowerCase());
+    if (showGenera) levels.push(T.genera.toLowerCase());
+    if (showSubfamilies) levels.push(T.subfamilies.toLowerCase());
 
     var titleEl = document.getElementById('chart-title');
 
     // If none or all selected, show all three levels
     if (levels.length === 0 || levels.length === 3) {
-        titleEl.textContent = 'Richness at species, genus and subfamily level';
+        titleEl.textContent = T.richnessAll;
     } else if (levels.length === 1) {
-        // Single level - capitalize first letter
-        var level = levels[0];
-        var singular = level.charAt(0).toUpperCase() + level.slice(1);
-        titleEl.textContent = singular + ' Richness by Country';
+        // Single level: EN "Richness at species level" / FR "Richesse en espèces"
+        var suffix = T.level ? ' ' + T.level : '';
+        titleEl.textContent = T.richnessSingle + ' ' + levels[0] + suffix;
     } else {
-        // Two levels
-        titleEl.textContent = 'Richness at ' + levels[0] + ' and ' + levels[1] + ' level';
+        // Two levels: EN "Richness at species & genera level" / FR "Richesse en genres et sous-familles"
+        var suffix = T.level ? ' ' + T.level : '';
+        titleEl.textContent = T.richnessTwo + ' ' + levels.join(' & ') + suffix;
     }
 }
 
@@ -351,7 +368,7 @@ function updateCharts() {
 
     // Update country counter (195 = approx total countries on Earth)
     var totalCountriesOnEarth = 195;
-    document.getElementById('country-counter').textContent = filtered.length + ' of ' + totalCountriesOnEarth + ' countries (data: ' + countryData.length + ')';
+    document.getElementById('country-counter').textContent = filtered.length + '/' + totalCountriesOnEarth + ' ' + T.countriesSelected + ' (' + T.showingTop + ')';
 
     // Get taxonomical filter states
     var showSpecies = document.getElementById('show_species').checked;
@@ -377,21 +394,21 @@ function updateCharts() {
     // Build series based on selected taxonomical options
     var series = [];
     if (showSpecies) {
-        series.push({name: 'Species', data: speciesData, color: '#058DC7'});
+        series.push({name: T.species, data: speciesData, color: '#058DC7'});
     }
     if (showGenera) {
-        series.push({name: 'Genera', data: generaData, color: '#50B432'});
+        series.push({name: T.genera, data: generaData, color: '#50B432'});
     }
     if (showSubfamilies) {
-        series.push({name: 'Subfamilies', data: subfamiliesData, color: '#ED561B'});
+        series.push({name: T.subfamilies, data: subfamiliesData, color: '#ED561B'});
     }
 
     // If nothing selected, show all
     if (series.length === 0) {
         series = [
-            {name: 'Species', data: speciesData, color: '#058DC7'},
-            {name: 'Genera', data: generaData, color: '#50B432'},
-            {name: 'Subfamilies', data: subfamiliesData, color: '#ED561B'}
+            {name: T.species, data: speciesData, color: '#058DC7'},
+            {name: T.genera, data: generaData, color: '#50B432'},
+            {name: T.subfamilies, data: subfamiliesData, color: '#ED561B'}
         ];
     }
 
@@ -407,7 +424,7 @@ function updateCharts() {
     // For percentage mode, convert values to percentages of global totals
     if (usePercentScale) {
         series = series.map(function(s) {
-            var totalVal = s.name === 'Species' ? TOTAL_SPECIES : (s.name === 'Genera' ? TOTAL_GENERA : TOTAL_SUBFAMILIES);
+            var totalVal = s.name === T.species ? TOTAL_SPECIES : (s.name === T.genera ? TOTAL_GENERA : TOTAL_SUBFAMILIES);
             return {
                 name: s.name,
                 color: s.color,
@@ -435,7 +452,7 @@ function updateCharts() {
         },
         yAxis: {
             type: useLogScale ? 'logarithmic' : 'linear',
-            title: {text: useLogScale ? 'Count (log scale)' : (usePercentScale ? 'Percentage of global total' : ''), style: {color: textColor, fontSize: '14px'}},
+            title: {text: useLogScale ? T.countLog : (usePercentScale ? T.percentGlobal : ''), style: {color: textColor, fontSize: '14px'}},
             labels: {
                 style: {color: textColor, fontSize: '14px'},
                 formatter: function() {
@@ -459,7 +476,7 @@ function updateCharts() {
                 if (usePercentScale) {
                     var originalVal = this.series.options.originalData ? this.series.options.originalData[this.point.index] : this.y;
                     var totalRef = this.series.options.totalRef || '?';
-                    return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '%</b> (' + originalVal + ' of ' + totalRef + ' worldwide)';
+                    return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '%</b> (' + originalVal + ' ' + T.ofWorldwide + ' ' + totalRef + ' ' + T.worldwide + ')';
                 }
                 return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '</b>';
             }
@@ -558,7 +575,7 @@ function downloadBlob(blob, filename) {
 }
 </script>
 
-<p class="data-notice">Data sources: <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a>, <a href="https://www.antwiki.org/" target="_blank">AntWiki</a>, <a href="https://antmaps.org/" target="_blank">AntMaps.org</a> | <span id="country-counter">0 of 0 countries</span> selected (showing top 15)</p>
+<p class="data-notice"><?= t('geo.data_sources') ?> <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a>, <a href="https://www.antwiki.org/" target="_blank">AntWiki</a>, <a href="https://antmaps.org/" target="_blank">AntMaps.org</a> | <span id="country-counter">0/0</span></p>
 <p class="chart-note">Note: Percentages show each country's count relative to global totals (<a href="https://www.antwiki.org/" target="_blank" style="color:#888;">~14,000 species, ~340 genera, 17 subfamilies</a>). These are non-cumulative: a single taxon may be recorded in multiple countries.</p>
 <p class="chart-note">Biogeographic realms follow <a href="https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world" target="_blank" style="color:#888;">WWF Terrestrial Ecoregions</a>. Note: Mexico spans the Nearctic-Neotropical interface (<a href="https://pubmed.ncbi.nlm.nih.gov/31828784/" target="_blank" style="color:#888;">Dáttilo et al. 2020</a>).</p>
 

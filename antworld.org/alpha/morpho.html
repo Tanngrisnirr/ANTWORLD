@@ -80,6 +80,136 @@ h2.h2one {
     display: inline-block;
     max-width: 100%;
 }
+.diagram-wrapper .mag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    cursor: crosshair;
+    display: none;
+}
+.diagram-wrapper .mag-overlay.active {
+    display: block;
+}
+
+/* Magnifying glass lens */
+.mag-lens {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    width: 150px;
+    height: 150px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 100;
+}
+.mag-lens.active {
+    opacity: 1;
+}
+.mag-lens canvas {
+    width: 100%;
+    height: 100%;
+}
+/* Diagram control buttons (magnifier, enlarge) */
+.diagram-btn {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.7);
+    color: #333;
+    cursor: pointer;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    padding: 0;
+}
+.diagram-btn:hover {
+    background: rgba(255,255,255,0.9);
+}
+.diagram-btn.active {
+    background: #007bff;
+    color: #fff;
+}
+.diagram-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+.mag-toggle {
+    top: 10px;
+    left: 10px;
+}
+.enlarge-toggle {
+    top: 44px;
+    left: 10px;
+}
+
+/* Fullscreen/enlarged mode overlay */
+body.has-enlarged-view > *:not(.diagram-wrapper.enlarged):not(script):not(style) {
+    visibility: hidden;
+}
+body.has-enlarged-view {
+    overflow: hidden;
+}
+.diagram-wrapper.enlarged {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    visibility: visible !important;
+}
+.diagram-wrapper.enlarged * {
+    visibility: visible !important;
+}
+.diagram-wrapper.enlarged object,
+.diagram-wrapper.enlarged img {
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
+}
+.diagram-wrapper.enlarged .mag-lens {
+    display: none;
+}
+.diagram-wrapper.enlarged .mag-toggle,
+.diagram-wrapper.enlarged .enlarge-toggle {
+    position: fixed;
+    z-index: 100000;
+}
+.diagram-wrapper.enlarged .mag-toggle {
+    top: 20px;
+    left: 20px;
+}
+.diagram-wrapper.enlarged .enlarge-toggle {
+    top: 54px;
+    left: 20px;
+}
+.diagram-wrapper.enlarged .view-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100000;
+}
 
 .diagram-wrapper img,
 .diagram-wrapper object {
@@ -430,7 +560,7 @@ h2.h2one {
 .measurement-grid {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 3px;
 }
 .panel-export {
     display: flex;
@@ -449,13 +579,13 @@ h2.h2one {
 .measurement-checkbox {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
+    gap: 6px;
+    padding: 5px 10px;
     background: var(--bg-tertiary);
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-primary);
 }
 .measurement-checkbox:hover {
@@ -463,10 +593,11 @@ h2.h2one {
     color: #fff;
 }
 .measurement-checkbox input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
     accent-color: var(--accent-primary);
+    flex-shrink: 0;
 }
 .measurement-checkbox .abbrev {
     font-weight: bold;
@@ -664,6 +795,14 @@ h2.h2one {
         <div class="head-layout">
         <div class="diagram-area">
             <div class="diagram-wrapper" id="head-diagram">
+                <div class="mag-overlay"></div>
+                <button class="diagram-btn mag-toggle" title="Magnifier">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+                </button>
+                <button class="diagram-btn enlarge-toggle" title="Enlarge">
+                    <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </button>
+                <div class="mag-lens"><canvas></canvas></div>
                 <div class="view-selector">
                     <button class="view-btn active" data-view="frontal">Frontal</button>
                     <button class="view-btn disabled" data-view="lateral" disabled>Lateral</button>
@@ -761,34 +900,84 @@ h2.h2one {
         <div class="head-layout">
         <div class="diagram-area">
             <div class="diagram-wrapper" id="mesosoma-diagram">
+                <div class="mag-overlay"></div>
+                <button class="diagram-btn mag-toggle" title="Magnifier">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+                </button>
+                <button class="diagram-btn enlarge-toggle" title="Enlarge">
+                    <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </button>
+                <div class="mag-lens"><canvas></canvas></div>
                 <div class="view-selector">
                     <button class="view-btn active" data-view="lateral">Lateral</button>
                     <button class="view-btn" data-view="dorsal">Dorsal</button>
                 </div>
-                <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant mesosoma lateral view - Lasius niger" id="mesosoma-image">
+                <!-- Lateral view SVG -->
+                <object data="img/morpho/svg/ant_mesosoma_lateral_v1.svg"
+                        type="image/svg+xml"
+                        id="mesosoma-svg-lateral"
+                        class="morpho-svg active"
+                        style="max-width: 100%; height: auto;">
+                    <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant mesosoma lateral view">
+                </object>
+                <!-- Dorsal view SVG -->
+                <object data="img/morpho/svg/ant_mesosoma_dorsal_v1.svg"
+                        type="image/svg+xml"
+                        id="mesosoma-svg-dorsal"
+                        class="morpho-svg"
+                        style="max-width: 100%; height: auto;">
+                    <img src="img/morpho/casent0179929_d_1_high.jpg" alt="Ant mesosoma dorsal view">
+                </object>
             </div>
-            <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> (lateral), <a href="https://www.antweb.org/specimen/CASENT0280452" target="_blank">CASENT0280452</a> (dorsal) - AntWeb.org (CC BY)</p>
+            <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> - AntWeb.org (CC BY)</p>
         </div>
-        <!-- Mesosoma Info Panel -->
+        <!-- Mesosoma Measurements Panel -->
         <div class="measurements-panel" id="mesosomaPanel">
-            <h4 data-en="Thorax Features" data-fr="Caractéristiques du thorax">Thorax Features</h4>
-            <div class="measurement-grid">
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">ML</span>
-                    <span class="name" data-en="Mesosoma Length" data-fr="Longueur du mésosome">Mesosoma Length</span>
+            <div class="panel-controls">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMesosomaLabels" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
+                </label>
+                <div class="panel-buttons">
+                    <button id="clearMesoMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
+                    <button id="showAllMesoMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
                 </div>
-                <div class="measurement-checkbox" style="cursor: default;">
+            </div>
+            <!-- Custom Measurement Tool -->
+            <div class="ruler-controls">
+                <button id="mesoRulerToggle" class="ruler-btn" data-en="Measure" data-fr="Mesurer">
+                    Measure
+                </button>
+                <span id="mesoRulerStatus" class="ruler-status"></span>
+            </div>
+            <h4 data-en="Morphometric Measurements" data-fr="Mesures morphométriques">Morphometric Measurements</h4>
+            <div class="measurement-grid" id="mesoMeasurementGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="MH" data-section="mesosoma" checked>
                     <span class="abbrev">MH</span>
                     <span class="name" data-en="Mesosoma Height" data-fr="Hauteur du mésosome">Mesosoma Height</span>
-                </div>
-                <div class="measurement-checkbox" style="cursor: default;">
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="PrH" data-section="mesosoma" checked>
+                    <span class="abbrev">PrH</span>
+                    <span class="name" data-en="Pronotum Height" data-fr="Hauteur du pronotum">Pronotum Height</span>
+                </label>
+                <label class="measurement-checkbox" data-view="dorsal">
+                    <input type="checkbox" data-measure="MW" data-section="mesosoma" checked>
                     <span class="abbrev">MW</span>
                     <span class="name" data-en="Mesosoma Width" data-fr="Largeur du mésosome">Mesosoma Width</span>
-                </div>
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">SP</span>
-                    <span class="name" data-en="Propodeal Spine" data-fr="Épine propodéale">Propodeal Spine</span>
-                </div>
+                </label>
+                <label class="measurement-checkbox" data-view="dorsal">
+                    <input type="checkbox" data-measure="PrW" data-section="mesosoma" checked>
+                    <span class="abbrev">PrW</span>
+                    <span class="name" data-en="Pronotum Width" data-fr="Largeur du pronotum">Pronotum Width</span>
+                </label>
+                <label class="measurement-checkbox" data-view="dorsal">
+                    <input type="checkbox" data-measure="ML" data-section="mesosoma" checked>
+                    <span class="abbrev">ML</span>
+                    <span class="name" data-en="Mesosoma Length" data-fr="Longueur du mésosome">Mesosoma Length</span>
+                </label>
             </div>
             <h4 data-en="Download my file" data-fr="Télécharger mon fichier">Download my file</h4>
             <div class="panel-export">
@@ -808,44 +997,73 @@ h2.h2one {
         <div class="head-layout">
         <div class="diagram-area">
             <div class="diagram-wrapper" id="metasoma-diagram">
+                <div class="mag-overlay"></div>
+                <button class="diagram-btn mag-toggle" title="Magnifier">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+                </button>
+                <button class="diagram-btn enlarge-toggle" title="Enlarge">
+                    <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </button>
+                <div class="mag-lens"><canvas></canvas></div>
                 <div class="view-selector">
                     <button class="view-btn active" data-view="lateral">Lateral</button>
                     <button class="view-btn disabled" data-view="dorsal" disabled>Dorsal</button>
                 </div>
-                <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant metasoma lateral view - Lasius niger" id="metasoma-image">
+                <!-- Lateral view SVG -->
+                <object data="img/morpho/svg/ant_metasoma_lateral_v1.svg"
+                        type="image/svg+xml"
+                        id="metasoma-svg-lateral"
+                        class="morpho-svg active"
+                        style="max-width: 100%; height: auto;">
+                    <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant metasoma lateral view">
+                </object>
             </div>
             <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> - AntWeb.org (CC BY)</p>
         </div>
-        <!-- Metasoma Info Panel -->
+        <!-- Metasoma Measurements Panel -->
         <div class="measurements-panel" id="metasomaPanel">
-            <h4 data-en="Abdomen Features" data-fr="Caractéristiques de l'abdomen">Abdomen Features</h4>
-            <div class="measurement-grid">
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">PEH</span>
-                    <span class="name" data-en="Petiole Height" data-fr="Hauteur du pétiole">Petiole Height</span>
-                </div>
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">PEW</span>
-                    <span class="name" data-en="Petiole Width" data-fr="Largeur du pétiole">Petiole Width</span>
-                </div>
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">PPH</span>
-                    <span class="name" data-en="Postpetiole Height" data-fr="Hauteur du postpétiole">Postpetiole Height</span>
-                </div>
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">PPW</span>
-                    <span class="name" data-en="Postpetiole Width" data-fr="Largeur du postpétiole">Postpetiole Width</span>
-                </div>
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">TERG</span>
-                    <span class="name" data-en="Tergites" data-fr="Tergites">Tergites</span>
-                </div>
-                <div class="measurement-checkbox" style="cursor: default;">
-                    <span class="abbrev">STERN</span>
-                    <span class="name" data-en="Sternites" data-fr="Sternites">Sternites</span>
+            <div class="panel-controls">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMetasomaLabels" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
+                </label>
+                <div class="panel-buttons">
+                    <button id="clearMetaMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
+                    <button id="showAllMetaMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
                 </div>
             </div>
-            <h4 data-en="Download my file" data-fr="Télécharger mon fichier">Download my file</h4>
+            <!-- Custom Measurement Tool -->
+            <div class="ruler-controls">
+                <button id="metaRulerToggle" class="ruler-btn" data-en="Measure" data-fr="Mesurer">
+                    Measure
+                </button>
+                <span id="metaRulerStatus" class="ruler-status"></span>
+            </div>
+            <h4 data-en="Morphometric Measurements" data-fr="Mesures morphométriques">Morphometric Measurements</h4>
+            <div class="measurement-grid" id="metaMeasurementGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="PEH" data-section="metasoma" checked>
+                    <span class="abbrev">PEH</span>
+                    <span class="name" data-en="Petiole Height" data-fr="Hauteur du petiole">Petiole Height</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="GL" data-section="metasoma" checked>
+                    <span class="abbrev">GL</span>
+                    <span class="name" data-en="Gaster Length" data-fr="Longueur du gastre">Gaster Length</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="GH" data-section="metasoma" checked>
+                    <span class="abbrev">GH</span>
+                    <span class="name" data-en="Gaster Height" data-fr="Hauteur du gastre">Gaster Height</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="PEW" data-section="metasoma" checked>
+                    <span class="abbrev">PEW</span>
+                    <span class="name" data-en="Petiole Width" data-fr="Largeur du petiole">Petiole Width</span>
+                </label>
+            </div>
+            <h4 data-en="Download my file" data-fr="Telecharger mon fichier">Download my file</h4>
             <div class="panel-export">
                 <button class="export-btn" onclick="downloadAsPNG('metasoma')">
                     <span class="format">PNG</span>
@@ -882,7 +1100,9 @@ h2.h2one {
 <b>FR</b> Maximum frontal divergence of frontal carinae.<br>
 <b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus.<br>
 <b>ΔFr</b> <b>Frontal Triangle</b>. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally.<br>
+<b>GH</b> <b>G</b>aster <b>H</b>eight. Maximum height of gaster measured perpendicular to longitudinal axis in lateral view.<br>
 <b>GHL</b> Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border.<br>
+<b>GL</b> <b>G</b>aster <b>L</b>ength. Maximum length of gaster from anterior margin of first gastral segment to posterior tip of pygidium.<br>
 <b>HTL</b> <b>H</b>ind <b>T</b>ibia <b>L</b>ength, measured from inner constriction point to distal tip (S265).<br>
 <b>HTMAX</b> Maximum diameter of hind tibiae (measured at middle of tibiae).<br>
 <b>HTMIN</b> Minimum diameter of hind tibiae (measured at middle of tibiae).<br>
@@ -914,6 +1134,7 @@ h2.h2one {
 <b>PEHL</b> Greatest length of setae on dorsum of petiole.<br>
 <b>PEW</b> Maximum <b>PE</b>tiole <b>W</b>idth.<br>
 <b>PnHL</b> <b>H</b>ighest <b>L</b>ength of longest hair of pronotum; arithmetic mean of both sides.<br>
+<b>PrH</b> <b>Pr</b>onotum <b>H</b>eight. Maximum height of pronotum measured in lateral view.<br>
 <b>PPW</b> <b>P</b>ost<b>P</b>etiole maximum <b>W</b>idth (profile view).<br>
 <b>PPH</b> <b>P</b>ost<b>P</b>etiole maximum <b>H</b>eight, measured perpendicular to suture between dorsal and ventral sclerites (profile view).<br>
 <b>SL</b> Maximum <b>S</b>cape <b>L</b>ength, excluding articular condyle and basal lobe (S269, S270).<br>
@@ -1004,14 +1225,18 @@ document.querySelectorAll('.view-btn').forEach(btn => {
     });
 });
 
-// Toggle morphology labels (checkbox)
+// Toggle morphology labels AND surfaces (checkbox)
 function updateMorphologyLabels() {
     var show = document.getElementById('toggleLabels').checked;
     document.querySelectorAll('object.morpho-svg').forEach(function(obj) {
         if (obj.contentDocument) {
             var labelsLayer = obj.contentDocument.getElementById('layer-labels');
+            var surfacesLayer = obj.contentDocument.getElementById('layer-surfaces');
             if (labelsLayer) {
                 labelsLayer.style.display = show ? 'inline' : 'none';
+            }
+            if (surfacesLayer) {
+                surfacesLayer.style.display = show ? 'inline' : 'none';
             }
         }
     });
@@ -1113,9 +1338,28 @@ function doSvgExport(svgObject, section) {
     var url = URL.createObjectURL(blob);
     var link = document.createElement('a');
     link.href = url;
-    link.download = 'ant_' + section + '_morphology.svg';
+    var filename = 'ant_' + section + '_morphology.svg';
+    link.download = filename;
     link.click();
     URL.revokeObjectURL(url);
+
+    // Show confirmation
+    showExportConfirmation(filename, 'SVG');
+}
+
+// Show confirmation message after export
+function showExportConfirmation(filename, format) {
+    var msg = document.createElement('div');
+    msg.className = 'export-confirmation';
+    msg.innerHTML = '<span class="check-icon">&#10003;</span> ' + format + ' exported: <strong>' + filename + '</strong>';
+    msg.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#28a745;color:white;padding:12px 24px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:9999;font-size:14px;animation:slideUp 0.3s ease;';
+    document.body.appendChild(msg);
+
+    setTimeout(function() {
+        msg.style.opacity = '0';
+        msg.style.transition = 'opacity 0.3s';
+        setTimeout(function() { msg.remove(); }, 300);
+    }, 3000);
 }
 
 // Download diagram as PNG (renders SVG with transparency support)
@@ -1208,6 +1452,9 @@ function renderSvgToPng(svgElement, filename) {
             link.download = filename;
             link.click();
             URL.revokeObjectURL(link.href);
+
+            // Show confirmation
+            showExportConfirmation(filename, 'PNG');
         }, 'image/png');
     };
 
@@ -1577,6 +1824,69 @@ document.querySelectorAll('#section-head .view-btn').forEach(function(btn) {
 });
 
 // =============================================================================
+// MESOSOMA VIEW SWITCHING (Lateral/Dorsal)
+// =============================================================================
+
+document.querySelectorAll('#section-mesosoma .view-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        if (this.classList.contains('disabled')) return;
+
+        // Update active button
+        document.querySelectorAll('#section-mesosoma .view-btn').forEach(function(b) {
+            b.classList.remove('active');
+        });
+        this.classList.add('active');
+
+        var view = this.dataset.view;
+        var lateralSvg = document.getElementById('mesosoma-svg-lateral');
+        var dorsalSvg = document.getElementById('mesosoma-svg-dorsal');
+
+        if (view === 'lateral') {
+            if (lateralSvg) lateralSvg.classList.add('active');
+            if (dorsalSvg) dorsalSvg.classList.remove('active');
+        } else if (view === 'dorsal') {
+            if (lateralSvg) lateralSvg.classList.remove('active');
+            if (dorsalSvg) dorsalSvg.classList.add('active');
+        }
+
+        // Show/hide view-specific measurement checkboxes
+        document.querySelectorAll('#mesoMeasurementGrid label[data-view]').forEach(function(label) {
+            if (label.dataset.view === view) {
+                label.style.display = '';
+            } else {
+                label.style.display = 'none';
+            }
+        });
+
+        // Re-apply morphology toggle state and measurements
+        updateMesosomaLabels();
+        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            toggleMesoMeasurement(cb.dataset.measure, cb.checked);
+        });
+    });
+});
+
+// Initialize dorsal SVG when it loads
+var mesoDorsalSvgObj = document.getElementById('mesosoma-svg-dorsal');
+if (mesoDorsalSvgObj) {
+    mesoDorsalSvgObj.addEventListener('load', function() {
+        // Apply measurements if dorsal is active
+        var activeBtn = document.querySelector('#section-mesosoma .view-btn.active');
+        if (activeBtn && activeBtn.dataset.view === 'dorsal') {
+            updateMesosomaLabels();
+            document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+                toggleMesoMeasurement(cb.dataset.measure, cb.checked);
+            });
+        }
+    });
+}
+
+// Hide dorsal-specific measurements on initial load (lateral is default)
+document.querySelectorAll('#mesoMeasurementGrid label[data-view="dorsal"]').forEach(function(label) {
+    label.style.display = 'none';
+});
+
+// =============================================================================
 // CUSTOM MEASUREMENT TOOL (Ruler)
 // =============================================================================
 
@@ -1830,6 +2140,697 @@ document.querySelectorAll('.morpho-tab').forEach(function(tab) {
     });
 });
 updatePdfBtnVisibility();
+
+// =============================================================================
+// MESOSOMA SECTION
+// =============================================================================
+
+// Get mesosoma SVG document (active view)
+function getMesoSvgDoc() {
+    // Check which view is active
+    var activeBtn = document.querySelector('#section-mesosoma .view-btn.active');
+    var view = activeBtn ? activeBtn.dataset.view : 'lateral';
+    var svgObject = document.getElementById('mesosoma-svg-' + view);
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    // Fallback to lateral
+    svgObject = document.getElementById('mesosoma-svg-lateral');
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    return null;
+}
+
+// Toggle mesosoma morphology labels AND surfaces
+function updateMesosomaLabels() {
+    var show = document.getElementById('toggleMesosomaLabels').checked;
+    var svgDoc = getMesoSvgDoc();
+    if (svgDoc) {
+        var labelsLayer = svgDoc.getElementById('layer-labels');
+        var surfacesLayer = svgDoc.getElementById('layer-surfaces');
+        if (labelsLayer) {
+            labelsLayer.style.display = show ? 'inline' : 'none';
+        }
+        if (surfacesLayer) {
+            surfacesLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+}
+
+var toggleMesoLabels = document.getElementById('toggleMesosomaLabels');
+if (toggleMesoLabels) {
+    toggleMesoLabels.addEventListener('change', updateMesosomaLabels);
+}
+
+// Initialize when mesosoma SVG loads
+var mesoSvgObj = document.getElementById('mesosoma-svg-lateral');
+if (mesoSvgObj) {
+    mesoSvgObj.addEventListener('load', function() {
+        updateMesosomaLabels();
+        // Show default measurements
+        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            toggleMesoMeasurement(cb.dataset.measure, cb.checked);
+        });
+    });
+}
+
+// Toggle mesosoma measurement visibility
+function toggleMesoMeasurement(id, show) {
+    var svgDoc = getMesoSvgDoc();
+    if (!svgDoc) return;
+    var measureGroup = svgDoc.querySelector('[data-measurement="' + id + '"]');
+    if (measureGroup) {
+        measureGroup.style.display = show ? 'inline' : 'none';
+    }
+}
+
+// Mesosoma measurement checkboxes
+document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        toggleMesoMeasurement(this.dataset.measure, this.checked);
+    });
+});
+
+// Clear all mesosoma measurements
+var clearMesoBtn = document.getElementById('clearMesoMeasurements');
+if (clearMesoBtn) {
+    clearMesoBtn.addEventListener('click', function() {
+        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            toggleMesoMeasurement(cb.dataset.measure, false);
+        });
+    });
+}
+
+// Show all mesosoma measurements
+var showAllMesoBtn = document.getElementById('showAllMesoMeasurements');
+if (showAllMesoBtn) {
+    showAllMesoBtn.addEventListener('click', function() {
+        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            toggleMesoMeasurement(cb.dataset.measure, true);
+        });
+    });
+}
+
+// =============================================================================
+// METASOMA SECTION
+// =============================================================================
+
+// Get metasoma SVG document
+function getMetaSvgDoc() {
+    var svgObject = document.getElementById('metasoma-svg-lateral');
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    return null;
+}
+
+// Toggle metasoma morphology labels AND surfaces
+function updateMetasomaLabels() {
+    var show = document.getElementById('toggleMetasomaLabels').checked;
+    var svgDoc = getMetaSvgDoc();
+    if (svgDoc) {
+        var labelsLayer = svgDoc.getElementById('layer-labels');
+        var surfacesLayer = svgDoc.getElementById('layer-surfaces');
+        if (labelsLayer) {
+            labelsLayer.style.display = show ? 'inline' : 'none';
+        }
+        if (surfacesLayer) {
+            surfacesLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+}
+
+var toggleMetaLabels = document.getElementById('toggleMetasomaLabels');
+if (toggleMetaLabels) {
+    toggleMetaLabels.addEventListener('change', updateMetasomaLabels);
+}
+
+// Initialize when metasoma SVG loads
+var metaSvgObj = document.getElementById('metasoma-svg-lateral');
+if (metaSvgObj) {
+    metaSvgObj.addEventListener('load', function() {
+        updateMetasomaLabels();
+        // Show default measurements
+        document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            toggleMetaMeasurement(cb.dataset.measure, cb.checked);
+        });
+    });
+}
+
+// Toggle metasoma measurement visibility
+function toggleMetaMeasurement(id, show) {
+    var svgDoc = getMetaSvgDoc();
+    if (!svgDoc) return;
+    var measureGroup = svgDoc.querySelector('[data-measurement="' + id + '"]');
+    if (measureGroup) {
+        measureGroup.style.display = show ? 'inline' : 'none';
+    }
+}
+
+// Metasoma measurement checkboxes
+document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        toggleMetaMeasurement(this.dataset.measure, this.checked);
+    });
+});
+
+// Clear all metasoma measurements
+var clearMetaBtn = document.getElementById('clearMetaMeasurements');
+if (clearMetaBtn) {
+    clearMetaBtn.addEventListener('click', function() {
+        document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            toggleMetaMeasurement(cb.dataset.measure, false);
+        });
+    });
+}
+
+// Show all metasoma measurements
+var showAllMetaBtn = document.getElementById('showAllMetaMeasurements');
+if (showAllMetaBtn) {
+    showAllMetaBtn.addEventListener('click', function() {
+        document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            toggleMetaMeasurement(cb.dataset.measure, true);
+        });
+    });
+}
+
+// =============================================================================
+// MESOSOMA RULER TOOL
+// =============================================================================
+
+// Scale: 138.67 px = 0.5mm → 277.34 px = 1mm
+var MESO_SCALE_PX_PER_MM = 277.34;
+
+var mesoRulerMode = false;
+var mesoRulerStart = null;
+var mesoCustomMeasurements = [];
+var mesoMeasureId = 0;
+
+var mesoRulerToggle = document.getElementById('mesoRulerToggle');
+if (mesoRulerToggle) {
+    mesoRulerToggle.addEventListener('click', function() {
+        mesoRulerMode = !mesoRulerMode;
+        this.classList.toggle('active', mesoRulerMode);
+        document.getElementById('mesoRulerStatus').textContent = mesoRulerMode ? 'Click two points' : '';
+        mesoRulerStart = null;
+
+        var svgObject = document.getElementById('mesosoma-svg-lateral');
+        if (svgObject && svgObject.contentDocument) {
+            var svg = svgObject.contentDocument.querySelector('svg');
+            if (svg) svg.style.cursor = mesoRulerMode ? 'crosshair' : 'default';
+        }
+    });
+}
+
+function attachMesoSvgClickHandler() {
+    var svgObject = document.getElementById('mesosoma-svg-lateral');
+    if (!svgObject || !svgObject.contentDocument) return;
+
+    var svg = svgObject.contentDocument.querySelector('svg');
+    if (!svg) return;
+
+    svg.addEventListener('click', function(e) {
+        if (!mesoRulerMode) return;
+
+        var pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        var svgPt = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+        if (!mesoRulerStart) {
+            mesoRulerStart = { x: svgPt.x, y: svgPt.y };
+            document.getElementById('mesoRulerStatus').textContent = 'Click second point';
+        } else {
+            var dx = svgPt.x - mesoRulerStart.x;
+            var dy = svgPt.y - mesoRulerStart.y;
+            var distPx = Math.sqrt(dx * dx + dy * dy);
+            var distMm = distPx / MESO_SCALE_PX_PER_MM;
+
+            drawMesoCustomMeasurement(svg, mesoRulerStart, { x: svgPt.x, y: svgPt.y }, distMm);
+
+            mesoRulerStart = null;
+            document.getElementById('mesoRulerStatus').textContent = distMm.toFixed(2) + ' mm';
+        }
+    });
+}
+
+function drawMesoCustomMeasurement(svg, p1, p2, distMm) {
+    var svgDoc = svg.ownerDocument;
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+
+    var g = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'measurement custom-measure');
+    g.setAttribute('data-custom', 'meso-' + (++mesoMeasureId));
+
+    var line = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('class', 'measure-line');
+    line.setAttribute('x1', p1.x);
+    line.setAttribute('y1', p1.y);
+    line.setAttribute('x2', p2.x);
+    line.setAttribute('y2', p2.y);
+    line.setAttribute('stroke', '#0066cc');
+    g.appendChild(line);
+
+    var midX = (p1.x + p2.x) / 2;
+    var midY = (p1.y + p2.y) / 2;
+
+    var text = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('class', 'measure-label');
+    text.setAttribute('x', midX);
+    text.setAttribute('y', midY - 10);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#0066cc');
+    text.textContent = distMm.toFixed(2) + ' mm';
+    g.appendChild(text);
+
+    layer.appendChild(g);
+    mesoCustomMeasurements.push(g);
+}
+
+// =============================================================================
+// METASOMA RULER TOOL
+// =============================================================================
+
+// Use same scale as mesosoma (same specimen)
+var META_SCALE_PX_PER_MM = 277.34;
+
+var metaRulerMode = false;
+var metaRulerStart = null;
+var metaCustomMeasurements = [];
+var metaMeasureId = 0;
+
+var metaRulerToggle = document.getElementById('metaRulerToggle');
+if (metaRulerToggle) {
+    metaRulerToggle.addEventListener('click', function() {
+        metaRulerMode = !metaRulerMode;
+        this.classList.toggle('active', metaRulerMode);
+        document.getElementById('metaRulerStatus').textContent = metaRulerMode ? 'Click two points' : '';
+        metaRulerStart = null;
+
+        var svgObject = document.getElementById('metasoma-svg-lateral');
+        if (svgObject && svgObject.contentDocument) {
+            var svg = svgObject.contentDocument.querySelector('svg');
+            if (svg) svg.style.cursor = metaRulerMode ? 'crosshair' : 'default';
+        }
+    });
+}
+
+function attachMetaSvgClickHandler() {
+    var svgObject = document.getElementById('metasoma-svg-lateral');
+    if (!svgObject || !svgObject.contentDocument) return;
+
+    var svg = svgObject.contentDocument.querySelector('svg');
+    if (!svg) return;
+
+    svg.addEventListener('click', function(e) {
+        if (!metaRulerMode) return;
+
+        var pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        var svgPt = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+        if (!metaRulerStart) {
+            metaRulerStart = { x: svgPt.x, y: svgPt.y };
+            document.getElementById('metaRulerStatus').textContent = 'Click second point';
+        } else {
+            var dx = svgPt.x - metaRulerStart.x;
+            var dy = svgPt.y - metaRulerStart.y;
+            var distPx = Math.sqrt(dx * dx + dy * dy);
+            var distMm = distPx / META_SCALE_PX_PER_MM;
+
+            drawMetaCustomMeasurement(svg, metaRulerStart, { x: svgPt.x, y: svgPt.y }, distMm);
+
+            metaRulerStart = null;
+            document.getElementById('metaRulerStatus').textContent = distMm.toFixed(2) + ' mm';
+        }
+    });
+}
+
+function drawMetaCustomMeasurement(svg, p1, p2, distMm) {
+    var svgDoc = svg.ownerDocument;
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+
+    var g = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'measurement custom-measure');
+    g.setAttribute('data-custom', 'meta-' + (++metaMeasureId));
+
+    var line = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('class', 'measure-line');
+    line.setAttribute('x1', p1.x);
+    line.setAttribute('y1', p1.y);
+    line.setAttribute('x2', p2.x);
+    line.setAttribute('y2', p2.y);
+    line.setAttribute('stroke', '#0066cc');
+    g.appendChild(line);
+
+    var midX = (p1.x + p2.x) / 2;
+    var midY = (p1.y + p2.y) / 2;
+
+    var text = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('class', 'measure-label');
+    text.setAttribute('x', midX);
+    text.setAttribute('y', midY - 10);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#0066cc');
+    text.textContent = distMm.toFixed(2) + ' mm';
+    g.appendChild(text);
+
+    layer.appendChild(g);
+    metaCustomMeasurements.push(g);
+}
+
+// Attach handlers when SVGs load
+var mesoSvgForRuler = document.getElementById('mesosoma-svg-lateral');
+if (mesoSvgForRuler) {
+    mesoSvgForRuler.addEventListener('load', attachMesoSvgClickHandler);
+}
+
+var metaSvgForRuler = document.getElementById('metasoma-svg-lateral');
+if (metaSvgForRuler) {
+    metaSvgForRuler.addEventListener('load', attachMetaSvgClickHandler);
+}
+
+// =============================================================================
+// UPDATED EXPORT FUNCTIONS (support all sections)
+// =============================================================================
+
+// Override downloadAsSVG to support mesosoma and metasoma
+var originalDownloadAsSVG = downloadAsSVG;
+downloadAsSVG = function(section) {
+    var svgObject = null;
+    if (section === 'head') {
+        svgObject = document.getElementById('head-svg-frontal');
+    } else if (section === 'mesosoma') {
+        svgObject = document.getElementById('mesosoma-svg-lateral');
+    } else if (section === 'metasoma') {
+        svgObject = document.getElementById('metasoma-svg-lateral');
+    }
+
+    if (!svgObject || !svgObject.contentDocument) {
+        alert('SVG not available for this section');
+        return;
+    }
+
+    doSvgExport(svgObject, section);
+};
+
+// Override downloadAsPNG to support mesosoma and metasoma
+var originalDownloadAsPNG = downloadAsPNG;
+downloadAsPNG = function(section) {
+    var svgObject = null;
+
+    if (section === 'head') {
+        svgObject = document.getElementById('head-svg-frontal');
+    } else if (section === 'mesosoma') {
+        svgObject = document.getElementById('mesosoma-svg-lateral');
+    } else if (section === 'metasoma') {
+        svgObject = document.getElementById('metasoma-svg-lateral');
+    }
+
+    if (svgObject && svgObject.contentDocument) {
+        var svgDoc = svgObject.contentDocument;
+        var svgElement = svgDoc.querySelector('svg');
+        if (svgElement) {
+            renderSvgToPng(svgElement, 'ant_' + section + '_morphology.png');
+            return;
+        }
+    }
+
+    alert('SVG not available for PNG export');
+};
+
+// Show/hide panels based on active section
+function updateAllPanelsVisibility() {
+    var activeTab = document.querySelector('.morpho-tab.active');
+    if (!activeTab) return;
+
+    var section = activeTab.dataset.section;
+
+    // Head panel
+    var headPanel = document.getElementById('measurementsPanel');
+    if (headPanel) {
+        if (section === 'head') {
+            var activeView = document.querySelector('#section-head .view-btn.active');
+            headPanel.style.display = (activeView && activeView.dataset.view === 'frontal') ? 'block' : 'none';
+        } else {
+            headPanel.style.display = 'none';
+        }
+    }
+
+    // Mesosoma panel
+    var mesoPanel = document.getElementById('mesosomaPanel');
+    if (mesoPanel) {
+        mesoPanel.style.display = (section === 'mesosoma') ? 'block' : 'none';
+    }
+
+    // Metasoma panel
+    var metaPanel = document.getElementById('metasomaPanel');
+    if (metaPanel) {
+        metaPanel.style.display = (section === 'metasoma') ? 'block' : 'none';
+    }
+}
+
+// Update panel visibility on tab change
+document.querySelectorAll('.morpho-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        setTimeout(updateAllPanelsVisibility, 10);
+    });
+});
+
+// Initial panel visibility
+setTimeout(updateAllPanelsVisibility, 100);
+
+// =============================================================================
+// ENLARGE/FULLSCREEN TOGGLE
+// =============================================================================
+
+document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
+    var enlargeBtn = wrapper.querySelector('.enlarge-toggle');
+    if (!enlargeBtn) return;
+
+    enlargeBtn.addEventListener('click', function() {
+        var isEnlarged = wrapper.classList.toggle('enlarged');
+        enlargeBtn.classList.toggle('active', isEnlarged);
+        document.body.classList.toggle('has-enlarged-view', isEnlarged);
+    });
+});
+
+// Close enlarged view on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.diagram-wrapper.enlarged').forEach(function(wrapper) {
+            wrapper.classList.remove('enlarged');
+            var btn = wrapper.querySelector('.enlarge-toggle');
+            if (btn) btn.classList.remove('active');
+        });
+        document.body.classList.remove('has-enlarged-view');
+    }
+});
+
+// =============================================================================
+// MAGNIFYING GLASS
+// =============================================================================
+
+var magZoom = 3; // Zoom level
+
+document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
+    var toggle = wrapper.querySelector('.mag-toggle');
+    var lens = wrapper.querySelector('.mag-lens');
+    var overlay = wrapper.querySelector('.mag-overlay');
+    var canvas = lens ? lens.querySelector('canvas') : null;
+    var ctx = canvas ? canvas.getContext('2d') : null;
+    var magActive = false;
+
+    if (!toggle || !lens || !canvas || !overlay) return;
+
+    // Set canvas size
+    canvas.width = 150;
+    canvas.height = 150;
+
+    toggle.addEventListener('click', function() {
+        magActive = !magActive;
+        toggle.classList.toggle('active', magActive);
+        overlay.classList.toggle('active', magActive);
+        if (!magActive) {
+            lens.classList.remove('active');
+        }
+    });
+
+    // Get the SVG or image element
+    function getImageSource() {
+        var svgObj = wrapper.querySelector('object.morpho-svg.active');
+        if (svgObj && svgObj.contentDocument) {
+            return { type: 'svg', element: svgObj };
+        }
+        var img = wrapper.querySelector('img.morpho-img.active');
+        if (img) {
+            return { type: 'img', element: img };
+        }
+        // Fallback to any object
+        svgObj = wrapper.querySelector('object.morpho-svg');
+        if (svgObj && svgObj.contentDocument) {
+            return { type: 'svg', element: svgObj };
+        }
+        return null;
+    }
+
+    // Overlay captures mouse events
+    overlay.addEventListener('mousemove', function(e) {
+        var source = getImageSource();
+        if (!source) return;
+
+        var rect = source.element.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+
+        // Position lens at cursor (centered)
+        var wrapperRect = wrapper.getBoundingClientRect();
+        var lensX = e.clientX - wrapperRect.left - 75; // 75 = half lens width
+        var lensY = e.clientY - wrapperRect.top - 75;  // 75 = half lens height
+        lens.style.left = lensX + 'px';
+        lens.style.top = lensY + 'px';
+
+        lens.classList.add('active');
+        handleMagnify(source, x, y, rect);
+    });
+
+    overlay.addEventListener('mouseleave', function() {
+        lens.classList.remove('active');
+    });
+
+    // Cache for pre-rendered SVG images (avoids re-serializing on every mouse move)
+    var svgImageCache = {};
+
+    // Convert SVG with external images to a usable Image object
+    function prepareSvgImage(svgObj, callback) {
+        var cacheKey = svgObj.data || svgObj.id;
+        if (svgImageCache[cacheKey]) {
+            callback(svgImageCache[cacheKey]);
+            return;
+        }
+
+        var svgDoc = svgObj.contentDocument;
+        var svgEl = svgDoc.querySelector('svg');
+        if (!svgEl) return;
+
+        // Clone SVG to avoid modifying the original
+        var clonedSvg = svgEl.cloneNode(true);
+
+        // Find all images and convert relative URLs to absolute
+        var images = clonedSvg.querySelectorAll('image');
+        var pending = images.length;
+
+        if (pending === 0) {
+            finalizeSvg();
+            return;
+        }
+
+        images.forEach(function(imgEl) {
+            var href = imgEl.getAttribute('xlink:href') || imgEl.getAttribute('href');
+            if (!href || href.startsWith('data:')) {
+                pending--;
+                if (pending === 0) finalizeSvg();
+                return;
+            }
+
+            // Resolve relative URL based on SVG location
+            // First get absolute URL of SVG, then resolve image href relative to it
+            var svgAbsoluteUrl = new URL(svgObj.data, window.location.href).href;
+            var absoluteUrl = new URL(href, svgAbsoluteUrl).href;
+
+            // Load image and convert to data URI
+            var tempImg = new Image();
+            tempImg.crossOrigin = 'anonymous';
+            tempImg.onload = function() {
+                var tempCanvas = document.createElement('canvas');
+                tempCanvas.width = tempImg.naturalWidth;
+                tempCanvas.height = tempImg.naturalHeight;
+                var tempCtx = tempCanvas.getContext('2d');
+                tempCtx.drawImage(tempImg, 0, 0);
+                try {
+                    var dataUri = tempCanvas.toDataURL('image/jpeg', 0.9);
+                    imgEl.setAttribute('xlink:href', dataUri);
+                    imgEl.setAttribute('href', dataUri);
+                } catch(e) {
+                    console.warn('Could not convert image to data URI:', e);
+                }
+                pending--;
+                if (pending === 0) finalizeSvg();
+            };
+            tempImg.onerror = function() {
+                pending--;
+                if (pending === 0) finalizeSvg();
+            };
+            tempImg.src = absoluteUrl;
+        });
+
+        function finalizeSvg() {
+            var serializer = new XMLSerializer();
+            var svgString = serializer.serializeToString(clonedSvg);
+            var svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+            var url = URL.createObjectURL(svgBlob);
+
+            var finalImg = new Image();
+            finalImg.onload = function() {
+                svgImageCache[cacheKey] = {
+                    img: finalImg,
+                    width: parseFloat(clonedSvg.getAttribute('width')) || finalImg.naturalWidth,
+                    height: parseFloat(clonedSvg.getAttribute('height')) || finalImg.naturalHeight,
+                    viewBox: clonedSvg.getAttribute('viewBox')
+                };
+                callback(svgImageCache[cacheKey]);
+            };
+            finalImg.src = url;
+        }
+    }
+
+    function handleMagnify(source, x, y, rect) {
+        // Calculate source coordinates
+        var scaleX = source.element.naturalWidth ? source.element.naturalWidth / rect.width : 1;
+        var scaleY = source.element.naturalHeight ? source.element.naturalHeight / rect.height : 1;
+
+        if (source.type === 'svg') {
+            prepareSvgImage(source.element, function(cached) {
+                if (cached.viewBox) {
+                    var parts = cached.viewBox.split(/[\s,]+/);
+                    var vbWidth = parseFloat(parts[2]);
+                    var vbHeight = parseFloat(parts[3]);
+                    scaleX = vbWidth / rect.width;
+                    scaleY = vbHeight / rect.height;
+                }
+
+                var srcX = x * scaleX;
+                var srcY = y * scaleY;
+                var zoomSize = 150 / magZoom;
+
+                ctx.clearRect(0, 0, 150, 150);
+                ctx.drawImage(cached.img,
+                    srcX - zoomSize/2, srcY - zoomSize/2, zoomSize, zoomSize,
+                    0, 0, 150, 150
+                );
+            });
+        } else {
+            // For regular images
+            var srcX = x * scaleX;
+            var srcY = y * scaleY;
+            var zoomSize = 150 / magZoom;
+
+            ctx.clearRect(0, 0, 150, 150);
+            ctx.drawImage(source.element,
+                srcX - zoomSize/2, srcY - zoomSize/2, zoomSize, zoomSize,
+                0, 0, 150, 150
+            );
+        }
+    }
+});
 </script>
 
 <?php include("php/footer.php"); ?>

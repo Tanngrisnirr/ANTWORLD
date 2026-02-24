@@ -117,9 +117,9 @@
     "title": "Diversité des fourmis par pays",
     "chart_title": "Richesse spécifique par pays",
     "richness_all": "Richesse au niveau espèce, genre et sous-famille",
-    "richness_single": "Richesse par pays",
-    "richness_two": "Richesse au niveau",
-    "level": "niveau",
+    "richness_single": "Richesse en",
+    "richness_two": "Richesse en",
+    "level": "",
     "biogeographic_realms": "Régions biogéographiques",
     "realms": {
       "palearctic": "Paléarctique",
@@ -141,7 +141,14 @@
     "sources_references": "Sources et références",
     "data_sources": "Sources des données :",
     "countries_selected": "pays sélectionnés",
-    "showing_top": "affichage des 15 premiers"
+    "showing_top": "affichage des 15 premiers",
+    "count_log": "Nombre (échelle log)",
+    "percent_global": "Pourcentage du total mondial",
+    "of_worldwide": "sur",
+    "worldwide": "mondial",
+    "series_species": "Espèces",
+    "series_genera": "Genres",
+    "series_subfamilies": "Sous-familles"
   },
   "tax": {
     "title": "Diversité taxonomique des fourmis",
