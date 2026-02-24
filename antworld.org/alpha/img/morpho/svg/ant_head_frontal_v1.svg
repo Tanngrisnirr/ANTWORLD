@@ -7,6 +7,7 @@
    version="1.1"
    sodipodi:docname="ant_head_frontal_v1.svg"
    inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   data-ruler-attached="true"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -19,8 +20,8 @@
   <sodipodi:namedview
      inkscape:document-units="px"
      inkscape:zoom="1.4766397"
-     inkscape:cx="421.22665"
-     inkscape:cy="311.1795"
+     inkscape:cx="407.34378"
+     inkscape:cy="207.90447"
      id="namedview1"
      pagecolor="#ffffff"
      bordercolor="#000000"
@@ -248,13 +249,14 @@
        inkscape:label="Genae.surf"
        transform="matrix(-1.3387416,0,0,1.4470266,934.7161,-178.05201)" />
     <path
-       style="fill:#00ff00"
-       d="m 254.48665,93.274672 c 24.91048,-1.30703 63.96764,-1.922104 105.56243,-2.460298 41.59478,-0.538194 85.72542,-0.99949 113.55761,0.230686 27.83219,1.230176 39.36459,4.151717 46.97616,12.07092 7.61157,7.9192 11.30187,20.83523 11.30187,35.90483 0,15.0696 -3.69037,32.29131 -27.90933,41.133 -24.21897,8.84168 -68.96467,9.30298 -121.63095,9.6874 -52.66627,0.38442 -113.24979,0.69195 -145.31053,-7.91925 -32.06074,-8.6112 -35.59727,-26.14009 -35.67416,-41.51724 -0.0769,-15.37715 3.30595,-28.60096 10.3794,-36.21251 7.07345,-7.611557 17.83703,-9.610508 42.7475,-10.917538 z"
+       style="opacity:1;fill:#00ff00"
+       d="m 254.48665,91.239004 c 24.91048,-1.307031 63.96764,-0.90427 105.56243,-0.933547 41.59478,-0.02928 85.72542,-0.490573 113.55761,0.739603 27.83219,1.230176 39.36459,4.151717 46.97616,12.07092 7.61157,7.9192 11.30187,20.83523 11.30187,35.90483 0,15.0696 -3.69037,32.29131 -27.90933,41.133 -24.21897,8.84168 -68.96467,9.30298 -121.63095,9.6874 -52.66627,0.38442 -113.24979,0.69195 -145.31053,-7.91925 -32.06074,-8.6112 -35.59727,-26.14009 -35.67416,-41.51724 -0.0769,-15.37715 3.30595,-28.60096 10.3794,-36.72144 7.07345,-8.120482 17.83702,-11.137244 42.7475,-12.444276 z"
        id="path3"
        inkscape:label="Vertex.surf"
        sodipodi:nodetypes="ccccccccccc"
-       inkscape:original-d="m 240.33996,92.582715 c 39.05717,-0.615073 78.11433,-1.230147 117.1715,-1.84522 44.1324,-0.461315 88.26304,-0.922611 132.39456,-1.383916 11.53286,2.921658 23.06526,5.843198 34.59789,8.764797 3.69051,12.916804 7.38081,25.832834 11.07132,38.749634 -3.69051,17.2224 -7.38088,34.44411 -11.07132,51.66617 -44.74749,0.46131 -89.49319,0.92261 -134.23979,1.38391 -60.58595,0.30755 -121.16947,0.61508 -181.75421,0.92261 -3.53674,-17.52994 -7.07328,-35.05883 -10.61002,-52.58878 3.38297,-13.22435 6.76581,-26.44816 10.14871,-39.672239 10.764,-1.999028 21.52758,-3.997977 32.29136,-5.996966 z"
-       inkscape:path-effect="#path-effect4" />
+       inkscape:original-d="m 240.33996,89.529212 c 39.05717,0.402761 78.11433,0.805522 117.1715,1.208283 44.1324,-0.461315 88.26304,-0.922611 132.39456,-1.383916 11.53286,2.921658 23.06526,5.843198 34.59789,8.764797 3.69051,12.916804 7.38081,25.832834 11.07132,38.749634 -3.69051,17.2224 -7.38088,34.44411 -11.07132,51.66617 -44.74749,0.46131 -89.49319,0.92261 -134.23979,1.38391 -60.58595,0.30755 -121.16947,0.61508 -181.75421,0.92261 -3.53674,-17.52994 -7.07328,-35.05883 -10.61002,-52.58878 3.38297,-13.22435 6.76581,-26.44816 10.14871,-39.672239 10.764,-3.016883 21.52757,-6.033646 32.29136,-9.050469 z"
+       inkscape:path-effect="#path-effect4"
+       transform="matrix(0.58407451,0,0,2.1817372,168.40178,15.212997)" />
     <path
        style="display:inline;fill:#00ffff;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-dasharray:none"
        d="m 379.09922,433.10547 -41.65228,46.93811 c 38.67348,23.72234 69.42422,18.50947 95.14481,-5.07439 l -51.80106,-41.86372 z"
@@ -345,7 +347,7 @@
        class="label"
        data-feature="frons"
        id="g3"
-       transform="translate(-39.200122,-77.753037)"
+       transform="translate(-8.0483116,148.4362)"
        style="fill:#ffffff"
        inkscape:label="Frons.grp">
       <text
@@ -354,7 +356,7 @@
          y="186.87225"
          text-anchor="middle"
          data-en="Frons"
-         data-fr="Front"
+         data-fr="Frons"
          id="text3"
          inkscape:label="Frons.label"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Frons</text>
@@ -386,6 +388,7 @@
        inkscape:label="FrontalCarinae.grp">
       <text
          xml:space="preserve"
+         class="label-text"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
          x="883.59991"
          y="308.33258"
@@ -394,10 +397,14 @@
            sodipodi:role="line"
            x="883.59991"
            y="308.33258"
+           data-en="Frontal carina"
+           data-fr="Carène frontale"
            id="tspan11">Frontal carina</tspan><tspan
            sodipodi:role="line"
            x="883.59991"
            y="325.83258"
+           data-en="(left)"
+           data-fr="(gauche)"
            id="tspan1">(left)</tspan></text>
       <path
          style="fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
@@ -509,12 +516,12 @@
          class="label-text"
          x="592.60321"
          y="632.2962"
-         data-en="Compound Eye"
-         data-fr="Œil composé"
+         data-en="Apical tooth"
+         data-fr="Dent apicale"
          id="text6-3"
          inkscape:label="ApicalTeeth.label"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
-         transform="rotate(179.47784,377.55714,579.21259)">Apical teeth</text>
+         transform="rotate(179.47784,377.55714,579.21259)">Apical tooth</text>
       <line
          class="label-line"
          x1="320"
@@ -607,19 +614,21 @@
          class="label-text"
          x="537.69348"
          y="354.42737"
-         data-en="Torulus"
-         data-fr="Torulus"
          id="torulus-txt"
          inkscape:label="Torulus.label"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
            sodipodi:role="line"
            id="tspan4"
            x="537.69348"
-           y="354.42737">Torulus</tspan><tspan
+           y="354.42737"
+           data-en="Torulus"
+           data-fr="Torulus">Torulus</tspan><tspan
            sodipodi:role="line"
            x="537.69348"
            y="371.92737"
-           id="tspan5">(Antennal fossa)</tspan></text>
+           id="tspan5"
+           data-en="(Antennal fossa)"
+           data-fr="(Fosse antennaire)">(Antennal fossa)</tspan></text>
       <path
          style="fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
          d="M 833.35926,353.74088 H 634.44635"
@@ -653,9 +662,9 @@
          class="label-text"
          x="677.14099"
          y="444.55759"
-         data-en="Torulus"
-         data-fr="Torulus"
-         id="torulus-txt-2"
+         data-en="Condyle"
+         data-fr="Condyle"
+         id="condyle-txt"
          inkscape:label="Condyle.label"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Condyle</text>
     </g>
@@ -672,8 +681,8 @@
          x="400"
          y="460"
          text-anchor="middle"
-         data-en="Frontal Triangle"
-         data-fr="Triangle frontal"
+         data-en="ΔFr"
+         data-fr="ΔFr"
          id="2fr-txt"
          inkscape:label="FrontalTriangle.label"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">ΔFr</text>

@@ -1,0 +1,6 @@
+Timestamp,File,Action,Element,Old_Value,New_Value,Description
+2026-02-24 20:07:31,antworld.org/alpha/morpho.html,EDIT,translateSvgLabels function,el.textContent = el.dataset[lang],Modified to handle tspans,"Fix: Function now translates tspans individually instead of overwriting entire text content"
+2026-02-24 20:08:45,antworld.org/alpha/img/morpho/svg/ant_head_frontal_v1.svg,EDIT,Torulus label,data-en/data-fr on parent text,data-en/data-fr on individual tspans,"Added data-en='Torulus' data-fr='Torulus' and data-en='(Antennal fossa)' data-fr='(Fosse antennaire)' to tspans"
+2026-02-24 20:09:12,antworld.org/alpha/img/morpho/svg/ant_head_frontal_v1.svg,EDIT,Frontal carina label,No tspan translations,Added tspan data attributes,"Added data-en='Frontal carina' data-fr='Carene frontale' and data-en='(left)' data-fr='(gauche)'"
+2026-02-24 20:10:33,antworld.org/alpha/img/morpho/svg/ant_head_frontal_v1.svg,EDIT,ΔFr label,"data-en='Frontal Triangle' data-fr='Triangle frontal'","data-en='ΔFr' data-fr='ΔFr'","Fix: ΔFr symbol must not be translated - stays ΔFr in both languages"
+2026-02-24 20:45:22,antworld.org/alpha/img/morpho/svg/ant_head_frontal_v1.svg,EDIT,Apical tooth label,"data-en='Apical teeth' data-fr='Dents apicales'","data-en='Apical tooth' data-fr='Dent apicale'","Fix: Singular form - there is only one apical tooth visible"
