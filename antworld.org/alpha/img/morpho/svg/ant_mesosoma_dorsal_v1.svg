@@ -365,7 +365,7 @@
          y="395"
          text-anchor="end"
          data-en="Promesonotal Suture"
-         data-fr="Suture promesontale"
+         data-fr="Suture promésonotale"
          id="promesonotal-txt"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Promesonotal Suture</text>
     </g>
@@ -415,7 +415,7 @@
          x="755"
          y="295"
          data-en="Mesonotum"
-         data-fr="Mesonotum"
+         data-fr="Mésonotum"
          id="mesonotum-txt-d">Mesonotum</text>
     </g>
     <!-- Label: Propodeum -->
@@ -440,7 +440,7 @@
          x="755"
          y="555"
          data-en="Propodeum"
-         data-fr="Propodeum"
+         data-fr="Propodéum"
          id="propodeum-txt-d">Propodeum</text>
     </g>
     <!-- Label: Pronotum Width marker (left) -->
@@ -494,7 +494,7 @@
          y="475"
          text-anchor="end"
          data-en="Mesopleuron"
-         data-fr="Mesopleure"
+         data-fr="Mésopleuron"
          id="mesopleuron-txt"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Mesopleuron</text>
     </g>

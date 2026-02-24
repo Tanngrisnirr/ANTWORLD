@@ -1232,8 +1232,18 @@ function translateSvgLabels(svgObject) {
     if (!svgObject || !svgObject.contentDocument) return;
     var cookieMatch = document.cookie.match(/aw_lang=([^;]+)/);
     var lang = cookieMatch ? cookieMatch[1] : 'en';
+
+    // Traduire les tspans individuellement s'ils ont data-en/data-fr
+    svgObject.contentDocument.querySelectorAll('tspan[data-en][data-fr]').forEach(function(tspan) {
+        tspan.textContent = tspan.dataset[lang];
+    });
+
+    // Traduire les éléments text SANS tspans (labels simples)
     svgObject.contentDocument.querySelectorAll('.label-text[data-en][data-fr]').forEach(function(el) {
-        el.textContent = el.dataset[lang];
+        // Ne pas écraser si l'élément contient des tspans
+        if (el.querySelectorAll('tspan').length === 0) {
+            el.textContent = el.dataset[lang];
+        }
     });
 }
 
