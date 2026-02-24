@@ -444,6 +444,27 @@ body.has-enlarged-view {
     font-size: 1.1em;
 }
 
+/* Definition items structure */
+.def-section {
+    margin-bottom: 20px;
+}
+.def-section-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--accent-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.def-item {
+    margin-bottom: 6px;
+    padding: 4px 0;
+    line-height: 1.6;
+}
+.def-item.hidden {
+    display: none;
+}
+
 /* Measurements header with search */
 .measurements-header {
     display: flex;
@@ -716,64 +737,88 @@ body.has-enlarged-view {
     color: var(--text-primary);
 }
 
-/* Print stylesheet for PDF export */
+/* Print stylesheet for PDF export - DEFINITIONS ONLY */
 @media print {
+    /* Global print settings */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
     body {
         background: white !important;
         color: black !important;
+        font-size: 11pt;
+        line-height: 1.4;
+        orphans: 3;
+        widows: 3;
     }
-    nav, .controls-row, .export-row, .morpho-tabs {
+    /* Hide everything except measurements section */
+    nav, footer, .controls-row, .export-row, .morpho-tabs, h2.h2one,
+    #section-head, #section-mesosoma, #section-metasoma,
+    .site-footer, .footer, #footer, .aw-footer, [class*="footer"] {
         display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
-    .diagram-section {
+    /* Only show measurements section */
+    #section-measurements {
         display: block !important;
-        page-break-after: always;
     }
-    .diagram-section:last-of-type {
-        page-break-after: avoid;
+    .measurements-download-btn, .measurement-search, .measurements-header input {
+        display: none !important;
     }
     .morpho-container {
         max-width: 100%;
-        padding: 10px;
+        padding: 15px;
+        margin: 0;
     }
-    .diagram-area, .feature-list, .measurements-section {
-        background: #f5f5f5 !important;
-        border: 1px solid #ccc;
-    }
-    .feature-item {
-        background: white !important;
-        border: 1px solid #ddd;
-        color: black !important;
-    }
-    .feature-dot {
-        background: #333 !important;
-    }
-    .view-selector {
-        display: none;
-    }
-    .img-source {
-        color: #666 !important;
-    }
-    .img-source a {
-        color: #333 !important;
-    }
-    h2.h2one, h3 {
-        color: black !important;
-    }
-    .diagram-section::before {
-        content: attr(data-print-title);
-        display: block;
-        font-size: 24px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 15px;
-        color: black;
+    article {
+        margin: 0 !important;
+        padding: 0 !important;
     }
     .measurements-section {
+        background: white !important;
         color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
-    .measurements-section b {
+    .measurements-header {
+        margin-bottom: 15px;
+    }
+    .measurements-header h3 {
+        color: black !important;
+        font-size: 16pt;
+        text-align: center;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #333;
+        padding-bottom: 8px;
+    }
+    /* Definition items - prevent breaks inside */
+    .def-item {
+        display: block;
+        margin-bottom: 6px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        line-height: 1.5;
+    }
+    .def-item b {
+        color: #000 !important;
+    }
+    /* Section headers for grouping */
+    .def-section {
+        page-break-inside: avoid;
+        margin-top: 15px;
+    }
+    .def-section-title {
+        font-weight: bold;
+        font-size: 14px;
         color: #333 !important;
+        border-bottom: 1px solid #999;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
     }
 }
     </style>
@@ -812,7 +857,8 @@ body.has-enlarged-view {
                         type="image/svg+xml"
                         id="head-svg-frontal"
                         class="morpho-svg active"
-                        style="max-width: 100%; height: auto;">
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
                     <img src="img/morpho/casent0179897_h_1_high.jpg" alt="Ant head frontal view">
                 </object>
                 <!-- Lateral view (fallback to JPG for now) -->
@@ -917,7 +963,8 @@ body.has-enlarged-view {
                         type="image/svg+xml"
                         id="mesosoma-svg-lateral"
                         class="morpho-svg active"
-                        style="max-width: 100%; height: auto;">
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
                     <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant mesosoma lateral view">
                 </object>
                 <!-- Dorsal view SVG -->
@@ -925,7 +972,8 @@ body.has-enlarged-view {
                         type="image/svg+xml"
                         id="mesosoma-svg-dorsal"
                         class="morpho-svg"
-                        style="max-width: 100%; height: auto;">
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
                     <img src="img/morpho/casent0179929_d_1_high.jpg" alt="Ant mesosoma dorsal view">
                 </object>
             </div>
@@ -1014,7 +1062,8 @@ body.has-enlarged-view {
                         type="image/svg+xml"
                         id="metasoma-svg-lateral"
                         class="morpho-svg active"
-                        style="max-width: 100%; height: auto;">
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
                     <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant metasoma lateral view">
                 </object>
             </div>
@@ -1045,7 +1094,7 @@ body.has-enlarged-view {
                 <label class="measurement-checkbox">
                     <input type="checkbox" data-measure="PEH" data-section="metasoma" checked>
                     <span class="abbrev">PEH</span>
-                    <span class="name" data-en="Petiole Height" data-fr="Hauteur du petiole">Petiole Height</span>
+                    <span class="name" data-en="Petiole Height" data-fr="Hauteur du pétiole">Petiole Height</span>
                 </label>
                 <label class="measurement-checkbox">
                     <input type="checkbox" data-measure="GL" data-section="metasoma" checked>
@@ -1060,10 +1109,10 @@ body.has-enlarged-view {
                 <label class="measurement-checkbox">
                     <input type="checkbox" data-measure="PEW" data-section="metasoma" checked>
                     <span class="abbrev">PEW</span>
-                    <span class="name" data-en="Petiole Width" data-fr="Largeur du petiole">Petiole Width</span>
+                    <span class="name" data-en="Petiole Width" data-fr="Largeur du pétiole">Petiole Width</span>
                 </label>
             </div>
-            <h4 data-en="Download my file" data-fr="Telecharger mon fichier">Download my file</h4>
+            <h4 data-en="Download my file" data-fr="Télécharger mon fichier">Download my file</h4>
             <div class="panel-export">
                 <button class="export-btn" onclick="downloadAsPNG('metasoma')">
                     <span class="format">PNG</span>
@@ -1084,79 +1133,110 @@ body.has-enlarged-view {
                     <h3 data-en="Morphometric Definitions" data-fr="Définitions morphométriques">Morphometric Definitions</h3>
                     <input type="text" id="measurementSearch" class="measurement-search" placeholder="Search..." data-placeholder-en="Search..." data-placeholder-fr="Rechercher...">
                 </div>
-                <p id="measurementsList">
-<b>CL</b> Maximal Length measured in the median line, from posterior side of the head to fore border of the clypeus (S264).<br>
-<b>CI</b> <b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100<br>
-<b>CW</b> Maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.<br>
-<b>ClyPub</b> Unilateral count of all pubescent setae projecting more than 10 µm from the anterior edge of the clypeus.<br>
-<b>ClypSet</b> Presence of determining setal rows on the clypeus (S281). Values 1-5 indicate distribution pattern.<br>
-<b>CS</b> Cephalic Size: arithmetic mean of CW and CL.<br>
-<b>CUHL</b> Greatest length of setae on the posterior side of the head.<br>
-<b>EYE</b> Arithmetic mean of EL and ES.<br>
-<b>EL</b> Longer diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br>
-<b>ES</b> Smaller diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br>
-<b>EyeHL</b> Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x.<br>
-<b>FD</b> Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS.<br>
-<b>FR</b> Maximum frontal divergence of frontal carinae.<br>
-<b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus.<br>
-<b>ΔFr</b> <b>Frontal Triangle</b>. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally.<br>
-<b>GH</b> <b>G</b>aster <b>H</b>eight. Maximum height of gaster measured perpendicular to longitudinal axis in lateral view.<br>
-<b>GHL</b> Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border.<br>
-<b>GL</b> <b>G</b>aster <b>L</b>ength. Maximum length of gaster from anterior margin of first gastral segment to posterior tip of pygidium.<br>
-<b>HTL</b> <b>H</b>ind <b>T</b>ibia <b>L</b>ength, measured from inner constriction point to distal tip (S265).<br>
-<b>HTMAX</b> Maximum diameter of hind tibiae (measured at middle of tibiae).<br>
-<b>HTMIN</b> Minimum diameter of hind tibiae (measured at middle of tibiae).<br>
-<b>IF2</b> Ratio of median length of 2nd article to its maximum width measured from upper side of scape.<br>
-<b>MetHL</b> Length of longest metapleural setae, below lower edge of propodeal spiracle.<br>
-<b>ML</b> <b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (S266).<br>
-<b>MH</b> Maximum <b>M</b>esosoma <b>H</b>eight, measured vertically from dorsal line of mesonotum/scutellum in profile view (S266).<br>
-<b>MnHL</b> Length of longest setae on mesonotum.<br>
-<b>mPnHL</b> Median length of pronotal setae.<br>
-<b>MW</b> Maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For workers: max width of pronotum; for reproductives: max width before tegulae.<br>
-<b>nCH</b> Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins.<br>
-<b>nCU</b> Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head.<br>
-<b>nCOXA</b> Unilateral count of setae projecting more than 10 µm from cranial surface of fore coxae.<br>
-<b>nHT</b> Unilateral count of setae projecting more than 10 µm strictly from straight side of hind tibiae (Lasius s. str. > 20 µm).<br>
-<b>nHTFl</b> Unilateral count of setae at outer edge of swollen side of hind tibiae.<br>
-<b>nMet</b> Unilateral count of erectile metapleural setae, below lower edge of propodeal spiracle.<br>
-<b>nPn</b> Unilateral count of erectile setae on pronotum surface.<br>
-<b>nPE</b> Unilateral count of erectile setae on petiole surface.<br>
-<b>nPR</b> Unilateral count of erectile setae on propodeum surface.<br>
-<b>nSc</b> Unilateral count of setae projecting more than 10 µm from upper part of scape.<br>
-<b>OceSet</b> Presence (=1) or absence (=0) of erectile setae more than 10 µm in ocellar triangle.<br>
-<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Measured along median line from median occipital margin to median head at level of posterior eye margin.<br>
-<b>PLF</b> Length of pubescent setae on head between frontal carinae. Significant value on 6 measurements per individual.<br>
-<b>PDCL</b> Median pubescence spacing on clypeus (S267).<br>
-<b>PDF</b> Median pubescence spacing on transverse measurement line on frons, frontal to ocelli.<br>
-<b>PDG</b> Median pubescence spacing on transverse measurement line at middle of dorsal surface of 1st gastric tergite.<br>
-<b>PDI</b> Propodeal spine index measured in lateral view (S268).<br>
-<b>PEH</b> Maximum <b>PE</b>tiole <b>H</b>eight. Measured perpendicular to straight section of ventral petiolar profile at node level.<br>
-<b>PEHL</b> Greatest length of setae on dorsum of petiole.<br>
-<b>PEW</b> Maximum <b>PE</b>tiole <b>W</b>idth.<br>
-<b>PnHL</b> <b>H</b>ighest <b>L</b>ength of longest hair of pronotum; arithmetic mean of both sides.<br>
-<b>PrH</b> <b>Pr</b>onotum <b>H</b>eight. Maximum height of pronotum measured in lateral view.<br>
-<b>PPW</b> <b>P</b>ost<b>P</b>etiole maximum <b>W</b>idth (profile view).<br>
-<b>PPH</b> <b>P</b>ost<b>P</b>etiole maximum <b>H</b>eight, measured perpendicular to suture between dorsal and ventral sclerites (profile view).<br>
-<b>SL</b> Maximum <b>S</b>cape <b>L</b>ength, excluding articular condyle and basal lobe (S269, S270).<br>
-<b>SLd</b> Maximum straight line scape length in dorsal view, excluding articular condyle; arithmetic mean of both scapes.<br>
-<b>SMAX</b> Maximum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.<br>
-<b>SMIN</b> Minimum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.<br>
-<b>SP</b> Propodeal <b>SP</b>ine length, measured in dorsofrontal view from spine tip to base curve.<br>
-<b>SPBA</b> Smallest distance between outer edges at <b>SP</b>ine <b>BA</b>ses (S75).<br>
-<b>SPST</b> Distance from center of propodeal spiracle to tip of dorsal spines.<br>
-<b>SPTI</b> Maximum distance from spine centers to propodeal spine tips.<br>
-<b>SPWI</b> Maximum distance between outer margins of <b>SP</b>ine tips (S75).<br>
-<b>sqPDF</b> Square root of median pubescence spacing in ocellar triangle (S283).<br>
-<b>sqPDG</b> Square root of median pubescence spacing on dorsal surface of first abdominal tergite (S283).<br>
-<b>TERG</b> Arrangement/numbering of setae on anteriormost abdominal tergite with at least one erectile seta more than 10 µm.<br>
-<b>TL</b> <b>T</b>otal <b>L</b>ength. Measured from head to pygidium.<br>
-            </p>
+                <div id="measurementsList">
+<!-- HEAD MEASUREMENTS -->
+<div class="def-section"><div class="def-section-title" data-en="Head (Caput)" data-fr="Tête (Caput)">Head (Caput)</div>
+<div class="def-item" data-en="Maximal Length measured in the median line, from posterior side of the head to fore border of the clypeus (S264)." data-fr="Longueur maximale mesurée sur la ligne médiane, du côté postérieur de la tête au bord antérieur du clypéus (S264)."><b>CL</b> <span class="def-text">Maximal Length measured in the median line, from posterior side of the head to fore border of the clypeus (S264).</span></div>
+<div class="def-item" data-en="Cephalic Index = (CW/CL) x 100" data-fr="Indice Céphalique = (CW/CL) x 100"><b>CI</b> <span class="def-text"><b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100</span></div>
+<div class="def-item" data-en="Maximum Cephalic Width. Can include eyes." data-fr="Largeur Céphalique maximale. Peut inclure les yeux."><b>CW</b> <span class="def-text">Maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.</span></div>
+<div class="def-item" data-en="Unilateral count of all pubescent setae projecting more than 10 µm from the anterior edge of the clypeus." data-fr="Comptage unilatéral de toutes les soies pubescentes dépassant de plus de 10 µm du bord antérieur du clypéus."><b>ClyPub</b> <span class="def-text">Unilateral count of all pubescent setae projecting more than 10 µm from the anterior edge of the clypeus.</span></div>
+<div class="def-item" data-en="Presence of determining setal rows on the clypeus (S281). Values 1-5 indicate distribution pattern." data-fr="Présence de rangées de soies déterminantes sur le clypéus (S281). Les valeurs 1-5 indiquent le motif de distribution."><b>ClypSet</b> <span class="def-text">Presence of determining setal rows on the clypeus (S281). Values 1-5 indicate distribution pattern.</span></div>
+<div class="def-item" data-en="Cephalic Size: arithmetic mean of CW and CL." data-fr="Taille Céphalique : moyenne arithmétique de CW et CL."><b>CS</b> <span class="def-text">Cephalic Size: arithmetic mean of CW and CL.</span></div>
+<div class="def-item" data-en="Greatest length of setae on the posterior side of the head." data-fr="Plus grande longueur des soies sur la face postérieure de la tête."><b>CUHL</b> <span class="def-text">Greatest length of setae on the posterior side of the head.</span></div>
+<div class="def-item" data-en="Arithmetic mean of EL and ES." data-fr="Moyenne arithmétique de EL et ES."><b>EYE</b> <span class="def-text">Arithmetic mean of EL and ES.</span></div>
+<div class="def-item" data-en="Longer diameter of elliptic Eye. All structurally defined ommatidia, pigmented or not, are included." data-fr="Grand diamètre de l'œil elliptique. Toutes les ommatidies structurellement définies, pigmentées ou non, sont incluses."><b>EL</b> <span class="def-text">Longer diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.</span></div>
+<div class="def-item" data-en="Smaller diameter of elliptic Eye. All structurally defined ommatidia, pigmented or not, are included." data-fr="Petit diamètre de l'œil elliptique. Toutes les ommatidies structurellement définies, pigmentées ou non, sont incluses."><b>ES</b> <span class="def-text">Smaller diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.</span></div>
+<div class="def-item" data-en="Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x." data-fr="Longueur des plus longues soies au niveau de l'œil, y compris les soies microscopiques visibles uniquement au grossissement G ≥ 150x."><b>EyeHL</b> <span class="def-text">Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x.</span></div>
+<div class="def-item" data-en="Maximum anterior Distance of Frontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS." data-fr="Distance antérieure maximale des carènes frontales. Si FD n'est pas défini car les carènes frontales convergent en avant du niveau FRS, FD égale FRS."><b>FD</b> <span class="def-text">Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS.</span></div>
+<div class="def-item" data-en="Maximum frontal divergence of frontal carinae." data-fr="Divergence frontale maximale des carènes frontales."><b>FR</b> <span class="def-text">Maximum frontal divergence of frontal carinae.</span></div>
+<div class="def-item" data-en="Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus." data-fr="Distance entre les carènes frontales immédiatement caudale aux points d'intersection postérieurs entre les carènes frontales et les lamelles dorsales au torulus."><b>FRS</b> <span class="def-text">Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus.</span></div>
+<div class="def-item" data-en="Frontal Triangle. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally." data-fr="Triangle Frontal. Région triangulaire au-dessus du clypéus, bordée par les carènes frontales latéralement et la suture clypéale ventralement."><b>ΔFr</b> <span class="def-text"><b>Frontal Triangle</b>. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally.</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm du contour de l'occiput, vers l'avant jusqu'aux marges antérieures des yeux."><b>nCH</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins.</span></div>
+<div class="def-item" data-en="Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head." data-fr="Vue de profil, comptage unilatéral des soies dépassant de plus de 10 µm de la face ventrale de la tête."><b>nCU</b> <span class="def-text">Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head.</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm from upper part of scape." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm de la partie supérieure du scape."><b>nSc</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm from upper part of scape.</span></div>
+<div class="def-item" data-en="Presence (=1) or absence (=0) of erectile setae more than 10 µm in ocellar triangle." data-fr="Présence (=1) ou absence (=0) de soies érectiles de plus de 10 µm dans le triangle ocellaire."><b>OceSet</b> <span class="def-text">Presence (=1) or absence (=0) of erectile setae more than 10 µm in ocellar triangle.</span></div>
+<div class="def-item" data-en="PostOCular distance. Measured along median line from median occipital margin to median head at level of posterior eye margin." data-fr="Distance PostOCulaire. Mesurée le long de la ligne médiane depuis la marge occipitale médiane jusqu'à la tête médiane au niveau de la marge postérieure de l'œil."><b>PoOC</b> <span class="def-text"><b>Po</b>st<b>OC</b>ular distance. Measured along median line from median occipital margin to median head at level of posterior eye margin.</span></div>
+<div class="def-item" data-en="Length of pubescent setae on head between frontal carinae. Significant value on 6 measurements per individual." data-fr="Longueur des soies pubescentes sur la tête entre les carènes frontales. Valeur significative sur 6 mesures par individu."><b>PLF</b> <span class="def-text">Length of pubescent setae on head between frontal carinae. Significant value on 6 measurements per individual.</span></div>
+<div class="def-item" data-en="Median pubescence spacing on clypeus (S267)." data-fr="Espacement médian de la pubescence sur le clypéus (S267)."><b>PDCL</b> <span class="def-text">Median pubescence spacing on clypeus (S267).</span></div>
+<div class="def-item" data-en="Median pubescence spacing on transverse measurement line on frons, frontal to ocelli." data-fr="Espacement médian de la pubescence sur la ligne de mesure transversale du front, frontal aux ocelles."><b>PDF</b> <span class="def-text">Median pubescence spacing on transverse measurement line on frons, frontal to ocelli.</span></div>
+<div class="def-item" data-en="Square root of median pubescence spacing in ocellar triangle (S283)." data-fr="Racine carrée de l'espacement médian de la pubescence dans le triangle ocellaire (S283)."><b>sqPDF</b> <span class="def-text">Square root of median pubescence spacing in ocellar triangle (S283).</span></div>
+<div class="def-item" data-en="Maximum Scape Length, excluding articular condyle and basal lobe (S269, S270)." data-fr="Longueur maximale du Scape, excluant le condyle articulaire et le lobe basal (S269, S270)."><b>SL</b> <span class="def-text">Maximum <b>S</b>cape <b>L</b>ength, excluding articular condyle and basal lobe (S269, S270).</span></div>
+<div class="def-item" data-en="Maximum straight line scape length in dorsal view, excluding articular condyle; arithmetic mean of both scapes." data-fr="Longueur maximale en ligne droite du scape en vue dorsale, excluant le condyle articulaire ; moyenne arithmétique des deux scapes."><b>SLd</b> <span class="def-text">Maximum straight line scape length in dorsal view, excluding articular condyle; arithmetic mean of both scapes.</span></div>
+<div class="def-item" data-en="Maximum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence." data-fr="Diamètre maximum du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas la pubescence."><b>SMAX</b> <span class="def-text">Maximum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.</span></div>
+<div class="def-item" data-en="Minimum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence." data-fr="Diamètre minimum du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas la pubescence."><b>SMIN</b> <span class="def-text">Minimum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.</span></div>
+<div class="def-item" data-en="Ratio of median length of 2nd article to its maximum width measured from upper side of scape." data-fr="Rapport de la longueur médiane du 2e article à sa largeur maximale mesurée depuis le côté supérieur du scape."><b>IF2</b> <span class="def-text">Ratio of median length of 2nd article to its maximum width measured from upper side of scape.</span></div>
+</div>
+<!-- MESOSOMA MEASUREMENTS -->
+<div class="def-section"><div class="def-section-title" data-en="Mesosoma (Thorax)" data-fr="Mésosome (Thorax)">Mesosoma (Thorax)</div>
+<div class="def-item" data-en="Mesosoma Length measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (S266)." data-fr="Longueur du Mésosome mesurée en vue dorsale de la partie la plus caudale du propodéum au coin antérodorsal de la pente pronotale (S266)."><b>ML</b> <span class="def-text"><b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (S266).</span></div>
+<div class="def-item" data-en="Maximum Mesosoma Height, measured vertically from dorsal line of mesonotum/scutellum in profile view (S266)." data-fr="Hauteur maximale du Mésosome, mesurée verticalement depuis la ligne dorsale du mésonotum/scutellum en vue de profil (S266)."><b>MH</b> <span class="def-text">Maximum <b>M</b>esosoma <b>H</b>eight, measured vertically from dorsal line of mesonotum/scutellum in profile view (S266).</span></div>
+<div class="def-item" data-en="Maximum Mesosoma Width (dorsal view). For workers: max width of pronotum; for reproductives: max width before tegulae." data-fr="Largeur maximale du Mésosome (vue dorsale). Pour les ouvrières : largeur max du pronotum ; pour les reproducteurs : largeur max avant les tégulae."><b>MW</b> <span class="def-text">Maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For workers: max width of pronotum; for reproductives: max width before tegulae.</span></div>
+<div class="def-item" data-en="Length of longest setae on mesonotum." data-fr="Longueur des plus longues soies sur le mésonotum."><b>MnHL</b> <span class="def-text">Length of longest setae on mesonotum.</span></div>
+<div class="def-item" data-en="Median length of pronotal setae." data-fr="Longueur médiane des soies pronotales."><b>mPnHL</b> <span class="def-text">Median length of pronotal setae.</span></div>
+<div class="def-item" data-en="Highest Length of longest hair of pronotum; arithmetic mean of both sides." data-fr="Plus grande Longueur du plus long poil du pronotum ; moyenne arithmétique des deux côtés."><b>PnHL</b> <span class="def-text"><b>H</b>ighest <b>L</b>ength of longest hair of pronotum; arithmetic mean of both sides.</span></div>
+<div class="def-item" data-en="Pronotum Height. Maximum height of pronotum measured in lateral view." data-fr="Hauteur du Pronotum. Hauteur maximale du pronotum mesurée en vue latérale."><b>PrH</b> <span class="def-text"><b>Pr</b>onotum <b>H</b>eight. Maximum height of pronotum measured in lateral view.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile setae on pronotum surface." data-fr="Comptage unilatéral des soies érectiles sur la surface du pronotum."><b>nPn</b> <span class="def-text">Unilateral count of erectile setae on pronotum surface.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile setae on propodeum surface." data-fr="Comptage unilatéral des soies érectiles sur la surface du propodéum."><b>nPR</b> <span class="def-text">Unilateral count of erectile setae on propodeum surface.</span></div>
+<div class="def-item" data-en="Length of longest metapleural setae, below lower edge of propodeal spiracle." data-fr="Longueur des plus longues soies métapleurales, sous le bord inférieur du spiracle propodéal."><b>MetHL</b> <span class="def-text">Length of longest metapleural setae, below lower edge of propodeal spiracle.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile metapleural setae, below lower edge of propodeal spiracle." data-fr="Comptage unilatéral des soies métapleurales érectiles, sous le bord inférieur du spiracle propodéal."><b>nMet</b> <span class="def-text">Unilateral count of erectile metapleural setae, below lower edge of propodeal spiracle.</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm from cranial surface of fore coxae." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm de la surface crânienne des coxae antérieures."><b>nCOXA</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm from cranial surface of fore coxae.</span></div>
+<div class="def-item" data-en="Propodeal SPine length, measured in dorsofrontal view from spine tip to base curve." data-fr="Longueur de l'épine Propodéale, mesurée en vue dorsofrontale de la pointe de l'épine à la courbe de base."><b>SP</b> <span class="def-text">Propodeal <b>SP</b>ine length, measured in dorsofrontal view from spine tip to base curve.</span></div>
+<div class="def-item" data-en="Smallest distance between outer edges at SPine BAses (S75)." data-fr="Plus petite distance entre les bords extérieurs aux BAses des éPines (S75)."><b>SPBA</b> <span class="def-text">Smallest distance between outer edges at <b>SP</b>ine <b>BA</b>ses (S75).</span></div>
+<div class="def-item" data-en="Distance from center of propodeal spiracle to tip of dorsal spines." data-fr="Distance du centre du spiracle propodéal à la pointe des épines dorsales."><b>SPST</b> <span class="def-text">Distance from center of propodeal spiracle to tip of dorsal spines.</span></div>
+<div class="def-item" data-en="Maximum distance from spine centers to propodeal spine tips." data-fr="Distance maximale des centres des épines aux pointes des épines propodéales."><b>SPTI</b> <span class="def-text">Maximum distance from spine centers to propodeal spine tips.</span></div>
+<div class="def-item" data-en="Maximum distance between outer margins of SPine tips (S75)." data-fr="Distance maximale entre les marges extérieures des pointes d'éPines (S75)."><b>SPWI</b> <span class="def-text">Maximum distance between outer margins of <b>SP</b>ine tips (S75).</span></div>
+<div class="def-item" data-en="Propodeal spine index measured in lateral view (S268)." data-fr="Indice des épines propodéales mesuré en vue latérale (S268)."><b>PDI</b> <span class="def-text">Propodeal spine index measured in lateral view (S268).</span></div>
+</div>
+<!-- LEGS MEASUREMENTS -->
+<div class="def-section"><div class="def-section-title" data-en="Legs (Poda)" data-fr="Pattes (Poda)">Legs (Poda)</div>
+<div class="def-item" data-en="Hind Tibia Length, measured from inner constriction point to distal tip (S265)." data-fr="Longueur du Tibia postérieur, mesurée du point de constriction interne à l'extrémité distale (S265)."><b>HTL</b> <span class="def-text"><b>H</b>ind <b>T</b>ibia <b>L</b>ength, measured from inner constriction point to distal tip (S265).</span></div>
+<div class="def-item" data-en="Maximum diameter of hind tibiae (measured at middle of tibiae)." data-fr="Diamètre maximum des tibias postérieurs (mesuré au milieu des tibias)."><b>HTMAX</b> <span class="def-text">Maximum diameter of hind tibiae (measured at middle of tibiae).</span></div>
+<div class="def-item" data-en="Minimum diameter of hind tibiae (measured at middle of tibiae)." data-fr="Diamètre minimum des tibias postérieurs (mesuré au milieu des tibias)."><b>HTMIN</b> <span class="def-text">Minimum diameter of hind tibiae (measured at middle of tibiae).</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm strictly from straight side of hind tibiae (Lasius s. str. > 20 µm)." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm strictement du côté droit des tibias postérieurs (Lasius s. str. > 20 µm)."><b>nHT</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm strictly from straight side of hind tibiae (Lasius s. str. > 20 µm).</span></div>
+<div class="def-item" data-en="Unilateral count of setae at outer edge of swollen side of hind tibiae." data-fr="Comptage unilatéral des soies au bord extérieur du côté renflé des tibias postérieurs."><b>nHTFl</b> <span class="def-text">Unilateral count of setae at outer edge of swollen side of hind tibiae.</span></div>
+<div class="def-item" data-en="Coxa. First (basal) segment of the leg, articulating with the thorax. Fore, mid, and hind coxae correspond to the three pairs of legs." data-fr="Coxa. Premier segment (basal) de la patte, s'articulant avec le thorax. Les coxae antérieure, médiane et postérieure correspondent aux trois paires de pattes."><b>Coxa</b> <span class="def-text">First (basal) segment of the leg, articulating with the thorax. Fore, mid, and hind coxae correspond to the three pairs of legs.</span></div>
+<div class="def-item" data-en="Trochanter. Small second segment of the leg between the coxa and femur." data-fr="Trochanter. Petit deuxième segment de la patte entre la coxa et le fémur."><b>Trochanter</b> <span class="def-text">Small second segment of the leg between the coxa and femur.</span></div>
+<div class="def-item" data-en="Femur. Third and usually largest segment of the leg, between the trochanter and tibia." data-fr="Fémur. Troisième et généralement plus grand segment de la patte, entre le trochanter et le tibia."><b>Femur</b> <span class="def-text">Third and usually largest segment of the leg, between the trochanter and tibia.</span></div>
+<div class="def-item" data-en="Tibia. Fourth segment of the leg, between the femur and tarsus. Often bears spurs at its distal end." data-fr="Tibia. Quatrième segment de la patte, entre le fémur et le tarse. Porte souvent des éperons à son extrémité distale."><b>Tibia</b> <span class="def-text">Fourth segment of the leg, between the femur and tarsus. Often bears spurs at its distal end.</span></div>
+<div class="def-item" data-en="Tibial Spur. Spine-like projection at the distal end of the tibia, used for grooming antennae and legs." data-fr="Éperon tibial. Projection en forme d'épine à l'extrémité distale du tibia, utilisée pour le toilettage des antennes et des pattes."><b>Tibial Spur</b> <span class="def-text">Spine-like projection at the distal end of the tibia, used for grooming antennae and legs.</span></div>
+<div class="def-item" data-en="Tarsus (pl. Tarsi). Fifth and final segment of the leg, composed of multiple tarsomeres (usually 5) and ending with pretarsal claws." data-fr="Tarse (pl. Tarses). Cinquième et dernier segment de la patte, composé de plusieurs tarsomères (généralement 5) et se terminant par des griffes prétarsales."><b>Tarsus</b> <span class="def-text">Fifth and final segment of the leg, composed of multiple tarsomeres (usually 5) and ending with pretarsal claws.</span></div>
+</div>
+<!-- METASOMA MEASUREMENTS -->
+<div class="def-section"><div class="def-section-title" data-en="Metasoma (Abdomen)" data-fr="Métasome (Abdomen)">Metasoma (Abdomen)</div>
+<div class="def-item" data-en="Maximum PEtiole Height. Measured perpendicular to straight section of ventral petiolar profile at node level." data-fr="Hauteur maximale du PÉtiole. Mesurée perpendiculairement à la section droite du profil pétiolaire ventral au niveau du nœud."><b>PEH</b> <span class="def-text">Maximum <b>PE</b>tiole <b>H</b>eight. Measured perpendicular to straight section of ventral petiolar profile at node level.</span></div>
+<div class="def-item" data-en="Greatest length of setae on dorsum of petiole." data-fr="Plus grande longueur des soies sur le dorsum du pétiole."><b>PEHL</b> <span class="def-text">Greatest length of setae on dorsum of petiole.</span></div>
+<div class="def-item" data-en="Maximum PEtiole Width." data-fr="Largeur maximale du PÉtiole."><b>PEW</b> <span class="def-text">Maximum <b>PE</b>tiole <b>W</b>idth.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile setae on petiole surface." data-fr="Comptage unilatéral des soies érectiles sur la surface du pétiole."><b>nPE</b> <span class="def-text">Unilateral count of erectile setae on petiole surface.</span></div>
+<div class="def-item" data-en="PostPetiole maximum Width (profile view)." data-fr="Largeur maximale du PostPétiole (vue de profil)."><b>PPW</b> <span class="def-text"><b>P</b>ost<b>P</b>etiole maximum <b>W</b>idth (profile view).</span></div>
+<div class="def-item" data-en="PostPetiole maximum Height, measured perpendicular to suture between dorsal and ventral sclerites (profile view)." data-fr="Hauteur maximale du PostPétiole, mesurée perpendiculairement à la suture entre les sclérites dorsaux et ventraux (vue de profil)."><b>PPH</b> <span class="def-text"><b>P</b>ost<b>P</b>etiole maximum <b>H</b>eight, measured perpendicular to suture between dorsal and ventral sclerites (profile view).</span></div>
+<div class="def-item" data-en="Gaster Height. Maximum height of gaster measured perpendicular to longitudinal axis in lateral view." data-fr="Hauteur du Gastre. Hauteur maximale du gastre mesurée perpendiculairement à l'axe longitudinal en vue latérale."><b>GH</b> <span class="def-text"><b>G</b>aster <b>H</b>eight. Maximum height of gaster measured perpendicular to longitudinal axis in lateral view.</span></div>
+<div class="def-item" data-en="Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border." data-fr="Longueur des plus longues soies sur la surface dorsale de t1, excluant les soies à la bordure postérieure du segment."><b>GHL</b> <span class="def-text">Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border.</span></div>
+<div class="def-item" data-en="Gaster Length. Maximum length of gaster from anterior margin of first gastral segment to posterior tip of pygidium." data-fr="Longueur du Gastre. Longueur maximale du gastre de la marge antérieure du premier segment gastral à l'extrémité postérieure du pygidium."><b>GL</b> <span class="def-text"><b>G</b>aster <b>L</b>ength. Maximum length of gaster from anterior margin of first gastral segment to posterior tip of pygidium.</span></div>
+<div class="def-item" data-en="Median pubescence spacing on transverse measurement line at middle of dorsal surface of 1st gastric tergite." data-fr="Espacement médian de la pubescence sur la ligne de mesure transversale au milieu de la surface dorsale du 1er tergite gastrique."><b>PDG</b> <span class="def-text">Median pubescence spacing on transverse measurement line at middle of dorsal surface of 1st gastric tergite.</span></div>
+<div class="def-item" data-en="Square root of median pubescence spacing on dorsal surface of first abdominal tergite (S283)." data-fr="Racine carrée de l'espacement médian de la pubescence sur la surface dorsale du premier tergite abdominal (S283)."><b>sqPDG</b> <span class="def-text">Square root of median pubescence spacing on dorsal surface of first abdominal tergite (S283).</span></div>
+<div class="def-item" data-en="Arrangement/numbering of setae on anteriormost abdominal tergite with at least one erectile seta more than 10 µm." data-fr="Disposition/numérotation des soies sur le tergite abdominal le plus antérieur avec au moins une soie érectile de plus de 10 µm."><b>TERG</b> <span class="def-text">Arrangement/numbering of setae on anteriormost abdominal tergite with at least one erectile seta more than 10 µm.</span></div>
+</div>
+<!-- GENERAL MEASUREMENTS -->
+<div class="def-section"><div class="def-section-title" data-en="General" data-fr="Général">General</div>
+<div class="def-item" data-en="Total Length. Measured from head to pygidium." data-fr="Longueur Totale. Mesurée de la tête au pygidium."><b>TL</b> <span class="def-text"><b>T</b>otal <b>L</b>ength. Measured from head to pygidium.</span></div>
+</div>
+                </div>
         </div>
     </div>
 
 </div>
 
 <script>
+// Translate SVG labels based on current language (called on SVG load)
+function translateSvgLabels(svgObject) {
+    if (!svgObject || !svgObject.contentDocument) return;
+    var cookieMatch = document.cookie.match(/aw_lang=([^;]+)/);
+    var lang = cookieMatch ? cookieMatch[1] : 'en';
+    svgObject.contentDocument.querySelectorAll('.label-text[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[lang];
+    });
+}
+
 // Tab switching
 document.querySelectorAll('.morpho-tab').forEach(tab => {
     tab.addEventListener('click', function() {
@@ -1169,6 +1249,9 @@ document.querySelectorAll('.morpho-tab').forEach(tab => {
         document.querySelectorAll('.diagram-section').forEach(s => s.classList.remove('active'));
         document.getElementById('section-' + section).classList.add('active');
 
+        // Save active tab to localStorage
+        localStorage.setItem('morpho-active-tab', section);
+
         // Show/hide diagram controls based on section
         const controls = document.getElementById('diagramControls');
         if (controls) {
@@ -1180,6 +1263,17 @@ document.querySelectorAll('.morpho-tab').forEach(tab => {
         }
     });
 });
+
+// Restore saved tab on page load
+(function() {
+    var savedTab = localStorage.getItem('morpho-active-tab');
+    if (savedTab) {
+        var tabBtn = document.querySelector('.morpho-tab[data-section="' + savedTab + '"]');
+        if (tabBtn) {
+            tabBtn.click();
+        }
+    }
+})();
 
 // View switching within sections
 document.querySelectorAll('.view-btn').forEach(btn => {
@@ -1496,25 +1590,16 @@ function updateLanguage() {
         el.textContent = el.dataset[currentLang];
     });
 
-    // Update language toggle button
-    var langBtn = document.getElementById('langToggleNav');
-    if (langBtn) langBtn.textContent = currentLang === 'en' ? 'EN' : 'FR';
 }
 
-var langBtnNav = document.getElementById('langToggleNav');
-if (langBtnNav) {
-    langBtnNav.addEventListener('click', function() {
-        currentLang = currentLang === 'en' ? 'fr' : 'en';
-        updateLanguage();
-        localStorage.setItem('morpho-lang', currentLang);
-    });
-}
+// Language toggle is handled by lang.js - no need to add handler here
 
-// Load saved language preference
+// Sync morpho language with site-wide cookie
 (function() {
-    var savedLang = localStorage.getItem('morpho-lang');
-    if (savedLang && savedLang !== 'en') {
-        currentLang = savedLang;
+    var cookieMatch = document.cookie.match(/aw_lang=([^;]+)/);
+    var siteLang = cookieMatch ? cookieMatch[1] : 'en';
+    if (siteLang !== currentLang) {
+        currentLang = siteLang;
         updateLanguage();
     }
 })();
@@ -2074,53 +2159,75 @@ updateLanguage = function() {
         }
     });
 
-    // Update labels in SVG (if measurements are shown)
-    var svgDoc = getHeadSvgDoc();
-    if (svgDoc) {
-        svgDoc.querySelectorAll('.measure-label[data-en][data-fr]').forEach(function(el) {
-            // Labels just show abbreviation, no need to change
+    // Update labels in all SVGs
+    function updateSvgLabels(svgDoc) {
+        if (!svgDoc) return;
+        svgDoc.querySelectorAll('.label-text[data-en][data-fr]').forEach(function(el) {
+            el.textContent = el.dataset[currentLang];
         });
     }
+
+    // Update head SVG
+    updateSvgLabels(getHeadSvgDoc());
+
+    // Update mesosoma SVGs
+    var mesoLateral = document.getElementById('mesosoma-svg-lateral');
+    var mesoDorsal = document.getElementById('mesosoma-svg-dorsal');
+    if (mesoLateral && mesoLateral.contentDocument) updateSvgLabels(mesoLateral.contentDocument);
+    if (mesoDorsal && mesoDorsal.contentDocument) updateSvgLabels(mesoDorsal.contentDocument);
+
+    // Update metasoma SVG
+    var metaSvg = document.getElementById('metasoma-svg-lateral');
+    if (metaSvg && metaSvg.contentDocument) updateSvgLabels(metaSvg.contentDocument);
 
     // Update search placeholder
     var searchInput = document.getElementById('measurementSearch');
     if (searchInput) {
         searchInput.placeholder = searchInput.dataset['placeholder' + currentLang.charAt(0).toUpperCase() + currentLang.slice(1)] || searchInput.placeholder;
     }
+
+    // Update measurement definitions
+    document.querySelectorAll('#measurementsList .def-item[data-en][data-fr]').forEach(function(el) {
+        var defText = el.querySelector('.def-text');
+        if (defText) {
+            defText.innerHTML = el.dataset[currentLang];
+        }
+    });
+
+    // Update section titles
+    document.querySelectorAll('#measurementsList .def-section-title[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
 };
 
 // =============================================================================
 // MEASUREMENTS SEARCH FUNCTIONALITY
 // =============================================================================
 
-// Wrap each measurement definition in a searchable span on page load
-(function() {
-    var measurementsList = document.getElementById('measurementsList');
-    if (!measurementsList) return;
-
-    var html = measurementsList.innerHTML;
-    // Split by <br> and wrap each line in a span
-    var lines = html.split(/<br\s*\/?>/gi);
-    var wrappedLines = lines.map(function(line, i) {
-        if (line.trim() === '') return '';
-        return '<span class="measurement-item" data-index="' + i + '">' + line + '</span>';
-    });
-    measurementsList.innerHTML = wrappedLines.join('<br>');
-})();
-
-// Search functionality
+// Search functionality for definition items
 var searchInput = document.getElementById('measurementSearch');
 if (searchInput) {
     searchInput.addEventListener('input', function() {
         var query = this.value.toLowerCase().trim();
-        var items = document.querySelectorAll('#measurementsList .measurement-item');
+        var items = document.querySelectorAll('#measurementsList .def-item');
+        var sections = document.querySelectorAll('#measurementsList .def-section');
 
+        // Filter individual items
         items.forEach(function(item) {
             var text = item.textContent.toLowerCase();
             if (query === '' || text.includes(query)) {
                 item.classList.remove('hidden');
             } else {
                 item.classList.add('hidden');
+            }
+        });
+
+        // Hide section titles if all items in section are hidden
+        sections.forEach(function(section) {
+            var visibleItems = section.querySelectorAll('.def-item:not(.hidden)');
+            var title = section.querySelector('.def-section-title');
+            if (title) {
+                title.style.display = (query === '' || visibleItems.length > 0) ? '' : 'none';
             }
         });
     });

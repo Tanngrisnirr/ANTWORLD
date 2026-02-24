@@ -60,12 +60,26 @@
         }
 
         // Handle elements with data-en/data-fr attributes (for morpho, SVGs, etc.)
+        // Skip .def-item elements - they have special structure with abbreviations
         var lang = getCurrentLang();
-        document.querySelectorAll('[data-en][data-fr]').forEach(function(el) {
+        document.querySelectorAll('[data-en][data-fr]:not(.def-item):not(.def-section-title)').forEach(function(el) {
             var text = el.getAttribute('data-' + lang);
             if (text) {
                 el.textContent = text;
             }
+        });
+
+        // Handle .def-item elements specially - only update .def-text child
+        document.querySelectorAll('.def-item[data-en][data-fr]').forEach(function(el) {
+            var defText = el.querySelector('.def-text');
+            if (defText) {
+                defText.textContent = el.getAttribute('data-' + lang);
+            }
+        });
+
+        // Handle .def-section-title elements
+        document.querySelectorAll('.def-section-title[data-en][data-fr]').forEach(function(el) {
+            el.textContent = el.getAttribute('data-' + lang);
         });
     }
 
