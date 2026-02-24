@@ -1,114 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
      xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-     width="900" height="500" viewBox="0 0 900 500"
+     width="830" height="808" viewBox="0 0 830 808"
      id="ant-metasoma-lateral">
 
   <title>Ant Metasoma - Lateral View</title>
-  <desc>Scientific diagram of ant metasoma anatomy, lateral view. For interactive morphology guide.</desc>
+  <desc>Scientific diagram of ant metasoma (abdomen) anatomy, lateral view. Lasius niger specimen CASENT0179897.</desc>
 
   <sodipodi:namedview
      inkscape:document-units="px"
      inkscape:zoom="1"
-     inkscape:cx="450"
-     inkscape:cy="250"/>
+     inkscape:cx="415"
+     inkscape:cy="404"
+     inkscape:current-layer="layer-labels"/>
 
   <defs>
     <style>
-      .label-point { fill: #2c5aa0; stroke: white; stroke-width: 2; cursor: pointer; }
-      .label-line { stroke: #2c5aa0; stroke-width: 1.5; stroke-dasharray: 4 2; }
-      .label-text { font-family: 'Liberation Sans', Arial, sans-serif; font-size: 12px; fill: #1a1a2e; }
-      .outline { fill: none; stroke: #000; stroke-width: 2; }
-      .features { fill: none; stroke: #000; stroke-width: 1; }
-      .setae { fill: none; stroke: #000; stroke-width: 0.5; }
-      .label.highlight .label-point { fill: #e74c3c; }
-      .label.highlight .label-line { stroke: #e74c3c; stroke-width: 2; }
-      .label.highlight .label-text { fill: #e74c3c; font-weight: bold; }
+      /* ==============================================
+         MORPHOLOGY (-logy): Black, 14pt, dotted lines 4px
+         ============================================== */
+      .label-point { fill: #000000; stroke: none; cursor: pointer; }
+      .label-line { stroke: #000000; stroke-width: 4; stroke-dasharray: 8 4; }
+      .label-text {
+        font-family: sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        fill: #000000;
+        stroke: #ffffff;
+        stroke-width: 1;
+        paint-order: stroke fill;
+      }
+
+      /* Surface areas - semi-transparent filled polygons */
+      .surface-area { fill: rgba(0, 0, 0, 0.15); stroke: #000000; stroke-width: 1.5; cursor: pointer; }
+      .surface-area:hover { fill: rgba(0, 0, 0, 0.3); }
+
+      /* Highlight states */
+      .label.highlight .label-point { fill: #ff0000; }
+      .label.highlight .label-line { stroke: #ff0000; stroke-width: 4; }
+      .label.highlight .label-text { fill: #ff0000; font-weight: bold; stroke: #000000; stroke-width: 1; }
+
+      /* ==============================================
+         MORPHOMETRY (-metry): Red, 14pt, lines 2px
+         ============================================== */
+      .measurement .measure-line { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-tick { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-label {
+        font-family: sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        fill: #ff0000;
+        stroke: #000000;
+        stroke-width: 1;
+        paint-order: stroke fill;
+      }
+      .measure-dline { stroke: #ff0000; stroke-width: 2; stroke-dasharray: 2 2; }
     </style>
   </defs>
 
   <!-- Layer: Background -->
   <g inkscape:groupmode="layer" id="layer-background" inkscape:label="background">
-    <rect x="0" y="0" width="900" height="500" fill="#ffffff"/>
+    <rect x="0" y="0" width="830" height="808" fill="#ffffff"/>
   </g>
 
-  <!-- Layer: Reference (import casent0179897_p_1_high.jpg here) -->
-  <g inkscape:groupmode="layer" id="layer-reference" inkscape:label="reference" style="opacity:0.5">
-    <!-- Import: File > Import > casent0179897_p_1_high.jpg -->
-    <!-- Then crop/position to show only metasoma region -->
-    <text x="450" y="250" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#999">
-      [Import casent0179897_p_1_high.jpg here - metasoma region]
-    </text>
+  <!-- Layer: Surfaces (colored regions) -->
+  <g inkscape:groupmode="layer" id="layer-surfaces" inkscape:label="surfaces" style="display:inline">
+    <!-- Petiole surface -->
+    <ellipse class="surface-area" id="petiole-surf" inkscape:label="Petiole.surf"
+          style="fill:#ffff00;fill-opacity:0.3"
+          cx="200" cy="350" rx="40" ry="60"/>
+
+    <!-- Gaster surface (main abdomen) -->
+    <ellipse class="surface-area" id="gaster-surf" inkscape:label="Gaster.surf"
+          style="fill:#00ffff;fill-opacity:0.3"
+          cx="500" cy="380" rx="200" ry="150"/>
   </g>
 
-  <!-- Layer: Outline - Trace metasoma outline -->
-  <g inkscape:groupmode="layer" id="layer-outline" inkscape:label="outline">
-    <!-- TODO: Trace petiole, postpetiole (if present), gaster outline -->
+  <!-- Layer: Reference (profile image) -->
+  <g inkscape:groupmode="layer" id="layer-reference" inkscape:label="reference"
+     style="display:inline;opacity:0.5" sodipodi:insensitive="true">
+    <image xlink:href="../casent0179897_p_1_high.jpg"
+           x="0" y="0" width="830" height="808"
+           preserveAspectRatio="xMidYMid" id="reference-image"/>
   </g>
 
-  <!-- Layer: Features - Segments, spiracles -->
-  <g inkscape:groupmode="layer" id="layer-features" inkscape:label="features">
-    <!-- TODO: Add tergite/sternite divisions, spiracles -->
+  <!-- Layer: Outline -->
+  <g inkscape:groupmode="layer" id="layer-outline" inkscape:label="outline" style="display:inline">
+    <!-- TODO: Trace metasoma outline using Bezier tool in Inkscape -->
   </g>
 
-  <!-- Layer: Sculpture -->
-  <g inkscape:groupmode="layer" id="layer-sculpture" inkscape:label="sculpture">
-    <!-- TODO: Add surface texture -->
-  </g>
-
-  <!-- Layer: Setae -->
-  <g inkscape:groupmode="layer" id="layer-setae" inkscape:label="setae">
-    <!-- TODO: Add hairs/setae -->
-  </g>
-
-  <!-- Layer: Points -->
-  <g inkscape:groupmode="layer" id="layer-points" inkscape:label="points">
+  <!-- Layer: Features -->
+  <g inkscape:groupmode="layer" id="layer-features" inkscape:label="features" style="display:inline">
+    <!-- TODO: Add tergite/sternite divisions -->
   </g>
 
   <!-- Layer: Labels -->
-  <g inkscape:groupmode="layer" id="layer-labels" inkscape:label="labels">
+  <g inkscape:groupmode="layer" id="layer-labels" inkscape:label="labels" style="display:inline">
 
     <!-- Label: Petiole -->
-    <g class="label" data-feature="petiole">
-      <circle class="label-point" cx="150" cy="250" r="5"/>
-      <line class="label-line" x1="150" y1="250" x2="80" y2="150"/>
-      <text class="label-text" x="75" y="145" text-anchor="end" data-en="Petiole" data-fr="Petiole">Petiole</text>
+    <g class="label" data-feature="petiole" id="petiole-grp" inkscape:label="Petiole.grp">
+      <circle class="label-point" cx="200" cy="350" r="4" id="petiole-pt"/>
+      <path class="label-line" d="M 200,350 L 80,280" id="petiole-line"/>
+      <text class="label-text" x="75" y="275" text-anchor="end"
+            data-en="Petiole" data-fr="Petiole" id="petiole-txt">Petiole</text>
     </g>
 
     <!-- Label: Petiolar Node -->
-    <g class="label" data-feature="petiolar-node">
-      <circle class="label-point" cx="160" cy="200" r="5"/>
-      <line class="label-line" x1="160" y1="200" x2="80" y2="100"/>
-      <text class="label-text" x="75" y="95" text-anchor="end" data-en="Petiolar Node" data-fr="Noeud petiolaire">Petiolar Node</text>
+    <g class="label" data-feature="petiolar-node" id="petiolarnode-grp" inkscape:label="PetiolarNode.grp">
+      <circle class="label-point" cx="200" cy="300" r="4" id="petiolarnode-pt"/>
+      <path class="label-line" d="M 200,300 L 80,200" id="petiolarnode-line"/>
+      <text class="label-text" x="75" y="195" text-anchor="end"
+            data-en="Petiolar Node" data-fr="Noeud petiolaire" id="petiolarnode-txt">Petiolar Node</text>
     </g>
 
     <!-- Label: Gaster -->
-    <g class="label" data-feature="gaster">
-      <circle class="label-point" cx="500" cy="200" r="5"/>
-      <line class="label-line" x1="500" y1="200" x2="500" y2="80"/>
-      <text class="label-text" x="500" y="70" text-anchor="middle" data-en="Gaster" data-fr="Gastre">Gaster</text>
+    <g class="label" data-feature="gaster" id="gaster-grp" inkscape:label="Gaster.grp">
+      <circle class="label-point" cx="500" cy="350" r="4" id="gaster-pt"/>
+      <path class="label-line" d="M 500,350 L 500,200" id="gaster-line"/>
+      <text class="label-text" x="500" y="190" text-anchor="middle"
+            data-en="Gaster" data-fr="Gastre" id="gaster-txt">Gaster</text>
     </g>
 
-    <!-- Label: Tergites -->
-    <g class="label" data-feature="tergite">
-      <circle class="label-point" cx="450" cy="150" r="5"/>
-      <line class="label-line" x1="450" y1="150" x2="750" y2="100"/>
-      <text class="label-text" x="755" y="105" data-en="Tergites" data-fr="Tergites">Tergites</text>
+    <!-- Label: Tergite 1 (first gastral tergite) -->
+    <g class="label" data-feature="tergite1" id="tergite1-grp" inkscape:label="Tergite1.grp">
+      <circle class="label-point" cx="350" cy="280" r="4" id="tergite1-pt"/>
+      <path class="label-line" d="M 350,280 L 350,150" id="tergite1-line"/>
+      <text class="label-text" x="350" y="140" text-anchor="middle"
+            data-en="Tergite I" data-fr="Tergite I" id="tergite1-txt">Tergite I</text>
+    </g>
+
+    <!-- Label: Tergites (general) -->
+    <g class="label" data-feature="tergites" id="tergites-grp" inkscape:label="Tergites.grp">
+      <circle class="label-point" cx="550" cy="260" r="4" id="tergites-pt"/>
+      <path class="label-line" d="M 550,260 L 720,180" id="tergites-line"/>
+      <text class="label-text" x="725" y="175"
+            data-en="Tergites" data-fr="Tergites" id="tergites-txt">Tergites</text>
     </g>
 
     <!-- Label: Sternites -->
-    <g class="label" data-feature="sternite">
-      <circle class="label-point" cx="500" cy="320" r="5"/>
-      <line class="label-line" x1="500" y1="320" x2="750" y2="350"/>
-      <text class="label-text" x="755" y="355" data-en="Sternites" data-fr="Sternites">Sternites</text>
+    <g class="label" data-feature="sternites" id="sternites-grp" inkscape:label="Sternites.grp">
+      <circle class="label-point" cx="500" cy="480" r="4" id="sternites-pt"/>
+      <path class="label-line" d="M 500,480 L 700,550" id="sternites-line"/>
+      <text class="label-text" x="705" y="555"
+            data-en="Sternites" data-fr="Sternites" id="sternites-txt">Sternites</text>
     </g>
 
-    <!-- Label: Acidopore (Formicinae only) -->
-    <g class="label" data-feature="acidopore">
-      <circle class="label-point" cx="780" cy="250" r="5"/>
-      <line class="label-line" x1="780" y1="250" x2="850" y2="200"/>
-      <text class="label-text" x="855" y="205" data-en="Acidopore" data-fr="Acidopore">Acidopore</text>
+    <!-- Label: Acidopore (Formicinae - formic acid opening) -->
+    <g class="label" data-feature="acidopore" id="acidopore-grp" inkscape:label="Acidopore.grp">
+      <circle class="label-point" cx="700" cy="400" r="4" id="acidopore-pt"/>
+      <path class="label-line" d="M 700,400 L 780,350" id="acidopore-line"/>
+      <text class="label-text" x="785" y="345"
+            data-en="Acidopore" data-fr="Acidopore" id="acidopore-txt">Acidopore</text>
+    </g>
+
+    <!-- Label: Pygidium (terminal segment) -->
+    <g class="label" data-feature="pygidium" id="pygidium-grp" inkscape:label="Pygidium.grp">
+      <circle class="label-point" cx="690" cy="420" r="4" id="pygidium-pt"/>
+      <path class="label-line" d="M 690,420 L 780,480" id="pygidium-line"/>
+      <text class="label-text" x="785" y="485"
+            data-en="Pygidium" data-fr="Pygidium" id="pygidium-txt">Pygidium</text>
+    </g>
+
+  </g>
+
+  <!-- Layer: Measurements -->
+  <g inkscape:groupmode="layer" id="layer-measurements" inkscape:label="measurements" style="display:inline">
+
+    <!-- PEH: Petiole Height -->
+    <g class="measurement" data-measurement="PEH" id="measure-PEH" inkscape:label="PEH">
+      <line class="measure-line" x1="130" y1="290" x2="130" y2="420" id="PEH-line"/>
+      <line class="measure-tick" x1="120" y1="290" x2="140" y2="290" id="PEH-tick1"/>
+      <line class="measure-tick" x1="120" y1="420" x2="140" y2="420" id="PEH-tick2"/>
+      <line class="measure-dline" x1="140" y1="290" x2="200" y2="290" id="PEH-ext1"/>
+      <line class="measure-dline" x1="140" y1="420" x2="200" y2="420" id="PEH-ext2"/>
+      <text class="measure-label" x="110" y="360" text-anchor="end" id="PEH-label">PEH</text>
+    </g>
+
+    <!-- PEW: Petiole Width (lateral view shows length, but we label it) -->
+    <g class="measurement" data-measurement="PEW" id="measure-PEW" inkscape:label="PEW" style="display:none">
+      <line class="measure-line" x1="160" y1="440" x2="240" y2="440" id="PEW-line"/>
+      <line class="measure-tick" x1="160" y1="430" x2="160" y2="450" id="PEW-tick1"/>
+      <line class="measure-tick" x1="240" y1="430" x2="240" y2="450" id="PEW-tick2"/>
+      <text class="measure-label" x="200" y="460" text-anchor="middle" id="PEW-label">PEW</text>
+    </g>
+
+    <!-- GL: Gaster Length -->
+    <g class="measurement" data-measurement="GL" id="measure-GL" inkscape:label="GL">
+      <line class="measure-line" x1="280" y1="220" x2="710" y2="220" id="GL-line"/>
+      <line class="measure-tick" x1="280" y1="210" x2="280" y2="230" id="GL-tick1"/>
+      <line class="measure-tick" x1="710" y1="210" x2="710" y2="230" id="GL-tick2"/>
+      <line class="measure-dline" x1="280" y1="230" x2="280" y2="280" id="GL-ext1"/>
+      <line class="measure-dline" x1="710" y1="230" x2="710" y2="400" id="GL-ext2"/>
+      <text class="measure-label" x="495" y="215" text-anchor="middle" id="GL-label">GL</text>
+    </g>
+
+    <!-- GH: Gaster Height -->
+    <g class="measurement" data-measurement="GH" id="measure-GH" inkscape:label="GH">
+      <line class="measure-line" x1="750" y1="250" x2="750" y2="520" id="GH-line"/>
+      <line class="measure-tick" x1="740" y1="250" x2="760" y2="250" id="GH-tick1"/>
+      <line class="measure-tick" x1="740" y1="520" x2="760" y2="520" id="GH-tick2"/>
+      <line class="measure-dline" x1="500" y1="250" x2="750" y2="250" id="GH-ext1"/>
+      <line class="measure-dline" x1="500" y1="520" x2="750" y2="520" id="GH-ext2"/>
+      <text class="measure-label" x="770" y="385" id="GH-label">GH</text>
     </g>
 
   </g>

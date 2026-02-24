@@ -117,7 +117,7 @@
     "title": "Ant diversity by country",
     "chart_title": "Species Richness by Country",
     "richness_all": "Richness at species, genus and subfamily level",
-    "richness_single": "Richness by Country",
+    "richness_single": "Richness at",
     "richness_two": "Richness at",
     "level": "level",
     "biogeographic_realms": "Biogeographic Realms",
@@ -141,7 +141,14 @@
     "sources_references": "Sources & References",
     "data_sources": "Data sources:",
     "countries_selected": "countries selected",
-    "showing_top": "showing top 15"
+    "showing_top": "showing top 15",
+    "count_log": "Count (log scale)",
+    "percent_global": "Percentage of global total",
+    "of_worldwide": "of",
+    "worldwide": "worldwide",
+    "series_species": "Species",
+    "series_genera": "Genera",
+    "series_subfamilies": "Subfamilies"
   },
   "tax": {
     "title": "Taxonomical Ant diversity",
