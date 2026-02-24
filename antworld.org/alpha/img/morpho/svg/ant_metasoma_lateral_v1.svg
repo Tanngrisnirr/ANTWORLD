@@ -104,7 +104,7 @@
       <circle class="label-point" cx="200" cy="350" r="4" id="petiole-pt"/>
       <path class="label-line" d="M 200,350 L 80,280" id="petiole-line"/>
       <text class="label-text" x="75" y="275" text-anchor="end"
-            data-en="Petiole" data-fr="Petiole" id="petiole-txt">Petiole</text>
+            data-en="Petiole" data-fr="Pétiole" id="petiole-txt">Petiole</text>
     </g>
 
     <!-- Label: Petiolar Node -->
@@ -112,7 +112,7 @@
       <circle class="label-point" cx="200" cy="300" r="4" id="petiolarnode-pt"/>
       <path class="label-line" d="M 200,300 L 80,200" id="petiolarnode-line"/>
       <text class="label-text" x="75" y="195" text-anchor="end"
-            data-en="Petiolar Node" data-fr="Noeud petiolaire" id="petiolarnode-txt">Petiolar Node</text>
+            data-en="Petiolar Node" data-fr="Nœud pétiolaire" id="petiolarnode-txt">Petiolar Node</text>
     </g>
 
     <!-- Label: Gaster -->

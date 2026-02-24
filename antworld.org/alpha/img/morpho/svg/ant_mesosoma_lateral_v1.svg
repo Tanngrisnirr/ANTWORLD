@@ -18,9 +18,9 @@
      id="desc1">Scientific diagram of ant mesosoma (thorax) anatomy, lateral view. Lasius niger specimen CASENT0179897.</desc>
   <sodipodi:namedview
      inkscape:document-units="px"
-     inkscape:zoom="13.435742"
-     inkscape:cx="364.32674"
-     inkscape:cy="207.32015"
+     inkscape:zoom="2.5531694"
+     inkscape:cx="357.7906"
+     inkscape:cy="242.44377"
      inkscape:current-layer="layer4"
      id="namedview1"
      pagecolor="#ffffff"
@@ -37,6 +37,98 @@
      inkscape:window-maximized="1" />
   <defs
      id="defs1">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect8"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 | F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect19"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param=""
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect18"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,7.1967086,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect17"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect16"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
     <marker
        style="overflow:visible"
        id="marker7"
@@ -345,7 +437,7 @@
            x="522.59161"
            y="166.28519"
            data-en="Metapleural Gland"
-           data-fr="Glande metapleurale"
+           data-fr="Glande métapleurale"
            id="metapleural-txt-2"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:start;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="PetioleI-label"><tspan
@@ -388,7 +480,7 @@
            y="279.08926"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-0-4"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="Basitarsus-label"><tspan
@@ -413,7 +505,7 @@
            y="329.60196"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-0-4-8"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsII-label"><tspan
@@ -434,7 +526,7 @@
            y="352.80392"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-0-4-8-0"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsIII-label"><tspan
@@ -455,7 +547,7 @@
            y="379.00568"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-0-4-8-0-6"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsIV-label"><tspan
@@ -476,7 +568,7 @@
            y="403.70731"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-0-4-8-0-6-5"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsV-label"><tspan
@@ -504,7 +596,7 @@
            y="343.54263"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-0-4-8-1"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="Tarsus-label"><tspan
@@ -525,7 +617,7 @@
            y="295.76028"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-0"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TarsalComb-label"><tspan
@@ -557,7 +649,7 @@
            y="243.43869"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9-3"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TibialSpur-label"><tspan
@@ -589,7 +681,7 @@
            y="373.8812"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7-9"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TibiaI-label"><tspan
@@ -621,7 +713,7 @@
            y="373.8812"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-7"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="FemurI-label"><tspan
@@ -659,7 +751,7 @@
            y="284.36462"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="Trochanter-label"><tspan
@@ -692,7 +784,7 @@
            y="467.52164"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt"
            style="text-align:center;text-anchor:middle"><tspan
              sodipodi:role="line"
@@ -717,7 +809,7 @@
            y="600"
            text-anchor="middle"
            data-en="Mid Coxa"
-           data-fr="Coxa mediane"
+           data-fr="Coxa médiane"
            id="midcoxa-txt"><tspan
              sodipodi:role="line"
              id="tspan2"
@@ -740,7 +832,7 @@
            x="663.72217"
            y="595"
            data-en="Hind Coxa"
-           data-fr="Coxa posterieure"
+           data-fr="Coxa postérieure"
            id="hindcoxa-txt"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
              sodipodi:role="line"
@@ -800,7 +892,7 @@
            y="324.112"
            text-anchor="end"
            data-en="Fore Coxa"
-           data-fr="Coxa anterieure"
+           data-fr="Coxa antérieure"
            id="forecoxa-txt-3-3"
            style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="Mesopleuron-label"><tspan
@@ -891,8 +983,8 @@
            class="label-text"
            x="542.26514"
            y="331.32581"
-           data-en="Metapleural Gland"
-           data-fr="Glande metapleurale"
+           data-en="Metapleural Gland (bulla and orifice)"
+           data-fr="Glande métapleurale (bulla et orifice)"
            id="metapleural-txt"
            style="text-align:start"><tspan
              sodipodi:role="line"
@@ -975,6 +1067,11 @@
          id="path15"
          inkscape:connector-type="polyline"
          inkscape:connector-curvature="0" />
+      <path
+         style="opacity:0.5;fill:#e3790c;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-dasharray:none"
+         d="m 339.5059,179.61709 c 3.05292,-0.47204 46.21954,65.58264 52.4593,64.02726 8.57882,-0.6875 37.47897,0.0274 41.16038,-5.29076 1.01448,-1.3597 7.40249,-7.14284 1.7653,-12.45639 -3.76406,-3.54795 -15.03273,-12.95534 -20.62754,-22.3255 -3.29643,-5.52084 6.34275,-12.64697 9.87438,-23.92494 1.4575,-4.65443 -4.13034,-18.53779 -4.13034,-18.53779 0,0 -7.03556,-3.38248 -9.29776,-5.43263 -4.30557,-3.90197 -6.33676,-9.1143 -12.97952,-13.78306 -5.69534,-4.00287 -9.78301,-3.85455 -13.33588,-7.57001 -6.20787,-6.49194 5.14978,-22.23072 5.14978,-22.23072 -4.12827,4.87375 -10.35864,7.51908 -17.91374,9.24971 -9.69318,2.2204 -19.24618,-1.08813 -31.76567,-16.06495 18.61032,35.58469 15.29698,56.36682 10.83391,67.10218 -1.81558,4.36714 -11.42448,7.23565 -11.1926,7.2376 z"
+         id="path8"
+         sodipodi:nodetypes="cccssscssscscsc" />
     </g>
   </g>
   <!-- Layer: Measurements -->

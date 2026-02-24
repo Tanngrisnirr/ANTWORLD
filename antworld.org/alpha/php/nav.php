@@ -100,7 +100,7 @@ $idPath = $toId;
 </ul>
 <div class="nav-controls">
 	<button class="lang-toggle" id="langToggleNav" title="Toggle EN/FR" aria-label="Toggle language">
-		<img class="lang-flag" src="<?= $base ?>img/<?= lang() === 'fr' ? 'drapeau_francais_40x40.jpg' : 'uk-us_flag_40x40.png' ?>" alt="<?= strtoupper(lang()) ?>">
+		<img class="lang-flag" src="<?= $base ?>img/<?= lang() === 'fr' ? 'drapeau_francais_40x40.jpg' : 'uk-us_flag_40x40.jpg' ?>?v=4" alt="<?= strtoupper(lang()) ?>">
 	</button>
 	<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" aria-label="Toggle theme">
 		<span class="theme-icon theme-icon-moon"></span>

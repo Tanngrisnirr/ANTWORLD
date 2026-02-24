@@ -93,6 +93,7 @@
   "sources": {
     "title": "Bibliography and References",
     "search_placeholder": "Search author, year, title...",
+    "no_results": "No sources found matching your search.",
     "sources_count": "sources",
     "legend_pdf": "PDF in library",
     "legend_web": "External website",
