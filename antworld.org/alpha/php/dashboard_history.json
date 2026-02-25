@@ -1,0 +1,91 @@
+{
+  "projectHistory": [
+    {
+      "date": "2026-02-19",
+      "size_kb": 185000,
+      "notes": "Initial tracking"
+    },
+    {
+      "date": "2026-02-20",
+      "size_kb": 190500,
+      "notes": "Icon updates"
+    },
+    {
+      "date": "2026-02-21",
+      "size_kb": 195200,
+      "notes": "Training page"
+    },
+    {
+      "date": "2026-02-22",
+      "size_kb": 200100,
+      "notes": "Morpho overhaul"
+    },
+    {
+      "date": "2026-02-23",
+      "size_kb": 205800,
+      "notes": "Multilingual system"
+    },
+    {
+      "date": "2026-02-24",
+      "size_kb": 208500,
+      "notes": "SVG translations"
+    },
+    {
+      "date": "2026-02-25",
+      "size_kb": 209922,
+      "notes": "Dashboard added"
+    }
+  ],
+  "recentCommits": [
+    {
+      "hash": "e9f030b",
+      "date": "2026-02-24",
+      "message": "Fix SVG multi-line label translations, add ModTracking"
+    },
+    {
+      "hash": "6b6599e",
+      "date": "2026-02-24",
+      "message": "Morpho translations, flag fixes, sources search improvement"
+    },
+    {
+      "hash": "6d26887",
+      "date": "2026-02-24",
+      "message": "Morpho magnifier fix, mesosoma dorsal view, translation fixes"
+    },
+    {
+      "hash": "d4da8f7",
+      "date": "2026-02-23",
+      "message": "Complete bilingual translation of all ID pages, fix fatal error, spacing fixes"
+    },
+    {
+      "hash": "451b936",
+      "date": "2026-02-23",
+      "message": "Add multilingual system (EN/FR) with responsive nav improvements"
+    },
+    {
+      "hash": "84bb44f",
+      "date": "2026-02-23",
+      "message": "Diversity pages: sidebar controls, chart exports, UI improvements"
+    },
+    {
+      "hash": "c0cff1b",
+      "date": "2026-02-23",
+      "message": "Morpho page: side panel layout, compact UI, French accents"
+    },
+    {
+      "hash": "2e52466",
+      "date": "2026-02-23",
+      "message": "Add morphometric measurements and labels to head SVG"
+    },
+    {
+      "hash": "f24f70f",
+      "date": "2026-02-22",
+      "message": "Morpho page overhaul: merge anatomy diagrams with measurements"
+    },
+    {
+      "hash": "8d2c08e",
+      "date": "2026-02-22",
+      "message": "Training page fixes, CSS cleanup, unused folder removal"
+    }
+  ]
+}
