@@ -5,7 +5,6 @@
     <meta name="description" content="Bibliography and references for ant identification">
     <meta name="keywords" content="references,bibliography,seifert,borowiec,terayama,wang,antweb,formicidae">
     <?php include("php/ihead.php"); ?>
-    <base target="_blank">
     <style>
         .sources-controls {
             margin: 20px 0;
@@ -747,5 +746,14 @@ async function downloadAllPDFs() {
 </script>
 
 <?php include("php/footer.php"); ?>
+<script>
+// External links open in new tab
+document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+    if (!link.href.includes('antworld.org')) {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener');
+    }
+});
+</script>
 </body>
 </html>

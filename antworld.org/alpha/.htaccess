@@ -1,37 +1,38 @@
 # mod_rewrite on
 RewriteEngine on
+RewriteCond %{HTTPS} !on
 
-# PHP code in HTML file - inherit from root .htaccess
-# Root uses: AddType fcgid-script .html
-# No need to override here
+# Delete the /index
+RewriteBase /
 
-# Hotlinking Protection (only for production)
-# RewriteCond %{HTTP_REFERER} !^$
-# RewriteCond %{HTTP_REFERER} !^http://(www\.)?antworld.org/.*$ [NC]
-# RewriteRule \.(js|css|jpg|gif|png|bmp|mp4|3gp|m4a|m4r|aac|mp3|ogg|wave)$ - [F]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s(.*?/+)index\.html(?:/(.*))?[\s?] [NC]
+RewriteRule ^ %1%2 [L,R]
 
-# URL rewriting rules (disabled for local development)
-# Uncomment for production if clean URLs are desired
+# Redirect /index to clean folder URL
+RewriteRule ^(.*)/index$ /$1/ [R=301,L]
 
-# # Remove html extension
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteCond %{REQUEST_FILENAME}.html -f
-# RewriteRule ^(.+)$ $1.html [L,QSA]
+# Hotlinking Protection (allows empty referer)
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?antworld\.org [NC]
+RewriteRule \.(js|css|jpg|gif|png|bmp|mp4|3gp|m4a|m4r|aac|mp3|ogg|wave)$ - [F]
 
-# # 301 from example.com/page.html to example.com/page
-# RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.html\ HTTP/
-# RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+# PHP code in HTML file
+AddType fcgid-script .php .htm .html .phtml
 
-## EXPIRES CACHING (requires mod_headers) ##
-# <IfModule mod_headers.c>
-#   <filesMatch ".(jpg|jpeg|png|gif)$">
-#     Header set Cache-Control "max-age=300, public"
-#   </filesMatch>
-#   <filesMatch ".(css|html|php|js)$">
-#     Header set Cache-Control "max-age=600, public"
-#   </filesMatch>
-#   <filesMatch ".(ico)$">
-#     Header set Cache-Control "max-age=97200, public"
-#   </filesMatch>
-# </IfModule>
+# Remove html extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L,QSA]
+
+# 301 from example.com/page.html to example.com/page
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.html\ HTTP/
+RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+
+## EXPIRES CACHING ##
+<filesMatch ".(jpg|jpeg|png|gif)$">
+Header set Cache-Control "max-age=300, public"
+</filesMatch>
+<filesMatch ".(ico)$">
+Header set Cache-Control "max-age=97200, public"
+</filesMatch>
