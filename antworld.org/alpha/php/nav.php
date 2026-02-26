@@ -63,8 +63,8 @@ $idPath = $toId;
 	</ul></li>
 <li class="worker"><a href="<?php echo $base; ?>Training.html" title="Train yourself to identify ants">
 	<span class="icon icon-dice"></span><span class="scent"><?= t('nav.training') ?></span></a></li>
-<li class="worker forager"><a href="javascript:void(0)" title="Search for Subfamilies and Genera">
-	<span class="icon icon-link"></span><span class="scent"><?= t('nav.jump_to') ?></span></a>
+<li class="worker forager"><span class="dropdown-trigger" title="Search for Subfamilies and Genera">
+	<span class="icon icon-link"></span><span class="scent"><?= t('nav.jump_to') ?></span></span>
 	<ul class="gallery">
 		<li class="category"><span class="icon icon-sort-amount-desc1"></span> <?= t('nav.subfamilies') ?></li>
 		<li><a href="<?php echo $toId; ?>aenictinae_ergate.html">Aenictinae</a></li>
