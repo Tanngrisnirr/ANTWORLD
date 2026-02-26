@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#2c5aa0"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Subtle decorative elements -->
+  <circle cx="100" cy="100" r="200" fill="#2c5aa0" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="250" fill="#87CEEB" opacity="0.08"/>
+
+  <!-- Logo container (centered) -->
+  <g transform="translate(480, 140)">
+    <rect width="240" height="240" rx="45" fill="#0a0a1a" stroke="url(#blueGrad)" stroke-width="4"/>
+    <text x="20" y="180" font-size="160" font-weight="900" font-family="Inter, Arial, sans-serif"
+          fill="white" stroke="url(#blueGrad)" stroke-width="8" paint-order="stroke fill">A</text>
+    <text x="105" y="180" font-size="160" font-weight="900" font-family="Inter, Arial, sans-serif"
+          fill="#1a1a2e" stroke="url(#blueGrad)" stroke-width="8" paint-order="stroke fill">W</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="600" y="450" text-anchor="middle" font-size="48" font-weight="600"
+        font-family="Inter, Arial, sans-serif" fill="url(#blueGrad)">Interactive ID Keys</text>
+
+  <!-- URL -->
+  <text x="600" y="520" text-anchor="middle" font-size="36" font-weight="400"
+        font-family="Inter, Arial, sans-serif" fill="#87CEEB" opacity="0.8">antworld.org</text>
+</svg>
