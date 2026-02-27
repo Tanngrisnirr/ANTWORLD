@@ -99,8 +99,8 @@ h2.h2one {
     position: absolute;
     top: 10px;
     left: 50px;
-    width: 150px;
-    height: 150px;
+    width: 225px;
+    height: 225px;
     border: none;
     border-radius: 50%;
     background: transparent;
@@ -232,7 +232,7 @@ body.has-enlarged-view {
     top: 15px;
     right: 15px;
     display: flex;
-    z-index: 10;
+    z-index: 60; /* Above mag-overlay (z-index: 50) */
     background: rgba(255,255,255,0.95);
     border-radius: 20px;
     overflow: hidden;
@@ -1001,12 +1001,12 @@ body.has-enlarged-view {
             </div>
             <h4 data-en="Morphometric Measurements" data-fr="Mesures morphométriques">Morphometric Measurements</h4>
             <div class="measurement-grid" id="mesoMeasurementGrid">
-                <label class="measurement-checkbox">
+                <label class="measurement-checkbox" data-view="lateral">
                     <input type="checkbox" data-measure="MH" data-section="mesosoma" checked>
                     <span class="abbrev">MH</span>
                     <span class="name" data-en="Mesosoma Height" data-fr="Hauteur du mésosome">Mesosoma Height</span>
                 </label>
-                <label class="measurement-checkbox">
+                <label class="measurement-checkbox" data-view="lateral">
                     <input type="checkbox" data-measure="PrH" data-section="mesosoma" checked>
                     <span class="abbrev">PrH</span>
                     <span class="name" data-en="Pronotum Height" data-fr="Hauteur du pronotum">Pronotum Height</span>
@@ -2448,6 +2448,13 @@ var mesoRulerStart = null;
 var mesoCustomMeasurements = [];
 var mesoMeasureId = 0;
 
+// Get the currently active mesosoma SVG (lateral or dorsal)
+function getActiveMesoSvgObject() {
+    var activeBtn = document.querySelector('#section-mesosoma .view-btn.active');
+    var view = activeBtn ? activeBtn.dataset.view : 'lateral';
+    return document.getElementById('mesosoma-svg-' + view);
+}
+
 var mesoRulerToggle = document.getElementById('mesoRulerToggle');
 if (mesoRulerToggle) {
     mesoRulerToggle.addEventListener('click', function() {
@@ -2456,16 +2463,19 @@ if (mesoRulerToggle) {
         document.getElementById('mesoRulerStatus').textContent = mesoRulerMode ? 'Click two points' : '';
         mesoRulerStart = null;
 
-        var svgObject = document.getElementById('mesosoma-svg-lateral');
-        if (svgObject && svgObject.contentDocument) {
-            var svg = svgObject.contentDocument.querySelector('svg');
-            if (svg) svg.style.cursor = mesoRulerMode ? 'crosshair' : 'default';
-        }
+        // Set cursor on both SVGs
+        ['mesosoma-svg-lateral', 'mesosoma-svg-dorsal'].forEach(function(id) {
+            var svgObject = document.getElementById(id);
+            if (svgObject && svgObject.contentDocument) {
+                var svg = svgObject.contentDocument.querySelector('svg');
+                if (svg) svg.style.cursor = mesoRulerMode ? 'crosshair' : 'default';
+            }
+        });
     });
 }
 
-function attachMesoSvgClickHandler() {
-    var svgObject = document.getElementById('mesosoma-svg-lateral');
+function attachMesoSvgClickHandlerTo(svgId) {
+    var svgObject = document.getElementById(svgId);
     if (!svgObject || !svgObject.contentDocument) return;
 
     var svg = svgObject.contentDocument.querySelector('svg');
@@ -2473,6 +2483,9 @@ function attachMesoSvgClickHandler() {
 
     svg.addEventListener('click', function(e) {
         if (!mesoRulerMode) return;
+        // Only handle clicks on the currently active SVG
+        var activeSvg = getActiveMesoSvgObject();
+        if (!activeSvg || activeSvg.id !== svgId) return;
 
         var pt = svg.createSVGPoint();
         pt.x = e.clientX;
@@ -2624,10 +2637,14 @@ function drawMetaCustomMeasurement(svg, p1, p2, distMm) {
     metaCustomMeasurements.push(g);
 }
 
-// Attach handlers when SVGs load
-var mesoSvgForRuler = document.getElementById('mesosoma-svg-lateral');
-if (mesoSvgForRuler) {
-    mesoSvgForRuler.addEventListener('load', attachMesoSvgClickHandler);
+// Attach handlers when SVGs load (both lateral and dorsal)
+var mesoSvgLateral = document.getElementById('mesosoma-svg-lateral');
+if (mesoSvgLateral) {
+    mesoSvgLateral.addEventListener('load', function() { attachMesoSvgClickHandlerTo('mesosoma-svg-lateral'); });
+}
+var mesoSvgDorsal = document.getElementById('mesosoma-svg-dorsal');
+if (mesoSvgDorsal) {
+    mesoSvgDorsal.addEventListener('load', function() { attachMesoSvgClickHandlerTo('mesosoma-svg-dorsal'); });
 }
 
 var metaSvgForRuler = document.getElementById('metasoma-svg-lateral');
@@ -2769,8 +2786,8 @@ document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
     if (!toggle || !lens || !canvas || !overlay) return;
 
     // Set canvas size
-    canvas.width = 150;
-    canvas.height = 150;
+    canvas.width = 225;
+    canvas.height = 225;
 
     toggle.addEventListener('click', function() {
         magActive = !magActive;
@@ -2810,8 +2827,8 @@ document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
 
         // Position lens at cursor (centered)
         var wrapperRect = wrapper.getBoundingClientRect();
-        var lensX = e.clientX - wrapperRect.left - 75; // 75 = half lens width
-        var lensY = e.clientY - wrapperRect.top - 75;  // 75 = half lens height
+        var lensX = e.clientX - wrapperRect.left - 112.5; // 112.5 = half lens width (225/2)
+        var lensY = e.clientY - wrapperRect.top - 112.5;  // 112.5 = half lens height (225/2)
         lens.style.left = lensX + 'px';
         lens.style.top = lensY + 'px';
 
@@ -2822,6 +2839,22 @@ document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
     overlay.addEventListener('mouseleave', function() {
         lens.classList.remove('active');
     });
+
+    // Hide lens when hovering view selector buttons
+    var viewSelector = wrapper.querySelector('.view-selector');
+    if (viewSelector) {
+        viewSelector.addEventListener('mouseenter', function() {
+            if (magActive) {
+                lens.classList.remove('active');
+            }
+        });
+        viewSelector.addEventListener('mouseleave', function(e) {
+            // Re-show lens if mouse returns to overlay area
+            if (magActive && overlay.contains(e.relatedTarget)) {
+                lens.classList.add('active');
+            }
+        });
+    }
 
     // Cache for pre-rendered SVG images (avoids re-serializing on every mouse move)
     var svgImageCache = {};
@@ -2926,24 +2959,24 @@ document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
 
                 var srcX = x * scaleX;
                 var srcY = y * scaleY;
-                var zoomSize = 150 / magZoom;
+                var zoomSize = 225 / magZoom;
 
-                ctx.clearRect(0, 0, 150, 150);
+                ctx.clearRect(0, 0, 225, 225);
                 ctx.drawImage(cached.img,
                     srcX - zoomSize/2, srcY - zoomSize/2, zoomSize, zoomSize,
-                    0, 0, 150, 150
+                    0, 0, 225, 225
                 );
             });
         } else {
             // For regular images
             var srcX = x * scaleX;
             var srcY = y * scaleY;
-            var zoomSize = 150 / magZoom;
+            var zoomSize = 225 / magZoom;
 
-            ctx.clearRect(0, 0, 150, 150);
+            ctx.clearRect(0, 0, 225, 225);
             ctx.drawImage(source.element,
                 srcX - zoomSize/2, srcY - zoomSize/2, zoomSize, zoomSize,
-                0, 0, 150, 150
+                0, 0, 225, 225
             );
         }
     }

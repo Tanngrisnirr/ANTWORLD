@@ -18,10 +18,10 @@
      id="desc1">Scientific diagram of ant mesosoma (thorax) anatomy, lateral view. Lasius niger specimen CASENT0179897.</desc>
   <sodipodi:namedview
      inkscape:document-units="px"
-     inkscape:zoom="2.5531694"
-     inkscape:cx="357.7906"
-     inkscape:cy="242.44377"
-     inkscape:current-layer="layer4"
+     inkscape:zoom="1.3447323"
+     inkscape:cx="329.4336"
+     inkscape:cy="298.94426"
+     inkscape:current-layer="layer-surfaces"
      id="namedview1"
      pagecolor="#ffffff"
      bordercolor="#000000"
@@ -261,6 +261,12 @@
        style="display:inline;fill:#00b3ff;fill-opacity:0.3;stroke:#000000;stroke-width:1.5;stroke-opacity:1"
        d="m 400.22379,105.51576 c 2.70505,1.77679 5.73372,2.95914 12.04857,5.64208 0.60878,9.70554 5.03102,40.48978 7.94221,49.82697 -17.36099,-8.54926 -17.01191,-17.88058 -30.33801,-23.76951 -6.29964,-2.78386 -7.42,-4.10406 -7.35773,-11.35938 0.0265,-3.08943 7.26218,-14.15443 11.01194,-19.92813 0.57021,-0.878 4.49084,1.36879 6.69302,-0.41203 z"
        sodipodi:nodetypes="cccsssc" />
+    <path
+       style="display:inline;fill:#f8ff00;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:1.75673;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 511.14318,227.92728 c 1.62496,-10.56146 27.59307,-32.71999 39.91431,-31.80961 5.83962,7.54533 -2.15048,29.11202 -4.99062,37.15536 -3.24807,7.6689 -6.74916,14.41647 -8.13407,24.00755 -1.17364,8.12792 1.13294,19.49811 -2.27282,21.97605 -5.24333,3.81491 -16.13308,6.39178 -16.83078,-2.78695 -8.43375,-5.61398 -7.73658,-36.62479 -7.68602,-48.5424 z"
+       id="path6-18"
+       sodipodi:nodetypes="cccsscc"
+       inkscape:label="Petiole.surf" />
   </g>
   <!-- Layer: Reference (profile image) -->
   <g
@@ -506,8 +512,6 @@
            x="250.41066"
            y="329.60196"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9-0-4-8"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsII-label"><tspan
@@ -527,8 +531,6 @@
            x="329.77985"
            y="352.80392"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9-0-4-8-0"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsIII-label"><tspan
@@ -548,8 +550,6 @@
            x="352.87494"
            y="379.00568"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9-0-4-8-0-6"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsIV-label"><tspan
@@ -569,8 +569,6 @@
            x="383.24124"
            y="403.70731"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9-0-4-8-0-6-5"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TsV-label"><tspan
@@ -597,8 +595,6 @@
            x="93.20549"
            y="343.54263"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9-0-4-8-1"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="Tarsus-label"><tspan
@@ -620,8 +616,6 @@
            x="366.71451"
            y="295.76028"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9-0"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TarsalComb-label"><tspan
@@ -654,8 +648,6 @@
            x="257.49344"
            y="243.43869"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9-3"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TibialSpur-label"><tspan
@@ -688,8 +680,6 @@
            x="136.51129"
            y="373.8812"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7-9"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="TibiaI-label"><tspan
@@ -722,8 +712,6 @@
            x="136.51129"
            y="373.8812"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-7"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="FemurI-label"><tspan
@@ -762,8 +750,6 @@
            x="209.96954"
            y="284.36462"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3"
            style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="Trochanter-label"><tspan
@@ -797,8 +783,6 @@
            x="56.58572"
            y="467.52164"
            text-anchor="end"
-           
-           
            id="forecoxa-txt"
            style="text-align:center;text-anchor:middle"><tspan
              sodipodi:role="line"
@@ -907,8 +891,6 @@
            x="365.12729"
            y="324.112"
            text-anchor="end"
-           
-           
            id="forecoxa-txt-3-3"
            style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
            inkscape:label="Mesopleuron-label"><tspan
