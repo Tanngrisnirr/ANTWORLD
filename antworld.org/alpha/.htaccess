@@ -3,7 +3,7 @@ RewriteEngine on
 RewriteCond %{HTTPS} !on
 
 # Delete the /index
-RewriteBase /
+RewriteBase /alpha/
 
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s(.*?/+)index\.html(?:/(.*))?[\s?] [NC]
 RewriteRule ^ %1%2 [L,R]
@@ -28,7 +28,7 @@ RewriteRule ^(.+)$ $1.html [L,QSA]
 
 # 301 from example.com/page.html to example.com/page
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.html\ HTTP/
-RewriteRule ^(.*)\.html$ /$1 [R=301,L]
+RewriteRule ^(.*)\.html$ $1 [R=301,L]
 
 ## EXPIRES CACHING ##
 <filesMatch ".(jpg|jpeg|png|gif)$">
