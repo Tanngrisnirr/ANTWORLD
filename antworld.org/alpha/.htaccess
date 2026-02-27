@@ -11,9 +11,10 @@ RewriteRule ^ %1%2 [L,R]
 # Redirect /index to clean folder URL
 RewriteRule ^(.*)/index$ /$1/ [R=301,L]
 
-# Hotlinking Protection (allows empty referer)
+# Hotlinking Protection (allows empty referer and localhost)
 RewriteCond %{HTTP_REFERER} !^$
 RewriteCond %{HTTP_REFERER} !^https?://(www\.)?antworld\.org [NC]
+RewriteCond %{HTTP_REFERER} !^https?://localhost(:[0-9]+)? [NC]
 RewriteRule \.(js|css|jpg|gif|png|bmp|mp4|3gp|m4a|m4r|aac|mp3|ogg|wave)$ - [F]
 
 # PHP code in HTML file
