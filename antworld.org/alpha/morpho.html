@@ -1344,6 +1344,8 @@ function updateMorphologyLabels() {
             }
         }
     });
+    // Invalidate magnifier cache so it reflects the layer change
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
 }
 document.getElementById('toggleLabels').addEventListener('change', updateMorphologyLabels);
 
@@ -2293,6 +2295,8 @@ function updateMesosomaLabels() {
             surfacesLayer.style.display = show ? 'inline' : 'none';
         }
     }
+    // Invalidate magnifier cache so it reflects the layer change
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
 }
 
 var toggleMesoLabels = document.getElementById('toggleMesosomaLabels');
@@ -2378,6 +2382,8 @@ function updateMetasomaLabels() {
             surfacesLayer.style.display = show ? 'inline' : 'none';
         }
     }
+    // Invalidate magnifier cache so it reflects the layer change
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
 }
 
 var toggleMetaLabels = document.getElementById('toggleMetasomaLabels');
@@ -2774,6 +2780,14 @@ document.addEventListener('keydown', function(e) {
 // =============================================================================
 
 var magZoom = 3; // Zoom level
+var svgImageCache = {}; // Shared cache for pre-rendered SVG images
+
+// Function to invalidate cache when SVG layers change (e.g., labels toggled)
+window.invalidateSvgMagCache = function() {
+    for (var key in svgImageCache) {
+        delete svgImageCache[key];
+    }
+};
 
 document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
     var toggle = wrapper.querySelector('.mag-toggle');
@@ -2855,9 +2869,6 @@ document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
             }
         });
     }
-
-    // Cache for pre-rendered SVG images (avoids re-serializing on every mouse move)
-    var svgImageCache = {};
 
     // Convert SVG with external images to a usable Image object
     function prepareSvgImage(svgObj, callback) {
