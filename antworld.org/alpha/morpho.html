@@ -2921,16 +2921,28 @@ function drawMetaCustomMeasurement(svg, p1, p2, distMm) {
 // Attach handlers when SVGs load (both lateral and dorsal)
 var mesoSvgLateral = document.getElementById('mesosoma-svg-lateral');
 if (mesoSvgLateral) {
-    mesoSvgLateral.addEventListener('load', function() { attachMesoSvgClickHandlerTo('mesosoma-svg-lateral'); });
+    mesoSvgLateral.addEventListener('load', function() {
+        attachMesoSvgClickHandlerTo('mesosoma-svg-lateral');
+        updateMorphologyLabels();
+        updateMorphometrics();
+    });
 }
 var mesoSvgDorsal = document.getElementById('mesosoma-svg-dorsal');
 if (mesoSvgDorsal) {
-    mesoSvgDorsal.addEventListener('load', function() { attachMesoSvgClickHandlerTo('mesosoma-svg-dorsal'); });
+    mesoSvgDorsal.addEventListener('load', function() {
+        attachMesoSvgClickHandlerTo('mesosoma-svg-dorsal');
+        updateMorphologyLabels();
+        updateMorphometrics();
+    });
 }
 
 var metaSvgForRuler = document.getElementById('metasoma-svg-lateral');
 if (metaSvgForRuler) {
-    metaSvgForRuler.addEventListener('load', attachMetaSvgClickHandler);
+    metaSvgForRuler.addEventListener('load', function() {
+        attachMetaSvgClickHandler();
+        updateMorphologyLabels();
+        updateMorphometrics();
+    });
 }
 
 // =============================================================================
