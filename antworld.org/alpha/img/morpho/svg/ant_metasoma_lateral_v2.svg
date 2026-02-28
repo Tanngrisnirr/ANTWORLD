@@ -18,9 +18,9 @@
      id="desc1">Scientific diagram of ant metasoma (abdomen) anatomy, lateral view. Specimen CASENT4031895.</desc>
   <sodipodi:namedview
      inkscape:document-units="px"
-     inkscape:zoom="1.5023371"
-     inkscape:cx="411.02626"
-     inkscape:cy="280.89568"
+     inkscape:zoom="1.4942569"
+     inkscape:cx="479.50257"
+     inkscape:cy="273.04542"
      inkscape:current-layer="sternites-grp"
      id="namedview1"
      pagecolor="#ffffff"
@@ -37,6 +37,42 @@
      inkscape:window-maximized="1" />
   <defs
      id="defs1">
+    <marker
+       style="overflow:visible"
+       id="marker7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Stop"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1"
+         d="M 0,4 V -4"
+         id="path7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Stop"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Stop"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1"
+         d="M 0,4 V -4"
+         id="path23" />
+    </marker>
     <style
        id="style1">
       /* ==============================================
@@ -84,7 +120,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer-background"
-     inkscape:label="background">
+     inkscape:label="background"
+     style="display:inline">
     <rect
        x="0"
        y="0"
@@ -92,7 +129,8 @@
        height="600"
        fill="#ffffff"
        id="rect1"
-       sodipodi:insensitive="true" />
+       sodipodi:insensitive="true"
+       style="display:inline" />
   </g>
   <!-- Layer: Surfaces (colored regions) -->
   <g
@@ -149,9 +187,9 @@
          x1="130"
          y1="324.55225"
          x2="130"
-         y2="420"
+         y2="432.01343"
          id="PEH-line"
-         style="stroke:#ff0000;stroke-width:1.71373" />
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:none" />
       <line
          class="measure-tick"
          x1="120.03268"
@@ -162,10 +200,10 @@
          style="stroke:#ff0000;stroke-width:2" />
       <line
          class="measure-tick"
-         x1="120"
-         y1="420"
-         x2="140"
-         y2="420"
+         x1="119.8308"
+         y1="432.84418"
+         x2="139.8308"
+         y2="432.84418"
          id="PEH-tick2"
          style="stroke:#ff0000;stroke-width:2" />
       <line
@@ -178,12 +216,12 @@
          style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2,2;stroke-dashoffset:0" />
       <line
          class="measure-dline"
-         x1="140"
-         y1="420"
-         x2="243.27583"
-         y2="420"
+         x1="141.69203"
+         y1="432.84354"
+         x2="234.69203"
+         y2="432.84354"
          id="PEH-ext2"
-         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2,2;stroke-dashoffset:0" />
+         style="stroke:#ff0000;stroke-width:1.99867;stroke-dasharray:1.99867, 1.99867;stroke-dashoffset:0" />
       <text
          class="measure-label"
          x="121.51299"
@@ -306,40 +344,12 @@
   </g>
   <g
      inkscape:groupmode="layer"
-     id="layer-labels-7"
+     id="layer-labels"
      inkscape:label="labels"
      style="display:inline"
      transform="translate(-156.02246,181.13672)">
     <!-- Label: Petiole -->
     <!-- Label: Petiolar Node -->
-    <g
-       class="label"
-       data-feature="petiolar-node"
-       id="petiolarnode-grp"
-       inkscape:label="PetiolarNode.grp"
-       transform="translate(218,-83)">
-      <circle
-         class="label-point"
-         cx="200"
-         cy="300"
-         r="4"
-         id="petiolarnode-pt"
-         style="fill:#000000;stroke:none" />
-      <path
-         class="label-line"
-         d="M 200,300 80,200"
-         id="petiolarnode-line"
-         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
-      <text
-         class="label-text"
-         x="75"
-         y="195"
-         text-anchor="end"
-         data-en="Petiolar Node"
-         data-fr="Noeud petiolaire"
-         id="petiolarnode-txt"
-         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Noeud petiolaire</text>
-    </g>
     <!-- Label: Gaster -->
     <!-- Label: Tergite 1 (first gastral tergite) -->
     <!-- Label: Tergites (general) -->
@@ -351,13 +361,13 @@
        transform="translate(44.997539,-285.17717)">
       <text
          class="label-text"
-         x="725"
-         y="175"
-         data-en="Tergites"
-         data-fr="Tergites"
+         x="775.58789"
+         y="236.90355"
+         data-en="Tergites (Tg)"
+         data-fr="Tergites (Tg)"
          id="tergites-txt"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
-         inkscape:label="Tergites-label">Tergites</text>
+         inkscape:label="Tergites-label">Tergites (Tg)</text>
       <text
          class="label-text"
          x="856.01886"
@@ -399,6 +409,13 @@
          style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
          transform="translate(276.80608,132.02144)"
          inkscape:label="TergiteI-label">Tg I</text>
+      <path
+         style="display:none;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#marker7);marker-end:url(#Stop)"
+         d="m 635.85649,161.46353 c 0,0 109.95787,-13.355 163.74487,11.98133 53.787,25.33633 111.69422,96.82431 133.12591,139.11658 21.43169,42.29227 15.97511,90.52562 15.97511,90.52562"
+         id="path8"
+         sodipodi:nodetypes="czzc"
+         inkscape:label="Tergites-line"
+         transform="translate(-44.912649,32.43691)" />
     </g>
     <!-- Label: Sternites -->
     <g
@@ -409,13 +426,13 @@
        transform="translate(0.0848932,-252.74026)">
       <text
          class="label-text"
-         x="705"
-         y="555"
+         x="648.42151"
+         y="493.76205"
          data-en="Sternites"
          data-fr="Sternites"
          id="sternites-txt"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
-         inkscape:label="Sternites-txt">Sternites</text>
+         inkscape:label="Sternites-label">Sternites (St)</text>
       <text
          class="label-text"
          x="855.6687"
@@ -425,7 +442,7 @@
          data-fr="Tg IV"
          id="text3"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
-         inkscape:label="SterniteIV-label">Tg IV</text>
+         inkscape:label="SterniteIV-label">St IV</text>
       <text
          class="label-text"
          x="791.43219"
@@ -435,7 +452,7 @@
          data-fr="Tg I"
          id="text4"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
-         inkscape:label="SterniteIII-label">Tg III</text>
+         inkscape:label="SterniteIII-label">St III</text>
       <text
          class="label-text"
          x="693.58472"
@@ -445,17 +462,26 @@
          data-fr="Tg I"
          id="text5"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
-         inkscape:label="SterniteII-label">Tg II</text>
+         inkscape:label="SterniteII-label">St II</text>
       <text
          class="label-text"
          x="633.77783"
          y="376.0386"
          text-anchor="middle"
-         data-en="Tg I"
-         data-fr="Tg I"
+         data-en="St I"
+         data-fr="St I"
          id="text6"
-         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
-         inkscape:label="SterniteI-label">Tg I</text>
+         style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="SterniteI-label"
+         transform="translate(-3.2e-6)">St I</text>
+      <path
+         style="display:none;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Stop);marker-end:url(#marker7)"
+         d="M 562.72213,168.98443 842.95217,346.0419"
+         id="path6"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="Sternites-line"
+         transform="translate(-0.0848932,252.74026)" />
     </g>
     <!-- Label: Acidopore (Formicinae - formic acid opening) -->
     <g
