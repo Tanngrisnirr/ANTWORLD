@@ -2207,26 +2207,32 @@ function attachSvgClickHandler() {
     function handleRulerClick(e) {
         if (!rulerMode) return;
 
-        var rect = svgObject.getBoundingClientRect();
-        var svgRect = svg.getBoundingClientRect();
+        // Get fresh references each time (in case SVG was reloaded)
+        var freshSvgObj = document.getElementById('head-svg-frontal');
+        if (!freshSvgObj || !freshSvgObj.contentDocument) return;
+        var freshSvgDoc = freshSvgObj.contentDocument;
+        var freshSvg = freshSvgDoc.querySelector('svg');
+        if (!freshSvg) return;
+
+        var svgRect = freshSvg.getBoundingClientRect();
 
         // Get click position relative to SVG
         var x = e.clientX - svgRect.left;
         var y = e.clientY - svgRect.top;
 
         // Convert to SVG coordinates
-        var viewBox = svg.viewBox.baseVal;
+        var viewBox = freshSvg.viewBox.baseVal;
         var svgX = viewBox.x + (x / svgRect.width) * viewBox.width;
         var svgY = viewBox.y + (y / svgRect.height) * viewBox.height;
 
         if (!rulerStart) {
             rulerStart = [svgX, svgY];
             document.getElementById('rulerStatus').textContent = 'Click second point...';
-            drawTempMarker(svgDoc, svgX, svgY);
+            drawTempMarker(freshSvgDoc, svgX, svgY);
         } else {
             var end = [svgX, svgY];
-            removeTempMarker(svgDoc);
-            drawCustomMeasurement(svgDoc, rulerStart, end);
+            removeTempMarker(freshSvgDoc);
+            drawCustomMeasurement(freshSvgDoc, rulerStart, end);
             customMeasurements.push({ start: rulerStart, end: end });
             rulerStart = null;
             document.getElementById('rulerStatus').textContent = 'Measurement added!';

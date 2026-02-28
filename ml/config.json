@@ -1,0 +1,26 @@
+{
+  "project": "AntWorld ML - Ant Recognition",
+  "version": "0.1.0",
+  "model": {
+    "base": "MobileNetV2",
+    "input_size": [224, 224, 3],
+    "strategy": "confidence_threshold",
+    "threshold": 0.7
+  },
+  "training": {
+    "epochs": 50,
+    "batch_size": 8,
+    "validation_split": 0.2,
+    "learning_rate": 0.001,
+    "fine_tune_layers": 20
+  },
+  "paths": {
+    "training_data": "../TrainingSets/",
+    "models": "./models/",
+    "tfjs_output": "../antworld.org/alpha/js/ml/ant_model/"
+  },
+  "classes": [
+    "Formica_fusca",
+    "Lasius_fuliginosus"
+  ]
+}
