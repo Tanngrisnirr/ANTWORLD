@@ -543,6 +543,8 @@
            y="527.5">(St V, Acidopore)</tspan></text>
     </g>
     <g
+       class="label"
+       data-feature="petiole"
        inkscape:groupmode="layer"
        id="layer1"
        inkscape:label="Petiole.grp"
