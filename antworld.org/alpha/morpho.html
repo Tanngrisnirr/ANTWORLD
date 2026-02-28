@@ -156,6 +156,10 @@ h2.h2one {
     top: 44px;
     left: 10px;
 }
+.ruler-toggle {
+    top: 78px;
+    left: 10px;
+}
 
 /* Fullscreen/enlarged mode overlay */
 body.has-enlarged-view > *:not(.diagram-wrapper.enlarged):not(script):not(style) {
@@ -202,6 +206,10 @@ body.has-enlarged-view {
 }
 .diagram-wrapper.enlarged .enlarge-toggle {
     top: 54px;
+    left: 20px;
+}
+.diagram-wrapper.enlarged .ruler-toggle {
+    top: 88px;
     left: 20px;
 }
 .diagram-wrapper.enlarged .view-selector {
@@ -583,6 +591,14 @@ body.has-enlarged-view {
     flex-direction: column;
     gap: 3px;
 }
+#morphologyGrid {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
 .panel-export {
     display: flex;
     flex-direction: column;
@@ -689,8 +705,19 @@ body.has-enlarged-view {
     font-size: 16px;
 }
 .ruler-status {
-    font-size: 12px;
-    color: var(--text-muted);
+    position: absolute;
+    top: 82px;
+    left: 45px;
+    font-size: 11px;
+    color: #333;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 101;
+    white-space: nowrap;
+}
+.ruler-status:empty {
+    display: none;
 }
 
 /* Toggle switch */
@@ -735,6 +762,13 @@ body.has-enlarged-view {
     font-size: 14px;
     font-weight: bold;
     color: var(--text-primary);
+}
+h4.toggle-heading {
+    margin: 15px 0 10px 0;
+    padding: 0;
+}
+h4.toggle-heading .toggle-label {
+    font-size: 16px;
 }
 
 /* Print stylesheet for PDF export - DEFINITIONS ONLY */
@@ -847,11 +881,11 @@ body.has-enlarged-view {
                 <button class="diagram-btn enlarge-toggle" title="Enlarge">
                     <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </button>
+                <button class="diagram-btn ruler-toggle" id="rulerToggle" title="Measure">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="1"/><line x1="6" y1="6" x2="6" y2="11"/><line x1="10" y1="6" x2="10" y2="9"/><line x1="14" y1="6" x2="14" y2="11"/><line x1="18" y1="6" x2="18" y2="9"/></svg>
+                </button>
+                <span id="rulerStatus" class="ruler-status"></span>
                 <div class="mag-lens"><canvas></canvas></div>
-                <div class="view-selector">
-                    <button class="view-btn active" data-view="frontal">Frontal</button>
-                    <button class="view-btn disabled" data-view="lateral" disabled>Lateral</button>
-                </div>
                 <!-- Frontal view SVG (default) -->
                 <object data="img/morpho/svg/ant_head_frontal_v1.svg"
                         type="image/svg+xml"
@@ -861,36 +895,75 @@ body.has-enlarged-view {
                         onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
                     <img src="img/morpho/casent0179897_h_1_high.jpg" alt="Ant head frontal view">
                 </object>
-                <!-- Lateral view (fallback to JPG for now) -->
-                <img src="img/morpho/casent0179897_p_1_high.jpg"
-                     alt="Ant head lateral view - Lasius niger"
-                     id="head-image-lateral"
-                     class="morpho-img"
-                     style="display: none; max-width: 100%; height: auto;">
             </div>
             <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> - AntWeb.org (CC BY)</p>
         </div>
         <!-- Measurements Panel (side panel) -->
         <div class="measurements-panel" id="measurementsPanel">
-            <div class="panel-controls">
+                <h4 class="toggle-heading">
                 <label class="toggle-switch">
                     <input type="checkbox" id="toggleLabels" checked>
                     <span class="toggle-slider"></span>
                     <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
                 </label>
-                <div class="panel-buttons">
-                    <button id="clearMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
-                    <button id="showAllMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
-                </div>
+            </h4>
+            <div class="measurement-grid" id="morphologyGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="vertex" checked>
+                    <span class="name" data-en="Vertex" data-fr="Vertex">Vertex</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="occipital-region" checked>
+                    <span class="name" data-en="Occipital region" data-fr="Région occipitale">Occipital region</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="frons" checked>
+                    <span class="name" data-en="Frons" data-fr="Frons">Frons</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="clypeus" checked>
+                    <span class="name" data-en="Clypeus" data-fr="Clypéus">Clypeus</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="frontal-carina" checked>
+                    <span class="name" data-en="Frontal carina" data-fr="Carène frontale">Frontal carina</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="frontal-lobe" checked>
+                    <span class="name" data-en="Frontal lobe" data-fr="Lobe frontal">Frontal lobe</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="eye" checked>
+                    <span class="name" data-en="Compound eye" data-fr="Œil composé">Compound eye</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="gena" checked>
+                    <span class="name" data-en="Gena" data-fr="Gena">Gena</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="mandible" checked>
+                    <span class="name" data-en="Mandible" data-fr="Mandibule">Mandible</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="torulus" checked>
+                    <span class="name" data-en="Torulus" data-fr="Torulus">Torulus</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="scape" checked>
+                    <span class="name" data-en="Scape" data-fr="Scape">Scape</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="funiculus" checked>
+                    <span class="name" data-en="Funiculus" data-fr="Funicule">Funiculus</span>
+                </label>
             </div>
-            <!-- Custom Measurement Tool -->
-            <div class="ruler-controls">
-                <button id="rulerToggle" class="ruler-btn" data-en="Measure" data-fr="Mesurer">
-                    <span class="ruler-icon">📏</span> Measure
-                </button>
-                <span id="rulerStatus" class="ruler-status"></span>
-            </div>
-            <h4 data-en="Morphometric Measurements" data-fr="Mesures morphométriques">Morphometric Measurements</h4>
+            <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMeasurements" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphometrics" data-fr="Morphométrie">Morphometrics</span>
+                </label>
+            </h4>
             <div class="measurement-grid" id="measurementGrid">
                 <label class="measurement-checkbox">
                     <input type="checkbox" data-measure="CL" checked>
@@ -981,25 +1054,20 @@ body.has-enlarged-view {
         </div>
         <!-- Mesosoma Measurements Panel -->
         <div class="measurements-panel" id="mesosomaPanel">
-            <div class="panel-controls">
+                <h4 class="toggle-heading">
                 <label class="toggle-switch">
                     <input type="checkbox" id="toggleMesosomaLabels" checked>
                     <span class="toggle-slider"></span>
                     <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
                 </label>
-                <div class="panel-buttons">
-                    <button id="clearMesoMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
-                    <button id="showAllMesoMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
-                </div>
-            </div>
-            <!-- Custom Measurement Tool -->
-            <div class="ruler-controls">
-                <button id="mesoRulerToggle" class="ruler-btn" data-en="Measure" data-fr="Mesurer">
-                    Measure
-                </button>
-                <span id="mesoRulerStatus" class="ruler-status"></span>
-            </div>
-            <h4 data-en="Morphometric Measurements" data-fr="Mesures morphométriques">Morphometric Measurements</h4>
+            </h4>
+            <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMesoMeasurements" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphometrics" data-fr="Morphométrie">Morphometrics</span>
+                </label>
+            </h4>
             <div class="measurement-grid" id="mesoMeasurementGrid">
                 <label class="measurement-checkbox" data-view="lateral">
                     <input type="checkbox" data-measure="MH" data-section="mesosoma" checked>
@@ -1071,25 +1139,20 @@ body.has-enlarged-view {
         </div>
         <!-- Metasoma Measurements Panel -->
         <div class="measurements-panel" id="metasomaPanel">
-            <div class="panel-controls">
+                <h4 class="toggle-heading">
                 <label class="toggle-switch">
                     <input type="checkbox" id="toggleMetasomaLabels" checked>
                     <span class="toggle-slider"></span>
                     <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
                 </label>
-                <div class="panel-buttons">
-                    <button id="clearMetaMeasurements" data-en="Clear All" data-fr="Effacer tout">Clear All</button>
-                    <button id="showAllMetaMeasurements" data-en="Show All" data-fr="Tout afficher">Show All</button>
-                </div>
-            </div>
-            <!-- Custom Measurement Tool -->
-            <div class="ruler-controls">
-                <button id="metaRulerToggle" class="ruler-btn" data-en="Measure" data-fr="Mesurer">
-                    Measure
-                </button>
-                <span id="metaRulerStatus" class="ruler-status"></span>
-            </div>
-            <h4 data-en="Morphometric Measurements" data-fr="Mesures morphométriques">Morphometric Measurements</h4>
+            </h4>
+            <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMetaMeasurements" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphometrics" data-fr="Morphométrie">Morphometrics</span>
+                </label>
+            </h4>
             <div class="measurement-grid" id="metaMeasurementGrid">
                 <label class="measurement-checkbox">
                     <input type="checkbox" data-measure="PEH" data-section="metasoma" checked>
@@ -1149,7 +1212,7 @@ body.has-enlarged-view {
 <div class="def-item" data-en="Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x." data-fr="Longueur des plus longues soies au niveau de l'œil, y compris les soies microscopiques visibles uniquement au grossissement G ≥ 150x."><b>EyeHL</b> <span class="def-text">Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x.</span></div>
 <div class="def-item" data-en="Maximum anterior Distance of Frontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS." data-fr="Distance antérieure maximale des carènes frontales. Si FD n'est pas défini car les carènes frontales convergent en avant du niveau FRS, FD égale FRS."><b>FD</b> <span class="def-text">Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS.</span></div>
 <div class="def-item" data-en="Maximum frontal divergence of frontal carinae." data-fr="Divergence frontale maximale des carènes frontales."><b>FR</b> <span class="def-text">Maximum frontal divergence of frontal carinae.</span></div>
-<div class="def-item" data-en="Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus." data-fr="Distance entre les carènes frontales immédiatement caudale aux points d'intersection postérieurs entre les carènes frontales et les lamelles dorsales au torulus."><b>FRS</b> <span class="def-text">Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus.</span></div>
+<div class="def-item" data-en="Distance between frontal carinae behind torulus." data-fr="Distance entre les carènes frontales derrière le torulus."><b>FRS</b> <span class="def-text">Distance between frontal carinae behind torulus.</span></div>
 <div class="def-item" data-en="Frontal Triangle. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally." data-fr="Triangle Frontal. Région triangulaire au-dessus du clypéus, bordée par les carènes frontales latéralement et la suture clypéale ventralement."><b>ΔFr</b> <span class="def-text"><b>Frontal Triangle</b>. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally.</span></div>
 <div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm du contour de l'occiput, vers l'avant jusqu'aux marges antérieures des yeux."><b>nCH</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins.</span></div>
 <div class="def-item" data-en="Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head." data-fr="Vue de profil, comptage unilatéral des soies dépassant de plus de 10 µm de la face ventrale de la tête."><b>nCU</b> <span class="def-text">Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head.</span></div>
@@ -1335,22 +1398,82 @@ function updateMorphologyLabels() {
     document.querySelectorAll('object.morpho-svg').forEach(function(obj) {
         if (obj.contentDocument) {
             var labelsLayer = obj.contentDocument.getElementById('layer-labels');
-            var surfacesLayer = obj.contentDocument.getElementById('layer-surfaces');
             if (labelsLayer) {
                 labelsLayer.style.display = show ? 'inline' : 'none';
             }
+            // Hide only surface elements (not the white background)
+            var surfacesLayer = obj.contentDocument.getElementById('layer-background');
             if (surfacesLayer) {
-                surfacesLayer.style.display = show ? 'inline' : 'none';
+                surfacesLayer.querySelectorAll('*').forEach(function(el) {
+                    var label = el.getAttribute('inkscape:label') || '';
+                    if (label.endsWith('.surf')) {
+                        el.style.display = show ? 'inline' : 'none';
+                    }
+                });
             }
         }
+    });
+    // Sync morphology feature checkboxes with main toggle
+    document.querySelectorAll('#morphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
     });
     // Invalidate magnifier cache so it reflects the layer change
     if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
 }
 document.getElementById('toggleLabels').addEventListener('change', updateMorphologyLabels);
 
+// Toggle morphometrics (measurements layer)
+function updateMorphometrics() {
+    var show = document.getElementById('toggleMeasurements').checked;
+    document.querySelectorAll('object.morpho-svg').forEach(function(obj) {
+        if (obj.contentDocument) {
+            var measurementsLayer = obj.contentDocument.getElementById('layer-measurements');
+            if (measurementsLayer) {
+                measurementsLayer.style.display = show ? 'inline' : 'none';
+            }
+        }
+    });
+    // Sync measurement checkboxes with main toggle
+    document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    // Invalidate magnifier cache
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+document.getElementById('toggleMeasurements').addEventListener('change', updateMorphometrics);
+
 // Initialize when SVG loads
 document.getElementById('head-svg-frontal').addEventListener('load', updateMorphologyLabels);
+document.getElementById('head-svg-frontal').addEventListener('load', updateMorphometrics);
+
+// Toggle individual morphology features (show/hide labels by data-feature)
+function toggleMorphologyFeature(featureId, show) {
+    var svgObject = document.getElementById('head-svg-frontal');
+    if (svgObject && svgObject.contentDocument) {
+        var svgDoc = svgObject.contentDocument;
+        // Find all elements with this data-feature
+        svgDoc.querySelectorAll('[data-feature="' + featureId + '"]').forEach(function(el) {
+            el.style.display = show ? 'inline' : 'none';
+        });
+    }
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+
+// Initialize morphology feature checkboxes
+document.querySelectorAll('#morphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        var featureId = this.dataset.feature;
+        toggleMorphologyFeature(featureId, this.checked);
+    });
+});
+
+// Apply initial morphology feature states when SVG loads
+document.getElementById('head-svg-frontal').addEventListener('load', function() {
+    document.querySelectorAll('#morphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+        var featureId = checkbox.dataset.feature;
+        toggleMorphologyFeature(featureId, checkbox.checked);
+    });
+});
 
 // Feature click to highlight
 document.querySelectorAll('.feature-item').forEach(item => {
@@ -1665,9 +1788,9 @@ var headMeasurements = {
     },
     FRS: {
         name: { en: 'Frontal Suture Distance', fr: 'Distance suture frontale' },
-        description: 'Distance between frontal carinae at base',
+        description: 'Distance between frontal carinae behind torulus',
         view: 'frontal',
-        // Horizontal between left and right frontal carinae (lower position)
+        // Horizontal between left and right frontal carinae behind torulus
         endpoints: [[310, 350], [490, 350]],
         offset: -25
     },
@@ -1858,38 +1981,40 @@ document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(fun
     });
 });
 
-// Clear all measurements button
-document.getElementById('clearMeasurements').addEventListener('click', function() {
-    // Uncheck all checkboxes and hide all measurements
-    document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
-        cb.checked = false;
-        var measureId = cb.dataset.measure;
-        toggleMeasurement(measureId, false);
+// Clear all measurements button (if exists)
+var clearMeasBtn = document.getElementById('clearMeasurements');
+if (clearMeasBtn) {
+    clearMeasBtn.addEventListener('click', function() {
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, false);
+        });
     });
-});
+}
 
-// Show all measurements button
-document.getElementById('showAllMeasurements').addEventListener('click', function() {
-    var svgDoc = getHeadSvgDoc();
-    if (!svgDoc) return;
-
-    document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
-        cb.checked = true;
-        var measureId = cb.dataset.measure;
-        toggleMeasurement(measureId, true);
+// Show all measurements button (if exists)
+var showAllMeasBtn = document.getElementById('showAllMeasurements');
+if (showAllMeasBtn) {
+    showAllMeasBtn.addEventListener('click', function() {
+        var svgDoc = getHeadSvgDoc();
+        if (!svgDoc) return;
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, true);
+        });
     });
-});
+}
 
-// Hide measurements panel when not on head tab or when in lateral view
+// Hide measurements panel when not on head tab
 function updateMeasurementsPanelVisibility() {
     var panel = document.getElementById('measurementsPanel');
     var activeTab = document.querySelector('.morpho-tab.active');
-    var activeView = document.querySelector('#section-head .view-btn.active');
 
-    if (activeTab && activeTab.dataset.section === 'head' &&
-        activeView && activeView.dataset.view === 'frontal') {
+    if (activeTab && activeTab.dataset.section === 'head') {
         panel.style.display = 'block';
-        // Restore measurements when returning to frontal view
+        // Restore measurements when on head tab
         document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
             cb.checked = true;
             var measureId = cb.dataset.measure;
@@ -1897,7 +2022,7 @@ function updateMeasurementsPanelVisibility() {
         });
     } else {
         panel.style.display = 'none';
-        // Hide measurements when leaving head frontal view
+        // Hide measurements when leaving head tab
         document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
             cb.checked = false;
             var measureId = cb.dataset.measure;
@@ -1993,24 +2118,57 @@ var customMeasurements = [];
 var customMeasureId = 0;
 
 // Toggle ruler mode
-document.getElementById('rulerToggle').addEventListener('click', function() {
-    rulerMode = !rulerMode;
-    this.classList.toggle('active', rulerMode);
-    document.getElementById('rulerStatus').textContent = rulerMode ? 'Click two points on image' : '';
-    rulerStart = null;
+function initRulerToggle() {
+    var rulerToggleBtn = document.getElementById('rulerToggle');
+    if (!rulerToggleBtn) return;
 
-    // Change cursor on SVG
-    var svgObject = document.getElementById('head-svg-frontal');
-    if (svgObject && svgObject.contentDocument) {
-        var svg = svgObject.contentDocument.querySelector('svg');
-        if (svg) svg.style.cursor = rulerMode ? 'crosshair' : 'default';
-    }
-});
+    rulerToggleBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        rulerMode = !rulerMode;
+        this.classList.toggle('active', rulerMode);
+
+        // Turn off magnifier when ruler is on (they conflict)
+        if (rulerMode) {
+            var wrapper = document.getElementById('head-diagram');
+            if (wrapper) {
+                var magToggle = wrapper.querySelector('.mag-toggle');
+                var magOverlay = wrapper.querySelector('.mag-overlay');
+                if (magToggle) magToggle.classList.remove('active');
+                if (magOverlay) magOverlay.classList.remove('active');
+            }
+        }
+
+        var status = document.getElementById('rulerStatus');
+        if (status) status.textContent = rulerMode ? 'Click two points' : '';
+        rulerStart = null;
+
+        // Ensure SVG click handler is attached
+        attachSvgClickHandler();
+
+        // Change cursor on SVG
+        var svgObject = document.getElementById('head-svg-frontal');
+        if (svgObject && svgObject.contentDocument) {
+            var svg = svgObject.contentDocument.querySelector('svg');
+            if (svg) svg.style.cursor = rulerMode ? 'crosshair' : 'default';
+        }
+    });
+}
+initRulerToggle();
 
 // Handle clicks on SVG for custom measurements
 function attachSvgClickHandler() {
     var svgObject = document.getElementById('head-svg-frontal');
-    if (!svgObject || !svgObject.contentDocument) return false;
+    if (!svgObject) return false;
+
+    // Wait for SVG to load
+    if (!svgObject.contentDocument) {
+        svgObject.addEventListener('load', function() {
+            attachSvgClickHandler();
+        });
+        return false;
+    }
 
     var svgDoc = svgObject.contentDocument;
     var svg = svgDoc.querySelector('svg');
@@ -2020,31 +2178,56 @@ function attachSvgClickHandler() {
     if (svg.dataset.rulerAttached) return true;
     svg.dataset.rulerAttached = 'true';
 
-    svg.addEventListener('click', function(e) {
+    // Click handler for ruler measurements
+    function handleRulerClick(e) {
         if (!rulerMode) return;
 
-        // Get click position in SVG coordinates
-        var pt = svg.createSVGPoint();
-        pt.x = e.clientX;
-        pt.y = e.clientY;
-        var svgPt = pt.matrixTransform(svg.getScreenCTM().inverse());
+        var rect = svgObject.getBoundingClientRect();
+        var svgRect = svg.getBoundingClientRect();
+
+        // Get click position relative to SVG
+        var x = e.clientX - svgRect.left;
+        var y = e.clientY - svgRect.top;
+
+        // Convert to SVG coordinates
+        var viewBox = svg.viewBox.baseVal;
+        var svgX = viewBox.x + (x / svgRect.width) * viewBox.width;
+        var svgY = viewBox.y + (y / svgRect.height) * viewBox.height;
 
         if (!rulerStart) {
-            // First click - set start point
-            rulerStart = [svgPt.x, svgPt.y];
+            rulerStart = [svgX, svgY];
             document.getElementById('rulerStatus').textContent = 'Click second point...';
-            // Draw temporary start marker
-            drawTempMarker(svgDoc, svgPt.x, svgPt.y);
+            drawTempMarker(svgDoc, svgX, svgY);
         } else {
-            // Second click - draw measurement
-            var end = [svgPt.x, svgPt.y];
+            var end = [svgX, svgY];
             removeTempMarker(svgDoc);
             drawCustomMeasurement(svgDoc, rulerStart, end);
             customMeasurements.push({ start: rulerStart, end: end });
             rulerStart = null;
-            document.getElementById('rulerStatus').textContent = 'Measurement added! Click to add more.';
+            document.getElementById('rulerStatus').textContent = 'Measurement added!';
         }
+    }
+
+    svg.addEventListener('click', handleRulerClick);
+
+    // Also listen on the object element itself as fallback
+    svgObject.addEventListener('click', function(e) {
+        if (!rulerMode) return;
+        handleRulerClick(e);
     });
+
+    // Also listen on the diagram wrapper as ultimate fallback
+    var wrapper = document.getElementById('head-diagram');
+    if (wrapper && !wrapper.dataset.rulerWrapperAttached) {
+        wrapper.dataset.rulerWrapperAttached = 'true';
+        wrapper.addEventListener('click', function(e) {
+            if (!rulerMode) return;
+            if (e.target.closest('object.morpho-svg') || e.target.closest('.diagram-wrapper')) {
+                handleRulerClick(e);
+            }
+        });
+    }
+
     return true;
 }
 
@@ -2304,15 +2487,33 @@ if (toggleMesoLabels) {
     toggleMesoLabels.addEventListener('change', updateMesosomaLabels);
 }
 
+// Toggle mesosoma morphometrics (measurements layer)
+function updateMesoMorphometrics() {
+    var show = document.getElementById('toggleMesoMeasurements').checked;
+    var svgDoc = getMesoSvgDoc();
+    if (svgDoc) {
+        var measurementsLayer = svgDoc.getElementById('layer-measurements');
+        if (measurementsLayer) {
+            measurementsLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+    // Sync measurement checkboxes with main toggle
+    document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+var toggleMesoMeasure = document.getElementById('toggleMesoMeasurements');
+if (toggleMesoMeasure) {
+    toggleMesoMeasure.addEventListener('change', updateMesoMorphometrics);
+}
+
 // Initialize when mesosoma SVG loads
 var mesoSvgObj = document.getElementById('mesosoma-svg-lateral');
 if (mesoSvgObj) {
     mesoSvgObj.addEventListener('load', function() {
         updateMesosomaLabels();
-        // Show default measurements
-        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
-            toggleMesoMeasurement(cb.dataset.measure, cb.checked);
-        });
+        updateMesoMorphometrics();
     });
 }
 
@@ -2391,15 +2592,33 @@ if (toggleMetaLabels) {
     toggleMetaLabels.addEventListener('change', updateMetasomaLabels);
 }
 
+// Toggle metasoma morphometrics (measurements layer)
+function updateMetaMorphometrics() {
+    var show = document.getElementById('toggleMetaMeasurements').checked;
+    var svgDoc = getMetaSvgDoc();
+    if (svgDoc) {
+        var measurementsLayer = svgDoc.getElementById('layer-measurements');
+        if (measurementsLayer) {
+            measurementsLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+    // Sync measurement checkboxes with main toggle
+    document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+var toggleMetaMeasure = document.getElementById('toggleMetaMeasurements');
+if (toggleMetaMeasure) {
+    toggleMetaMeasure.addEventListener('change', updateMetaMorphometrics);
+}
+
 // Initialize when metasoma SVG loads
 var metaSvgObj = document.getElementById('metasoma-svg-lateral');
 if (metaSvgObj) {
     metaSvgObj.addEventListener('load', function() {
         updateMetasomaLabels();
-        // Show default measurements
-        document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
-            toggleMetaMeasurement(cb.dataset.measure, cb.checked);
-        });
+        updateMetaMorphometrics();
     });
 }
 
@@ -2714,15 +2933,10 @@ function updateAllPanelsVisibility() {
 
     var section = activeTab.dataset.section;
 
-    // Head panel
+    // Head panel (always show when on head tab - only frontal view exists)
     var headPanel = document.getElementById('measurementsPanel');
     if (headPanel) {
-        if (section === 'head') {
-            var activeView = document.querySelector('#section-head .view-btn.active');
-            headPanel.style.display = (activeView && activeView.dataset.view === 'frontal') ? 'block' : 'none';
-        } else {
-            headPanel.style.display = 'none';
-        }
+        headPanel.style.display = (section === 'head') ? 'block' : 'none';
     }
 
     // Mesosoma panel

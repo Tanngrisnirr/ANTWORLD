@@ -18,10 +18,10 @@
      id="desc1">Scientific diagram of ant mesosoma (thorax) anatomy, lateral view. Lasius niger specimen CASENT0179897.</desc>
   <sodipodi:namedview
      inkscape:document-units="px"
-     inkscape:zoom="1.3447323"
-     inkscape:cx="329.4336"
-     inkscape:cy="298.94426"
-     inkscape:current-layer="layer-surfaces"
+     inkscape:zoom="1.9226511"
+     inkscape:cx="466.0232"
+     inkscape:cy="707.35664"
+     inkscape:current-layer="layer2-2-5-2-4"
      id="namedview1"
      pagecolor="#ffffff"
      bordercolor="#000000"
@@ -263,9 +263,9 @@
        sodipodi:nodetypes="cccsssc" />
     <path
        style="display:inline;fill:#f8ff00;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:1.75673;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 511.14318,227.92728 c 1.62496,-10.56146 27.59307,-32.71999 39.91431,-31.80961 5.83962,7.54533 -2.15048,29.11202 -4.99062,37.15536 -3.24807,7.6689 -6.74916,14.41647 -8.13407,24.00755 -1.17364,8.12792 1.13294,19.49811 -2.27282,21.97605 -5.24333,3.81491 -16.13308,6.39178 -16.83078,-2.78695 -8.43375,-5.61398 -7.73658,-36.62479 -7.68602,-48.5424 z"
+       d="m 511.14318,227.92728 c 1.62496,-10.56146 27.59307,-32.71999 39.91431,-31.80961 5.83962,7.54533 -2.15048,29.11202 -4.99062,37.15536 -3.24807,7.6689 -6.74916,14.41647 -8.13407,24.00755 -1.17364,8.12792 1.13294,19.49811 -2.27282,21.97605 -5.24333,3.81491 -11.92514,5.24416 -16.83078,-2.78695 -2.87178,-4.92699 -12.21856,-25.09109 -19.23824,-35.45846 -4.17054,-6.15946 11.5334,-8.64796 11.55222,-13.08394 z"
        id="path6-18"
-       sodipodi:nodetypes="cccsscc"
+       sodipodi:nodetypes="cccsscsc"
        inkscape:label="Petiole.surf" />
   </g>
   <!-- Layer: Reference (profile image) -->
@@ -482,6 +482,18 @@
          transform="translate(102.27563,335.37643)">
         <text
            class="label-text"
+           x="585.43115"
+           y="340.54834"
+           text-anchor="end"
+           id="forecoxa-txt-3-7-9-0-4-8-5"
+           style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+           inkscape:label="TarsalClaw-label"><tspan
+             sodipodi:role="line"
+             x="585.43115"
+             y="340.54834"
+             id="tspan16-3">Tarsal Claws</tspan></text>
+        <text
+           class="label-text"
            x="211.63512"
            y="279.08926"
            text-anchor="end"
@@ -526,6 +538,13 @@
            inkscape:connector-type="polyline"
            inkscape:connector-curvature="0"
            inkscape:label="TsII-dline" />
+        <path
+           style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:8, 4;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 533.30476,336.22936 -67.14394,-0.0828"
+           id="path3-3-8-5-7-1-9"
+           inkscape:connector-type="polyline"
+           inkscape:connector-curvature="0"
+           inkscape:label="TarsalClaw-dline" />
         <text
            class="label-text"
            x="329.77985"
