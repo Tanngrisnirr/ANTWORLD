@@ -1142,6 +1142,28 @@ h4.toggle-heading .toggle-label {
                     <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
                 </label>
             </h4>
+            <div class="measurement-grid" id="metaMorphologyGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="petiole" data-section="metasoma" checked>
+                    <span class="name" data-en="Petiole" data-fr="Pétiole">Petiole</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="tergites" data-section="metasoma" checked>
+                    <span class="name" data-en="Tergites" data-fr="Tergites">Tergites</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="sternites" data-section="metasoma" checked>
+                    <span class="name" data-en="Sternites" data-fr="Sternites">Sternites</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="pygidium" data-section="metasoma" checked>
+                    <span class="name" data-en="Pygidium" data-fr="Pygidium">Pygidium</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="hypopygium" data-section="metasoma" checked>
+                    <span class="name" data-en="Hypopygium" data-fr="Hypopygium">Hypopygium</span>
+                </label>
+            </div>
             <h4 class="toggle-heading">
                 <label class="toggle-switch">
                     <input type="checkbox" id="toggleMetaMeasurements" checked>
@@ -1307,6 +1329,23 @@ document.querySelectorAll('.morpho-tab').forEach(tab => {
         const section = this.dataset.section;
         document.querySelectorAll('.diagram-section').forEach(s => s.classList.remove('active'));
         document.getElementById('section-' + section).classList.add('active');
+
+        // Force reload SVG objects that haven't loaded their contentDocument
+        // (happens when section was hidden on page load)
+        setTimeout(function() {
+            var activeSection = document.getElementById('section-' + section);
+            if (activeSection) {
+                activeSection.querySelectorAll('object.morpho-svg').forEach(function(obj) {
+                    if (!obj.contentDocument || !obj.contentDocument.documentElement) {
+                        var src = obj.data;
+                        obj.data = '';
+                        obj.data = src;
+                    }
+                });
+            }
+            // Invalidate magnifier cache
+            if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+        }, 50);
 
         // Save active tab to localStorage
         localStorage.setItem('morpho-active-tab', section);
@@ -2569,9 +2608,30 @@ function updateMetasomaLabels() {
             surfacesLayer.style.display = show ? 'inline' : 'none';
         }
     }
+    // Sync morphology feature checkboxes with main toggle
+    document.querySelectorAll('#metaMorphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
     // Invalidate magnifier cache so it reflects the layer change
     if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
 }
+
+// Toggle individual metasoma morphology features
+function toggleMetaFeature(featureId, show) {
+    var svgDoc = getMetaSvgDoc();
+    if (!svgDoc) return;
+    svgDoc.querySelectorAll('[data-feature="' + featureId + '"]').forEach(function(el) {
+        el.style.display = show ? 'inline' : 'none';
+    });
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+
+// Metasoma morphology feature checkboxes
+document.querySelectorAll('#metaMorphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        toggleMetaFeature(this.dataset.feature, this.checked);
+    });
+});
 
 var toggleMetaLabels = document.getElementById('toggleMetasomaLabels');
 if (toggleMetaLabels) {
@@ -2605,6 +2665,10 @@ if (metaSvgObj) {
     metaSvgObj.addEventListener('load', function() {
         updateMetasomaLabels();
         updateMetaMorphometrics();
+        // Apply initial feature checkbox states
+        document.querySelectorAll('#metaMorphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+            toggleMetaFeature(checkbox.dataset.feature, checkbox.checked);
+        });
     });
 }
 
