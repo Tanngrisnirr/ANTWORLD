@@ -18,10 +18,10 @@
      id="desc1">Scientific diagram of ant metasoma (abdomen) anatomy, lateral view. Specimen CASENT4031895.</desc>
   <sodipodi:namedview
      inkscape:document-units="px"
-     inkscape:zoom="1.4942569"
-     inkscape:cx="479.50257"
-     inkscape:cy="273.04542"
-     inkscape:current-layer="sternites-grp"
+     inkscape:zoom="2.3754093"
+     inkscape:cx="553.37833"
+     inkscape:cy="428.97871"
+     inkscape:current-layer="layer-labels"
      id="namedview1"
      pagecolor="#ffffff"
      bordercolor="#000000"
@@ -438,8 +438,8 @@
          x="855.6687"
          y="499.33438"
          text-anchor="middle"
-         data-en="Tg IV"
-         data-fr="Tg IV"
+         data-en="St IV"
+         data-fr="St IV"
          id="text3"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
          inkscape:label="SterniteIV-label">St IV</text>
@@ -448,8 +448,8 @@
          x="791.43219"
          y="482.69818"
          text-anchor="middle"
-         data-en="Tg I"
-         data-fr="Tg I"
+         data-en="St III"
+         data-fr="St III"
          id="text4"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
          inkscape:label="SterniteIII-label">St III</text>
@@ -458,8 +458,8 @@
          x="693.58472"
          y="430.11343"
          text-anchor="middle"
-         data-en="Tg I"
-         data-fr="Tg I"
+         data-en="St II"
+         data-fr="St II"
          id="text5"
          style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
          inkscape:label="SterniteII-label">St II</text>
@@ -484,60 +484,63 @@
          transform="translate(-0.0848932,252.74026)" />
     </g>
     <!-- Label: Acidopore (Formicinae - formic acid opening) -->
-    <g
-       class="label"
-       data-feature="acidopore"
-       id="acidopore-grp"
-       inkscape:label="Acidopore.grp"
-       transform="translate(108,-312)">
-      <circle
-         class="label-point"
-         cx="700"
-         cy="400"
-         r="4"
-         id="acidopore-pt"
-         style="fill:#000000;stroke:none" />
-      <path
-         class="label-line"
-         d="m 700,400 80,-50"
-         id="acidopore-line"
-         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
-      <text
-         class="label-text"
-         x="785"
-         y="345"
-         data-en="Acidopore"
-         data-fr="Acidopore"
-         id="acidopore-txt"
-         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Acidopore</text>
-    </g>
     <!-- Label: Pygidium (terminal segment) -->
     <g
        class="label"
        data-feature="pygidium"
        id="pygidium-grp"
        inkscape:label="Pygidium.grp"
-       transform="translate(84.904309,-167.46568)">
-      <circle
-         class="label-point"
-         cx="690"
-         cy="420"
-         r="4"
-         id="pygidium-pt"
-         style="fill:#000000;stroke:none" />
+       transform="translate(97.808671,-126.44829)">
       <path
          class="label-line"
-         d="m 690,420 90,60"
+         d="m 820.48509,364.76421 -0.0523,108.16652"
          id="pygidium-line"
          style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
       <text
          class="label-text"
-         x="785"
+         x="820.76562"
          y="485"
          data-en="Pygidium"
          data-fr="Pygidium"
          id="pygidium-txt"
-         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Pygidium</text>
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan4"
+           x="820.76562"
+           y="485">Pygidium</tspan><tspan
+           sodipodi:role="line"
+           id="tspan5"
+           x="820.76562"
+           y="502.5">(Tg V)</tspan></text>
+    </g>
+    <!-- Label: Hypopygium (terminal sternite) -->
+    <g
+       class="label"
+       data-feature="hypopygium"
+       id="hypopygium-grp"
+       inkscape:label="Hypopygium.grp"
+       transform="translate(-171.89354,-193.56645)">
+      <path
+         class="label-line"
+         d="m 1067.5294,452.42236 -80,40"
+         id="hypopygium-line"
+         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
+      <text
+         class="label-text"
+         x="921.81854"
+         y="510"
+         data-en="Hypopygium"
+         data-fr="Hypopygium"
+         id="hypopygium-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan2"
+           x="921.81854"
+           y="510">Hypopygium</tspan><tspan
+           sodipodi:role="line"
+           id="tspan3"
+           x="921.81854"
+           y="527.5">(St V, Acidopore)</tspan></text>
     </g>
     <g
        inkscape:groupmode="layer"
@@ -574,7 +577,7 @@
        y="-32.035706"
        id="text1"><tspan
          sodipodi:role="line"
-         id="tspan1"></tspan></text>
+         id="tspan1" /></text>
   </g>
   <!-- Layer: Labels -->
   <!-- Layer: Measurements -->
