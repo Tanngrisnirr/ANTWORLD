@@ -283,13 +283,13 @@
     <script>
     // ============ DATA SECTION (Updated by sync script) ============
     const DATA = {
-        "lastUpdate": "2026-03-01 14:17:27",
+        "lastUpdate": "2026-03-01 14:25:09",
         "projectSize": {
                 "alpha_kb": 222009,
                 "beta_kb": 0,
                 "delta_kb": 154765,
                 "total_kb": 376781,
-                "project_kb": 5573322
+                "project_kb": 5573607
         },
         "fileTypes": {
                 "html": {
@@ -418,11 +418,16 @@
                 {
                         "date": "2026-03-01",
                         "size_kb": 222009,
-                        "project_size_kb": 5573322,
+                        "project_size_kb": 5573607,
                         "notes": "Auto-updated"
                 }
         ],
         "recentCommits": [
+                {
+                        "hash": "29239fc",
+                        "date": "2026-03-01",
+                        "message": "Add sortable tables, improved legend, systemd timer docs"
+                },
                 {
                         "hash": "a45d219",
                         "date": "2026-03-01",
@@ -467,17 +472,12 @@
                         "hash": "5363501",
                         "date": "2026-02-28",
                         "message": "Metasoma tab: use v2 SVG, remove unused controls"
-                },
-                {
-                        "hash": "48eae56",
-                        "date": "2026-02-28",
-                        "message": "Cleanup debug logs, fix favicon, add new specimen images"
                 }
         ],
         "recentModifications": [
                 {
                         "file": "php/dashboard_history.json",
-                        "modified": "2026-03-01 14:17",
+                        "modified": "2026-03-01 14:25",
                         "size": "2 KB"
                 },
                 {
@@ -772,6 +772,7 @@
                                 const outerLabels = outerData.map((d, i) => ({
                                     text: `${d.label} (${d.pct}%)`,
                                     fillStyle: CHART_PALETTE[i],
+                                    fontColor: '#eee',
                                     strokeStyle: '#1a2744',
                                     lineWidth: 2,
                                     hidden: false,
@@ -782,6 +783,7 @@
                                 const separator = [{
                                     text: '── Code Only ──',
                                     fillStyle: 'transparent',
+                                    fontColor: '#888',
                                     strokeStyle: 'transparent',
                                     lineWidth: 0,
                                     hidden: false,
@@ -791,6 +793,7 @@
                                 const innerLabels = innerData.map((d, i) => ({
                                     text: `  ${d.label} (${d.pct}%)`,
                                     fillStyle: codeColors[i % codeColors.length],
+                                    fontColor: '#ccc',
                                     strokeStyle: '#1a2744',
                                     lineWidth: 1,
                                     hidden: false,
