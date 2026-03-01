@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>Open Tools for Ant Identification</strong><br>
-  Interactive keys + AI-powered visual ID + Open data
+  Interactive keys + ML-powered visual ID + Open data
 </p>
 
 <p align="center">
@@ -44,12 +44,12 @@ We are building the world's first platform that combines:
 | Feature | Status |
 |---------|--------|
 | Interactive dichotomous keys | **Live** — 70+ keys, 936 species |
-| AI-powered visual identification | *In development* |
+| ML-powered visual identification (TensorFlow) | *In development* |
 | Progressive learning courses | *Planned* |
 | Open API for researchers | *Planned* |
 | Expert validation pipeline | *Planned* |
 
-**Our model:** [Xeno-canto](https://xeno-canto.org) did it for bird sounds. We are doing it for ants.
+**Our model:** [Xeno-canto](https://xeno-canto.org) did it for bird sounds. We are doing it for ants looks.
 
 ---
 
@@ -193,7 +193,7 @@ We do not replace — we **connect**.
 
 **Development:**
 - AI-assisted design and website functionality (Claude)
-- Python for ML training scripts
+- TensorFlow / neural networks for species identification
 - Training data: AntWeb specimens (CC BY-SA 3.0)
 
 ---
@@ -202,7 +202,7 @@ We do not replace — we **connect**.
 
 1. **Open by default** — CC for content, open-source for code
 2. **Science-first** — Rigorous taxonomy, traceable sources
-3. **AI as amplifier** — Experts remain the gold standard
+3. **ML as amplifier** — Experts remain the gold standard
 4. **Teach, do not just answer** — Every interaction educates
 5. **Connect, do not replace** — Interoperate with the ecosystem
 6. **Sustainable without commerce** — No ads, no paywalls, ever
@@ -224,7 +224,7 @@ We do not replace — we **connect**.
 ---
 
 <p align="center">
-  <i>"Nobody currently occupies the intersection of rigorous key-based identification, AI-assisted visual ID, structured progressive learning, and open data — all without commerce, all open, all connected."</i>
+  <i>"Nobody currently occupies the intersection of rigorous key-based identification, ML-based visual ID, structured progressive learning, and open data — all without commerce, all open, all connected."</i>
 </p>
 
 <p align="center">
