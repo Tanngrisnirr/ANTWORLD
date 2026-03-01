@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html class="js" lang="en">
 <head><title>AntWorld.org | Credits</title>
-<!-- HTML5 element support for IE6-8 -->
-<!--[if lt IE 9]><script src="carousel/js/carousel_ie.js"></script><![endif]-->
 <?php include("php/ihead.php"); ?>
 </head>
     <body>
+<?php include("php/nav.php"); ?>
 <article>
-<!--
-<span class="cascade">
-<p class="waterwheel-carousel" id="waterwheel-carousel-vertical">
-    <img id="all" src="carousel/images/all.jpg" style="border-radius:100px;" alt="All Contributors" title="All Contributors"/>
-    <img id="olivier" src="carousel/images/olivier_ruiz2.jpg" style="border-radius:100px;" alt="Olivier Ruiz" title="Olivier Ruiz"/>
-    <img id="example" src="carousel/images/example.jpg" style="border-radius:100px;" alt="Contrubutor Example" title="Contrubutor Example"/>
-</p>
-</span>
-<br>
- <p5>
-<span class="all">
-<h2 class="h2one">Contributors</h2>
-<p class="pone">Using the Wheel you can learn more about the contributors that put content on the website or the people we need to continue the adventure!</p>
-<h2 class="h2two">Specials Thanks</h2>
-<p class="ptwo">
-To those who have inspired me, help me somehow to develop my passion, this project or both.
-<br>Anne B. - The damselfly - Herr Herzog - Jakotte - Jürgen O. - Scott - Anna L.
-</p>
-<br>
-<h2 class="h2three">Want to join us?</h2>
-<p class="pthree">
-Pictures, knowledges, wanna perfects the site ?
-Describe you briefly, your interests and what you can or want to bring to this project here:<br>
-<a> href="mailto:contact@palearcticantkey.eu?subject=Joining request"> Join Us</a>
-</p>
-<br><br>
-</span>-->
 
-
-<h2 class="h2one">Olivier Ruiz</h2>
+<h2 class="h2one">Georges Ruiz</h2>
 <p class="pone">Student in Master Biologie in Bochum and Essen University, creator of this website, actual webmaster
-<br><a href="https://www.researchgate.net/profile/Olivier_Ruiz"> Research Gate profile</a></p>
-<h2 class="h2two">Role</h2>
-<p class="ptwo">Building the site, design html5 and css3, coding in javascript and php and all that uninteresting stuff...</p>
-<h2 class="h2three">Searching for</h2>
+<br><a href="https://github.com/GeorgesRuiz"> GitHub profile</a></p>
+<h2 class="h2two"><?= t('credits.role') ?></h2>
+<p class="ptwo"><?= t('credits.role_desc') ?></p>
+<h2 class="h2three"><?= t('credits.searching_for') ?></h2>
 <p class="pthree">
-Traductors in the following languages: russian, japanese, chinese. Interessted ?<br>
-<a href="mailto:info@antworld.org?subject=Joining request"> Join Us</a>
+<?= t('credits.seeking_translators') ?><br>
+<a href="mailto:info@antworld.org?subject=Joining request"> <?= t('credits.join_us') ?></a>
 </p>
 <br><br>
 
-<!--<span class="active_example">
-</span>-->
-</p5>
+<h2 class="h2one" id="image-credits"><?= t('credits.image_credits') ?></h2>
+<p class="pone">
+<?= t('credits.image_credits_intro') ?>
+</p>
+
+<h2 class="h2two">AntWeb.org</h2>
+<p class="ptwo">
+<a href="https://www.antweb.org/" target="_blank"><strong>AntWeb.org</strong></a> - <?= t('credits.antweb_desc') ?>
+<br>
+<?= t('credits.antweb_license') ?> <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA 3.0</a>.
+<br>
+<?= t('credits.antweb_photographers') ?>
+</p>
+
+<h2 class="h2three">Japanese Ant Database (JAD)</h2>
+<p class="pthree">
+<a href="http://ant.miyakyo-u.ac.jp/" target="_blank"><strong>Japanese Ant Database</strong></a> (Ant Image Database Project, Japan).
+<br>
+<?= t('credits.jad_desc') ?>
+</p>
+
+<h2 class="h2one" id="ml-training">ML Training Data</h2>
+<p class="pone">
+Our species identification model is trained using specimen images from the following sources:
+<br><br>
+<strong>AntWeb.org</strong> - 44 species, 15 subfamilies, 1428 specimen images (CC BY-SA 3.0)
+<br>
+<strong>Japanese Ant Database</strong> - Used with permission from JADG
+<br>
+<strong>AntWiki.org</strong> - Supplementary images (CC BY-SA)
+<br><br>
+Images are used solely for training our neural network model. They are not displayed or redistributed.
+Our project is open source: <a href="https://github.com/Tanngrisnirr/ANTWORLD" target="_blank">GitHub</a>
+</p>
+
+<h2 class="h2one"><?= t('credits.data_sources') ?></h2>
+<p class="pone">
+<?= t('credits.data_sources_intro') ?>
+<br>- <a href="https://www.antwiki.org/" target="_blank">AntWiki</a> - The Ant Encyclopedia
+<br>- <a href="https://antmaps.org/" target="_blank">AntMaps.org</a> - Economo Lab, OIST
+<br>- <a href="https://antkeeping.info/" target="_blank">AntKeeping.info</a>
+<br>- Bolton's Catalogue of Ants of the World
+</p>
+<br><br>
 
 </article>
 <?php include("php/footer.php"); ?>
