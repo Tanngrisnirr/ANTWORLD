@@ -63,11 +63,16 @@
     {
       "date": "2026-03-01",
       "size_kb": 222009,
-      "project_size_kb": 5573053,
+      "project_size_kb": 5573322,
       "notes": "Auto-updated"
     }
   ],
   "recentCommits": [
+    {
+      "hash": "a45d219",
+      "date": "2026-03-01",
+      "message": "Remove PHP dependency from dashboard, add dual size tracking"
+    },
     {
       "hash": "2154ad5",
       "date": "2026-02-28",
@@ -112,11 +117,6 @@
       "hash": "48eae56",
       "date": "2026-02-28",
       "message": "Cleanup debug logs, fix favicon, add new specimen images"
-    },
-    {
-      "hash": "bd5e43e",
-      "date": "2026-02-27",
-      "message": "Fix magnifier showing labels when morphology layers disabled"
     }
   ]
 }

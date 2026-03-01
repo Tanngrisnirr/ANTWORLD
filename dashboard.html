@@ -120,6 +120,40 @@
             top: 0;
             color: #ff9800;
         }
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+        th.sortable:hover {
+            background: #2a3f5f;
+        }
+        th.sortable::after {
+            content: "⇅";
+            margin-left: 6px;
+            opacity: 0.4;
+            font-size: 10px;
+        }
+        th.sortable.asc::after {
+            content: "▲";
+            opacity: 1;
+        }
+        th.sortable.desc::after {
+            content: "▼";
+            opacity: 1;
+        }
+        .sort-badge {
+            display: inline-block;
+            background: #ff9800;
+            color: #1a1a2e;
+            font-size: 9px;
+            font-weight: bold;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+            text-align: center;
+            border-radius: 50%;
+            margin-left: 4px;
+        }
         tr:hover { background: #1a1a2e; }
         .update-info {
             text-align: center;
@@ -173,13 +207,8 @@
     <div class="refresh-indicator" id="refresh-indicator">Auto-refresh: <span id="countdown">30</span>s</div>
 
     <h1>ANTWORLD Dashboard</h1>
-    <p class="subtitle">Project metrics - Auto-updating every <select id="refresh-interval" onchange="setRefreshInterval(this.value)">
-        <option value="10">10s</option>
-        <option value="30" selected>30s</option>
-        <option value="60">60s</option>
-        <option value="300">5min</option>
-        <option value="0">Off</option>
-    </select></p>
+    <p class="subtitle">Project metrics - Run <code style="background:#2a3f5f;padding:2px 6px;border-radius:3px;">python3 scripts/antworld_dashboard_sync.py --once</code> to update</p>
+    <select id="refresh-interval" style="display:none;"><option value="0">Off</option></select>
 
     <div class="dashboard">
         <div class="card wide">
@@ -254,13 +283,13 @@
     <script>
     // ============ DATA SECTION (Updated by sync script) ============
     const DATA = {
-        "lastUpdate": "2026-03-01 14:02:21",
+        "lastUpdate": "2026-03-01 14:17:27",
         "projectSize": {
                 "alpha_kb": 222009,
                 "beta_kb": 0,
                 "delta_kb": 154765,
                 "total_kb": 376781,
-                "project_kb": 5573053
+                "project_kb": 5573322
         },
         "fileTypes": {
                 "html": {
@@ -389,11 +418,16 @@
                 {
                         "date": "2026-03-01",
                         "size_kb": 222009,
-                        "project_size_kb": 5573053,
+                        "project_size_kb": 5573322,
                         "notes": "Auto-updated"
                 }
         ],
         "recentCommits": [
+                {
+                        "hash": "a45d219",
+                        "date": "2026-03-01",
+                        "message": "Remove PHP dependency from dashboard, add dual size tracking"
+                },
                 {
                         "hash": "2154ad5",
                         "date": "2026-02-28",
@@ -438,17 +472,12 @@
                         "hash": "48eae56",
                         "date": "2026-02-28",
                         "message": "Cleanup debug logs, fix favicon, add new specimen images"
-                },
-                {
-                        "hash": "bd5e43e",
-                        "date": "2026-02-27",
-                        "message": "Fix magnifier showing labels when morphology layers disabled"
                 }
         ],
         "recentModifications": [
                 {
                         "file": "php/dashboard_history.json",
-                        "modified": "2026-03-01 14:02",
+                        "modified": "2026-03-01 14:17",
                         "size": "2 KB"
                 },
                 {
@@ -685,52 +714,103 @@
         const totalAll = allEntries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
         const totalCode = codeEntries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
 
-        // Outer ring: all files including media
-        const outerLabels = allEntries.sort((a, b) => b[1].size_kb - a[1].size_kb).map(([k, v]) => {
-            const pct = ((v.size_kb / totalAll) * 100).toFixed(1);
-            const name = k === 'other' ? 'MEDIA' : k.toUpperCase();
-            return `${name} (${pct}%)`;
-        });
-        const outerValues = allEntries.sort((a, b) => b[1].size_kb - a[1].size_kb).map(([k, v]) => v.size_kb);
+        // Outer ring: all files including media (sorted by size)
+        const sortedAll = [...allEntries].sort((a, b) => b[1].size_kb - a[1].size_kb);
+        const outerData = sortedAll.map(([k, v]) => ({
+            key: k,
+            label: k === 'other' ? 'MEDIA' : k.toUpperCase(),
+            value: v.size_kb,
+            pct: ((v.size_kb / totalAll) * 100).toFixed(1)
+        }));
 
-        // Inner ring: code files only (non-media)
-        const innerLabels = codeEntries.map(([k, v]) => {
-            const pct = ((v.size_kb / totalCode) * 100).toFixed(1);
-            return `${k.toUpperCase()} (${pct}%)`;
-        });
-        const innerValues = codeEntries.map(([k, v]) => v.size_kb);
+        // Inner ring: code files only (non-media) with their own percentages
+        const innerData = codeEntries.map(([k, v]) => ({
+            key: k,
+            label: k.toUpperCase(),
+            value: v.size_kb,
+            pct: ((v.size_kb / totalCode) * 100).toFixed(1)
+        }));
+
+        // Colors for code files (skip first color which is for MEDIA)
+        const codeColors = CHART_PALETTE.slice(1, 8);
 
         charts.fileTypes = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: outerLabels,
+                labels: outerData.map(d => `${d.label} (${d.pct}%)`),
                 datasets: [
                     {
-                        label: 'All Files',
-                        data: outerValues,
-                        backgroundColor: CHART_PALETTE.slice(0, outerLabels.length),
+                        label: 'All Files (outer)',
+                        data: outerData.map(d => d.value),
+                        backgroundColor: outerData.map((d, i) => CHART_PALETTE[i]),
                         borderWidth: 1,
-                        borderColor: '#1a2744'
+                        borderColor: '#1a2744',
+                        weight: 2
                     },
                     {
-                        label: 'Code Files',
-                        data: innerValues,
-                        backgroundColor: CHART_PALETTE.slice(1, innerLabels.length + 1),
+                        label: 'Code Only (inner)',
+                        data: innerData.map(d => d.value),
+                        backgroundColor: innerData.map((d, i) => codeColors[i % codeColors.length]),
                         borderWidth: 1,
-                        borderColor: '#1a2744'
+                        borderColor: '#1a2744',
+                        weight: 1
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                cutout: '30%',
                 plugins: {
-                    legend: { position: 'right', labels: { color: '#eee', font: { size: 10 } } },
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#eee',
+                            font: { size: 10 },
+                            generateLabels: (chart) => {
+                                // Outer ring labels (All files)
+                                const outerLabels = outerData.map((d, i) => ({
+                                    text: `${d.label} (${d.pct}%)`,
+                                    fillStyle: CHART_PALETTE[i],
+                                    strokeStyle: '#1a2744',
+                                    lineWidth: 2,
+                                    hidden: false,
+                                    index: i,
+                                    datasetIndex: 0
+                                }));
+                                // Separator
+                                const separator = [{
+                                    text: '── Code Only ──',
+                                    fillStyle: 'transparent',
+                                    strokeStyle: 'transparent',
+                                    lineWidth: 0,
+                                    hidden: false,
+                                    index: -1
+                                }];
+                                // Inner ring labels (Code files)
+                                const innerLabels = innerData.map((d, i) => ({
+                                    text: `  ${d.label} (${d.pct}%)`,
+                                    fillStyle: codeColors[i % codeColors.length],
+                                    strokeStyle: '#1a2744',
+                                    lineWidth: 1,
+                                    hidden: false,
+                                    index: i,
+                                    datasetIndex: 1
+                                }));
+                                return [...outerLabels, ...separator, ...innerLabels];
+                            }
+                        }
+                    },
                     tooltip: {
                         callbacks: {
-                            label: (ctx) => {
-                                const label = ctx.datasetIndex === 0 ? outerLabels[ctx.dataIndex] : innerLabels[ctx.dataIndex];
-                                return `${label}: ${ctx.parsed.toFixed(0)} KB`;
+                            label: (context) => {
+                                if (context.datasetIndex === 0) {
+                                    const d = outerData[context.dataIndex];
+                                    return `${d.label}: ${d.value.toLocaleString()} KB (${d.pct}% of total)`;
+                                } else {
+                                    const d = innerData[context.dataIndex];
+                                    return `${d.label}: ${d.value.toLocaleString()} KB (${d.pct}% of code)`;
+                                }
                             }
                         }
                     }
@@ -813,14 +893,111 @@
         });
     }
 
+    // Multi-column sorting state per table
+    const tableSortState = {
+        'commits-table': [],
+        'modifications-table': []
+    };
+
+    function sortTable(tableId, columnIndex, event) {
+        const table = document.getElementById(tableId);
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const headers = table.querySelectorAll('th.sortable');
+        const sortKeys = tableSortState[tableId];
+        const isMultiSort = event && event.shiftKey;
+
+        // Find if this column is already in sort keys
+        let existingIndex = sortKeys.findIndex(k => k.col === columnIndex);
+
+        if (isMultiSort) {
+            if (existingIndex >= 0) {
+                sortKeys[existingIndex].dir = sortKeys[existingIndex].dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortKeys.push({ col: columnIndex, dir: 'asc' });
+            }
+        } else {
+            let newDir = 'asc';
+            if (existingIndex >= 0 && sortKeys.length === 1) {
+                newDir = sortKeys[0].dir === 'asc' ? 'desc' : 'asc';
+            }
+            sortKeys.length = 0;
+            sortKeys.push({ col: columnIndex, dir: newDir });
+        }
+
+        // Update header classes and badges
+        headers.forEach((h, i) => {
+            h.classList.remove('asc', 'desc');
+            const badge = h.querySelector('.sort-badge');
+            if (badge) badge.remove();
+
+            const keyIdx = sortKeys.findIndex(k => k.col === i);
+            if (keyIdx >= 0) {
+                h.classList.add(sortKeys[keyIdx].dir);
+                if (sortKeys.length > 1) {
+                    const span = document.createElement('span');
+                    span.className = 'sort-badge';
+                    span.textContent = keyIdx + 1;
+                    h.appendChild(span);
+                }
+            }
+        });
+
+        // Sort rows
+        rows.sort((a, b) => {
+            for (const key of sortKeys) {
+                const aCell = a.cells[key.col];
+                const bCell = b.cells[key.col];
+                let aVal = aCell.textContent.trim();
+                let bVal = bCell.textContent.trim();
+                let cmp = 0;
+
+                // Try numeric sort for size column (contains KB/MB/B)
+                if (aVal.match(/[\d.]+\s*(KB|MB|GB|B)/i)) {
+                    const parseSize = (s) => {
+                        const m = s.match(/([\d.]+)\s*(KB|MB|GB|B)/i);
+                        if (!m) return 0;
+                        const val = parseFloat(m[1]);
+                        const unit = m[2].toUpperCase();
+                        if (unit === 'GB') return val * 1024 * 1024;
+                        if (unit === 'MB') return val * 1024;
+                        if (unit === 'KB') return val;
+                        return val / 1024;
+                    };
+                    cmp = parseSize(aVal) - parseSize(bVal);
+                }
+                // Date sort (YYYY-MM-DD format)
+                else if (aVal.match(/^\d{4}-\d{2}-\d{2}/)) {
+                    cmp = aVal.localeCompare(bVal);
+                }
+                // Default string sort
+                else {
+                    cmp = aVal.localeCompare(bVal, undefined, { sensitivity: 'base' });
+                }
+
+                if (cmp !== 0) {
+                    return key.dir === 'asc' ? cmp : -cmp;
+                }
+            }
+            return 0;
+        });
+
+        rows.forEach(row => tbody.appendChild(row));
+    }
+
     function renderCommitsTable() {
         const table = document.getElementById('commits-table');
+        tableSortState['commits-table'] = [];
         if (!DATA.recentCommits || DATA.recentCommits.length === 0) {
             table.innerHTML = '<tr><td style="color:#888">No commits data available</td></tr>';
             return;
         }
         table.innerHTML = `
-            <thead><tr><th>Hash</th><th>Date</th><th>Message</th></tr></thead>
+            <thead><tr>
+                <th class="sortable" onclick="sortTable('commits-table', 0, event)">Hash</th>
+                <th class="sortable" onclick="sortTable('commits-table', 1, event)">Date</th>
+                <th class="sortable" onclick="sortTable('commits-table', 2, event)">Message</th>
+            </tr></thead>
             <tbody>
                 ${DATA.recentCommits.map(c => `
                     <tr>
@@ -835,12 +1012,17 @@
 
     function renderModificationsTable() {
         const table = document.getElementById('modifications-table');
+        tableSortState['modifications-table'] = [];
         if (!DATA.recentModifications || DATA.recentModifications.length === 0) {
             table.innerHTML = '<tr><td style="color:#888">No modification data available</td></tr>';
             return;
         }
         table.innerHTML = `
-            <thead><tr><th>File</th><th>Modified</th><th>Size</th></tr></thead>
+            <thead><tr>
+                <th class="sortable" onclick="sortTable('modifications-table', 0, event)">File</th>
+                <th class="sortable" onclick="sortTable('modifications-table', 1, event)">Modified</th>
+                <th class="sortable" onclick="sortTable('modifications-table', 2, event)">Size</th>
+            </tr></thead>
             <tbody>
                 ${DATA.recentModifications.map(m => `
                     <tr>
