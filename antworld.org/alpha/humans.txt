@@ -1,29 +1,35 @@
-/*People behind the scene*/
+/* TEAM */
 
-Georges Ruiz University DUE GERMANY (GitHub: https://github.com/GeorgesRuiz)
-> Webmaster and creator of a new conception of ID key 
-> Translator German to (english, french) and french to english
-> Micro-photographer (only pictures with white background or the one s that don t look professionnal)
-> Author's name for picture added as a slide up on mouse:hover.
+Creator & Webmaster: Georges Ruiz
+Site: https://antworld.org
+GitHub: https://github.com/Tanngrisnirr
+Location: Germany
 
-~_______________________________~
+/* DEVELOPMENT */
 
- /*SPECIAL THANK*/
+AI-assisted design and functionality: Claude (Anthropic)
+ML Framework: TensorFlow
+Version Control: Git/GitHub
 
-Kormolos : for testing the site and the game.
+/* SPECIAL THANKS */
 
-DMX : for the interesing ideas of how a ID key could look like.
+Kormolos: For testing the site and games
+DMX: For ideas on ID key design
+Cekiki: For showing what to avoid in ID keys
+Mom and Dad: For their support and education
 
-Cekiki : for showing me how a ID key should not look like.
+/* IMAGE SOURCES */
 
-Mom and Dad : for the attention they payed to my education (both literally and figuratively).
+AntWeb.org (California Academy of Sciences): Specimen images, CC BY-SA 3.0
+Japanese Ant Database (JADG): Training images (with permission)
+AntWiki.org: Supplementary images, CC BY-SA
+AntMaps.org (Economo Lab, OIST): Distribution data
 
-~_______________________________~
+/* SITE */
 
- /*Site*/
- 
-Last Udpade: 25th August 2015
-Language: french, english, latin.
+Last Update: March 2026
+Languages: English, French
 Doctype: HTML5
-Browser outline development: Firefox 40 also tested on IE11, Chrome, Torch and Opera.
-IDE: Notepad++ _ Fillezila _ PAINT2009 _ PAINT.NET
+Stack: PHP 8.x, Apache, Vanilla JS, jQuery, D3.js, Highcharts
+Repository: https://github.com/Tanngrisnirr/ANTWORLD
+License: Content CC BY-NC 4.0, Code MIT
