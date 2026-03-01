@@ -18,15 +18,20 @@ antworld.org/*/docs/*.pdf
 .mcp.json
 .playwright-mcp/
 
-# Screenshots (temporary)
-*.png
-!antworld.org/**/*.png
+# Screenshots (temporary, root level)
+/*.png
 
 # Security logs (sensitive)
 securitylogs/
 
 # Cookie files (sensitive)
 scripts/.antweb_cookies.*
+
+# Backup folders
+**/backup_svg/
+
+# Large image files (TIF)
+*.tif
 
 # Dashboard (requires local scripts)
 dashboard.html
@@ -44,6 +49,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+*.kate-swp
 
 # Node modules (if used later)
 node_modules/
