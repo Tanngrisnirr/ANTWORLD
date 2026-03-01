@@ -187,7 +187,7 @@
             <div class="stats-grid" id="summary-stats"></div>
         </div>
         <div class="card">
-            <h2>Project Size Over Time (KB)</h2>
+            <h2>Project & Website Size Over Time</h2>
             <div class="chart-container">
                 <canvas id="chart-project-growth"></canvas>
             </div>
@@ -254,43 +254,275 @@
     <script>
     // ============ DATA SECTION (Updated by sync script) ============
     const DATA = {
-        lastUpdate: "2026-02-25 12:00:00",
-        projectSize: {
-            alpha_kb: 0,
-            beta_kb: 0,
-            delta_kb: 0,
-            total_kb: 0
+        "lastUpdate": "2026-03-01 14:02:21",
+        "projectSize": {
+                "alpha_kb": 222009,
+                "beta_kb": 0,
+                "delta_kb": 154765,
+                "total_kb": 376781,
+                "project_kb": 5573053
         },
-        fileTypes: {
-            html: { count: 0, size_kb: 0 },
-            css: { count: 0, size_kb: 0 },
-            js: { count: 0, size_kb: 0 },
-            php: { count: 0, size_kb: 0 },
-            svg: { count: 0, size_kb: 0 },
-            json: { count: 0, size_kb: 0 },
-            txt: { count: 0, size_kb: 0 },
-            other: { count: 0, size_kb: 0 }
+        "fileTypes": {
+                "html": {
+                        "count": 48,
+                        "size_kb": 567
+                },
+                "css": {
+                        "count": 2,
+                        "size_kb": 51
+                },
+                "js": {
+                        "count": 18,
+                        "size_kb": 1355
+                },
+                "php": {
+                        "count": 22,
+                        "size_kb": 51
+                },
+                "svg": {
+                        "count": 14,
+                        "size_kb": 304
+                },
+                "json": {
+                        "count": 4,
+                        "size_kb": 17
+                },
+                "txt": {
+                        "count": 4,
+                        "size_kb": 4
+                },
+                "other": {
+                        "count": 266,
+                        "size_kb": 219460
+                }
         },
-        content: {
-            "Species Pages": 0,
-            "ID Pages": 0,
-            "Morpho SVGs": 0,
-            "Photo Assets": 0,
-            "Icon Assets": 0
+        "content": {
+                "Species Pages": 936,
+                "ID Pages": 27,
+                "Morpho SVGs": 12,
+                "Photo Assets": 0,
+                "Icon Assets": 14
         },
-        imageAssets: {
-            jpg: { count: 0, size_kb: 0 },
-            png: { count: 0, size_kb: 0 },
-            svg: { count: 0, size_kb: 0 },
-            webp: { count: 0, size_kb: 0 },
-            gif: { count: 0, size_kb: 0 }
+        "imageAssets": {
+                "jpg": {
+                        "count": 53,
+                        "size_kb": 6183
+                },
+                "png": {
+                        "count": 90,
+                        "size_kb": 20468
+                },
+                "svg": {
+                        "count": 14,
+                        "size_kb": 304
+                },
+                "webp": {
+                        "count": 0,
+                        "size_kb": 0
+                },
+                "gif": {
+                        "count": 1,
+                        "size_kb": 301
+                }
         },
-        projectHistory: [
-            { date: "2026-02-25", size_kb: 0, notes: "Initial" }
+        "projectHistory": [
+                {
+                        "date": "2026-02-19",
+                        "size_kb": 185000,
+                        "project_size_kb": 450000,
+                        "notes": "Initial tracking"
+                },
+                {
+                        "date": "2026-02-20",
+                        "size_kb": 190500,
+                        "project_size_kb": 455000,
+                        "notes": "Icon updates"
+                },
+                {
+                        "date": "2026-02-21",
+                        "size_kb": 195200,
+                        "project_size_kb": 460000,
+                        "notes": "Training page"
+                },
+                {
+                        "date": "2026-02-22",
+                        "size_kb": 200100,
+                        "project_size_kb": 465000,
+                        "notes": "Morpho overhaul"
+                },
+                {
+                        "date": "2026-02-23",
+                        "size_kb": 205800,
+                        "project_size_kb": 470000,
+                        "notes": "Multilingual system"
+                },
+                {
+                        "date": "2026-02-24",
+                        "size_kb": 208500,
+                        "project_size_kb": 475000,
+                        "notes": "SVG translations"
+                },
+                {
+                        "date": "2026-02-25",
+                        "size_kb": 209922,
+                        "project_size_kb": 480000,
+                        "notes": "Dashboard added"
+                },
+                {
+                        "date": "2026-02-26",
+                        "size_kb": 210073,
+                        "project_size_kb": 485000,
+                        "notes": "Auto-updated"
+                },
+                {
+                        "date": "2026-02-27",
+                        "size_kb": 201164,
+                        "project_size_kb": 490000,
+                        "notes": "Auto-updated"
+                },
+                {
+                        "date": "2026-02-28",
+                        "size_kb": 222008,
+                        "project_size_kb": 5800000,
+                        "notes": "ML training data added"
+                },
+                {
+                        "date": "2026-03-01",
+                        "size_kb": 222009,
+                        "project_size_kb": 5573053,
+                        "notes": "Auto-updated"
+                }
         ],
-        recentCommits: [],
-        recentModifications: []
-    };
+        "recentCommits": [
+                {
+                        "hash": "2154ad5",
+                        "date": "2026-02-28",
+                        "message": "Fix morphometrics not shown by default in thorax/abdomen tabs"
+                },
+                {
+                        "hash": "6b8bc8e",
+                        "date": "2026-02-28",
+                        "message": "Add METHOD.md documenting ML approach and strategy"
+                },
+                {
+                        "hash": "d48c403",
+                        "date": "2026-02-28",
+                        "message": "Add object detection pipeline for ant body parts"
+                },
+                {
+                        "hash": "cf04dec",
+                        "date": "2026-02-28",
+                        "message": "Fix ruler after tab switch, add ML training infrastructure"
+                },
+                {
+                        "hash": "0d4fb90",
+                        "date": "2026-02-28",
+                        "message": "Add data-feature to all head surfaces for checkbox toggle"
+                },
+                {
+                        "hash": "f45804f",
+                        "date": "2026-02-28",
+                        "message": "Add metasoma morphology checkboxes, fix magnifier for hidden tabs"
+                },
+                {
+                        "hash": "991aa9c",
+                        "date": "2026-02-28",
+                        "message": "Add pygidium and hypopygium labels with segment notation"
+                },
+                {
+                        "hash": "5363501",
+                        "date": "2026-02-28",
+                        "message": "Metasoma tab: use v2 SVG, remove unused controls"
+                },
+                {
+                        "hash": "48eae56",
+                        "date": "2026-02-28",
+                        "message": "Cleanup debug logs, fix favicon, add new specimen images"
+                },
+                {
+                        "hash": "bd5e43e",
+                        "date": "2026-02-27",
+                        "message": "Fix magnifier showing labels when morphology layers disabled"
+                }
+        ],
+        "recentModifications": [
+                {
+                        "file": "php/dashboard_history.json",
+                        "modified": "2026-03-01 14:02",
+                        "size": "2 KB"
+                },
+                {
+                        "file": "morpho.html",
+                        "modified": "2026-02-28 18:45",
+                        "size": "135 KB"
+                },
+                {
+                        "file": "img/morpho/svg/ant_head_frontal_v1.svg",
+                        "modified": "2026-02-28 17:07",
+                        "size": "41 KB"
+                },
+                {
+                        "file": "img/morpho/svg/ant_metasoma_lateral_v2.svg",
+                        "modified": "2026-02-28 16:44",
+                        "size": "19 KB"
+                },
+                {
+                        "file": "php/favicon.php",
+                        "modified": "2026-02-28 16:00",
+                        "size": "745 B"
+                },
+                {
+                        "file": "img/morpho/svg/Screenshot 2026-02-28 at 15-28-46 AntWorld.org Ant Morphology - Interactive Anatomy Guide.png",
+                        "modified": "2026-02-28 15:28",
+                        "size": "80 KB"
+                },
+                {
+                        "file": "img/morpho/svg/ant_metasoma_lateral_v1.svg",
+                        "modified": "2026-02-28 15:26",
+                        "size": "12 KB"
+                },
+                {
+                        "file": "img/morpho/svg/ant_head_frontal_v2.svg",
+                        "modified": "2026-02-28 15:19",
+                        "size": "3 KB"
+                },
+                {
+                        "file": "img/morpho/CASENT4031895_H.jpg",
+                        "modified": "2026-02-28 15:18",
+                        "size": "1110 KB"
+                },
+                {
+                        "file": "img/morpho/CASENT4031895_P_2.jpg",
+                        "modified": "2026-02-28 15:18",
+                        "size": "1135 KB"
+                },
+                {
+                        "file": "img/morpho/svg/CASENT4031895_H.tif",
+                        "modified": "2026-02-28 15:02",
+                        "size": "9237 KB"
+                },
+                {
+                        "file": "img/morpho/svg/CASENT4031895_P_2.tif",
+                        "modified": "2026-02-28 15:02",
+                        "size": "9238 KB"
+                },
+                {
+                        "file": "img/morpho/svg/ant_mesosoma_lateral_v1.svg",
+                        "modified": "2026-02-28 11:31",
+                        "size": "43 KB"
+                },
+                {
+                        "file": "img/morpho/svg/ant_mesosoma_dorsal_v1.svg",
+                        "modified": "2026-02-27 19:04",
+                        "size": "23 KB"
+                },
+                {
+                        "file": "php/scripts.php",
+                        "modified": "2026-02-27 17:41",
+                        "size": "1 KB"
+                }
+        ]
+};
     // ============ END DATA SECTION ============
 
     const COLORS = {
@@ -371,22 +603,71 @@
             type: 'line',
             data: {
                 labels: DATA.projectHistory.map(h => h.date),
-                datasets: [{
-                    label: 'Size (KB)',
-                    data: DATA.projectHistory.map(h => h.size_kb),
-                    borderColor: COLORS.primary,
-                    backgroundColor: COLORS.primary + '33',
-                    fill: true,
-                    tension: 0.3
-                }]
+                datasets: [
+                    {
+                        label: 'Website (alpha/)',
+                        data: DATA.projectHistory.map(h => h.size_kb),
+                        borderColor: COLORS.primary,
+                        backgroundColor: COLORS.primary + '33',
+                        fill: true,
+                        tension: 0.3,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Project (ANTWORLD/)',
+                        data: DATA.projectHistory.map(h => h.project_size_kb),
+                        borderColor: COLORS.secondary,
+                        backgroundColor: COLORS.secondary + '33',
+                        fill: true,
+                        tension: 0.3,
+                        yAxisID: 'y1'
+                    }
+                ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: { color: '#aaa' }
+                    }
+                },
                 scales: {
-                    y: { beginAtZero: false, grid: { color: '#2a3f5f' }, ticks: { color: '#888', callback: v => (v/1000).toFixed(0) + ' MB' } },
-                    x: { grid: { color: '#2a3f5f' }, ticks: { color: '#888', maxRotation: 45 } }
+                    y: {
+                        type: 'linear',
+                        position: 'left',
+                        beginAtZero: false,
+                        grid: { color: '#2a3f5f' },
+                        ticks: {
+                            color: COLORS.primary,
+                            callback: v => (v/1000).toFixed(0) + ' MB'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Website (MB)',
+                            color: COLORS.primary
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        beginAtZero: false,
+                        grid: { drawOnChartArea: false },
+                        ticks: {
+                            color: COLORS.secondary,
+                            callback: v => (v/1000000).toFixed(1) + ' GB'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Project (GB)',
+                            color: COLORS.secondary
+                        }
+                    },
+                    x: {
+                        grid: { color: '#2a3f5f' },
+                        ticks: { color: '#888', maxRotation: 45 }
+                    }
                 }
             }
         });
@@ -396,36 +677,49 @@
         const ctx = document.getElementById('chart-file-types').getContext('2d');
         if (charts.fileTypes) charts.fileTypes.destroy();
 
-        const entries = Object.entries(DATA.fileTypes).filter(([k, v]) => v.size_kb > 0);
-        const total = entries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
-        const threshold = total * 0.02; // 2% threshold
+        // Separate media (other) from code files
+        const allEntries = Object.entries(DATA.fileTypes).filter(([k, v]) => v.size_kb > 0);
+        const codeEntries = allEntries.filter(([k]) => k !== 'other').sort((a, b) => b[1].size_kb - a[1].size_kb);
+        const mediaEntry = allEntries.find(([k]) => k === 'other');
 
-        // Separate large and small segments
-        const large = entries.filter(([k, v]) => v.size_kb >= threshold);
-        const small = entries.filter(([k, v]) => v.size_kb < threshold);
-        const otherSize = small.reduce((sum, [k, v]) => sum + v.size_kb, 0);
+        const totalAll = allEntries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
+        const totalCode = codeEntries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
 
-        // Build final data
-        const finalEntries = [...large];
-        if (otherSize > 0) {
-            finalEntries.push(['other', { size_kb: otherSize, count: small.reduce((s, [k,v]) => s + v.count, 0) }]);
-        }
+        // Outer ring: all files including media
+        const outerLabels = allEntries.sort((a, b) => b[1].size_kb - a[1].size_kb).map(([k, v]) => {
+            const pct = ((v.size_kb / totalAll) * 100).toFixed(1);
+            const name = k === 'other' ? 'MEDIA' : k.toUpperCase();
+            return `${name} (${pct}%)`;
+        });
+        const outerValues = allEntries.sort((a, b) => b[1].size_kb - a[1].size_kb).map(([k, v]) => v.size_kb);
 
-        const labels = finalEntries.map(([k, v]) => {
-            const pct = ((v.size_kb / total) * 100).toFixed(1);
+        // Inner ring: code files only (non-media)
+        const innerLabels = codeEntries.map(([k, v]) => {
+            const pct = ((v.size_kb / totalCode) * 100).toFixed(1);
             return `${k.toUpperCase()} (${pct}%)`;
         });
-        const values = finalEntries.map(([k, v]) => v.size_kb);
+        const innerValues = codeEntries.map(([k, v]) => v.size_kb);
 
         charts.fileTypes = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: labels,
-                datasets: [{
-                    data: values,
-                    backgroundColor: CHART_PALETTE.slice(0, labels.length),
-                    borderWidth: 0
-                }]
+                labels: outerLabels,
+                datasets: [
+                    {
+                        label: 'All Files',
+                        data: outerValues,
+                        backgroundColor: CHART_PALETTE.slice(0, outerLabels.length),
+                        borderWidth: 1,
+                        borderColor: '#1a2744'
+                    },
+                    {
+                        label: 'Code Files',
+                        data: innerValues,
+                        backgroundColor: CHART_PALETTE.slice(1, innerLabels.length + 1),
+                        borderWidth: 1,
+                        borderColor: '#1a2744'
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -434,7 +728,10 @@
                     legend: { position: 'right', labels: { color: '#eee', font: { size: 10 } } },
                     tooltip: {
                         callbacks: {
-                            label: (ctx) => `${ctx.parsed.toFixed(1)} KB`
+                            label: (ctx) => {
+                                const label = ctx.datasetIndex === 0 ? outerLabels[ctx.dataIndex] : innerLabels[ctx.dataIndex];
+                                return `${label}: ${ctx.parsed.toFixed(0)} KB`;
+                            }
                         }
                     }
                 }
@@ -617,17 +914,12 @@
 
     // Initialize
     document.addEventListener('DOMContentLoaded', () => {
-        // Restore saved interval preference
-        const savedInterval = localStorage.getItem('antworld_refresh_interval');
-        if (savedInterval !== null) {
-            document.getElementById('refresh-interval').value = savedInterval;
-            setRefreshInterval(savedInterval);
-        } else {
-            setRefreshInterval(30);
-        }
+        // Disable auto-refresh (data is embedded by sync script)
+        document.getElementById('refresh-interval').value = '0';
+        setRefreshInterval(0);
 
         renderAll();
-        fetchAndUpdate(); // Initial fetch
+        // Data is now embedded directly - no fetch needed
     });
     </script>
 </body>
