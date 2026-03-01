@@ -102,7 +102,7 @@ alpha/  →  beta/  →  delta/
 | `beta/` | Minified, staging tests | NO |
 | `delta/` | Production-ready | NEVER |
 
-**Golden Rule:** All changes happen in `alpha/`. Period.
+**Golden Rule:** All changes happen in `alpha/`, unless you wish to minify it and test the minified version yourself.
 
 ### Branching Strategy
 
