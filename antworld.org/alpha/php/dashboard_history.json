@@ -3,89 +3,120 @@
     {
       "date": "2026-02-19",
       "size_kb": 185000,
+      "project_size_kb": 450000,
       "notes": "Initial tracking"
     },
     {
       "date": "2026-02-20",
       "size_kb": 190500,
+      "project_size_kb": 455000,
       "notes": "Icon updates"
     },
     {
       "date": "2026-02-21",
       "size_kb": 195200,
+      "project_size_kb": 460000,
       "notes": "Training page"
     },
     {
       "date": "2026-02-22",
       "size_kb": 200100,
+      "project_size_kb": 465000,
       "notes": "Morpho overhaul"
     },
     {
       "date": "2026-02-23",
       "size_kb": 205800,
+      "project_size_kb": 470000,
       "notes": "Multilingual system"
     },
     {
       "date": "2026-02-24",
       "size_kb": 208500,
+      "project_size_kb": 475000,
       "notes": "SVG translations"
     },
     {
       "date": "2026-02-25",
       "size_kb": 209922,
+      "project_size_kb": 480000,
       "notes": "Dashboard added"
+    },
+    {
+      "date": "2026-02-26",
+      "size_kb": 210073,
+      "project_size_kb": 485000,
+      "notes": "Auto-updated"
+    },
+    {
+      "date": "2026-02-27",
+      "size_kb": 201164,
+      "project_size_kb": 490000,
+      "notes": "Auto-updated"
+    },
+    {
+      "date": "2026-02-28",
+      "size_kb": 222008,
+      "project_size_kb": 5800000,
+      "notes": "ML training data added"
+    },
+    {
+      "date": "2026-03-01",
+      "size_kb": 222009,
+      "project_size_kb": 5573053,
+      "notes": "Auto-updated"
     }
   ],
   "recentCommits": [
     {
-      "hash": "e9f030b",
-      "date": "2026-02-24",
-      "message": "Fix SVG multi-line label translations, add ModTracking"
+      "hash": "2154ad5",
+      "date": "2026-02-28",
+      "message": "Fix morphometrics not shown by default in thorax/abdomen tabs"
     },
     {
-      "hash": "6b6599e",
-      "date": "2026-02-24",
-      "message": "Morpho translations, flag fixes, sources search improvement"
+      "hash": "6b8bc8e",
+      "date": "2026-02-28",
+      "message": "Add METHOD.md documenting ML approach and strategy"
     },
     {
-      "hash": "6d26887",
-      "date": "2026-02-24",
-      "message": "Morpho magnifier fix, mesosoma dorsal view, translation fixes"
+      "hash": "d48c403",
+      "date": "2026-02-28",
+      "message": "Add object detection pipeline for ant body parts"
     },
     {
-      "hash": "d4da8f7",
-      "date": "2026-02-23",
-      "message": "Complete bilingual translation of all ID pages, fix fatal error, spacing fixes"
+      "hash": "cf04dec",
+      "date": "2026-02-28",
+      "message": "Fix ruler after tab switch, add ML training infrastructure"
     },
     {
-      "hash": "451b936",
-      "date": "2026-02-23",
-      "message": "Add multilingual system (EN/FR) with responsive nav improvements"
+      "hash": "0d4fb90",
+      "date": "2026-02-28",
+      "message": "Add data-feature to all head surfaces for checkbox toggle"
     },
     {
-      "hash": "84bb44f",
-      "date": "2026-02-23",
-      "message": "Diversity pages: sidebar controls, chart exports, UI improvements"
+      "hash": "f45804f",
+      "date": "2026-02-28",
+      "message": "Add metasoma morphology checkboxes, fix magnifier for hidden tabs"
     },
     {
-      "hash": "c0cff1b",
-      "date": "2026-02-23",
-      "message": "Morpho page: side panel layout, compact UI, French accents"
+      "hash": "991aa9c",
+      "date": "2026-02-28",
+      "message": "Add pygidium and hypopygium labels with segment notation"
     },
     {
-      "hash": "2e52466",
-      "date": "2026-02-23",
-      "message": "Add morphometric measurements and labels to head SVG"
+      "hash": "5363501",
+      "date": "2026-02-28",
+      "message": "Metasoma tab: use v2 SVG, remove unused controls"
     },
     {
-      "hash": "f24f70f",
-      "date": "2026-02-22",
-      "message": "Morpho page overhaul: merge anatomy diagrams with measurements"
+      "hash": "48eae56",
+      "date": "2026-02-28",
+      "message": "Cleanup debug logs, fix favicon, add new specimen images"
     },
     {
-      "hash": "8d2c08e",
-      "date": "2026-02-22",
-      "message": "Training page fixes, CSS cleanup, unused folder removal"
+      "hash": "bd5e43e",
+      "date": "2026-02-27",
+      "message": "Fix magnifier showing labels when morphology layers disabled"
     }
   ]
 }
