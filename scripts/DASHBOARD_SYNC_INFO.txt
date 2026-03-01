@@ -1,0 +1,52 @@
+ANTWORLD Dashboard Sync - Systemd Timer
+========================================
+
+The dashboard auto-syncs every 5 minutes via systemd user timer.
+It starts automatically when you log in.
+
+TIMER LOCATION
+--------------
+~/.config/systemd/user/antworld-dashboard.timer
+~/.config/systemd/user/antworld-dashboard.service
+
+USEFUL COMMANDS
+---------------
+# Check timer status
+systemctl --user status antworld-dashboard.timer
+
+# Check when it will run next
+systemctl --user list-timers antworld-dashboard.timer
+
+# View sync logs
+journalctl --user -u antworld-dashboard.service
+
+# Manual sync (immediate)
+python3 scripts/antworld_dashboard_sync.py --once
+
+# Stop timer temporarily
+systemctl --user stop antworld-dashboard.timer
+
+# Start timer
+systemctl --user start antworld-dashboard.timer
+
+# Disable at startup
+systemctl --user disable antworld-dashboard.timer
+
+# Re-enable at startup
+systemctl --user enable antworld-dashboard.timer
+
+# Reload after editing service/timer files
+systemctl --user daemon-reload
+
+WHAT IT DOES
+------------
+1. Calculates size of ANTWORLD/ and alpha/ folders
+2. Updates dashboard_history.json with today's entry
+3. Embeds all data directly into dashboard.html
+4. Dashboard works offline - just open the HTML file
+
+SCHEDULE
+--------
+- Runs 1 minute after login
+- Then every 5 minutes
+- Persists across reboots (enabled)
