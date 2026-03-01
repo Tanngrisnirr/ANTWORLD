@@ -63,11 +63,16 @@
     {
       "date": "2026-03-01",
       "size_kb": 222009,
-      "project_size_kb": 5573322,
+      "project_size_kb": 5573607,
       "notes": "Auto-updated"
     }
   ],
   "recentCommits": [
+    {
+      "hash": "29239fc",
+      "date": "2026-03-01",
+      "message": "Add sortable tables, improved legend, systemd timer docs"
+    },
     {
       "hash": "a45d219",
       "date": "2026-03-01",
@@ -112,11 +117,6 @@
       "hash": "5363501",
       "date": "2026-02-28",
       "message": "Metasoma tab: use v2 SVG, remove unused controls"
-    },
-    {
-      "hash": "48eae56",
-      "date": "2026-02-28",
-      "message": "Cleanup debug logs, fix favicon, add new specimen images"
     }
   ]
 }
