@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://antworld.org/img/og-default.jpg" alt="AntWorld Logo" width="400"/>
+  <img src="https://raw.githubusercontent.com/Tanngrisnirr/ANTWORLD/master/antworld.org/alpha/img/og-default.jpg" alt="AntWorld Logo" width="400"/>
 </p>
 
 <h1 align="center">AntWorld.org</h1>
