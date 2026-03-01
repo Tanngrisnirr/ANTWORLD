@@ -65,7 +65,7 @@ https://antworld.org
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/antworld.git
+git clone https://github.com/Tanngrisnirr/antworld.git
 cd antworld
 
 # Start with Podman (or Docker)
@@ -114,20 +114,17 @@ antworld/
 
 | Role | Skills | Impact |
 |------|--------|--------|
-| **Frontend Dev** | HTML, CSS, JS | Modernize UI, improve mobile experience |
-| **Backend Dev** | PHP, Python | Build the API, integrate ML models |
 | **ML Engineer** | PyTorch, TensorFlow | Train visual identification models |
-| **Myrmecologist** | Ant taxonomy | Validate species data, write keys |
-| **Translator** | FR, DE, ES, RU, AR, ZH | Expand to 7+ languages |
-| **Designer** | UI/UX, illustration | Icons, diagrams, kids' section |
-| **Technical Writer** | Documentation | API docs, tutorials, guides |
+| **Myrmecologist** | Ant taxonomy | Validate species data, review training sets, provide specimen photos |
+| **Translator** | ES, RU, AR, ZH, PT | Expand to 5+ languages |
+| **Designer for Kids** | Illustration | Kid-friendly ant drawings for children's section |
 
 ### Good First Issues
 
 Look for issues tagged:
 - `good-first-issue` — Perfect for newcomers
 - `help-wanted` — We're stuck, save us
-- `documentation` — No code required
+- `taxonomy` — Species data validation
 
 ### How to Contribute
 
@@ -143,33 +140,30 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## Roadmap
 
-### Phase 1 — Foundation (Current)
+### Phase 1 — Foundation ✓
 - [x] Interactive dichotomous keys (70+ keys)
 - [x] Species database (936 species)
 - [x] Responsive design
-- [ ] Modernize frontend (consolidate jQuery)
-- [ ] Set up CI/CD pipeline
-- [ ] Public API (read-only)
+- [x] Modernize frontend (jQuery consolidated)
+- [x] Mobile-first CSS
+- [x] Accessibility improvements
 
-### Phase 2 — Intelligence
-- [ ] Visual identification engine (subfamily → genus)
-- [ ] LLM-powered identification guide
-- [ ] Photo quality coach
+### Phase 2 — Intelligence (Current)
+- [x] Training dataset: 44 species, 15 subfamilies, 1428 images
+- [ ] Visual identification engine (subfamily → genus → species)
+- [ ] Photo quality assessment
 - [ ] Spaced repetition training
-- [ ] Nearctic region expansion
 
 ### Phase 3 — Platform
 - [ ] Expert validation pipeline
-- [ ] Full REST API
 - [ ] Open ML models (downloadable)
-- [ ] Afrotropics & Indomalaya expansion
 - [ ] Kids section (coloring pages, games)
+- [ ] Nearctic region expansion
 
 ### Phase 4 — Global Coverage
 - [ ] All biogeographic regions
-- [ ] Annual "FormicID" ML challenge
+- [ ] Afrotropics & Indomalaya expansion
 - [ ] DOI-registered citable resource
-- [ ] Invasive species alerts
 
 ---
 
@@ -190,15 +184,17 @@ We don't replace — we **connect**.
 
 ## Tech Stack
 
-**Current:**
-- Frontend: HTML5, CSS3, jQuery, D3.js, Highcharts
-- Backend: PHP 8.x, Apache
-- Container: Podman/Docker
+**Frontend:**
+- HTML5, CSS3, Vanilla JS + jQuery
+- D3.js, Highcharts (client-side only)
 
-**Planned:**
-- API: Python FastAPI
-- ML: PyTorch
-- Database: PostgreSQL + PostGIS
+**Backend:**
+- PHP 8.x, Apache
+- Podman/Docker
+
+**ML Pipeline:**
+- Python, scikit-learn, PyTorch
+- Training data: AntWeb specimens (CC BY-SA 3.0)
 
 ---
 
@@ -223,7 +219,7 @@ We don't replace — we **connect**.
 ## Contact
 
 - **Website:** [antworld.org](https://antworld.org)
-- **Issues:** [GitHub Issues](https://github.com/YOUR_USERNAME/antworld/issues)
+- **Issues:** [GitHub Issues](https://github.com/Tanngrisnirr/antworld/issues)
 
 ---
 
