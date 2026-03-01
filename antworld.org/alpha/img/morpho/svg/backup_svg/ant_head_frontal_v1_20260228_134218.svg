@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800"
+   height="645"
+   viewBox="0 28 800 645"
+   id="ant-head-frontal"
+   version="1.1"
+   sodipodi:docname="ant_head_frontal_v1.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   data-ruler-attached="true"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <title
+     id="title1">Ant Head - Frontal View</title>
+  <desc
+     id="desc1">Scientific diagram of ant head anatomy, frontal view. For interactive morphology guide.</desc>
+  <sodipodi:namedview
+     inkscape:document-units="px"
+     inkscape:zoom="1.9720126"
+     inkscape:cx="420.38272"
+     inkscape:cy="171.3985"
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer4"
+     showguides="true" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="swatch8"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop8" />
+    </linearGradient>
+    <linearGradient
+       id="swatch7"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop7" />
+    </linearGradient>
+    <marker
+       style="overflow:visible"
+       id="marker2"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Stop"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1"
+         d="M 0,4 V -4"
+         id="path2" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Stop"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Stop"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1"
+         d="M 0,4 V -4"
+         id="path23" />
+    </marker>
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect10"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect4"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       pattern="M 0,18.867925 C 0,8.4528302 8.4528302,0 18.867925,0 c 10.415094,0 18.867924,8.4528302 18.867924,18.867925 0,10.415094 -8.45283,18.867924 -18.867924,18.867924 C 8.4528302,37.735849 0,29.283019 0,18.867925 Z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       hide_knot="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect9"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+    <style
+       id="style1">
+      /* ==============================================
+         MORPHOLOGY (-logy): Black, 14pt, dotted lines 4px
+         ============================================== */
+      .label-point { fill: #000000; stroke: none; cursor: pointer; }
+      .label-line { stroke: #000000; stroke-width: 4; stroke-dasharray: 8 4; }
+      .label-text { font-family: sans-serif; font-size: 14px; font-weight: bold; fill: #000000; stroke: #ffffff; stroke-width: 1; paint-order: stroke fill; }
+
+      /* Surface areas - semi-transparent filled polygons */
+      .surface-area { fill: rgba(0, 0, 0, 0.15); stroke: #000000; stroke-width: 1.5; cursor: pointer; }
+      .surface-area:hover { fill: rgba(0, 0, 0, 0.3); }
+
+      /* Contour lines - semi-transparent strokes */
+      .contour-line { fill: none; stroke: rgba(0, 0, 0, 0.6); stroke-width: 2.5; cursor: pointer; }
+      .contour-line:hover { stroke: rgba(0, 0, 0, 0.9); stroke-width: 3; }
+
+      /* Trace outlines - for structures like mandible, eye */
+      .trace-outline { fill: none; stroke: #000000; stroke-width: 2; cursor: pointer; }
+      .trace-outline:hover { stroke: #000000; stroke-width: 3; }
+
+      /* Base layers */
+      .outline { fill: none; stroke: #000000; stroke-width: 2; }
+      .features { fill: none; stroke: #000000; stroke-width: 1; }
+      .setae { fill: none; stroke: #000000; stroke-width: 0.5; }
+
+      /* Highlight states (for interactive features) */
+      .label.highlight .label-point { fill: #ff0000; }
+      .label.highlight .label-line { stroke: #ff0000; stroke-width: 4; }
+      .label.highlight .label-text { fill: #ff0000; font-weight: bold; stroke: #000000; stroke-width: 1; }
+      .label.highlight .surface-area { fill: rgba(255, 0, 0, 0.3); stroke: #ff0000; }
+      .label.highlight .contour-line { stroke: #ff0000; stroke-width: 3; }
+      .label.highlight .trace-outline { stroke: #ff0000; stroke-width: 3; }
+
+      /* ==============================================
+         MORPHOMETRY (-metry): Red, 14pt, lines 2px
+         ============================================== */
+      .measurement .measure-line { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-tick { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-label {
+        font-family: sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        fill: #ff0000;
+        stroke: #000000;
+        stroke-width: 1;
+        paint-order: stroke fill;
+      }
+    </style>
+  </defs>
+  <!-- Layer: Background -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-background"
+     inkscape:label="Surfaces">
+    <rect
+       x="0"
+       y="28"
+       width="800"
+       height="645"
+       fill="#ffffff"
+       id="rect1"
+       style="display:inline" />
+    <path
+       style="font-size:18.6667px;display:inline;opacity:0.701;mix-blend-mode:normal;fill:#ff0000;stroke-width:1.14086"
+       d="m 241.74457,502.06047 7.33066,-1.68313 6.78087,-2.24417 5.49799,-3.36627 5.68127,-4.30133 1.46613,-3.36627 0.54979,-2.80522 0.36654,-2.05717 0.91633,-0.74805 2.56573,0.93507 1.09961,2.6182 8.79678,3.36628 8.43026,-0.18703 h 12.46211 l 14.29479,-1.87014 14.11153,-2.6182 4.94819,-2.43119 1.83267,0.37402 4.94819,1.87015 8.43026,3.55328 5.86453,2.99224 11.17925,3.55328 7.51393,1.30911 c 0,0 6.23105,0.74804 6.96413,0.74804 0.73306,0 4.58166,-0.74804 4.58166,-0.74804 l 8.43026,-0.37404 5.68126,-0.74807 4.39839,-2.43119 4.21513,-5.42341 c 0,0 5.13147,-2.24418 6.41433,-2.61822 1.28287,-0.37403 7.14739,-3.17925 7.14739,-3.17925 0,0 7.33066,-0.56104 8.247,-0.18701 0.91633,0.37403 7.88045,2.05717 7.88045,2.05717 l 9.3466,2.05715 9.52986,2.4312 10.62945,0.93506 7.51392,0.18703 6.41433,-2.43119 2.56574,-2.99225 0.73306,-3.55327 1.28286,-1.30911 h 2.01594 l 2.19919,5.61044 3.48207,4.11433 7.33065,5.0494 4.21514,2.6182 10.62945,2.43119 4.76493,2.05717 4.94819,5.61044 1.09961,2.6182 0.36653,3.36627 v 3.36625 l -1.28286,5.42343 -2.19921,2.99223 -2.749,2.4312 -10.62945,5.04939 -7.51392,1.30911 -7.51393,1.87014 -3.2988,1.30911 -8.61352,5.79745 -6.41433,3.36626 -8.79679,6.1715 -13.37845,8.41566 -11.91233,4.67536 -11.36252,5.42343 -10.62945,4.11431 -8.43027,3.74031 -11.91232,2.24418 -9.89638,1.12207 -8.06373,1.49612 h -11.72906 l -7.51392,-2.05717 -10.07965,-3.9273 -8.06373,-2.43119 -7.69719,-2.61821 -5.86453,-1.12208 -5.13146,-1.30911 c 0,0 -3.2988,-0.93507 -4.03187,-1.30909 -0.73306,-0.37403 -6.04779,-1.68313 -6.04779,-1.68313 l -5.86454,-1.87015 -6.41432,-2.99224 -6.23105,-3.55328 -5.498,-3.74029 -6.41433,-5.04939 -5.68126,-3.36627 -4.3984,-2.99224 -3.8486,-1.87015 -10.81272,-4.86238 -10.07966,-2.80523 -5.68126,-1.87014 -6.96411,-2.05717 -4.03187,-2.99222 -2.1992,-2.80523 -2.56573,-9.16372 -0.5498,-3.17924 0.5498,-2.6182 2.01593,-2.61821 2.93226,-1.12208 1.83267,-0.93509 z"
+       id="path5"
+       inkscape:label="Clypeus.surf" />
+    <path
+       style="display:inline;fill:#ff00ff"
+       d="m 565.0528,372.43455 c -5.68976,-6.32742 -16.6769,-7.79891 -24.5249,-4.5125 -7.84801,3.28641 -12.55668,11.3304 -17.36361,21.87623 -4.80692,10.54582 -9.7118,23.59278 -12.16428,34.48191 -2.45249,10.88912 -2.45249,19.6198 4e-5,26.24156 2.45254,6.62175 7.35742,11.13424 14.02827,12.36046 6.67084,1.22622 15.10722,-0.83382 21.63088,-6.08222 6.52366,-5.24841 11.13425,-13.6848 14.96016,-23.49485 3.8259,-9.81006 6.86693,-20.99317 8.19126,-32.17662 1.32434,-11.18345 0.93195,-22.36656 -4.75782,-28.69397 z"
+       id="path9"
+       inkscape:path-effect="#path-effect9"
+       inkscape:original-d="m 570.35017,367.57862 c -10.98713,-1.47149 -21.97427,-2.94298 -32.96141,-4.41447 -4.70887,8.04431 -9.41755,16.0883 -14.12632,24.13246 -4.90507,13.04749 -9.80995,26.09445 -14.71492,39.14168 0,8.73102 0,17.4617 0,26.19255 4.90507,4.51266 9.80995,9.02515 14.71492,13.53772 8.43672,-2.06013 16.8731,-4.12017 25.30966,-6.18026 4.61076,-8.43672 9.22134,-16.87311 13.83202,-25.30966 3.04114,-11.18356 6.08216,-22.36667 9.12325,-33.55001 -0.39241,-11.18356 -0.7848,-22.36667 -1.1772,-33.55001 z"
+       inkscape:label="Genae.surf"
+       transform="matrix(-1.3387416,0,0,1.4470266,934.7161,-178.05201)" />
+    <path
+       style="opacity:1;fill:#00ff00"
+       d="m 254.48665,91.239004 c 24.91048,-1.307031 63.96764,-0.90427 105.56243,-0.933547 41.59478,-0.02928 85.72542,-0.490573 113.55761,0.739603 27.83219,1.230176 39.36459,4.151717 46.97616,12.07092 7.61157,7.9192 11.30187,20.83523 11.30187,35.90483 0,15.0696 -3.69037,32.29131 -27.90933,41.133 -24.21897,8.84168 -68.96467,9.30298 -121.63095,9.6874 -52.66627,0.38442 -113.24979,0.69195 -145.31053,-7.91925 -32.06074,-8.6112 -35.59727,-26.14009 -35.67416,-41.51724 -0.0769,-15.37715 3.30595,-28.60096 10.3794,-36.72144 7.07345,-8.120482 17.83702,-11.137244 42.7475,-12.444276 z"
+       id="path3"
+       inkscape:label="Vertex.surf"
+       sodipodi:nodetypes="ccccccccccc"
+       inkscape:original-d="m 240.33996,89.529212 c 39.05717,0.402761 78.11433,0.805522 117.1715,1.208283 44.1324,-0.461315 88.26304,-0.922611 132.39456,-1.383916 11.53286,2.921658 23.06526,5.843198 34.59789,8.764797 3.69051,12.916804 7.38081,25.832834 11.07132,38.749634 -3.69051,17.2224 -7.38088,34.44411 -11.07132,51.66617 -44.74749,0.46131 -89.49319,0.92261 -134.23979,1.38391 -60.58595,0.30755 -121.16947,0.61508 -181.75421,0.92261 -3.53674,-17.52994 -7.07328,-35.05883 -10.61002,-52.58878 3.38297,-13.22435 6.76581,-26.44816 10.14871,-39.672239 10.764,-3.016883 21.52757,-6.033646 32.29136,-9.050469 z"
+       inkscape:path-effect="#path-effect4"
+       transform="matrix(0.58407451,0,0,2.1817372,168.40178,15.212997)" />
+    <path
+       style="display:inline;fill:#00ffff;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-dasharray:none"
+       d="m 379.09922,433.10547 -41.65228,46.93811 c 38.67348,23.72234 69.42422,18.50947 95.14481,-5.07439 l -51.80106,-41.86372 z"
+       id="path6"
+       sodipodi:nodetypes="ccccc"
+       inkscape:label="EpistosomeTriangle.surf" />
+    <path
+       style="display:inline;fill:#f8ff00;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-dasharray:none"
+       d="m 432.07871,474.03043 c 0,0 16.51617,-6.01136 22.95395,-11.20456 24.09299,-19.4352 22.70717,-66.90013 20.22808,-80.71161 -7.59643,19.7365 -4.15136,17.57911 -13.1468,29.15319 -8.99544,11.57408 -3.66424,2.58798 -19.01324,24.78596 -15.349,22.19798 -11.02199,37.97702 -11.02199,37.97702 z"
+       id="path7"
+       sodipodi:nodetypes="csczzc"
+       inkscape:label="FrontalLobe.surf" />
+    <path
+       style="fill:#bcff00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 306.87235,204.65649 157.98918,-1.8212 c 0,0 57.38647,3.68846 62.37613,-2.27651 4.98967,-5.96497 14.27231,-86.07734 15.01265,-97.14881 0.74035,-11.071481 -6.17141,-12.959 -23.98247,-22.480689 -17.81107,-9.521689 -270.58904,-11.147935 -297.46896,6.974028 -26.87992,18.121961 -34.58527,28.896821 -39.13409,52.100541 -4.54882,23.20372 22.76501,65.10794 22.76501,65.10794 z"
+       id="path11"
+       inkscape:label="OccipitalRegion.surf"
+       sodipodi:nodetypes="cczzzzzcc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="background 1"
+     style="display:inline" />
+  <!-- Layer: Reference (casent0179897_h_1_high.jpg) -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-reference"
+     inkscape:label="reference"
+     style="display:inline;opacity:0.5"
+     sodipodi:insensitive="true">
+    <image
+       xlink:href="../casent0179897_h_1_high.jpg"
+       x="0"
+       y="0"
+       width="800"
+       height="700"
+       preserveAspectRatio="xMidYMid"
+       id="image1" />
+  </g>
+  <!-- Layer: Outline - Trace head outline -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-outline"
+     inkscape:label="outline"
+     style="display:inline">
+    <!-- TODO: Trace head outline using Bezier tool -->
+  </g>
+  <!-- Layer: Features - Sutures, carinae -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-features"
+     inkscape:label="features"
+     style="display:inline">
+    <!-- TODO: Add frontal carinae, clypeal suture, etc. -->
+  </g>
+  <!-- Layer: Sculpture -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-sculpture"
+     inkscape:label="sculpture"
+     style="display:inline">
+    <!-- TODO: Add surface texture if present -->
+  </g>
+  <!-- Layer: Setae -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-setae"
+     inkscape:label="setae"
+     style="display:inline">
+    <!-- TODO: Add hairs/setae -->
+  </g>
+  <!-- Layer: Geometry - surfaces, contours, traces (edit shapes here) -->
+  <!-- Layer: Labels - text and leader lines only -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-labels"
+     inkscape:label="labels"
+     style="display:inline">
+    <!-- Label: Vertex -->
+    <g
+       class="label"
+       data-feature="vertex"
+       id="g2"
+       inkscape:label="Vertex.grp"
+       transform="translate(-14.761763,53.511392)">
+      <text
+         class="label-text"
+         x="390.1629"
+         y="3.787847"
+         text-anchor="middle"
+         data-en="Vertex"
+         data-fr="Vertex"
+         id="text2"
+         inkscape:label="Vertex.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Vertex</text>
+    </g>
+    <!-- Label: Frons (surface - no dot) -->
+    <g
+       class="label"
+       data-feature="frons"
+       id="g3"
+       transform="translate(-9.0379188,121.7168)"
+       style="fill:#ffffff"
+       inkscape:label="Frons.grp">
+      <text
+         class="label-text"
+         x="389.7016"
+         y="186.87225"
+         text-anchor="middle"
+         data-en="Frons"
+         data-fr="Frons"
+         id="text3"
+         inkscape:label="Frons.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Frons</text>
+    </g>
+    <!-- Label: Clypeus -->
+    <g
+       class="label"
+       data-feature="clypeus"
+       id="g4"
+       transform="translate(-19.411784,9.65953)"
+       inkscape:label="Clypeus.grp">
+      <text
+         class="label-text"
+         x="400"
+         y="525.29742"
+         text-anchor="middle"
+         data-en="Clypeus"
+         data-fr="Clypeus"
+         id="text4"
+         inkscape:label="Clypeus.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Clypeus</text>
+    </g>
+    <!-- Label: Frontal Carinae -->
+    <g
+       class="label"
+       data-feature="frontal-carinae"
+       id="g5"
+       transform="translate(-144.90879,54.925816)"
+       inkscape:label="FrontalCarina.grp">
+      <text
+         xml:space="preserve"
+         class="label-text"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         x="883.59991"
+         y="308.33258"
+         id="text5"
+         inkscape:label="LeftFrontalCarina.label"><tspan
+           sodipodi:role="line"
+           x="883.59991"
+           y="308.33258"
+           data-en="Frontal carina"
+           data-fr="Carina frontale"
+           id="tspan11">Frontal carina</tspan><tspan
+           sodipodi:role="line"
+           x="883.59991"
+           y="325.83258"
+           data-en="(left)"
+           data-fr="(gauche)"
+           id="tspan1">(left)</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
+         d="M 674.63018,391.70806 H 475.71727"
+         id="path1"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="LeftFrontalCarina.line"
+         transform="translate(147.61764,-88.109266)" />
+      <path
+         style="display:inline;fill:#f8ff00;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:2.26547;stroke-dasharray:none"
+         d="m 475.29643,383.28044 3.7831,-41.737 v 0"
+         id="path8"
+         inkscape:label="FrontalCarina-path"
+         transform="translate(144.90879,-54.925816)" />
+    </g>
+    <g
+       class="label"
+       data-feature="frontal-lobe"
+       id="g5-0"
+       transform="translate(-148.58884,96.253217)"
+       inkscape:label="FrontalLobe.grp"
+       style="display:inline">
+      <text
+         xml:space="preserve"
+         class="label-text"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         x="880.33411"
+         y="308.33258"
+         id="text5-9"
+         inkscape:label="LeftFrontalLobe.label"><tspan
+           sodipodi:role="line"
+           x="880.33411"
+           y="308.33258"
+           data-en="Frontal lobe"
+           data-fr="Lobe frontal"
+           id="tspan11-3">Frontal lobe</tspan><tspan
+           sodipodi:role="line"
+           x="880.33411"
+           y="325.83258"
+           data-en="(left)"
+           data-fr="(gauche)"
+           id="tspan1-6">(left)</tspan></text>
+      <path
+         style="display:inline;fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
+         d="M 826.60222,303.05449 H 627.68931"
+         id="path1-0"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="LeftFrontalLobe.line" />
+    </g>
+    <!-- Label: Eye -->
+    <g
+       class="label"
+       data-feature="eye"
+       id="g6"
+       transform="translate(11.423242,-21.823213)"
+       inkscape:label="CompoundEye.grp">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
+         d="m 583.54399,247.32029 62.44985,0.16133"
+         id="path18"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0" />
+      <text
+         class="label-text"
+         x="647.17297"
+         y="252.54477"
+         data-en="Compound Eye"
+         data-fr="Œil composé"
+         id="text6"
+         inkscape:label="CompoundEye.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Compound eye</text>
+      <circle
+         class="label-point"
+         cx="582.90143"
+         cy="246.83897"
+         r="4"
+         id="circle1"
+         inkscape:label="CompoundEye.pt" />
+    </g>
+    <!-- Label: Gena (surface - no dot) -->
+    <g
+       class="label"
+       data-feature="gena"
+       id="g7"
+       transform="translate(-427.74403,33.64424)"
+       inkscape:label="Gena.grp">
+      <text
+         class="label-text"
+         x="620.68597"
+         y="395.58331"
+         data-en="Gena"
+         data-fr="Gena"
+         id="text7"
+         inkscape:label="Gena.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Gena</text>
+    </g>
+    <!-- Label: Mandible -->
+    <g
+       class="label"
+       data-feature="mandible"
+       id="g8"
+       transform="rotate(-179.47784,394.03753,547.89086)"
+       inkscape:label="MandibleLeft.grp">
+      <circle
+         class="label-point"
+         cx="320"
+         cy="530"
+         r="4"
+         id="circle8"
+         inkscape:label="MandibleLeft.pt" />
+      <line
+         class="label-line"
+         x1="320"
+         y1="530"
+         x2="165"
+         y2="533"
+         id="line-mandible"
+         inkscape:label="MandibleLeft.dline"
+         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
+      <text
+         class="label-text"
+         x="699.771"
+         y="568.89764"
+         text-anchor="end"
+         data-en="Mandible"
+         data-fr="Mandibule"
+         id="text8"
+         inkscape:label="MandibleLeft.label"
+         style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         transform="rotate(179.47784,394.03753,547.89086)">Mandible</text>
+    </g>
+    <g
+       class="label"
+       data-feature="mandible"
+       id="g8-6"
+       transform="rotate(-179.47784,377.55714,579.21259)"
+       inkscape:label="MandiblarTeeth.grp"
+       style="display:inline">
+      <circle
+         class="label-point"
+         cx="320"
+         cy="530"
+         r="4"
+         id="circle8-2"
+         inkscape:label="ApicalTeeth.pt"
+         style="fill:#000000;stroke:none" />
+      <text
+         class="label-text"
+         x="592.60321"
+         y="632.2962"
+         data-en="Apical tooth"
+         data-fr="Dent apicale"
+         id="text6-3"
+         inkscape:label="ApicalTeeth.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         transform="rotate(179.47784,377.55714,579.21259)">Apical tooth</text>
+      <line
+         class="label-line"
+         x1="320"
+         y1="530"
+         x2="165"
+         y2="533"
+         id="line-mandible-6"
+         inkscape:label="ApicalTeeth.dline"
+         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
+    </g>
+    <!-- Label: Scape -->
+    <g
+       class="label"
+       data-feature="scape"
+       id="g9"
+       transform="translate(27.060071,52.233888)"
+       inkscape:label="Scapus.grp">
+      <circle
+         class="label-point"
+         cx="543.69543"
+         cy="108.53557"
+         r="4"
+         id="circle9"
+         inkscape:label="Scapus.pt" />
+      <text
+         class="label-text"
+         x="694.95209"
+         y="113.81783"
+         data-en="Scape"
+         data-fr="Scape"
+         id="text9"
+         inkscape:label="Scapus.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Scape</text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
+         d="m 574.37769,112.3558 145.01615,0.47391"
+         id="path17"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="Scapus.dline"
+         transform="translate(-30.446137,-4.151746)" />
+    </g>
+    <!-- Label: Funiculus -->
+    <g
+       class="label"
+       data-feature="funiculus"
+       id="g10"
+       inkscape:label="Funiculus,grp"
+       transform="translate(31.959415,50.657798)">
+      <circle
+         class="label-point"
+         cx="647.03546"
+         cy="77.310333"
+         r="4"
+         id="circle10" />
+      <text
+         class="label-text"
+         x="687.4704"
+         y="82.217003"
+         data-en="Funiculus"
+         data-fr="Funicule"
+         id="text10"
+         inkscape:label="Funiculus.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Funiculus</text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
+         d="M 663.94649,70.177899 H 701.8592"
+         id="path16"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="Funiculus.dline"
+         transform="translate(-17.060723,7.5825435)" />
+    </g>
+    <!-- Label: Torulus (antennal socket) -->
+    <g
+       class="label"
+       data-feature="torulus"
+       id="g-torulus"
+       inkscape:label="Torulus.grp"
+       style="display:inline"
+       transform="translate(167.75028,111.84503)">
+      <circle
+         class="label-point"
+         cx="300"
+         cy="350"
+         r="4"
+         id="torulus-pt"
+         inkscape:label="Torulus.pt" />
+      <text
+         class="label-text"
+         x="537.69348"
+         y="354.42737"
+         id="torulus-txt"
+         inkscape:label="Torulus.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan4"
+           x="537.69348"
+           y="354.42737"
+           data-en="Torulus"
+           data-fr="Torulus">Torulus</tspan><tspan
+           sodipodi:role="line"
+           x="537.69348"
+           y="371.92737"
+           id="tspan5"
+           data-en="(Antennal fossa)"
+           data-fr="(Fosse antennaire)">(Antennal fossa)</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
+         d="M 833.35926,353.74088 H 634.44635"
+         id="path1-5"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="Torulus.line"
+         transform="translate(-329.14981,-3.300548)" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer2"
+       inkscape:label="Condyle.grp">
+      <circle
+         class="label-point"
+         cx="314.59738"
+         cy="327.50064"
+         r="4"
+         id="torulus-pt-6"
+         inkscape:label="Condyle.pt"
+         style="display:inline;fill:#000000;stroke:none"
+         transform="translate(167.75028,111.84503)" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:8, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 485.64775,439.5493 189.95052,0.25154"
+         id="path10"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="Condyle.dline" />
+      <text
+         class="label-text"
+         x="677.14099"
+         y="444.55759"
+         data-en="Condyle"
+         data-fr="Condyle"
+         id="condyle-txt"
+         inkscape:label="Condyle.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">Condyle</text>
+    </g>
+    <!-- Label: Frontal Triangle (2nd frontal area) -->
+    <g
+       class="label"
+       data-feature="frontal-triangle"
+       id="g-2fr"
+       inkscape:label="FrontalTriangle.grp"
+       style="display:inline"
+       transform="translate(-16.002169,12.438697)">
+      <text
+         class="label-text"
+         x="400"
+         y="460"
+         text-anchor="middle"
+         data-en="ΔFr"
+         data-fr="ΔFr"
+         id="2fr-txt"
+         inkscape:label="FrontalTriangle.label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill">ΔFr</text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="OccipitalRegion.grp"
+     style="fill:#bcff00;fill-opacity:1" />
+  <!-- Layer: Measurements - Dimension lines for morphometric measurements -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-measurements"
+     inkscape:label="measurements"
+     style="display:inline">
+    <!-- CL: Cephalic Length - vertical from vertex to clypeus -->
+    <g
+       class="measurement"
+       data-measurement="CL"
+       id="measure-CL"
+       inkscape:label="CL"
+       style="display:inline"
+       transform="matrix(1,0,0,0.96080279,-339.19117,2.582962)">
+      <line
+         class="measure-line"
+         x1="400"
+         y1="79.361343"
+         x2="400"
+         y2="600.95166"
+         id="CL-line"
+         inkscape:label="CL.line"
+         style="stroke:#ff0000;stroke-width:1.99731" />
+      <line
+         class="measure-tick"
+         x1="390"
+         y1="600.95166"
+         x2="410"
+         y2="600.95166"
+         id="CL-tick2"
+         inkscape:label="CLlower.tick"
+         style="display:inline;stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="389.54852"
+         y1="79.831238"
+         x2="409.54852"
+         y2="79.831238"
+         id="CL-tick1"
+         inkscape:label="CLupper.tick"
+         style="stroke:#ff0000;stroke-width:2" />
+      <text
+         class="measure-label"
+         x="366.15399"
+         y="350"
+         id="CL-label"
+         inkscape:label="CL.metric"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#ff0000">CL</text>
+      <path
+         style="display:inline;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.04039;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:2.04039, 2.04039;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 715.48106,600.44669 412.0653,600.78433"
+         id="path4"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="CLlower.dline" />
+      <path
+         style="display:inline;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.04039;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:2.04039, 2.04039;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 705.48156,79.84553 413.35394,80.183344"
+         id="path4-9"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="CLupper.dline" />
+    </g>
+    <!-- CW: Cephalic Width - horizontal at eye level -->
+    <g
+       class="measurement"
+       data-measurement="CW"
+       id="measure-CW"
+       inkscape:label="CW"
+       style="display:inline"
+       transform="matrix(0.97548113,0,0,1,-4.8619477,0)">
+      <line
+         class="measure-line"
+         x1="150"
+         y1="260"
+         x2="640"
+         y2="260"
+         id="CW-line"
+         inkscape:label="CW.line"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="150"
+         y1="250"
+         x2="150"
+         y2="270"
+         id="CW-tick1"
+         inkscape:label="CW.tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="640"
+         y1="250"
+         x2="640"
+         y2="270"
+         id="CW-tick2"
+         inkscape:label="CW.tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <text
+         class="measure-label"
+         x="400"
+         y="245"
+         text-anchor="middle"
+         id="CW-label"
+         inkscape:label="CW.metric"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#ff0000">CW</text>
+    </g>
+    <!-- EL: Eye Length - vertical span of eye (right eye) -->
+    <g
+       class="measurement"
+       data-measurement="EL"
+       id="measure-EL"
+       inkscape:label="EL"
+       style="display:inline"
+       transform="matrix(1,0,0,0.66079323,-473.97819,33.061078)">
+      <line
+         class="measure-line"
+         x1="595"
+         y1="270"
+         x2="595"
+         y2="450"
+         id="EL-line"
+         inkscape:label="EL.line"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="585"
+         y1="270"
+         x2="605"
+         y2="270"
+         id="EL-tick1"
+         inkscape:label="EL.tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="585"
+         y1="450"
+         x2="605"
+         y2="450"
+         id="EL-tick2"
+         inkscape:label="EL.tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <text
+         class="measure-label"
+         x="695.57294"
+         y="298.41013"
+         id="EL-label"
+         inkscape:label="EL.metric"
+         transform="scale(0.81290068,1.2301626)"
+         style="font-weight:bold;font-size:17.2222px;font-family:sans-serif;display:inline;fill:#ff0000;stroke-width:1.23016">EL</text>
+    </g>
+    <!-- ES: Eye Shorter - horizontal width of eye -->
+    <g
+       class="measurement"
+       data-measurement="ES"
+       id="measure-ES"
+       inkscape:label="ES"
+       style="display:inline"
+       transform="matrix(0.76634959,0,0,1,-291.28454,-7.9040781)">
+      <line
+         class="measure-line"
+         x1="555"
+         y1="350.51901"
+         x2="635"
+         y2="350.51901"
+         id="ES-line"
+         inkscape:label="ES.line"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="555"
+         y1="340.51901"
+         x2="555"
+         y2="360.51901"
+         id="ES-tick1"
+         inkscape:label="ES.tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="635"
+         y1="340.51901"
+         x2="635"
+         y2="360.51901"
+         id="ES-tick2"
+         inkscape:label="ES.tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <text
+         class="measure-label"
+         x="505.78067"
+         y="427.95657"
+         id="EL-label-5"
+         inkscape:label="ES.metric"
+         transform="scale(1.142329,0.87540453)"
+         style="font-weight:bold;font-size:15.9922px;font-family:sans-serif;display:inline;fill:#ff0000;stroke:#000000;stroke-width:1.1423;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan3"
+           x="505.78067"
+           y="427.95657">ES</tspan></text>
+    </g>
+    <!-- FRS: Frontal Suture Distance - between frontal carinae -->
+    <g
+       class="measurement"
+       data-measurement="FRS"
+       id="measure-FRS"
+       inkscape:label="FRS"
+       style="display:inline"
+       transform="translate(-17.989458,8.7072488)">
+      <line
+         class="measure-line"
+         x1="304.78284"
+         y1="350"
+         x2="493.07346"
+         y2="350"
+         id="FRS-line"
+         inkscape:label="FRS.line"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:none" />
+      <line
+         class="measure-tick"
+         x1="305.82474"
+         y1="340.20767"
+         x2="305.82474"
+         y2="360.20767"
+         id="FRS-tick1"
+         inkscape:label="FRS.tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="492.79193"
+         y1="340"
+         x2="492.79193"
+         y2="360"
+         id="FRS-tick2"
+         inkscape:label="FRS.tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <text
+         class="measure-label"
+         x="400"
+         y="335"
+         text-anchor="middle"
+         id="FRS-label"
+         inkscape:label="FRS.metric"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#ff0000">FRS</text>
+    </g>
+    <!-- PoOC: Postocular Distance - median line from posterior head margin to level of posterior eye margin -->
+    <g
+       class="measurement"
+       data-measurement="PoOC"
+       id="measure-PoOC"
+       inkscape:label="PoOC"
+       style="display:inline"
+       transform="translate(-106.82699,2.7088161)">
+      <line
+         class="measure-line"
+         x1="400"
+         y1="76.631493"
+         x2="400"
+         y2="205"
+         id="PoOC-line"
+         inkscape:label="PoOC.line"
+         style="stroke:#ff0000;stroke-width:2.06856" />
+      <line
+         class="measure-tick"
+         x1="390"
+         y1="76.631493"
+         x2="410"
+         y2="76.631493"
+         id="PoOC-tick1"
+         inkscape:label="PoOC.tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="390"
+         y1="205"
+         x2="410"
+         y2="205"
+         id="PoOC-tick2"
+         inkscape:label="PoOC.tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <path
+         style="display:inline;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 388.43278,204.81032 -169.29104,0.32884"
+         id="path4-5"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="PoOC.dline" />
+      <text
+         class="measure-label"
+         x="351.70496"
+         y="148.1788"
+         id="PoOC-label"
+         inkscape:label="PoOC.metric"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#ff0000;stroke:#000000;stroke-width:1;paint-order:stroke fill">PoOC</text>
+    </g>
+    <!-- SL: Scape Length - along left antenna scape -->
+    <g
+       class="measurement"
+       data-measurement="SL"
+       id="measure-SL"
+       inkscape:label="SL"
+       style="display:inline">
+      <text
+         class="measure-label"
+         id="SL-label"
+         inkscape:label="SL.metric"
+         x="154.25398"
+         y="180.41212"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#ff0000">SL</text>
+      <path
+         class="measure-line"
+         style="fill:none;stroke:#ff0000;stroke-width:2;marker-start:url(#Stop);marker-end:url(#marker2)"
+         d="M 68.770023,45.192506 265.00173,421.64909"
+         id="SL-line"
+         inkscape:label="SL.line" />
+    </g>
+  </g>
+</svg>

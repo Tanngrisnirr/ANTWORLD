@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1073"
+   height="808"
+   viewBox="0 0 1073 808"
+   id="ant-mesosoma-dorsal"
+   version="1.1"
+   sodipodi:docname="ant_mesosoma_dorsal_v1.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <title
+     id="title1">Ant Mesosoma - Dorsal View</title>
+  <desc
+     id="desc1">Scientific diagram of ant mesosoma (thorax) anatomy, dorsal view. Lasius niger specimen CASENT0179929.</desc>
+  <sodipodi:namedview
+     inkscape:document-units="px"
+     inkscape:zoom="2.0480422"
+     inkscape:cx="628.64917"
+     inkscape:cy="379.38672"
+     inkscape:current-layer="layer-surfaces"
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     showgrid="true">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14902"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,32.992555,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <style
+       id="style1">
+      /* ==============================================
+         MORPHOLOGY (-logy): Black, 14pt, dotted lines 4px
+         ============================================== */
+      .label-point { fill: #000000; stroke: none; cursor: pointer; }
+      .label-line { stroke: #000000; stroke-width: 4; stroke-dasharray: 8 4; }
+      .label-text {
+        font-family: sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        fill: #000000;
+        stroke: #ffffff;
+        stroke-width: 1;
+        paint-order: stroke fill;
+      }
+
+      /* Surface areas - semi-transparent filled polygons */
+      .surface-area { fill: rgba(0, 0, 0, 0.15); stroke: #000000; stroke-width: 1.5; cursor: pointer; }
+      .surface-area:hover { fill: rgba(0, 0, 0, 0.3); }
+
+      /* Highlight states */
+      .label.highlight .label-point { fill: #ff0000; }
+      .label.highlight .label-line { stroke: #ff0000; stroke-width: 4; }
+      .label.highlight .label-text { fill: #ff0000; font-weight: bold; stroke: #000000; stroke-width: 1; }
+
+      /* ==============================================
+         MORPHOMETRY (-metry): Red, 14pt, lines 2px
+         ============================================== */
+      .measurement .measure-line { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-tick { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-label {
+        font-family: sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        fill: #ff0000;
+        stroke: #000000;
+        stroke-width: 1;
+        paint-order: stroke fill;
+      }
+      .measure-dline { stroke: #ff0000; stroke-width: 2; stroke-dasharray: 2 2; }
+    </style>
+  </defs>
+  <!-- Layer: Background -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-background"
+     inkscape:label="background">
+    <rect
+       x="0"
+       y="0"
+       width="1073"
+       height="808"
+       fill="#ffffff"
+       id="rect1"
+       sodipodi:insensitive="true" />
+  </g>
+  <!-- Layer: Surfaces (colored regions) -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-surfaces"
+     inkscape:label="surfaces"
+     style="display:inline">
+    <!-- Pronotum surface (front) -->
+    <!-- Mesonotum surface (middle) -->
+    <!-- Propodeum surface (rear) -->
+    <path
+       style="display:inline;opacity:1;fill:#0000ff;fill-opacity:0.3019608;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 529.74953,424.03913 c -0.0569,-11.12044 3.20063,-20.24026 9.55191,-29.96215 5.53884,-5.46756 17.58285,-9.80332 26.59212,-9.4479 8.00171,0.0139 19.68101,4.44044 25.80161,8.49167 6.08706,7.94687 12.40579,19.20252 12.84637,30.59178 -1.02272,11.67736 -6.55896,24.03152 -13.93504,32.11593 -6.42395,3.48224 -14.22534,5.84261 -21.55578,5.87885 -8.0124,-0.069 -20.24278,-2.39459 -28.41443,-8.49167 -6.12228,-5.63831 -10.92346,-17.20727 -10.88676,-29.17651 z"
+       id="path6"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:label="Mesonotum.surf" />
+    <path
+       style="display:inline;fill:#00b3ff;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 604.5753,424.85868 c -0.0569,-11.12044 -9.2146,-32.22738 -20.62995,-35.95571 5.96695,-5.68162 27.21536,-13.01416 37.29491,-16.7258 8.85793,-3.41099 23.31996,-11.18563 23.66105,-4.13762 -4.39056,11.60674 -15.81395,23.97319 -20.76039,52.21142 5.71629,26.81878 15.72812,39.14701 22.02633,46.24361 -0.5369,7.68727 -16.79401,2.20366 -25.19472,0.95556 -8.0124,-2.42361 -23.23956,-3.25081 -31.41121,-9.34789 5.00862,-7.1367 14.97728,-21.27433 15.01398,-33.24357 z"
+       id="path6-1"
+       sodipodi:nodetypes="ccccccccc"
+       inkscape:label="Metanotum.surf" />
+    <path
+       style="opacity:1;fill:#00ff00;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 441.33129,452.78498 c -3.04575,-8.36149 -4.38646,-42.08189 -2.40351,-51.57387 15.65497,-23.17078 66.09427,-51.87721 85.44958,-51.7517 19.56122,-1.45148 64.29181,35.0846 59.82858,39.29987 0,0 -52.8892,-20.80215 -54.28792,35.64985 3.97772,53.81636 53.71543,34.42803 58.48722,32.58467 2.71506,7.35588 -44.57986,41.20558 -64.08949,42.19602 -22.01669,-0.95288 -68.17965,-26.44062 -82.98446,-46.40484 z"
+       id="path7"
+       sodipodi:nodetypes="cccccccc"
+       inkscape:label="Pronotum.surf" />
+    <path
+       style="display:inline;fill:#ff00ff;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 623.9981,419.51143 c -0.0569,-11.12044 16.9136,-45.15538 23.26488,-54.87727 5.53884,-5.46756 51.18929,-6.51993 60.19856,-6.16451 8.00171,0.0139 19.68101,5.98556 24.44963,12.54762 5.50763,10.4577 -16.75842,16.69169 -9.17165,21.1279 15.47328,8.29559 13.58854,37.963 -1.07934,44.66465 -5.85463,2.67494 16.18808,3.47322 12.4457,16.42234 -4.37795,10.36122 -14.9979,20.52129 -22.32834,20.55753 -8.0124,-0.069 -55.97376,2.62706 -64.14541,-3.47002 -6.12228,-5.63831 -23.67073,-38.839 -23.63403,-50.80824 z"
+       id="path6-9"
+       sodipodi:nodetypes="cccccscccc"
+       inkscape:label="Propodeum.surf" />
+    <path
+       style="display:inline;fill:#f8ff00;fill-opacity:0.301961;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 735.51404,412.06601 c -0.0569,-11.12044 7.91273,-22.08412 14.87863,-29.5524 13.38932,-5.76572 20.57246,10.76221 20.98375,30.81555 -0.39694,20.15306 -4.43874,32.78605 -19.6489,25.25 -6.12228,-5.63831 -16.25018,-14.54391 -16.21348,-26.51315 z"
+       id="path6-18"
+       sodipodi:nodetypes="ccccc"
+       inkscape:label="Petiole.surf" />
+  </g>
+  <!-- Layer: Reference (dorsal image) -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-reference"
+     inkscape:label="reference"
+     style="display:inline;opacity:0.5"
+     sodipodi:insensitive="true">
+    <image
+       xlink:href="../casent0179929_d_1_high.jpg"
+       x="0"
+       y="0"
+       width="1073"
+       height="808"
+       preserveAspectRatio="xMidYMid"
+       id="reference-image" />
+  </g>
+  <!-- Layer: Outline -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-outline"
+     inkscape:label="outline"
+     style="display:inline">
+    <!-- TODO: Trace mesosoma outline -->
+  </g>
+  <!-- Layer: Features -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-features"
+     inkscape:label="features"
+     style="display:inline">
+    <!-- TODO: Add sutures -->
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer-measurements"
+     inkscape:label="measurements"
+     style="display:inline">
+    <!-- MW: Mesosoma Width - horizontal at widest point (pronotum for workers) -->
+    <g
+       class="measurement"
+       data-measurement="MW"
+       id="measure-MW"
+       inkscape:label="MW"
+       transform="translate(-93.468919,203.60745)">
+      <line
+         class="measure-line"
+         x1="511.84131"
+         y1="255.63943"
+         x2="511.84131"
+         y2="182.10393"
+         id="MW-line"
+         style="stroke-width:2;stroke-dasharray:none" />
+      <line
+         class="measure-line"
+         x1="891.42816"
+         y1="270.42023"
+         x2="891.42816"
+         y2="157.12776"
+         id="MW-line-5"
+         style="display:inline;stroke:#ff0000;stroke-width:2;stroke-dasharray:none" />
+      <line
+         class="measure-tick"
+         x1="501.84131"
+         y1="255.63943"
+         x2="521.84131"
+         y2="255.63943"
+         id="MW-tick1"
+         style="stroke-width:2;stroke-dasharray:none" />
+      <line
+         class="measure-tick"
+         x1="501.84131"
+         y1="182.10393"
+         x2="521.84131"
+         y2="182.10393"
+         id="MW-tick2"
+         style="stroke-width:2;stroke-dasharray:none" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 431.78594,459.33804 118.11238,-0.009"
+         id="path8"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="MW-dlineBottom"
+         transform="translate(93.468919,-203.60745)" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 524.71692,182.03263 118.11238,-0.009"
+         id="path9"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="MW-dlineTop" />
+      <text
+         class="measure-label"
+         x="486.88928"
+         y="227.47525"
+         text-anchor="middle"
+         id="MW-label">MW</text>
+    </g>
+    <!-- PrW: Pronotum Width -->
+    <g
+       class="measurement"
+       data-measurement="PrW"
+       id="measure-PrW"
+       inkscape:label="PrW"
+       style="display:inline"
+       transform="matrix(0,0.46061384,-1,0,947.92773,169.05505)">
+      <line
+         class="measure-tick"
+         x1="416"
+         y1="140"
+         x2="416"
+         y2="160"
+         id="PrW-tick1"
+         style="stroke-width:2.94687357;stroke-dasharray:none" />
+      <line
+         class="measure-tick"
+         x1="662.89221"
+         y1="140.21634"
+         x2="662.89221"
+         y2="160.21634"
+         id="PrW-tick2"
+         style="stroke-width:2.94687;stroke-dasharray:none" />
+      <line
+         class="measure-dline"
+         x1="416"
+         y1="162.81247"
+         x2="416"
+         y2="273.98956"
+         id="PrW-ext1"
+         style="stroke-width:2.94687357;stroke-dasharray:2.94687357,2.94687357;stroke-dashoffset:0" />
+      <line
+         class="measure-dline"
+         x1="663.04529"
+         y1="163.31653"
+         x2="663.04529"
+         y2="270.96075"
+         id="PrW-ext2"
+         style="stroke-width:2.88845;stroke-dasharray:2.88845, 2.88845;stroke-dashoffset:0" />
+      <text
+         class="measure-label"
+         x="-179.38547"
+         y="374.39703"
+         text-anchor="middle"
+         id="PrW-label"
+         style="display:inline"
+         transform="matrix(0,-0.67868537,1.4734368,0,0,0)">PrW</text>
+    </g>
+    <g
+       class="measurement"
+       data-measurement="ML"
+       id="measure-ML"
+       inkscape:label="ML"
+       transform="translate(66.232284,476.76758)"
+       style="display:inline">
+      <!-- Main measurement line -->
+      <line
+         class="measure-line"
+         x1="374.04388"
+         y1="200"
+         x2="664.76886"
+         y2="200"
+         id="ML-line"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:none" />
+      <!-- Ticks at endpoints -->
+      <line
+         class="measure-tick"
+         x1="373.35367"
+         y1="190.14507"
+         x2="373.35367"
+         y2="210.14507"
+         id="ML-tick1"
+         inkscape:label="ML-tick1Left"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="664.58154"
+         y1="190"
+         x2="664.58154"
+         y2="210"
+         id="ML-tick2"
+         style="stroke:#ff0000;stroke-width:2"
+         inkscape:label="ML-tickRight" />
+      <!-- Extension lines down to anatomy -->
+      <line
+         class="measure-dline"
+         x1="373.27728"
+         y1="-46.835308"
+         x2="373.27728"
+         y2="188.10693"
+         id="ML-ext1"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2, 2;stroke-dashoffset:0" />
+      <line
+         class="measure-dline"
+         x1="664.69611"
+         y1="-61.328804"
+         x2="664.69611"
+         y2="187.54895"
+         id="ML-ext2"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2, 2;stroke-dashoffset:0" />
+      <!-- Label -->
+      <text
+         class="measure-label"
+         x="526.6217"
+         y="220.84068"
+         text-anchor="middle"
+         id="ML-label"
+         style="font-weight:bold;font-size:16px;font-family:sans-serif;fill:#ff0000;stroke:#000000;stroke-width:1;paint-order:stroke fill">ML</text>
+    </g>
+    <g
+       class="measurement"
+       data-measurement="MW"
+       id="g13"
+       inkscape:label="PW"
+       transform="translate(-120.18634,167.3481)">
+      <line
+         class="measure-line"
+         x1="471.07352"
+         y1="331.0217"
+         x2="471.07352"
+         y2="182.08417"
+         id="line9"
+         style="stroke-width:2;stroke-dasharray:none"
+         inkscape:label="PW-line" />
+      <line
+         class="measure-tick"
+         x1="461.11984"
+         y1="331.72012"
+         x2="481.11984"
+         y2="331.72012"
+         id="line11"
+         style="stroke-width:2;stroke-dasharray:none"
+         inkscape:label="PW-tickBottom" />
+      <line
+         class="measure-tick"
+         x1="461.07352"
+         y1="182.08417"
+         x2="481.07352"
+         y2="182.08417"
+         id="line12"
+         style="stroke-width:2;stroke-dasharray:none"
+         inkscape:label="PW-tickTop" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 482.99169,331.78474 162.44013,-0.009"
+         id="path12"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="PW-dlineBottom" />
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 483.20758,182.03263 159.62278,-0.009"
+         id="path13"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="PW-dlineTop" />
+      <text
+         class="measure-label"
+         x="450.24844"
+         y="263.75027"
+         text-anchor="middle"
+         id="text13"
+         inkscape:label="PW-label">PW</text>
+    </g>
+  </g>
+  <!-- Layer: Labels -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-labels"
+     inkscape:label="labels"
+     style="display:inline">
+    <!-- Label: Pronotum -->
+    <g
+       class="label"
+       data-feature="promesonotal-suture"
+       id="promesonotal-grp"
+       inkscape:label="PromesonotalSuture.grp"
+       transform="translate(393.53809,301)"
+       style="display:inline">
+      <circle
+         class="label-point"
+         cx="137.32251"
+         cy="125.10156"
+         r="4"
+         id="promesonotal-pt"
+         style="fill:#000000;stroke:none" />
+      <path
+         class="label-line"
+         d="m 137.3805,126.27131 -0.14621,119.62834"
+         id="promesonotal-line"
+         style="stroke:#000000;stroke-width:2.98771;stroke-dasharray:5.97541, 2.98771" />
+      <text
+         class="label-text"
+         x="138.78258"
+         y="256.87024"
+         text-anchor="end"
+         data-en="Promesonotal Suture"
+         data-fr="Suture promésonotale"
+         id="promesonotal-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan7"
+           x="138.78258"
+           y="256.87024">Promesonotal</tspan><tspan
+           sodipodi:role="line"
+           id="tspan8"
+           x="138.78258"
+           y="274.37024">Suture</tspan></text>
+    </g>
+    <g
+       class="label"
+       data-feature="pronotum"
+       id="pronotum-grp-d"
+       inkscape:label="Pronotum.grp"
+       transform="translate(-73.676569,231.9705)">
+      <path
+         class="label-line"
+         d="M 536.18392,192.77659 535.79502,49.150101"
+         id="pronotum-line-d"
+         style="display:inline;stroke-width:4;stroke-dasharray:8, 4;stroke-dashoffset:0"
+         inkscape:label="pronotum-dline"
+         sodipodi:nodetypes="cc" />
+      <text
+         class="label-text"
+         x="504.50671"
+         y="41.487053"
+         data-en="Pronotum"
+         data-fr="Pronotum"
+         id="pronotum-txt-d"
+         inkscape:label="pronotum-label">Pronotum</text>
+    </g>
+    <!-- Label: Mesonotum -->
+    <!-- Label: Propodeum -->
+    <g
+       inkscape:groupmode="layer"
+       id="layer1"
+       inkscape:label="Petiole"
+       style="display:inline"
+       transform="translate(219.35307,101.5149)">
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:7.99998, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 537.42516,303.01774 537.25632,177.31406"
+         id="path6-0"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="PetioleI-dline"
+         sodipodi:nodetypes="cc" />
+      <text
+         class="label-text"
+         x="510.14905"
+         y="173.30406"
+         data-en="Metapleural Gland"
+         data-fr="Glande métapleurale"
+         id="metapleural-txt-2"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:start;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="PetioleI-label"><tspan
+           sodipodi:role="line"
+           id="tspan3-1"
+           x="510.14905"
+           y="173.30406">Petiole (I)</tspan></text>
+    </g>
+    <g
+       class="label"
+       data-feature="propodeum"
+       id="propodeum-grp-d"
+       inkscape:label="Propodeum.grp"
+       transform="translate(-132.46845,-280.40379)">
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:7.99999, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 797.24254,561.29262 -0.0191,141.44746"
+         id="path1"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="propodeum-dline" />
+      <text
+         class="label-text"
+         x="755"
+         y="555"
+         data-en="Propodeum"
+         data-fr="Propodéum"
+         id="propodeum-txt-d">Propodeum</text>
+    </g>
+    <!-- Label: Pronotum Width marker (left) -->
+    <!-- Label: Pronotum Width marker (right) -->
+    <g
+       class="label"
+       data-feature="mesopleuron"
+       id="mesopleuron-grp"
+       inkscape:label="Mesonotum.grp"
+       style="display:inline"
+       transform="translate(216.10581,20.788118)">
+      <text
+         class="label-text"
+         x="392.33578"
+         y="252.89566"
+         text-anchor="end"
+         data-en="Mesopleuron"
+         data-fr="Mésopleuron"
+         id="mesopleuron-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="mesonotum-txt">Mesonotum</text>
+      <path
+         class="label-line"
+         d="m 343.93344,259.52413 -0.28785,139.89029"
+         id="mesopleuron-line"
+         style="display:inline;stroke:#000000;stroke-width:4;stroke-dasharray:8, 4"
+         sodipodi:nodetypes="cc" />
+    </g>
+    <g
+       class="label"
+       data-feature="metanotal-groove"
+       id="metanotal-grp"
+       inkscape:label="MetapleuralGland.grp"
+       transform="translate(337.8377,231.6009)"
+       style="display:inline">
+      <circle
+         class="label-point"
+         cx="382.30362"
+         cy="139.56194"
+         r="4"
+         id="metanotal-pt"
+         style="display:none;fill:#000000;stroke:none" />
+      <path
+         class="label-line"
+         d="M 382.39862,137.38756 382.3045,-4.5865341"
+         id="metanotal-line"
+         sodipodi:nodetypes="cc"
+         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4;stroke-dashoffset:0" />
+      <text
+         class="label-text"
+         x="393.44565"
+         y="-29.374281"
+         text-anchor="middle"
+         data-en="Metanotal Groove"
+         data-fr="Sillon métanotal"
+         id="metanotal-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan1"
+           x="393.44565"
+           y="-29.374281">Metapleural Gland</tspan><tspan
+           sodipodi:role="line"
+           id="tspan2"
+           x="393.44565"
+           y="-11.874281">(bulla and orifice)</tspan></text>
+    </g>
+    <g
+       class="label"
+       data-feature="metanotal-groove"
+       id="g5"
+       inkscape:label="MetanotalGroove.grp"
+       transform="translate(234.70518,262.64079)"
+       style="display:inline">
+      <path
+         class="label-line"
+         d="M 382.39862,137.38756 382.3045,-4.5865341"
+         id="path2"
+         sodipodi:nodetypes="cc"
+         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4;stroke-dashoffset:0"
+         inkscape:label="Metanotum-dline" />
+      <text
+         class="label-text"
+         x="382.93213"
+         y="-7.8466182"
+         text-anchor="middle"
+         data-en="Metanotal Groove"
+         data-fr="Sillon métanotal"
+         id="text5"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="Metanotum-label"><tspan
+           sodipodi:role="line"
+           id="tspan5"
+           x="382.93213"
+           y="-7.8466182">Metanotum</tspan></text>
+    </g>
+  </g>
+  <!-- Layer: Measurements -->
+</svg>

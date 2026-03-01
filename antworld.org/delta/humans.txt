@@ -22,7 +22,7 @@ Mom and Dad: For their support and education
 
 AntWeb.org (California Academy of Sciences): Specimen images, CC BY-SA 3.0
 Japanese Ant Database (JADG): Training images (with permission)
-AntWiki.org: Supplementary images, CC BY-SA
+AntWiki.org: Reference data (images have individual licenses)
 AntMaps.org (Economo Lab, OIST): Distribution data
 
 /* SITE */
