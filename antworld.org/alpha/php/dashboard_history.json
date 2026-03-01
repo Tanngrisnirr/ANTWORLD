@@ -69,6 +69,11 @@
   ],
   "recentCommits": [
     {
+      "hash": "0e513f8",
+      "date": "2026-03-01",
+      "message": "Fix legend colors in Storage chart"
+    },
+    {
       "hash": "29239fc",
       "date": "2026-03-01",
       "message": "Add sortable tables, improved legend, systemd timer docs"
@@ -112,11 +117,6 @@
       "hash": "991aa9c",
       "date": "2026-02-28",
       "message": "Add pygidium and hypopygium labels with segment notation"
-    },
-    {
-      "hash": "5363501",
-      "date": "2026-02-28",
-      "message": "Metasoma tab: use v2 SVG, remove unused controls"
     }
   ]
 }
