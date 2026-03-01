@@ -121,43 +121,33 @@ git push origin main
 | `help-wanted` | We need assistance |
 | `bug` | Something's broken |
 | `enhancement` | New feature or improvement |
-| `documentation` | No code required |
-| `design` | UI/UX work |
+| `kids-design` | Children's illustrations |
 | `ml` | Machine learning related |
 | `taxonomy` | Species data, identification keys |
 | `translation` | Language localization |
 
 ### Areas of Focus
 
-#### Frontend (No backend required)
-- Consolidate jQuery versions (currently 7 different versions!)
-- Improve mobile responsiveness
-- Accessibility improvements (ARIA, keyboard nav)
-- Dark mode
-- CSS cleanup and modernization
-
-#### Backend (PHP)
-- Build REST API endpoints
-- Database migration (inline data → SQLite/PostgreSQL)
-- RSS feed generation
-- Sitemap regeneration
+#### Myrmecologists
+- Validate species data and identification keys
+- Review training/testing sets for ML model accuracy
+- Provide non-commercial use pictures of specimens
+- Confirm taxonomic classifications
 
 #### Machine Learning (Python)
 - Visual identification model training
 - Photo quality assessment
 - Species classifier (subfamily → genus → species)
 
-#### Content (No code required)
-- Species data validation
-- Identification key improvements
-- Translation (FR, DE, ES, RU, AR, ZH, PT)
-- Documentation
+#### Translation
+- ES, RU, AR, ZH, PT
+- Scientific terminology review
 
-#### Design
-- Logo/branding refresh
-- Kids section illustrations
-- Morphological diagrams
-- UI/UX improvements
+#### Designer for Kids
+- Create kid-friendly ant drawings and illustrations
+- Simple, colorful representations of ant anatomy
+- Educational graphics for the children's section
+- Make ants approachable and fun for young learners
 
 ---
 
