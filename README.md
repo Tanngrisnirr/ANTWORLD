@@ -133,7 +133,7 @@ antworld/
 | Role | Skills | Impact |
 |------|--------|--------|
 | **Myrmecologist** | Ant taxonomy | Validate species data, review training sets, provide specimen photos |
-| **Translator** | ES, RU, AR, ZH, PT | Expand to 5+ languages |
+| **Translator** | ES, RU, AR, ZH, PT, JA | Expand to 6+ languages |
 | **Designer for Kids** | Illustration | Kid-friendly ant drawings for children's section |
 
 ### Good First Issues

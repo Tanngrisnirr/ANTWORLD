@@ -135,7 +135,7 @@ git push origin main
 - Confirm taxonomic classifications
 
 #### Translation
-- ES, RU, AR, ZH, PT
+- ES, RU, AR, ZH, PT, JA
 - Scientific terminology review
 
 #### Designer for Kids
