@@ -1,6 +1,6 @@
 # Contributing to AntWorld
 
-First off: **thank you**. You're about to help build something that doesn't exist yet — an open, AI-powered platform for ant identification that actually teaches people.
+First off: **thank you**. You are about to help build something that does not exist yet — an open, AI-powered platform for ant identification that actually teaches people.
 
 This guide will get you from zero to your first contribution.
 
@@ -22,13 +22,13 @@ This guide will get you from zero to your first contribution.
 
 **Be excellent to each other.**
 
-- We're scientists, developers, and enthusiasts united by curiosity
+- We are scientists, developers, and enthusiasts united by curiosity
 - Assume good intentions
 - Respect expertise (and lack thereof — everyone starts somewhere)
 - No gatekeeping
 - Constructive feedback only
 
-We're building a resource, not a fortress.
+We are building a resource, not a fortress.
 
 ---
 
@@ -119,7 +119,7 @@ git push origin main
 |-------|---------|
 | `good-first-issue` | Perfect for newcomers |
 | `help-wanted` | We need assistance |
-| `bug` | Something's broken |
+| `bug` | Something is broken |
 | `enhancement` | New feature or improvement |
 | `kids-design` | Children's illustrations |
 | `ml` | Machine learning related |
@@ -229,7 +229,7 @@ refactor(js): consolidate jQuery to single version
 - No `!important` unless absolutely necessary
 
 ### JavaScript
-- Vanilla JS preferred over jQuery (we're migrating)
+- Vanilla JS preferred over jQuery (migration in progress)
 - `const` > `let` > `var`
 - Descriptive variable names
 - Comment complex logic
@@ -262,7 +262,7 @@ All contributors are recognized in:
 
 ## Thank You
 
-You're not just contributing code — you're helping build the global reference for myrmecology.
+You are not just contributing code — you are helping build the global reference for myrmecology.
 
 Every identification key, every accessibility fix, every translation brings us closer to a world where anyone can learn about ants.
 

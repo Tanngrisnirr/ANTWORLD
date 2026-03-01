@@ -39,7 +39,7 @@ Researchers dig through PDFs. Students give up. Citizen scientists guess.
 
 **AntWorld bridges the gap.**
 
-We're building the world's first platform that combines:
+We are building the world's first platform that combines:
 
 | Feature | Status |
 |---------|--------|
@@ -49,7 +49,7 @@ We're building the world's first platform that combines:
 | Open API for researchers | *Planned* |
 | Expert validation pipeline | *Planned* |
 
-**Our model:** [Xeno-canto](https://xeno-canto.org) did it for bird sounds. We're doing it for ants.
+**Our model:** [Xeno-canto](https://xeno-canto.org) did it for bird sounds. We are doing it for ants.
 
 ---
 
@@ -110,7 +110,7 @@ antworld/
 
 **We need you.** Seriously.
 
-### Roles We're Looking For
+### Roles We Are Looking For
 
 | Role | Skills | Impact |
 |------|--------|--------|
@@ -123,7 +123,7 @@ antworld/
 
 Look for issues tagged:
 - `good-first-issue` — Perfect for newcomers
-- `help-wanted` — We're stuck, save us
+- `help-wanted` — We need assistance
 - `taxonomy` — Species data validation
 
 ### How to Contribute
@@ -169,7 +169,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## The Ecosystem
 
-We don't replace — we **connect**.
+We do not replace — we **connect**.
 
 | Platform | Their Role | Our Integration |
 |----------|-----------|-----------------|
@@ -203,8 +203,8 @@ We don't replace — we **connect**.
 1. **Open by default** — CC for content, open-source for code
 2. **Science-first** — Rigorous taxonomy, traceable sources
 3. **AI as amplifier** — Experts remain the gold standard
-4. **Teach, don't just answer** — Every interaction educates
-5. **Connect, don't replace** — Interoperate with the ecosystem
+4. **Teach, do not just answer** — Every interaction educates
+5. **Connect, do not replace** — Interoperate with the ecosystem
 6. **Sustainable without commerce** — No ads, no paywalls, ever
 
 ---
