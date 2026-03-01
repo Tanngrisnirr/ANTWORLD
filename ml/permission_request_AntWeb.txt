@@ -1,0 +1,25 @@
+Subject: Notification - Using AntWeb Images for ML Training (CC BY-SA 3.0)
+
+Dear AntWeb/California Academy of Sciences,
+
+I am developing AntWorld.org, a nonprofit educational website for ant species identification using machine learning.
+
+Per your CC BY-SA 3.0 license, I am using specimen images from AntWeb.org to train our species recognition model. This email serves as notification and acknowledgment.
+
+Usage:
+- Training an ant species recognition algorithm
+- Educational purposes (free public access)
+- No commercial use
+- Full attribution provided
+
+Our project is open source: https://github.com/[USERNAME]/ANTWORLD
+
+Attribution on our site:
+"Specimen images from AntWeb.org (California Academy of Sciences), licensed under CC BY-SA 3.0"
+
+Thank you for making this valuable resource available to researchers.
+
+Best regards,
+[Your name]
+[Your email]
+AntWorld.org
