@@ -114,7 +114,6 @@ antworld/
 
 | Role | Skills | Impact |
 |------|--------|--------|
-| **ML Engineer** | PyTorch, TensorFlow | Train visual identification models |
 | **Myrmecologist** | Ant taxonomy | Validate species data, review training sets, provide specimen photos |
 | **Translator** | ES, RU, AR, ZH, PT | Expand to 5+ languages |
 | **Designer for Kids** | Illustration | Kid-friendly ant drawings for children's section |
@@ -192,8 +191,9 @@ We do not replace — we **connect**.
 - PHP 8.x, Apache
 - Podman/Docker
 
-**ML Pipeline:**
-- Python, scikit-learn, PyTorch
+**Development:**
+- AI-assisted design and website functionality (Claude)
+- Python for ML training scripts
 - Training data: AntWeb specimens (CC BY-SA 3.0)
 
 ---

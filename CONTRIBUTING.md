@@ -122,7 +122,7 @@ git push origin main
 | `bug` | Something is broken |
 | `enhancement` | New feature or improvement |
 | `kids-design` | Children's illustrations |
-| `ml` | Machine learning related |
+| `training-data` | Species images and datasets |
 | `taxonomy` | Species data, identification keys |
 | `translation` | Language localization |
 
@@ -133,11 +133,6 @@ git push origin main
 - Review training/testing sets for ML model accuracy
 - Provide non-commercial use pictures of specimens
 - Confirm taxonomic classifications
-
-#### Machine Learning (Python)
-- Visual identification model training
-- Photo quality assessment
-- Species classifier (subfamily → genus → species)
 
 #### Translation
 - ES, RU, AR, ZH, PT
