@@ -63,11 +63,16 @@
     {
       "date": "2026-03-01",
       "size_kb": 222009,
-      "project_size_kb": 5573607,
+      "project_size_kb": 5573608,
       "notes": "Auto-updated"
     }
   ],
   "recentCommits": [
+    {
+      "hash": "6b0d0b5",
+      "date": "2026-03-01",
+      "message": "Change Storage chart: outer ring shows media, inner shows code"
+    },
     {
       "hash": "ea95e42",
       "date": "2026-03-01",
@@ -112,11 +117,6 @@
       "hash": "0d4fb90",
       "date": "2026-02-28",
       "message": "Add data-feature to all head surfaces for checkbox toggle"
-    },
-    {
-      "hash": "f45804f",
-      "date": "2026-02-28",
-      "message": "Add metasoma morphology checkboxes, fix magnifier for hidden tabs"
     }
   ]
 }
