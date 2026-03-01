@@ -69,6 +69,11 @@
   ],
   "recentCommits": [
     {
+      "hash": "ea95e42",
+      "date": "2026-03-01",
+      "message": "Update dashboard history data"
+    },
+    {
       "hash": "0e513f8",
       "date": "2026-03-01",
       "message": "Fix legend colors in Storage chart"
@@ -112,11 +117,6 @@
       "hash": "f45804f",
       "date": "2026-02-28",
       "message": "Add metasoma morphology checkboxes, fix magnifier for hidden tabs"
-    },
-    {
-      "hash": "991aa9c",
-      "date": "2026-02-28",
-      "message": "Add pygidium and hypopygium labels with segment notation"
     }
   ]
 }
