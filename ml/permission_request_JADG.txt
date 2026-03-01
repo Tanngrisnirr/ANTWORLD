@@ -11,7 +11,7 @@ I request permission to use images from the Ant Image Database (Japan) for train
 
 Images will NOT be displayed or redistributed. Only the trained model (which contains learned features, not actual images) will be used.
 
-Our project is open source: https://github.com/[USERNAME]/ANTWORLD
+Our project is open source: https://github.com/Tanngrisnirr/ANTWORLD
 
 We will credit the database as:
 "Training images used with permission from the Ant Image Database (Japan)"
