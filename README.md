@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="antworld.org/delta/icon/apple-icon-180x180.png" alt="AntWorld Logo" width="120"/>
+  <img src="https://antworld.org/delta/icon/apple-icon-180x180.png" alt="AntWorld Logo" width="120"/>
 </p>
 
 <h1 align="center">AntWorld.org</h1>
