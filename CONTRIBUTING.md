@@ -37,37 +37,51 @@ We are building a resource, not a fortress.
 ### Prerequisites
 
 - Git
-- Podman or Docker
 - A browser
-- (Optional) PHP 8.x for quick local testing
+- One of: XAMPP, WAMP, or Podman/Docker
 
 ### Setup
 
+**1. Fork and clone the repo**
 ```bash
-# 1. Fork the repo on GitHub
-
-# 2. Clone your fork
-git clone https://github.com/Tanngrisnirr/antworld.git
+git clone https://github.com/YOUR_USERNAME/antworld.git
 cd antworld
+git remote add upstream https://github.com/Tanngrisnirr/ANTWORLD.git
+```
 
-# 3. Add upstream remote
-git remote add upstream https://github.com/ORIGINAL/antworld.git
+**2. Choose your environment:**
 
-# 4. Start the container
+#### XAMPP (Windows/Mac/Linux)
+1. Copy `antworld.org` folder to `C:\xampp\htdocs\` (or `/opt/lampp/htdocs/`)
+2. Edit `httpd.conf` (in `xampp/apache/conf/`), add:
+   ```
+   AddHandler application/x-httpd-php .html
+   ```
+3. Restart Apache from XAMPP Control Panel
+4. Open: `http://localhost/antworld.org/alpha/`
+
+#### WAMP (Windows)
+1. Copy `antworld.org` folder to `C:\wamp64\www\`
+2. Click WAMP icon → Apache → httpd.conf, add:
+   ```
+   AddHandler application/x-httpd-php .html
+   ```
+3. Restart Apache (click WAMP icon → Restart All Services)
+4. Open: `http://localhost/antworld.org/alpha/`
+
+#### Podman/Docker (Linux/Mac)
+```bash
 podman run -d --name antworld -p 8090:80 \
   -v ./antworld.org:/var/www/html:Z \
   php:8.2-apache
 
-# 5. Configure Apache for PHP in .html files
 podman exec antworld bash -c "a2enmod rewrite && \
   echo 'AddHandler application/x-httpd-php .html' >> /etc/apache2/conf-available/php-html.conf && \
   a2enconf php-html && \
   sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf && \
   service apache2 reload"
-
-# 6. Verify it works
-open http://localhost:8090/alpha/
 ```
+Open: `http://localhost:8090/alpha/`
 
 You should see the AntWorld homepage.
 
