@@ -14,6 +14,20 @@ archives/
 **/docs/*.pdf
 antworld.org/*/docs/*.pdf
 
+# MCP/Claude config (local)
+.mcp.json
+.playwright-mcp/
+
+# Screenshots (temporary)
+*.png
+!antworld.org/**/*.png
+
+# Security logs (sensitive)
+securitylogs/
+
+# Cookie files (sensitive)
+scripts/.antweb_cookies.*
+
 # OS files
 .DS_Store
 Thumbs.db

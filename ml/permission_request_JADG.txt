@@ -1,0 +1,24 @@
+Subject: Permission Request - Ant Image Database for ML Species Recognition
+
+Dear Japanese Ant Database Group,
+
+I am developing AntWorld.org, a nonprofit educational website for ant species identification using machine learning.
+
+I request permission to use images from the Ant Image Database (Japan) for training our ML model. The images will be used solely for:
+- Training an ant species recognition algorithm
+- Educational purposes (free public access)
+- No commercial use
+
+Images will NOT be displayed or redistributed. Only the trained model (which contains learned features, not actual images) will be used.
+
+Our project is open source: https://github.com/[USERNAME]/ANTWORLD
+
+We will credit the database as:
+"Training images used with permission from the Ant Image Database (Japan)"
+
+Thank you for your consideration.
+
+Best regards,
+[Your name]
+[Your email]
+AntWorld.org
