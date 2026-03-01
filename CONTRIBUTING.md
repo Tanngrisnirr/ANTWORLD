@@ -1,6 +1,6 @@
 # Contributing to AntWorld
 
-First off: **thank you**. You are about to help build something that does not exist yet — an open, ML-powered platform for ant identification that actually teaches people.
+First off: **thank you**. You are about to help build something that does not exist yet — an open, ML-powered platform for ant identification that actually teaches people to identify ants.
 
 This guide will get you from zero to your first contribution.
 
