@@ -12,7 +12,7 @@ Usage:
 - No commercial use
 - Full attribution provided
 
-Our project is open source: https://github.com/[USERNAME]/ANTWORLD
+Our project is open source: https://github.com/Tanngrisnirr/ANTWORLD
 
 Attribution on our site:
 "Specimen images from AntWeb.org (California Academy of Sciences), licensed under CC BY-SA 3.0"
