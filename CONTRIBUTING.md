@@ -47,7 +47,7 @@ We're building a resource, not a fortress.
 # 1. Fork the repo on GitHub
 
 # 2. Clone your fork
-git clone https://github.com/YOUR_USERNAME/antworld.git
+git clone https://github.com/Tanngrisnirr/antworld.git
 cd antworld
 
 # 3. Add upstream remote
@@ -254,7 +254,7 @@ All contributors are recognized in:
 
 ## Questions?
 
-- Open a [GitHub Discussion](https://github.com/YOUR_USERNAME/antworld/discussions)
+- Open a [GitHub Discussion](https://github.com/Tanngrisnirr/antworld/discussions)
 - Check existing issues first
 - Be specific about what you need help with
 
