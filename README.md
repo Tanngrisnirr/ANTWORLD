@@ -63,27 +63,45 @@ https://antworld.org
 
 ### Run Locally
 
+**1. Clone the repo**
 ```bash
-# Clone the repo
 git clone https://github.com/Tanngrisnirr/antworld.git
-cd antworld
+```
 
-# Start with Podman (or Docker)
+**2. Choose your environment:**
+
+#### XAMPP (Windows/Mac/Linux)
+1. Copy `antworld.org` folder to `C:\xampp\htdocs\` (or `/opt/lampp/htdocs/`)
+2. Edit `httpd.conf` (in `xampp/apache/conf/`), add:
+   ```
+   AddHandler application/x-httpd-php .html
+   ```
+3. Restart Apache from XAMPP Control Panel
+4. Open: `http://localhost/antworld.org/alpha/`
+
+#### WAMP (Windows)
+1. Copy `antworld.org` folder to `C:\wamp64\www\`
+2. Click WAMP icon → Apache → httpd.conf, add:
+   ```
+   AddHandler application/x-httpd-php .html
+   ```
+3. Restart Apache (click WAMP icon → Restart All Services)
+4. Open: `http://localhost/antworld.org/alpha/`
+
+#### Podman/Docker (Linux/Mac)
+```bash
+cd antworld
 podman run -d --name antworld -p 8090:80 \
   -v ./antworld.org:/var/www/html:Z \
   php:8.2-apache
 
-# Enable PHP in .html files
 podman exec antworld bash -c "a2enmod rewrite && \
   echo 'AddHandler application/x-httpd-php .html' >> /etc/apache2/conf-available/php-html.conf && \
   a2enconf php-html && \
   sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf && \
   service apache2 reload"
-
-# Open in browser
-# Development: http://localhost:8090/alpha/
-# Production:  http://localhost:8090/delta/
 ```
+Open: `http://localhost:8090/alpha/`
 
 ---
 
