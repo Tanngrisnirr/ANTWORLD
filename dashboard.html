@@ -283,7 +283,7 @@
     <script>
     // ============ DATA SECTION (Updated by sync script) ============
     const DATA = {
-        "lastUpdate": "2026-03-01 14:25:09",
+        "lastUpdate": "2026-03-01 14:36:54",
         "projectSize": {
                 "alpha_kb": 222009,
                 "beta_kb": 0,
@@ -424,6 +424,16 @@
         ],
         "recentCommits": [
                 {
+                        "hash": "ea95e42",
+                        "date": "2026-03-01",
+                        "message": "Update dashboard history data"
+                },
+                {
+                        "hash": "0e513f8",
+                        "date": "2026-03-01",
+                        "message": "Fix legend colors in Storage chart"
+                },
+                {
                         "hash": "29239fc",
                         "date": "2026-03-01",
                         "message": "Add sortable tables, improved legend, systemd timer docs"
@@ -462,22 +472,12 @@
                         "hash": "f45804f",
                         "date": "2026-02-28",
                         "message": "Add metasoma morphology checkboxes, fix magnifier for hidden tabs"
-                },
-                {
-                        "hash": "991aa9c",
-                        "date": "2026-02-28",
-                        "message": "Add pygidium and hypopygium labels with segment notation"
-                },
-                {
-                        "hash": "5363501",
-                        "date": "2026-02-28",
-                        "message": "Metasoma tab: use v2 SVG, remove unused controls"
                 }
         ],
         "recentModifications": [
                 {
                         "file": "php/dashboard_history.json",
-                        "modified": "2026-03-01 14:25",
+                        "modified": "2026-03-01 14:36",
                         "size": "2 KB"
                 },
                 {
@@ -707,23 +707,28 @@
         if (charts.fileTypes) charts.fileTypes.destroy();
 
         // Separate media (other) from code files
-        const allEntries = Object.entries(DATA.fileTypes).filter(([k, v]) => v.size_kb > 0);
-        const codeEntries = allEntries.filter(([k]) => k !== 'other').sort((a, b) => b[1].size_kb - a[1].size_kb);
-        const mediaEntry = allEntries.find(([k]) => k === 'other');
+        // Code files from fileTypes (excluding 'other')
+        const codeEntries = Object.entries(DATA.fileTypes)
+            .filter(([k, v]) => k !== 'other' && v.size_kb > 0)
+            .sort((a, b) => b[1].size_kb - a[1].size_kb);
 
-        const totalAll = allEntries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
+        // Media files from imageAssets
+        const mediaEntries = Object.entries(DATA.imageAssets)
+            .filter(([k, v]) => v.size_kb > 0)
+            .sort((a, b) => b[1].size_kb - a[1].size_kb);
+
         const totalCode = codeEntries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
+        const totalMedia = mediaEntries.reduce((sum, [k, v]) => sum + v.size_kb, 0);
 
-        // Outer ring: all files including media (sorted by size)
-        const sortedAll = [...allEntries].sort((a, b) => b[1].size_kb - a[1].size_kb);
-        const outerData = sortedAll.map(([k, v]) => ({
+        // Outer ring: media/assets only (jpg, png, svg, webp, gif)
+        const outerData = mediaEntries.map(([k, v]) => ({
             key: k,
-            label: k === 'other' ? 'MEDIA' : k.toUpperCase(),
+            label: k.toUpperCase(),
             value: v.size_kb,
-            pct: ((v.size_kb / totalAll) * 100).toFixed(1)
+            pct: ((v.size_kb / totalMedia) * 100).toFixed(1)
         }));
 
-        // Inner ring: code files only (non-media) with their own percentages
+        // Inner ring: code files only (html, css, js, php, json, txt, svg)
         const innerData = codeEntries.map(([k, v]) => ({
             key: k,
             label: k.toUpperCase(),
@@ -731,8 +736,9 @@
             pct: ((v.size_kb / totalCode) * 100).toFixed(1)
         }));
 
-        // Colors for code files (skip first color which is for MEDIA)
-        const codeColors = CHART_PALETTE.slice(1, 8);
+        // Colors for rings
+        const mediaColors = ['#FF5722', '#2196F3', '#4CAF50', '#9C27B0', '#FFC107'];
+        const codeColors = ['#00BCD4', '#E91E63', '#8BC34A', '#3F51B5', '#FF9800', '#009688', '#673AB7'];
 
         charts.fileTypes = new Chart(ctx, {
             type: 'doughnut',
@@ -740,15 +746,15 @@
                 labels: outerData.map(d => `${d.label} (${d.pct}%)`),
                 datasets: [
                     {
-                        label: 'All Files (outer)',
+                        label: 'Media Files (outer)',
                         data: outerData.map(d => d.value),
-                        backgroundColor: outerData.map((d, i) => CHART_PALETTE[i]),
+                        backgroundColor: outerData.map((d, i) => mediaColors[i % mediaColors.length]),
                         borderWidth: 1,
                         borderColor: '#1a2744',
                         weight: 2
                     },
                     {
-                        label: 'Code Only (inner)',
+                        label: 'Code Files (inner)',
                         data: innerData.map(d => d.value),
                         backgroundColor: innerData.map((d, i) => codeColors[i % codeColors.length]),
                         borderWidth: 1,
@@ -768,10 +774,10 @@
                             color: '#eee',
                             font: { size: 10 },
                             generateLabels: (chart) => {
-                                // Outer ring labels (All files)
+                                // Outer ring labels (Media files)
                                 const outerLabels = outerData.map((d, i) => ({
                                     text: `${d.label} (${d.pct}%)`,
-                                    fillStyle: CHART_PALETTE[i],
+                                    fillStyle: mediaColors[i % mediaColors.length],
                                     fontColor: '#eee',
                                     strokeStyle: '#1a2744',
                                     lineWidth: 2,
@@ -781,7 +787,7 @@
                                 }));
                                 // Separator
                                 const separator = [{
-                                    text: '── Code Only ──',
+                                    text: '── Code Files ──',
                                     fillStyle: 'transparent',
                                     fontColor: '#888',
                                     strokeStyle: 'transparent',
@@ -809,7 +815,7 @@
                             label: (context) => {
                                 if (context.datasetIndex === 0) {
                                     const d = outerData[context.dataIndex];
-                                    return `${d.label}: ${d.value.toLocaleString()} KB (${d.pct}% of total)`;
+                                    return `${d.label}: ${d.value.toLocaleString()} KB (${d.pct}% of media)`;
                                 } else {
                                     const d = innerData[context.dataIndex];
                                     return `${d.label}: ${d.value.toLocaleString()} KB (${d.pct}% of code)`;
