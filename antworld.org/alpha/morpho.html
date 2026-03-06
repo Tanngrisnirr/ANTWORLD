@@ -7,31 +7,6 @@
     <?php include("php/ihead.php"); ?>
     <style>
 /* Morphology page specific styles */
-
-/* Antscan callout */
-.antscan-callout {
-    background: linear-gradient(135deg, rgba(78, 168, 222, 0.1) 0%, rgba(44, 90, 160, 0.1) 100%);
-    border: 1px solid var(--border-accent);
-    border-radius: 8px;
-    padding: 10px 16px;
-    margin: 10px auto 15px;
-    max-width: 600px;
-    text-align: center;
-    font-size: 0.9em;
-    color: var(--text-secondary);
-}
-.antscan-callout a {
-    color: var(--accent-primary);
-    font-weight: bold;
-    text-decoration: none;
-}
-.antscan-callout a:hover {
-    text-decoration: underline;
-}
-.antscan-icon {
-    margin-right: 6px;
-}
-
 h2.h2one {
     text-align: center !important;
     margin: 10px 0;
@@ -82,6 +57,26 @@ h2.h2one {
     background: var(--accent-primary);
     color: #fff;
     border-color: var(--accent-primary);
+}
+/* External link tab (Antscan 3D) */
+.morpho-tab.external {
+    background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+    color: #fff;
+    border-color: #7C3AED;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.morpho-tab.external:hover {
+    background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+    border-color: #A78BFA;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+.morpho-tab.external::after {
+    content: "↗";
+    font-size: 10px;
+    opacity: 0.8;
 }
 
 /* Diagram container */
@@ -887,20 +882,13 @@ h4.toggle-heading .toggle-label {
 <div class="morpho-container">
 <h2 class="h2one" data-en="Morphology and morphometry" data-fr="Morphologie et morphométrie">Morphology and morphometry</h2>
 
-    <!-- Antscan 3D reference -->
-    <div class="antscan-callout">
-        <span class="antscan-icon">&#x1F9CA;</span>
-        <span data-en="For 3D internal anatomy (muscles, nerves, organs), explore" data-fr="Pour l'anatomie interne en 3D (muscles, nerfs, organes), explorez">For 3D internal anatomy (muscles, nerves, organs), explore</span>
-        <a href="https://www.antscan.info/" target="_blank" rel="noopener">Antscan</a>
-        <span data-en="— 792 species in micro-CT" data-fr="— 792 espèces en micro-CT">— 792 species in micro-CT</span>
-    </div>
-
     <!-- Tab Navigation (single, outside all sections) -->
     <div class="morpho-tabs">
         <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tête">Head</button>
         <button class="morpho-tab" data-section="mesosoma" data-en="Thorax" data-fr="Thorax">Thorax</button>
         <button class="morpho-tab" data-section="metasoma" data-en="Abdomen" data-fr="Abdomen">Abdomen</button>
         <button class="morpho-tab" data-section="measurements" data-en="Measurements" data-fr="Mesures">Measurements</button>
+        <a href="https://www.antscan.info/" target="_blank" rel="noopener" class="morpho-tab external" data-en="3D Anatomy" data-fr="Anatomie 3D" title="Antscan - 792 species in 3D micro-CT">3D Anatomy</a>
     </div>
 
     <!-- HEAD Section -->
