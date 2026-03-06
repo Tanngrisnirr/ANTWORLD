@@ -54,14 +54,14 @@ $idPath = $toId;
 	<span class="icon icon-bug"></span><span class="scent"><?= t('nav.start_id') ?></span></a></li>
 <li class="worker"><a href="<?php echo $base; ?>morpho.html" title="Ant morphology guide">
 	<span class="icon icon-morpho"></span><span class="scent"><?= t('nav.morpho') ?></span></a></li>
-<li class="worker forager"><a href="javascript:void(0)" title="Data">
+<li class="worker forager"><a href="<?php echo $base; ?>list_species.html" title="Data">
 	<span class="icon icon-stats-dots"></span><span class="scent"><?= t('nav.data') ?></span></a>
 	<ul class="gallery">
 		<li><a href="<?php echo $base; ?>geo_diversity.html"><span class="icon icon-stats-bars"></span> <?= t('nav.geo_diversity') ?></a></li>
 		<li><a href="<?php echo $base; ?>tax_diversity.html"><span class="icon icon-pie-chart"></span> <?= t('nav.taxo_diversity') ?></a></li>
 		<li><a href="<?php echo $base; ?>list_species.html"><span class="icon icon-menu2"></span> <?= t('nav.species_list') ?></a></li>
 	</ul></li>
-<li class="worker"><a href="<?php echo $base; ?>Training.html" title="Train yourself to identify ants">
+<li class="worker"><a href="<?php echo $base; ?>training.html" title="Train yourself to identify ants">
 	<span class="icon icon-dice"></span><span class="scent"><?= t('nav.training') ?></span></a></li>
 <li class="worker forager"><span class="dropdown-trigger" title="Search for Subfamilies and Genera">
 	<span class="icon icon-link"></span><span class="scent"><?= t('nav.jump_to') ?></span></span>

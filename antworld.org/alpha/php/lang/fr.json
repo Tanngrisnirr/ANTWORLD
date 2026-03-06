@@ -57,7 +57,9 @@
     "resources": {
       "antweb_desc": "La plus grande base de données en ligne d'images de fourmis, de spécimens et d'informations sur leur histoire naturelle.",
       "antwiki_desc": "Ressource wiki complète sur la taxonomie, la biologie et l'histoire naturelle des fourmis.",
-      "globalants_desc": "Données complètes sur les traits des fourmis à l'échelle mondiale pour la recherche et la conservation."
+      "globalants_desc": "Données complètes sur les traits des fourmis à l'échelle mondiale pour la recherche et la conservation.",
+      "antscan_desc": "Scans micro-CT 3D haute résolution révélant l'anatomie interne et externe des fourmis. Accès ouvert à 792 espèces.",
+      "antcat_desc": "Le catalogue en ligne de référence pour les noms, synonymies et historique taxonomique des fourmis."
     }
   },
   "privacy": {
