@@ -7,6 +7,31 @@
     <?php include("php/ihead.php"); ?>
     <style>
 /* Morphology page specific styles */
+
+/* Antscan callout */
+.antscan-callout {
+    background: linear-gradient(135deg, rgba(78, 168, 222, 0.1) 0%, rgba(44, 90, 160, 0.1) 100%);
+    border: 1px solid var(--border-accent);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 10px auto 15px;
+    max-width: 600px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+.antscan-callout a {
+    color: var(--accent-primary);
+    font-weight: bold;
+    text-decoration: none;
+}
+.antscan-callout a:hover {
+    text-decoration: underline;
+}
+.antscan-icon {
+    margin-right: 6px;
+}
+
 h2.h2one {
     text-align: center !important;
     margin: 10px 0;
@@ -861,6 +886,15 @@ h4.toggle-heading .toggle-label {
 <article>
 <div class="morpho-container">
 <h2 class="h2one" data-en="Morphology and morphometry" data-fr="Morphologie et morphométrie">Morphology and morphometry</h2>
+
+    <!-- Antscan 3D reference -->
+    <div class="antscan-callout">
+        <span class="antscan-icon">&#x1F9CA;</span>
+        <span data-en="For 3D internal anatomy (muscles, nerves, organs), explore" data-fr="Pour l'anatomie interne en 3D (muscles, nerfs, organes), explorez">For 3D internal anatomy (muscles, nerves, organs), explore</span>
+        <a href="https://www.antscan.info/" target="_blank" rel="noopener">Antscan</a>
+        <span data-en="— 792 species in micro-CT" data-fr="— 792 espèces en micro-CT">— 792 species in micro-CT</span>
+    </div>
+
     <!-- Tab Navigation (single, outside all sections) -->
     <div class="morpho-tabs">
         <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tête">Head</button>

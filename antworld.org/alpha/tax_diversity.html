@@ -296,6 +296,37 @@
 .chart-section.light-bg .evenly-spaced-labels circle {
     fill: #1a1a2e !important;
 }
+/* Light mode (site theme) - invert chart text colors */
+.light-mode .chart-section svg text {
+    fill: #1a1a2e !important;
+}
+.light-mode .chart-section .evenly-spaced-labels text {
+    fill: #1a1a2e !important;
+}
+.light-mode .chart-section .evenly-spaced-labels line {
+    stroke: #1a1a2e !important;
+}
+.light-mode .chart-section .evenly-spaced-labels circle {
+    fill: #1a1a2e !important;
+}
+/* Light mode + dark chart background - add dark bg and keep white text */
+.light-mode .chart-section:not(.light-bg) {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 20px;
+}
+.light-mode .chart-section:not(.light-bg) svg text {
+    fill: white !important;
+}
+.light-mode .chart-section:not(.light-bg) .evenly-spaced-labels text {
+    fill: white !important;
+}
+.light-mode .chart-section:not(.light-bg) .evenly-spaced-labels line {
+    stroke: white !important;
+}
+.light-mode .chart-section:not(.light-bg) .evenly-spaced-labels circle {
+    fill: white !important;
+}
 .tax-sidebar h4 {
     margin: 0 0 15px 0;
     color: var(--text-primary);

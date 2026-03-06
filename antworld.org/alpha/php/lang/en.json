@@ -57,7 +57,9 @@
     "resources": {
       "antweb_desc": "World's largest online database of ant images, specimen records, and natural history information.",
       "antwiki_desc": "Comprehensive wiki resource for ant taxonomy, biology, and natural history information.",
-      "globalants_desc": "Comprehensive ant trait data at a global scale for research and conservation."
+      "globalants_desc": "Comprehensive ant trait data at a global scale for research and conservation.",
+      "antscan_desc": "High-resolution 3D micro-CT scans revealing ant internal and external anatomy. Open access to 792 species.",
+      "antcat_desc": "The authoritative online catalog of ant names, synonymies, and taxonomic history."
     }
   },
   "privacy": {
