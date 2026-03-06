@@ -1,6 +1,22 @@
+<?php include_once(__DIR__ . '/international.php'); ?>
+<?php include_once(__DIR__ . '/seo.php'); ?>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta http-equiv="language" content="english, en">
-/*<meta name="viewport" content="width=device-width, initial-scale=1.0">*/
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php aw_output_seo(); ?>
+<!-- System font stack - no external requests -->
 <link rel="stylesheet" href="css/css_antworld.css" type="text/css">
-<!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
-<?php include("php/header.html"); ?><?php include("php/nav.php"); ?><?php include("php/favicon.php"); ?><?php include("php/scripts.php") ?>
+<link rel="stylesheet" href="css/antworld-icons.css" type="text/css">
+<!-- Theme Toggle Script - load early to prevent flash -->
+<script>
+(function() {
+
+    var savedTheme = localStorage.getItem('aw-theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+
+    if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+        document.documentElement.classList.add('light-mode');
+    }
+})();
+</script>
+<?php include("php/nav.php"); ?><?php include("php/favicon.php"); ?><?php include("php/scripts.php") ?>

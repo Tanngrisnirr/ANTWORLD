@@ -7,21 +7,21 @@ Identify this ant up to the genus using the <a href="../id/confirmed.ergate_id" 
 <div id="mainwrapper">
 <div id="box-1" class="box">
 <div class="magnify-1">
-<img id="image-1" class="small-1" src="http://antworld.org/news/test/img_test/test2_facex2.jpg" WIDTH=334 HEIGHT=337/>
+<img id="image-1" class="small-1" src="news/test/img_test/test2_facex2.jpg" WIDTH=334 HEIGHT=337/>
 	<span class="caption simple-caption">
     <p>Photo by Shannon Hartman <a href="https://www.antweb.org/bigPicture.do?name=casent0173180&shot=h&number=1">AntWeb.org</a></p>
 	</span>
-<div class="large-1" style="background: url('http://antworld.org/news/test/img_test/test2_facex2.jpg') no-repeat; display: none;"></div>
+<div class="large-1" style="background: url('news/test/img_test/test2_facex2.jpg') no-repeat; display: none;"></div>
 	</div>
 </div>
 
 <div id="box-2" class="box">
 <div class="magnify-2">
-<img id="image-2" class="small-2" src="http://antworld.org/news/test/img_test/test2_sidex2.jpg" WIDTH=334 HEIGHT=337/>
+<img id="image-2" class="small-2" src="news/test/img_test/test2_sidex2.jpg" WIDTH=334 HEIGHT=337/>
 	<span class="caption simple-caption">
     <p>Photo by Shannon Hartman <a href="https://www.antweb.org/bigPicture.do?name=casent0173180&shot=h&number=1">AntWeb.org</a></p>
 	</span>
-<div class="large-2" style="background: url('http://antworld.org/news/test/img_test/test2_sidex2.jpg') no-repeat; display: none;"></div>
+<div class="large-2" style="background: url('news/test/img_test/test2_sidex2.jpg') no-repeat; display: none;"></div>
 	</div>
 </div>
 </div> <!-- end of #mainwrapper -->

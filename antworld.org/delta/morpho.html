@@ -1,176 +1,3304 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>Antworld.org | Morphometrics</title>
-  <meta name="description" content="Identification key for the ants of the palearctic region">
-  <meta name="keywords" content="ants, Formicidae, identification key, key">
-<?php include("php/ihead.php"); ?>
+<head>
+    <title>AntWorld.org | Ant Morphology - Interactive Anatomy Guide</title>
+    <meta name="description" content="Interactive anatomical diagrams and morphometric definitions for ant identification">
+    <meta name="keywords" content="ant anatomy, morphology, morphometry, head, mesosoma, metasoma, identification, Formicidae">
+    <?php include("php/ihead.php"); ?>
+    <style>
+/* Morphology page specific styles */
+h2.h2one {
+    text-align: center !important;
+    margin: 10px 0;
+    width: 100%;
+    display: block;
+    left: 0 !important;
+    position: relative !important;
+    opacity: 1 !important;
+}
+.morpho-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+/* Tab navigation - centered relative to image, not full width */
+.morpho-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 5px 0;
+    flex-wrap: wrap;
+    margin-right: 255px;
+}
+@media (max-width: 900px) {
+    .morpho-tabs {
+        margin-right: 0;
+    }
+}
+.morpho-tab {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+.morpho-tab:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+}
+.morpho-tab.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+/* External link tab (Antscan 3D) */
+.morpho-tab.external {
+    background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+    color: #fff;
+    border-color: #7C3AED;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.morpho-tab.external:hover {
+    background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+    border-color: #A78BFA;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+.morpho-tab.external::after {
+    content: "↗";
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+/* Diagram container */
+.diagram-section {
+    display: none;
+}
+.diagram-section.active {
+    display: block;
+}
+
+.diagram-area {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.diagram-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+.diagram-wrapper .mag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    cursor: crosshair;
+    display: none;
+}
+.diagram-wrapper .mag-overlay.active {
+    display: block;
+}
+
+/* Magnifying glass lens */
+.mag-lens {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    width: 225px;
+    height: 225px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 100;
+}
+.mag-lens.active {
+    opacity: 1;
+}
+.mag-lens canvas {
+    width: 100%;
+    height: 100%;
+}
+/* Diagram control buttons (magnifier, enlarge) */
+.diagram-btn {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.7);
+    color: #333;
+    cursor: pointer;
+    z-index: 101;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    padding: 0;
+}
+.diagram-btn:hover {
+    background: rgba(255,255,255,0.9);
+}
+.diagram-btn.active {
+    background: #007bff;
+    color: #fff;
+}
+.diagram-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+.mag-toggle {
+    top: 10px;
+    left: 10px;
+}
+.enlarge-toggle {
+    top: 44px;
+    left: 10px;
+}
+.ruler-toggle {
+    top: 78px;
+    left: 10px;
+}
+
+/* Fullscreen/enlarged mode overlay */
+body.has-enlarged-view > *:not(.diagram-wrapper.enlarged):not(script):not(style) {
+    visibility: hidden;
+}
+body.has-enlarged-view {
+    overflow: hidden;
+}
+.diagram-wrapper.enlarged {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
+    visibility: visible !important;
+}
+.diagram-wrapper.enlarged * {
+    visibility: visible !important;
+}
+.diagram-wrapper.enlarged object,
+.diagram-wrapper.enlarged img {
+    max-width: 95vw;
+    max-height: 95vh;
+    width: auto;
+    height: auto;
+}
+.diagram-wrapper.enlarged .mag-lens {
+    display: none;
+}
+.diagram-wrapper.enlarged .mag-toggle,
+.diagram-wrapper.enlarged .enlarge-toggle {
+    position: fixed;
+    z-index: 100000;
+}
+.diagram-wrapper.enlarged .mag-toggle {
+    top: 20px;
+    left: 20px;
+}
+.diagram-wrapper.enlarged .enlarge-toggle {
+    top: 54px;
+    left: 20px;
+}
+.diagram-wrapper.enlarged .ruler-toggle {
+    top: 88px;
+    left: 20px;
+}
+.diagram-wrapper.enlarged .view-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100000;
+}
+
+.diagram-wrapper img,
+.diagram-wrapper object {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* SVG diagram display */
+.morpho-svg, .morpho-img {
+    display: none;
+}
+.morpho-svg.active, .morpho-img.active {
+    display: block;
+}
+
+/* View selector - pill style overlays on image */
+.view-selector {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    z-index: 60; /* Above mag-overlay (z-index: 50) */
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+.view-btn {
+    background: transparent;
+    color: #333;
+    border: none;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.view-btn:first-child {
+    border-right: 1px solid var(--border-color);
+}
+.view-btn:hover, .view-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+}
+.view-btn.disabled, .view-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: #999;
+}
+
+/* Feature list */
+.feature-list {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.feature-list h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+.feature-item:hover {
+    background: var(--accent-primary);
+    color: #fff;
+}
+.feature-item.active {
+    background: var(--accent-secondary);
+    color: #fff;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+.feature-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    flex-shrink: 0;
+}
+.feature-item:hover .feature-dot,
+.feature-item.active .feature-dot {
+    background: #fff;
+}
+
+/* Toggle labels button */
+.controls-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 5px 0;
+    flex-wrap: wrap;
+}
+.control-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.control-btn:hover {
+    border-color: var(--accent-primary);
+}
+.control-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* SVG label styles */
+.label-point {
+    fill: var(--accent-primary, #87CEEB);
+    stroke: white;
+    stroke-width: 2;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.label-line {
+    stroke: var(--accent-primary, #87CEEB);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 2;
+}
+.label-text {
+    font-family: 'Courier', monospace;
+    font-size: 14px;
+    fill: var(--text-primary, #fff);
+}
+.label.highlight .label-point {
+    fill: #ff6b6b;
+    r: 8;
+    animation: pulse 0.5s ease-in-out 3;
+}
+.label.highlight .label-line {
+    stroke: #ff6b6b;
+    stroke-width: 2.5;
+}
+.label.highlight .label-text {
+    fill: #ff6b6b;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+/* Labels hidden mode */
+.labels-hidden .label {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Export buttons */
+.export-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    min-width: 180px;
+    min-height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* Image source */
+.img-source {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+.img-source a {
+    color: var(--accent-primary);
+}
+
+/* Measurements section styles */
+.measurements-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px 0;
+    line-height: 1.8;
+}
+.measurements-section p {
+    color: var(--text-primary);
+}
+.measurements-section b {
+    color: var(--accent-primary);
+    font-size: 1.1em;
+}
+
+/* Definition items structure */
+.def-section {
+    margin-bottom: 20px;
+}
+.def-section-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--accent-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.def-item {
+    margin-bottom: 6px;
+    padding: 4px 0;
+    line-height: 1.6;
+}
+.def-item.hidden {
+    display: none;
+}
+
+/* Measurements header with search */
+.measurements-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+.measurements-header h3 {
+    margin: 0;
+}
+.measurement-search {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 14px;
+    width: 200px;
+}
+.measurement-search:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+/* PDF button for measurements - fixed left of content */
+.measurements-download-btn {
+    position: fixed;
+    top: 50%;
+    left: calc(50% - 600px - 60px);
+    transform: translateY(-50%);
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 100;
+}
+.measurements-download-btn:hover {
+    background: #3d6db8;
+}
+@media (max-width: 1300px) {
+    .measurements-download-btn {
+        left: 10px;
+    }
+}
+
+/* Hide measurement items when filtered out */
+.measurement-item.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .morpho-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    .morpho-tab {
+        width: 80%;
+        text-align: center;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Head section with side panel */
+.head-layout {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+}
+.head-layout > * {
+    margin-top: 0;
+}
+.head-layout .diagram-area {
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+.head-layout .diagram-area .morpho-tabs {
+    margin-top: 0;
+}
+.head-layout .measurements-panel {
+    flex: 0 0 250px;
+}
+@media (max-width: 900px) {
+    .head-layout {
+        flex-direction: column;
+    }
+    .head-layout .measurements-panel {
+        width: 100%;
+    }
+}
+
+/* Measurements panel */
+.measurements-panel {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 0;
+}
+.measurements-panel h4 {
+    color: var(--text-primary);
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    text-align: center;
+}
+.measurement-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+#morphologyGrid {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.panel-export {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+.panel-export .export-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+.panel-export .format {
+    font-size: 14px;
+    font-weight: bold;
+}
+.measurement-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: var(--bg-tertiary);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+.measurement-checkbox:hover {
+    background: var(--accent-primary);
+    color: #fff;
+}
+.measurement-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--accent-primary);
+    flex-shrink: 0;
+}
+.measurement-checkbox .abbrev {
+    font-weight: bold;
+    color: #e74c3c;
+    min-width: 40px;
+}
+.measurement-checkbox:hover .abbrev {
+    color: #fff;
+}
+/* Panel controls row (toggle + buttons) */
+.panel-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.panel-controls .toggle-switch {
+    margin-bottom: 5px;
+}
+.panel-buttons {
+    display: flex;
+    gap: 8px;
+}
+.panel-controls button {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+.panel-controls button:hover {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+
+/* Ruler/Measure tool controls */
+.ruler-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.ruler-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.ruler-btn:hover, .ruler-btn.active {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+.ruler-icon {
+    font-size: 16px;
+}
+.ruler-status {
+    position: absolute;
+    top: 82px;
+    left: 45px;
+    font-size: 11px;
+    color: #333;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 101;
+    white-space: nowrap;
+}
+.ruler-status:empty {
+    display: none;
+}
+
+/* Toggle switch */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.toggle-switch input {
+    display: none;
+}
+.toggle-slider {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: 13px;
+    transition: all 0.3s;
+}
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    top: 1px;
+    left: 2px;
+    transition: all 0.3s;
+}
+.toggle-switch input:checked + .toggle-slider {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+.toggle-switch input:checked + .toggle-slider::before {
+    background: #fff;
+    transform: translateX(24px);
+}
+.toggle-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+h4.toggle-heading {
+    margin: 15px 0 10px 0;
+    padding: 0;
+}
+h4.toggle-heading .toggle-label {
+    font-size: 16px;
+}
+
+/* Print stylesheet for PDF export - DEFINITIONS ONLY */
+@media print {
+    /* Global print settings */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 11pt;
+        line-height: 1.4;
+        orphans: 3;
+        widows: 3;
+    }
+    /* Hide everything except measurements section */
+    nav, footer, .controls-row, .export-row, .morpho-tabs, h2.h2one,
+    #section-head, #section-mesosoma, #section-metasoma,
+    .site-footer, .footer, #footer, .aw-footer, [class*="footer"] {
+        display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    /* Only show measurements section */
+    #section-measurements {
+        display: block !important;
+    }
+    .measurements-download-btn, .measurement-search, .measurements-header input {
+        display: none !important;
+    }
+    .morpho-container {
+        max-width: 100%;
+        padding: 15px;
+        margin: 0;
+    }
+    article {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .measurements-section {
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .measurements-header {
+        margin-bottom: 15px;
+    }
+    .measurements-header h3 {
+        color: black !important;
+        font-size: 16pt;
+        text-align: center;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #333;
+        padding-bottom: 8px;
+    }
+    /* Definition items - prevent breaks inside */
+    .def-item {
+        display: block;
+        margin-bottom: 6px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        line-height: 1.5;
+    }
+    .def-item b {
+        color: #000 !important;
+    }
+    /* Section headers for grouping */
+    .def-section {
+        page-break-inside: avoid;
+        margin-top: 15px;
+    }
+    .def-section-title {
+        font-weight: bold;
+        font-size: 14px;
+        color: #333 !important;
+        border-bottom: 1px solid #999;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+}
+    </style>
 </head>
+<body>
 <article>
+<div class="morpho-container">
+<h2 class="h2one" data-en="Morphology and morphometry" data-fr="Morphologie et morphométrie">Morphology and morphometry</h2>
 
-<h2 class="h2one">Morphometry</h2>
-<?php include("php/top.php"); ?>
-<img id="english" src="img/uk-us_flag_40x40.png" title="English"/>
-<img id="francais" src="img/drapeau_francais_40x40.jpg" title="En Francais"/>
+    
+    <div class="morpho-tabs">
+        <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tête">Head</button>
+        <button class="morpho-tab" data-section="mesosoma" data-en="Thorax" data-fr="Thorax">Thorax</button>
+        <button class="morpho-tab" data-section="metasoma" data-en="Abdomen" data-fr="Abdomen">Abdomen</button>
+        <button class="morpho-tab" data-section="measurements" data-en="Measurements" data-fr="Mesures">Measurements</button>
+        <a href="https://biomedisa.info/antscan/" target="_blank" rel="noopener" class="morpho-tab external" data-en="3D Anatomy" data-fr="Anatomie 3D" title="Antscan - 792 species in 3D micro-CT">3D Anatomy</a>
+    </div>
 
-<span class="en">
-<p>EN !<br />
-<b>CL</b> Maximal Length measured in the mediane line, from posterior side of the head to fore border of the clypeus (S264). Échancrure bord postérieur de la tête et l'incision du bord antérieur du clypeus raccourcissent <b>CL</b>.</br>
-<b>CI</b> <b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100<br />
-<b>CW</b> maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.<br />
-<b>ClyPub</b> = décompte unilatéral de toutes les soies pubescentes qui dépassent de plus de 10 µm de l'arête antérieure du clypeus. 
-Ce décompte débute sur le plan sagittal de la fosse tentoriale (un enfoncement cuticulaire en forme de pointe sur le bord 
-postérieur du clypeus, S280) et s'achève à l'extrémité latérale du clypeus. Diviser ce nombre de chaque côtés du clypeus par deux.
-<b>ClypSet</b> = présence de rangées de chètes déterminantes sur le clypeus (S281). La signification des chiffres 1 à 5 se décline le patron de distribution suivant :
-1: soies présentes toutes au plus à l'extrémité antérieure du clypeus (chètes apicales) ou totalement absentes,<br />
-2: -en outre- présence de chètes retirés en position post-apicale, environs sur le bord antérieur du clypeus ;<br />
-3: de plus, présence d'une à quelques chètes dans un troisième plan encore un peu plus en arrière ;<br />
-4: ainsi, présence de quelques chètes dans les régions les plus postérieures du clypeus (Plan 4 et 5) ;<br />
-5: clypeus avec des chètes décollées éparses sur toute sa surface.<br />
-<b>CS</b> moyenne arithmétique de CW et CL.<br />
-<b>CUHL</b> plus grande longueur de soie sur le côté arrière de la tête.<br />
-<b>EYE</b> moyenne arithmétique du grand et petit diamètre des yeux à chaque fois mesurés à près toutes les structures ommatidiennes visibles.<br />
-- <b>EL</b> <b>L</b>onger° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br />
-- <b>ES</b> <b>S</b>mall° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included<br />
-<b>EyeHL</b> longueur des plus longues soies au niveau des yeux, y compris les soies microscopiques, visibles seulement à partir d'un grossissement G ≥ 150x.<br />
-<b>FD</b> Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae.<br />If <b>FD</b> is not defined because frontal carinae converge frontal anterior the <b>FRS</b> level, <b>FD</b> is taken to be equal to <b>FRS</b>.<br />
-<b>FR</b> divergence frontale maximale des moulures frontales.<br />
-<b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus. If these dorsal lamellae do not laterally surpass the frontal carinae, the imaginary line between the deepest points
-of scape corner pits may be taken as the reference line. These pits take up the inner corner of the scape base when the scape is fully switched caudad and produce a
- dark triangular shadow in the lateral frontal lobes immediately posterior to the dorsal lamellae of the scape joint capsule. Only measured if <b>FD</b> is not defined.<br />
-<b>GHL</b> longueur des soies les plus longues de la surface dorsale de t1 en excluant les soies au bord postérieur du segment. Chez Chthonolasius sera mesurée à la transition fronto-dorsale du t1 vue de profil.<br />
-<b>HTL</b> longueur des tibias arrières, mesuré d'un point A qui sera marqué au niveau de l'étranglement  du côté intérieur, jusqu'à l'extrémité la plus distale des tibias (S265).<br />
-<b>HTMAX</b> diamètre maximal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>HTMIN</b> diamètre minimal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>IF2</b> rapport de la longueur médiane du 2ème article sur sa largeur maximale mesurée du point de vue du côté supérieur du scape.<br />
-<b>MetHL</b> longueur des plus longues soies du métapleurales, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>ML</b> <b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (i.e., where coarse structure of dorsal pronotum and fine structure of anteriormost pronotum meet); equivalent measuring also
-possible in lateral view. (S266).<br />
-<b>MH</b> hauteur maximale du mésosome chez les mâles et les femelles, mesurée verticalement depuis le ligne dorsale du mésonotum et scutellum vue de profil (S266).<br />
-<b>MnHL</b> longueur des plus longues soies sur le mésonotum.<br />
-<b>mPnHL</b> longueur médiane des soies du pronotum.  Règle de mesure : chercher une soie dressée très longue sur le pronotum, noter le milieu de cette longueur et des longueurs des 5 soies suivantes [les plus longues].
->>> on obtient ainsi 2 nombres ; une médiane et une moyenne/médiane.<br />
-<b>MW</b> maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For the ergates only the max width of the Pronotom*, for the reproductives max width of the mesosome* before the tegulae.<br />
-<b>nCH</b>  décompte unilatéral des soies qui se dressent à plus de 10 µm depuis le contour de l'occiput, vers l'avant, jusqu'au bords antérieurs des yeux. Cela s’ajuste si bien à la tête, que la CL maximale se trouve dans le plan de la feuille.<br />
-<b>nCU</b> vue de profil, décompte unilatéral des soies dépassant de plus de 10 µm de la face ventrale de la tête.<br />
-<b>nCOXA</b> décompte unilatéral des soies qui dépassent de plus de 10 µm de la surface cranaire des coxas antérieurs.<br />
-<b>nHT</b> décompte unilatéral des soies qui dépassent de plus de 10 µm strictement du côté rectiligne des tibias arrières (chez Lasius s. str. > 20 µm).<br />
-<b>nHTFl</b> décompte unilatéral des soies qui se dressent à l'arête extérieure du côté renflé des tibias arrières -il en est ainsi pour chaque arête, qui se prolonge vers l'extérieure, lorsque les tibias sont rejetés vers le postérieur.
-Les soies toujours présentes à l'apex de l'arête externe ne sont pas prises en compte (un pendant de l'éperon tibial à l'apex de l'arête intérieure). Dans le cas d'une importante pilosité avec des longueurs de poils différentes 
-(par exemple chez Formica exsecta), seules les soies de premier ordre seront comptées! [Plus de 10 µm]<br />
-<b>nMet</b> décompte unilatéral des soies érectiles de la métapleure, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>nPn</b> décompte unilatéral des soies érectiles à la surface du pronotum.<br />
-<b>nPE</b> décompte unilatéral des soies érectiles à la surface du PEtiole.<br />
-<b>nPR</b> décompte unilatéral des soies érectiles à la surface du PRopodeum.<br />
-<b>nSc</b> décompte unilatéral des soies qui se détachent de plus de 10 µm de la partie supérieure du Scape.<br />
-<b>OceSet</b>  Présence (=1), absence (=0) de setae érectiles de plus de 10 µm dans le triangle ocellaire.<br />
-<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Using the cross-scaled ocular micrometer the head is adjusted to the measuring position of <b>CL</b>; caudal measuring point: median posterior margin of head as average between peaks and valleys of microsculpture; frontal measuring point: median head at the level of the posterior eye margin; average of left and right postocular dis- tance is calculated.<br />
-<b>PLF</b> longueur des soies pubescentes de la tête entre les carinae frontales. Valeur significative sur 6 mesures pour chaque individu.<br />
-<b>PDCL</b> écart médian de la pubescence sur le clypeus. La longueur d'une ligne médiane, du bord postérieur médian du clypeus jusqu'à l'extrémité* fronto-latérale de la voûte du clypeus, sera divisée par le nombre de soies pubescentes entrecoupant ou frôlant cette ligne (S267).<br />
-<b>PDF</b> écart médian de la pubescence sur un ligne de mesure transversale sur le front, frontal par rapport aux ocelles. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDG</b> écart médian de la pubescence sur une ligne de mesure transversale au milieu de la surface dorsale du 1er tergite gastrique. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDI</b> indexe des épines propodéales mesuré en vue latérale de manière à ce que les pointes des épines se superposent : écart X de la pointe de l'épine au centre du stigmate propodéal, divisé par l'écart Y le plus court du centre du stigmate propodéal au bord postérieur du propodeum (S268).<br />
-<b>PEH</b> Maximum <b>PE</b>tiole <b>H</b>eight. The straight section of the ventral petiolar profile at node level is the reference line perpendicular to which the maximum height of the petiole node is measured. The dorsal measuring point is not necessarily positioned at the node top.<br />
-<b>PEHL</b> plus grande longueur de soie sur le dos du pétiole.<br />
-<b>PEW</b> maximum <b>PE</b>tiole <b>W</b>idth.<br />
-<b>PnHL</b> <b>H</b>ighest <b>L</b>ength of longest hair of pronotum (<b>Pn</b>); arithmetic mean of both sides.<br />
-<b>PPW</b> Postpetiole (<b>PP</b>) maximum <b>W</b>idth (profile view).<br />
-<b>PPH</b> Postpetiole (<b>PP</b>) maximum <b>H</b>eight, measured perpendicular to a line defined by the suture between dorsal and ventral sclerites (profile view).<br />
-<b>SL</b> longueur maximale du scape mesurable. L'attache du scape et le moignon de celui-ci tout comme l'élargissement de la corne du scape en forme de lobe (comme chez Myrmica) ne sont pas pris en compte (S269, S270).<br />
-<b>SLd</b> SLd Maximum straight line scape length in dorsal view, excluding articular condyle; taken as arithmetic mean of both scapes. The scape is tilted to a position perpendicular to the swivelling plane of the funiculus segment. longueur maximale du scape mesurable en vue dorsale ; l'élargissement en forme de lobe de la corne du scape sera prise en compte, l'attache du scape et le moignon de celui-ci ne le sont toujours pas (seulement chez Tetramorium).<br />
-<b>SMAX</b> diamètre maximal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SMIN</b> diamètre minimal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SP</b> longueur des épines propodéales, mesuré d'un angle de vue dorsal à frontodorsal : écart de la pointe de l'épine jusqu'au point de la base de l'épine qui se situe à la même hauteur que le point le plus frontal d'entre les courbures formées par les bases des épines.<br />
-<b>SPBA</b> plus petit écart des arêtes extérieures à la base des épines (S75).<br />
-<b>SPST</b> écart depuis le centre du stigmate propodéal à la pointe des épines dorsales.<br />
-<b>SPTI</b> écart maximal des centres [où ?] aux pointes des épines propodéales/ écart maximal des milieux des épines propodéales à leur pointes.<br />
-<b>SPWI</b> SPWI Maximum distance between outer margins of spines; measured in dorsofrontal view.  [ici, arête des pointes et non de la base des épines comme SPBA] (S75).<br />
-<b>sqPDF</b> racine carrée de l'écart médian entre les pubescences du triangle ocellaire. PDF = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Mesure exacte seulement possible sur une surface propre en laissant de côté les zones ou la pubescence est détériorée, nécessite une haute résolution optique et un éclairage optimal pour visualiser l'intégralité de la longueur des soies pubescentes.<br />
-<b>sqPDG</b> racine carrée de l'écart médian entre les pubescences à la surface dorsale du premier tergite abdominal. PDG = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Conditions optimales de mesures, voir spPDF.<br />
-<b>TERG</b> agencement, numérotations des soies du tergite abdominal le plus antérieur avec au moins une soie érectile de plus de 10 µm. En ayant soin de regarder le bord postérieur de chaque segment , à cet endroit se trouvent souvent de telles des soies.<br />
-<a title="Total Length" style="cursor:help;"><b>TL</b></a>Total Lenght. Measured from the head to the pygidium.<br />
-</p>	</span>
+    
+    <div class="diagram-section active" id="section-head" data-print-title="HEAD (Caput)">
+        <div class="head-layout">
+        <div class="diagram-area">
+            <div class="diagram-wrapper" id="head-diagram">
+                <div class="mag-overlay"></div>
+                <button class="diagram-btn mag-toggle" title="Magnifier">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+                </button>
+                <button class="diagram-btn enlarge-toggle" title="Enlarge">
+                    <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </button>
+                <button class="diagram-btn ruler-toggle" id="rulerToggle" title="Measure">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="1"/><line x1="6" y1="6" x2="6" y2="11"/><line x1="10" y1="6" x2="10" y2="9"/><line x1="14" y1="6" x2="14" y2="11"/><line x1="18" y1="6" x2="18" y2="9"/></svg>
+                </button>
+                <span id="rulerStatus" class="ruler-status"></span>
+                <div class="mag-lens"><canvas></canvas></div>
+                
+                <object data="img/morpho/svg/ant_head_frontal_v1.svg"
+                        type="image/svg+xml"
+                        id="head-svg-frontal"
+                        class="morpho-svg active"
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
+                    <img src="img/morpho/casent0179897_h_1_high.jpg" alt="Ant head frontal view">
+                </object>
+            </div>
+            <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> - AntWeb.org (CC BY)</p>
+        </div>
+        
+        <div class="measurements-panel" id="measurementsPanel">
+                <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleLabels" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
+                </label>
+            </h4>
+            <div class="measurement-grid" id="morphologyGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="vertex" checked>
+                    <span class="name" data-en="Vertex" data-fr="Vertex">Vertex</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="occipital-region" checked>
+                    <span class="name" data-en="Occipital region" data-fr="Région occipitale">Occipital region</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="frons" checked>
+                    <span class="name" data-en="Frons" data-fr="Frons">Frons</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="clypeus" checked>
+                    <span class="name" data-en="Clypeus" data-fr="Clypéus">Clypeus</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="frontal-carina" checked>
+                    <span class="name" data-en="Frontal carina" data-fr="Carène frontale">Frontal carina</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="frontal-lobe" checked>
+                    <span class="name" data-en="Frontal lobe" data-fr="Lobe frontal">Frontal lobe</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="eye" checked>
+                    <span class="name" data-en="Compound eye" data-fr="Œil composé">Compound eye</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="gena" checked>
+                    <span class="name" data-en="Gena" data-fr="Gena">Gena</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="mandible" checked>
+                    <span class="name" data-en="Mandible" data-fr="Mandibule">Mandible</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="torulus" checked>
+                    <span class="name" data-en="Torulus" data-fr="Torulus">Torulus</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="scape" checked>
+                    <span class="name" data-en="Scape" data-fr="Scape">Scape</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="funiculus" checked>
+                    <span class="name" data-en="Funiculus" data-fr="Funicule">Funiculus</span>
+                </label>
+            </div>
+            <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMeasurements" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphometrics" data-fr="Morphométrie">Morphometrics</span>
+                </label>
+            </h4>
+            <div class="measurement-grid" id="measurementGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="CL" checked>
+                    <span class="abbrev">CL</span>
+                    <span class="name" data-en="Cephalic Length" data-fr="Longueur céphalique">Cephalic Length</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="CW" checked>
+                    <span class="abbrev">CW</span>
+                    <span class="name" data-en="Cephalic Width" data-fr="Largeur céphalique">Cephalic Width</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="EL" checked>
+                    <span class="abbrev">EL</span>
+                    <span class="name" data-en="Eye Length" data-fr="Longueur de l'œil">Eye Length</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="ES" checked>
+                    <span class="abbrev">ES</span>
+                    <span class="name" data-en="Eye Shorter" data-fr="Largeur de l'œil">Eye Shorter</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="SL" checked>
+                    <span class="abbrev">SL</span>
+                    <span class="name" data-en="Scape Length" data-fr="Longueur du scape">Scape Length</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="FRS" checked>
+                    <span class="abbrev">FRS</span>
+                    <span class="name" data-en="Frontal Suture" data-fr="Suture frontale">Frontal Suture</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="PoOC" checked>
+                    <span class="abbrev">PoOC</span>
+                    <span class="name" data-en="Postocular Dist." data-fr="Distance postoculaire">Postocular Dist.</span>
+                </label>
+            </div>
+            <h4 data-en="Download my file" data-fr="Télécharger mon fichier">Download my file</h4>
+            <div class="panel-export">
+                <button class="export-btn" onclick="downloadAsPNG('head')">
+                    <span class="format">PNG</span>
+                </button>
+                <button class="export-btn" onclick="downloadAsSVG('head')">
+                    <span class="format">SVG</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
 
-<span class="fr">
-<p>FR !<br />
-<b>CL</b> longueur maximale mesurable du cranium au niveau de la ligne médiane, mesurée du bord postérieur de la tête jusqu'au bord antérieur du clypeus (S264). Échancrure bord postérieur de la tête et l'incision du bord antérieur du clypeus raccourcissent <b>CL</b>.</br>
-<b>CI</b> <b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100<br />
-<b>CW</b> maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.<br />
-<b>ClyPub</b> = décompte unilatéral de toutes les soies pubescentes qui dépassent de plus de 10 µm de l'arête antérieure du clypeus. 
-Ce décompte débute sur le plan sagittal de la fosse tentoriale (un enfoncement cuticulaire en forme de pointe sur le bord 
-postérieur du clypeus, S280) et s'achève à l'extrémité latérale du clypeus. Diviser ce nombre de chaque côtés du clypeus par deux.
-<b>ClypSet</b> = présence de rangées de chètes déterminantes sur le clypeus (S281). La signification des chiffres 1 à 5 se décline le patron de distribution suivant :
-1: soies présentes toutes au plus à l'extrémité antérieure du clypeus (chètes apicales) ou totalement absentes,<br />
-2: -en outre- présence de chètes retirés en position post-apicale, environs sur le bord antérieur du clypeus ;<br />
-3: de plus, présence d'une à quelques chètes dans un troisième plan encore un peu plus en arrière ;<br />
-4: ainsi, présence de quelques chètes dans les régions les plus postérieures du clypeus (Plan 4 et 5) ;<br />
-5: clypeus avec des chètes décollées éparses sur toute sa surface.<br />
-<b>CS</b> moyenne arithmétique de CW et CL.<br />
-<b>CUHL</b> plus grande longueur de soie sur le côté arrière de la tête.<br />
-<b>EYE</b> moyenne arithmétique du grand et petit diamètre des yeux à chaque fois mesurés à près toutes les structures ommatidiennes visibles.<br />
-- <b>EL</b> <b>L</b>onger° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.<br />
-- <b>ES</b> <b>S</b>mall° diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included<br />
-<b>EyeHL</b> longueur des plus longues soies au niveau des yeux, y compris les soies microscopiques, visibles seulement à partir d'un grossissement G ≥ 150x.<br />
-<b>FD</b> Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae.<br />If <b>FD</b> is not defined because frontal carinae converge frontal anterior the <b>FRS</b> level, <b>FD</b> is taken to be equal to <b>FRS</b>.<br />
-<b>FR</b> divergence frontale maximale des moulures frontales.<br />
-<b>FRS</b> Distance between frontal carinae immediately caudal to posterior intersection points between frontal carinae and lamellae dorsal to torulus. If these dorsal lamellae do not laterally surpass the frontal carinae, the imaginary line between the deepest points
-of scape corner pits may be taken as the reference line. These pits take up the inner corner of the scape base when the scape is fully switched caudad and produce a
- dark triangular shadow in the lateral frontal lobes immediately posterior to the dorsal lamellae of the scape joint capsule. Only measured if <b>FD</b> is not defined.<br />
-<b>GHL</b> longueur des soies les plus longues de la surface dorsale de t1 en excluant les soies au bord postérieur du segment. Chez Chthonolasius sera mesurée à la transition fronto-dorsale du t1 vue de profil.<br />
-<b>HTL</b> longueur des tibias arrières, mesuré d'un point A qui sera marqué au niveau de l'étranglement  du côté intérieur, jusqu'à l'extrémité la plus distale des tibias (S265).<br />
-<b>HTMAX</b> diamètre maximal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>HTMIN</b> diamètre minimal des tibias arrières (mesurée au milieu des tibias).<br />
-<b>IF2</b> rapport de la longueur médiane du 2ème article sur sa largeur maximale mesurée du point de vue du côté supérieur du scape.<br />
-<b>MetHL</b> longueur des plus longues soies du métapleurales, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>ML</b> <b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (i.e., where coarse structure of dorsal pronotum and fine structure of anteriormost pronotum meet); equivalent measuring also
-possible in lateral view. (S266).<br />
-<b>MH</b> hauteur maximale du mésosome chez les mâles et les femelles, mesurée verticalement depuis le ligne dorsale du mésonotum et scutellum vue de profil (S266).<br />
-<b>MnHL</b> longueur des plus longues soies sur le mésonotum.<br />
-<b>mPnHL</b> longueur médiane des soies du pronotum.  Règle de mesure : chercher une soie dressée très longue sur le pronotum, noter le milieu de cette longueur et des longueurs des 5 soies suivantes [les plus longues].
->>> on obtient ainsi 2 nombres ; une médiane et une moyenne/médiane.<br />
-<b>MW</b> maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For the ergates only the max width of the Pronotom*, for the reproductives max width of the mesosome* before the tegulae.<br />
-<b>nCH</b>  décompte unilatéral des soies qui se dressent à plus de 10 µm depuis le contour de l'occiput, vers l'avant, jusqu'au bords antérieurs des yeux. Cela s’ajuste si bien à la tête, que la CL maximale se trouve dans le plan de la feuille.<br />
-<b>nCU</b> vue de profil, décompte unilatéral des soies dépassant de plus de 10 µm de la face ventrale de la tête.<br />
-<b>nCOXA</b> décompte unilatéral des soies qui dépassent de plus de 10 µm de la surface cranaire des coxas antérieurs.<br />
-<b>nHT</b> décompte unilatéral des soies qui dépassent de plus de 10 µm strictement du côté rectiligne des tibias arrières (chez Lasius s. str. > 20 µm).<br />
-<b>nHTFl</b> décompte unilatéral des soies qui se dressent à l'arête extérieure du côté renflé des tibias arrières -il en est ainsi pour chaque arête, qui se prolonge vers l'extérieure, lorsque les tibias sont rejetés vers le postérieur.
-Les soies toujours présentes à l'apex de l'arête externe ne sont pas prises en compte (un pendant de l'éperon tibial à l'apex de l'arête intérieure). Dans le cas d'une importante pilosité avec des longueurs de poils différentes 
-(par exemple chez Formica exsecta), seules les soies de premier ordre seront comptées! [Plus de 10 µm]<br />
-<b>nMet</b> décompte unilatéral des soies érectiles de la métapleure, en-dessous du bord inférieur du stigmate propodéal (domaine concerné hachuré dans le schéma 282, domaine dorsal également pris en considération, nasse capillaire de la glande métapleurale et soies de l'attache du pétiole exclues).<br />
-<b>nPn</b> décompte unilatéral des soies érectiles à la surface du pronotum.<br />
-<b>nPE</b> décompte unilatéral des soies érectiles à la surface du PEtiole.<br />
-<b>nPR</b> décompte unilatéral des soies érectiles à la surface du PRopodeum.<br />
-<b>nSc</b> décompte unilatéral des soies qui se détachent de plus de 10 µm de la partie supérieure du Scape.<br />
-<b>OceSet</b>  Présence (=1), absence (=0) de setae érectiles de plus de 10 µm dans le triangle ocellaire.<br />
-<b>PoOC</b> <b>Po</b>st<b>OC</b>ular distance. Using the cross-scaled ocular micrometer the head is adjusted to the measuring position of <b>CL</b>; caudal measuring point: median posterior margin of head as average between peaks and valleys of microsculpture; frontal measuring point: median head at the level of the posterior eye margin; average of left and right postocular dis- tance is calculated.<br />
-<b>PLF</b> longueur des soies pubescentes de la tête entre les carinae frontales. Valeur significative sur 6 mesures pour chaque individu.<br />
-<b>PDCL</b> écart médian de la pubescence sur le clypeus. La longueur d'une ligne médiane, du bord postérieur médian du clypeus jusqu'à l'extrémité* fronto-latérale de la voûte du clypeus, sera divisée par le nombre de soies pubescentes entrecoupant ou frôlant cette ligne (S267).<br />
-<b>PDF</b> écart médian de la pubescence sur un ligne de mesure transversale sur le front, frontal par rapport aux ocelles. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDG</b> écart médian de la pubescence sur une ligne de mesure transversale au milieu de la surface dorsale du 1er tergite gastrique. Calcul comme pour le <b>PDCL</b>.<br />
-<b>PDI</b> indexe des épines propodéales mesuré en vue latérale de manière à ce que les pointes des épines se superposent : écart X de la pointe de l'épine au centre du stigmate propodéal, divisé par l'écart Y le plus court du centre du stigmate propodéal au bord postérieur du propodeum (S268).<br />
-<b>PEH</b> Maximum <b>PE</b>tiole <b>H</b>eight. The straight section of the ventral petiolar profile at node level is the reference line perpendicular to which the maximum height of the petiole node is measured. The dorsal measuring point is not necessarily positioned at the node top.<br />
-<b>PEHL</b> plus grande longueur de soie sur le dos du pétiole.<br />
-<b>PEW</b> maximum <b>PE</b>tiole <b>W</b>idth.<br />
-<b>PnHL</b> <b>H</b>ighest <b>L</b>ength of longest hair of pronotum (<b>Pn</b>); arithmetic mean of both sides.<br />
-<b>PPW</b> Postpetiole (<b>PP</b>) maximum <b>W</b>idth (profile view).<br />
-<b>PPH</b> Postpetiole (<b>PP</b>) maximum <b>H</b>eight, measured perpendicular to a line defined by the suture between dorsal and ventral sclerites (profile view).<br />
-<b>SL</b> longueur maximale du scape mesurable. L'attache du scape et le moignon de celui-ci tout comme l'élargissement de la corne du scape en forme de lobe (comme chez Myrmica) ne sont pas pris en compte (S269, S270).<br />
-<b>SLd</b> SLd Maximum straight line scape length in dorsal view, excluding articular condyle; taken as arithmetic mean of both scapes. The scape is tilted to a position perpendicular to the swivelling plane of the funiculus segment. longueur maximale du scape mesurable en vue dorsale ; l'élargissement en forme de lobe de la corne du scape sera prise en compte, l'attache du scape et le moignon de celui-ci ne le sont toujours pas (seulement chez Tetramorium).<br />
-<b>SMAX</b> diamètre maximal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SMIN</b> diamètre minimal du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas à celle de la pubescence !<br />
-<b>SP</b> longueur des épines propodéales, mesuré d'un angle de vue dorsal à frontodorsal : écart de la pointe de l'épine jusqu'au point de la base de l'épine qui se situe à la même hauteur que le point le plus frontal d'entre les courbures formées par les bases des épines.<br />
-<b>SPBA</b> plus petit écart des arêtes extérieures à la base des épines (S75).<br />
-<b>SPST</b> écart depuis le centre du stigmate propodéal à la pointe des épines dorsales.<br />
-<b>SPTI</b> écart maximal des centres [où ?] aux pointes des épines propodéales/ écart maximal des milieux des épines propodéales à leur pointes.<br />
-<b>SPWI</b> SPWI Maximum distance between outer margins of spines; measured in dorsofrontal view.  [ici, arête des pointes et non de la base des épines comme SPBA] (S75).<br />
-<b>sqPDF</b> racine carrée de l'écart médian entre les pubescences du triangle ocellaire. PDF = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Mesure exacte seulement possible sur une surface propre en laissant de côté les zones ou la pubescence est détériorée, nécessite une haute résolution optique et un éclairage optimal pour visualiser l'intégralité de la longueur des soies pubescentes.<br />
-<b>sqPDG</b> racine carrée de l'écart médian entre les pubescences à la surface dorsale du premier tergite abdominal. PDG = l/n ; où n = nombre de soies pubescentes qui coupent les 3 lignes médianes transversales de longueur totale l ; 
-les soies touchant les médianes compterons pour "0,5" ; position des médianes voir schéma 283. Conditions optimales de mesures, voir spPDF.<br />
-<b>TERG</b> agencement, numérotations des soies du tergite abdominal le plus antérieur avec au moins une soie érectile de plus de 10 µm. En ayant soin de regarder le bord postérieur de chaque segment , à cet endroit se trouvent souvent de telles des soies.<br />
-<a title="Total Length" style="cursor:help;"><b>TL</b></a>Total Lenght. Measured from the head to the pygidium.<br />
-</p>	</span>
-</article>
+    
+    <div class="diagram-section" id="section-mesosoma" data-print-title="MESOSOMA (Thorax)">
+        <div class="head-layout">
+        <div class="diagram-area">
+            <div class="diagram-wrapper" id="mesosoma-diagram">
+                <div class="mag-overlay"></div>
+                <button class="diagram-btn mag-toggle" title="Magnifier">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+                </button>
+                <button class="diagram-btn enlarge-toggle" title="Enlarge">
+                    <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </button>
+                <div class="mag-lens"><canvas></canvas></div>
+                <div class="view-selector">
+                    <button class="view-btn active" data-view="lateral">Lateral</button>
+                    <button class="view-btn" data-view="dorsal">Dorsal</button>
+                </div>
+                
+                <object data="img/morpho/svg/ant_mesosoma_lateral_v1.svg"
+                        type="image/svg+xml"
+                        id="mesosoma-svg-lateral"
+                        class="morpho-svg active"
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
+                    <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant mesosoma lateral view">
+                </object>
+                
+                <object data="img/morpho/svg/ant_mesosoma_dorsal_v1.svg"
+                        type="image/svg+xml"
+                        id="mesosoma-svg-dorsal"
+                        class="morpho-svg"
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
+                    <img src="img/morpho/casent0179929_d_1_high.jpg" alt="Ant mesosoma dorsal view">
+                </object>
+            </div>
+            <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT0179897" target="_blank">CASENT0179897</a> - AntWeb.org (CC BY)</p>
+        </div>
+        
+        <div class="measurements-panel" id="mesosomaPanel">
+                <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMesosomaLabels" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
+                </label>
+            </h4>
+            <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMesoMeasurements" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphometrics" data-fr="Morphométrie">Morphometrics</span>
+                </label>
+            </h4>
+            <div class="measurement-grid" id="mesoMeasurementGrid">
+                <label class="measurement-checkbox" data-view="lateral">
+                    <input type="checkbox" data-measure="MH" data-section="mesosoma" checked>
+                    <span class="abbrev">MH</span>
+                    <span class="name" data-en="Mesosoma Height" data-fr="Hauteur du mésosome">Mesosoma Height</span>
+                </label>
+                <label class="measurement-checkbox" data-view="lateral">
+                    <input type="checkbox" data-measure="PrH" data-section="mesosoma" checked>
+                    <span class="abbrev">PrH</span>
+                    <span class="name" data-en="Pronotum Height" data-fr="Hauteur du pronotum">Pronotum Height</span>
+                </label>
+                <label class="measurement-checkbox" data-view="dorsal">
+                    <input type="checkbox" data-measure="MW" data-section="mesosoma" checked>
+                    <span class="abbrev">MW</span>
+                    <span class="name" data-en="Mesosoma Width" data-fr="Largeur du mésosome">Mesosoma Width</span>
+                </label>
+                <label class="measurement-checkbox" data-view="dorsal">
+                    <input type="checkbox" data-measure="PrW" data-section="mesosoma" checked>
+                    <span class="abbrev">PrW</span>
+                    <span class="name" data-en="Pronotum Width" data-fr="Largeur du pronotum">Pronotum Width</span>
+                </label>
+                <label class="measurement-checkbox" data-view="dorsal">
+                    <input type="checkbox" data-measure="ML" data-section="mesosoma" checked>
+                    <span class="abbrev">ML</span>
+                    <span class="name" data-en="Mesosoma Length" data-fr="Longueur du mésosome">Mesosoma Length</span>
+                </label>
+            </div>
+            <h4 data-en="Download my file" data-fr="Télécharger mon fichier">Download my file</h4>
+            <div class="panel-export">
+                <button class="export-btn" onclick="downloadAsPNG('mesosoma')">
+                    <span class="format">PNG</span>
+                </button>
+                <button class="export-btn" onclick="downloadAsSVG('mesosoma')">
+                    <span class="format">SVG</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    
+    <div class="diagram-section" id="section-metasoma" data-print-title="METASOMA (Abdomen)">
+        <div class="head-layout">
+        <div class="diagram-area">
+            <div class="diagram-wrapper" id="metasoma-diagram">
+                <div class="mag-overlay"></div>
+                <button class="diagram-btn mag-toggle" title="Magnifier">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="22" y2="22"/></svg>
+                </button>
+                <button class="diagram-btn enlarge-toggle" title="Enlarge">
+                    <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </button>
+                <div class="mag-lens"><canvas></canvas></div>
+                
+                <object data="img/morpho/svg/ant_metasoma_lateral_v2.svg"
+                        type="image/svg+xml"
+                        id="metasoma-svg-lateral"
+                        class="morpho-svg active"
+                        style="max-width: 100%; height: auto;"
+                        onload="if(typeof translateSvgLabels==='function')translateSvgLabels(this)">
+                    <img src="img/morpho/casent0179897_p_1_high.jpg" alt="Ant metasoma lateral view">
+                </object>
+            </div>
+            <p class="img-source">Source: <a href="https://www.antweb.org/specimen/CASENT4031895" target="_blank">CASENT4031895</a> - AntWeb.org (CC BY)</p>
+        </div>
+        
+        <div class="measurements-panel" id="metasomaPanel">
+                <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMetasomaLabels" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphology" data-fr="Morphologie">Morphology</span>
+                </label>
+            </h4>
+            <div class="measurement-grid" id="metaMorphologyGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="petiole" data-section="metasoma" checked>
+                    <span class="name" data-en="Petiole" data-fr="Pétiole">Petiole</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="tergites" data-section="metasoma" checked>
+                    <span class="name" data-en="Tergites" data-fr="Tergites">Tergites</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="sternites" data-section="metasoma" checked>
+                    <span class="name" data-en="Sternites" data-fr="Sternites">Sternites</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="pygidium" data-section="metasoma" checked>
+                    <span class="name" data-en="Pygidium" data-fr="Pygidium">Pygidium</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-feature="hypopygium" data-section="metasoma" checked>
+                    <span class="name" data-en="Hypopygium" data-fr="Hypopygium">Hypopygium</span>
+                </label>
+            </div>
+            <h4 class="toggle-heading">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggleMetaMeasurements" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" data-en="Morphometrics" data-fr="Morphométrie">Morphometrics</span>
+                </label>
+            </h4>
+            <div class="measurement-grid" id="metaMeasurementGrid">
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="PEH" data-section="metasoma" checked>
+                    <span class="abbrev">PEH</span>
+                    <span class="name" data-en="Petiole Height" data-fr="Hauteur du pétiole">Petiole Height</span>
+                </label>
+                <label class="measurement-checkbox">
+                    <input type="checkbox" data-measure="GH" data-section="metasoma" checked>
+                    <span class="abbrev">GH</span>
+                    <span class="name" data-en="Gaster Height" data-fr="Hauteur du gastre">Gaster Height</span>
+                </label>
+            </div>
+            <h4 data-en="Download my file" data-fr="Télécharger mon fichier">Download my file</h4>
+            <div class="panel-export">
+                <button class="export-btn" onclick="downloadAsPNG('metasoma')">
+                    <span class="format">PNG</span>
+                </button>
+                <button class="export-btn" onclick="downloadAsSVG('metasoma')">
+                    <span class="format">SVG</span>
+                </button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    
+    <div class="diagram-section" id="section-measurements" data-print-title="MORPHOMETRIC MEASUREMENTS">
+        <button class="measurements-download-btn" onclick="window.print()" title="Download as PDF">PDF</button>
+        <div class="measurements-section">
+                <div class="measurements-header">
+                    <h3 data-en="Morphometric Definitions" data-fr="Définitions morphométriques">Morphometric Definitions</h3>
+                    <input type="text" id="measurementSearch" class="measurement-search" placeholder="Search..." data-placeholder-en="Search..." data-placeholder-fr="Rechercher...">
+                </div>
+                <div id="measurementsList">
+
+<div class="def-section"><div class="def-section-title" data-en="Head (Caput)" data-fr="Tête (Caput)">Head (Caput)</div>
+<div class="def-item" data-en="Maximal Length measured in the median line, from posterior side of the head to fore border of the clypeus (S264)." data-fr="Longueur maximale mesurée sur la ligne médiane, du côté postérieur de la tête au bord antérieur du clypéus (S264)."><b>CL</b> <span class="def-text">Maximal Length measured in the median line, from posterior side of the head to fore border of the clypeus (S264).</span></div>
+<div class="def-item" data-en="Cephalic Index = (CW/CL) x 100" data-fr="Indice Céphalique = (CW/CL) x 100"><b>CI</b> <span class="def-text"><b>C</b>ephalic <b>I</b>ndex = (<b>CW</b>/<b>CL</b>) x 100</span></div>
+<div class="def-item" data-en="Maximum Cephalic Width. Can include eyes." data-fr="Largeur Céphalique maximale. Peut inclure les yeux."><b>CW</b> <span class="def-text">Maximum <b>C</b>ephalic <b>W</b>idth. Can include eyes.</span></div>
+<div class="def-item" data-en="Unilateral count of all pubescent setae projecting more than 10 µm from the anterior edge of the clypeus." data-fr="Comptage unilatéral de toutes les soies pubescentes dépassant de plus de 10 µm du bord antérieur du clypéus."><b>ClyPub</b> <span class="def-text">Unilateral count of all pubescent setae projecting more than 10 µm from the anterior edge of the clypeus.</span></div>
+<div class="def-item" data-en="Presence of determining setal rows on the clypeus (S281). Values 1-5 indicate distribution pattern." data-fr="Présence de rangées de soies déterminantes sur le clypéus (S281). Les valeurs 1-5 indiquent le motif de distribution."><b>ClypSet</b> <span class="def-text">Presence of determining setal rows on the clypeus (S281). Values 1-5 indicate distribution pattern.</span></div>
+<div class="def-item" data-en="Cephalic Size: arithmetic mean of CW and CL." data-fr="Taille Céphalique : moyenne arithmétique de CW et CL."><b>CS</b> <span class="def-text">Cephalic Size: arithmetic mean of CW and CL.</span></div>
+<div class="def-item" data-en="Greatest length of setae on the posterior side of the head." data-fr="Plus grande longueur des soies sur la face postérieure de la tête."><b>CUHL</b> <span class="def-text">Greatest length of setae on the posterior side of the head.</span></div>
+<div class="def-item" data-en="Arithmetic mean of EL and ES." data-fr="Moyenne arithmétique de EL et ES."><b>EYE</b> <span class="def-text">Arithmetic mean of EL and ES.</span></div>
+<div class="def-item" data-en="Longer diameter of elliptic Eye. All structurally defined ommatidia, pigmented or not, are included." data-fr="Grand diamètre de l'œil elliptique. Toutes les ommatidies structurellement définies, pigmentées ou non, sont incluses."><b>EL</b> <span class="def-text">Longer diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.</span></div>
+<div class="def-item" data-en="Smaller diameter of elliptic Eye. All structurally defined ommatidia, pigmented or not, are included." data-fr="Petit diamètre de l'œil elliptique. Toutes les ommatidies structurellement définies, pigmentées ou non, sont incluses."><b>ES</b> <span class="def-text">Smaller diameter of elliptic <b>E</b>ye. All structurally defined ommatidia, pigmented or not, are included.</span></div>
+<div class="def-item" data-en="Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x." data-fr="Longueur des plus longues soies au niveau de l'œil, y compris les soies microscopiques visibles uniquement au grossissement G ≥ 150x."><b>EyeHL</b> <span class="def-text">Length of longest setae at eye level, including microscopic setae visible only at magnification G ≥ 150x.</span></div>
+<div class="def-item" data-en="Maximum anterior Distance of Frontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS." data-fr="Distance antérieure maximale des carènes frontales. Si FD n'est pas défini car les carènes frontales convergent en avant du niveau FRS, FD égale FRS."><b>FD</b> <span class="def-text">Maximum anterior <b>D</b>istance of <b>F</b>rontal carinae. If FD is not defined because frontal carinae converge anterior to FRS level, FD equals FRS.</span></div>
+<div class="def-item" data-en="Maximum frontal divergence of frontal carinae." data-fr="Divergence frontale maximale des carènes frontales."><b>FR</b> <span class="def-text">Maximum frontal divergence of frontal carinae.</span></div>
+<div class="def-item" data-en="Distance between frontal carinae behind torulus." data-fr="Distance entre les carènes frontales derrière le torulus."><b>FRS</b> <span class="def-text">Distance between frontal carinae behind torulus.</span></div>
+<div class="def-item" data-en="Frontal Triangle. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally." data-fr="Triangle Frontal. Région triangulaire au-dessus du clypéus, bordée par les carènes frontales latéralement et la suture clypéale ventralement."><b>ΔFr</b> <span class="def-text"><b>Frontal Triangle</b>. Triangular region above the clypeus, bordered by the frontal carinae laterally and the clypeal suture ventrally.</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm du contour de l'occiput, vers l'avant jusqu'aux marges antérieures des yeux."><b>nCH</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm from occiput contour, forward to anterior eye margins.</span></div>
+<div class="def-item" data-en="Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head." data-fr="Vue de profil, comptage unilatéral des soies dépassant de plus de 10 µm de la face ventrale de la tête."><b>nCU</b> <span class="def-text">Profile view, unilateral count of setae projecting more than 10 µm from ventral face of head.</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm from upper part of scape." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm de la partie supérieure du scape."><b>nSc</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm from upper part of scape.</span></div>
+<div class="def-item" data-en="Presence (=1) or absence (=0) of erectile setae more than 10 µm in ocellar triangle." data-fr="Présence (=1) ou absence (=0) de soies érectiles de plus de 10 µm dans le triangle ocellaire."><b>OceSet</b> <span class="def-text">Presence (=1) or absence (=0) of erectile setae more than 10 µm in ocellar triangle.</span></div>
+<div class="def-item" data-en="PostOCular distance. Measured along median line from median occipital margin to median head at level of posterior eye margin." data-fr="Distance PostOCulaire. Mesurée le long de la ligne médiane depuis la marge occipitale médiane jusqu'à la tête médiane au niveau de la marge postérieure de l'œil."><b>PoOC</b> <span class="def-text"><b>Po</b>st<b>OC</b>ular distance. Measured along median line from median occipital margin to median head at level of posterior eye margin.</span></div>
+<div class="def-item" data-en="Length of pubescent setae on head between frontal carinae. Significant value on 6 measurements per individual." data-fr="Longueur des soies pubescentes sur la tête entre les carènes frontales. Valeur significative sur 6 mesures par individu."><b>PLF</b> <span class="def-text">Length of pubescent setae on head between frontal carinae. Significant value on 6 measurements per individual.</span></div>
+<div class="def-item" data-en="Median pubescence spacing on clypeus (S267)." data-fr="Espacement médian de la pubescence sur le clypéus (S267)."><b>PDCL</b> <span class="def-text">Median pubescence spacing on clypeus (S267).</span></div>
+<div class="def-item" data-en="Median pubescence spacing on transverse measurement line on frons, frontal to ocelli." data-fr="Espacement médian de la pubescence sur la ligne de mesure transversale du front, frontal aux ocelles."><b>PDF</b> <span class="def-text">Median pubescence spacing on transverse measurement line on frons, frontal to ocelli.</span></div>
+<div class="def-item" data-en="Square root of median pubescence spacing in ocellar triangle (S283)." data-fr="Racine carrée de l'espacement médian de la pubescence dans le triangle ocellaire (S283)."><b>sqPDF</b> <span class="def-text">Square root of median pubescence spacing in ocellar triangle (S283).</span></div>
+<div class="def-item" data-en="Maximum Scape Length, excluding articular condyle and basal lobe (S269, S270)." data-fr="Longueur maximale du Scape, excluant le condyle articulaire et le lobe basal (S269, S270)."><b>SL</b> <span class="def-text">Maximum <b>S</b>cape <b>L</b>ength, excluding articular condyle and basal lobe (S269, S270).</span></div>
+<div class="def-item" data-en="Maximum straight line scape length in dorsal view, excluding articular condyle; arithmetic mean of both scapes." data-fr="Longueur maximale en ligne droite du scape en vue dorsale, excluant le condyle articulaire ; moyenne arithmétique des deux scapes."><b>SLd</b> <span class="def-text">Maximum straight line scape length in dorsal view, excluding articular condyle; arithmetic mean of both scapes.</span></div>
+<div class="def-item" data-en="Maximum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence." data-fr="Diamètre maximum du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas la pubescence."><b>SMAX</b> <span class="def-text">Maximum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.</span></div>
+<div class="def-item" data-en="Minimum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence." data-fr="Diamètre minimum du scape, au milieu du scape. Mesurer à la surface cuticulaire, pas la pubescence."><b>SMIN</b> <span class="def-text">Minimum diameter of scape, at middle of scape. Measure at cuticular surface, not pubescence.</span></div>
+<div class="def-item" data-en="Ratio of median length of 2nd article to its maximum width measured from upper side of scape." data-fr="Rapport de la longueur médiane du 2e article à sa largeur maximale mesurée depuis le côté supérieur du scape."><b>IF2</b> <span class="def-text">Ratio of median length of 2nd article to its maximum width measured from upper side of scape.</span></div>
+</div>
+
+<div class="def-section"><div class="def-section-title" data-en="Mesosoma (Thorax)" data-fr="Mésosome (Thorax)">Mesosoma (Thorax)</div>
+<div class="def-item" data-en="Mesosoma Length measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (S266)." data-fr="Longueur du Mésosome mesurée en vue dorsale de la partie la plus caudale du propodéum au coin antérodorsal de la pente pronotale (S266)."><b>ML</b> <span class="def-text"><b>M</b>esosoma <b>L</b>ength measured in dorsal view from caudalmost portion of propodeum to anterodorsal corner of pronotal slope (S266).</span></div>
+<div class="def-item" data-en="Maximum Mesosoma Height, measured vertically from dorsal line of mesonotum/scutellum in profile view (S266)." data-fr="Hauteur maximale du Mésosome, mesurée verticalement depuis la ligne dorsale du mésonotum/scutellum en vue de profil (S266)."><b>MH</b> <span class="def-text">Maximum <b>M</b>esosoma <b>H</b>eight, measured vertically from dorsal line of mesonotum/scutellum in profile view (S266).</span></div>
+<div class="def-item" data-en="Maximum Mesosoma Width (dorsal view). For workers: max width of pronotum; for reproductives: max width before tegulae." data-fr="Largeur maximale du Mésosome (vue dorsale). Pour les ouvrières : largeur max du pronotum ; pour les reproducteurs : largeur max avant les tégulae."><b>MW</b> <span class="def-text">Maximum <b>M</b>esosoma <b>W</b>idth (dorsal view). For workers: max width of pronotum; for reproductives: max width before tegulae.</span></div>
+<div class="def-item" data-en="Length of longest setae on mesonotum." data-fr="Longueur des plus longues soies sur le mésonotum."><b>MnHL</b> <span class="def-text">Length of longest setae on mesonotum.</span></div>
+<div class="def-item" data-en="Median length of pronotal setae." data-fr="Longueur médiane des soies pronotales."><b>mPnHL</b> <span class="def-text">Median length of pronotal setae.</span></div>
+<div class="def-item" data-en="Highest Length of longest hair of pronotum; arithmetic mean of both sides." data-fr="Plus grande Longueur du plus long poil du pronotum ; moyenne arithmétique des deux côtés."><b>PnHL</b> <span class="def-text"><b>H</b>ighest <b>L</b>ength of longest hair of pronotum; arithmetic mean of both sides.</span></div>
+<div class="def-item" data-en="Pronotum Height. Maximum height of pronotum measured in lateral view." data-fr="Hauteur du Pronotum. Hauteur maximale du pronotum mesurée en vue latérale."><b>PrH</b> <span class="def-text"><b>Pr</b>onotum <b>H</b>eight. Maximum height of pronotum measured in lateral view.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile setae on pronotum surface." data-fr="Comptage unilatéral des soies érectiles sur la surface du pronotum."><b>nPn</b> <span class="def-text">Unilateral count of erectile setae on pronotum surface.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile setae on propodeum surface." data-fr="Comptage unilatéral des soies érectiles sur la surface du propodéum."><b>nPR</b> <span class="def-text">Unilateral count of erectile setae on propodeum surface.</span></div>
+<div class="def-item" data-en="Length of longest metapleural setae, below lower edge of propodeal spiracle." data-fr="Longueur des plus longues soies métapleurales, sous le bord inférieur du spiracle propodéal."><b>MetHL</b> <span class="def-text">Length of longest metapleural setae, below lower edge of propodeal spiracle.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile metapleural setae, below lower edge of propodeal spiracle." data-fr="Comptage unilatéral des soies métapleurales érectiles, sous le bord inférieur du spiracle propodéal."><b>nMet</b> <span class="def-text">Unilateral count of erectile metapleural setae, below lower edge of propodeal spiracle.</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm from cranial surface of fore coxae." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm de la surface crânienne des coxae antérieures."><b>nCOXA</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm from cranial surface of fore coxae.</span></div>
+<div class="def-item" data-en="Propodeal SPine length, measured in dorsofrontal view from spine tip to base curve." data-fr="Longueur de l'épine Propodéale, mesurée en vue dorsofrontale de la pointe de l'épine à la courbe de base."><b>SP</b> <span class="def-text">Propodeal <b>SP</b>ine length, measured in dorsofrontal view from spine tip to base curve.</span></div>
+<div class="def-item" data-en="Smallest distance between outer edges at SPine BAses (S75)." data-fr="Plus petite distance entre les bords extérieurs aux BAses des éPines (S75)."><b>SPBA</b> <span class="def-text">Smallest distance between outer edges at <b>SP</b>ine <b>BA</b>ses (S75).</span></div>
+<div class="def-item" data-en="Distance from center of propodeal spiracle to tip of dorsal spines." data-fr="Distance du centre du spiracle propodéal à la pointe des épines dorsales."><b>SPST</b> <span class="def-text">Distance from center of propodeal spiracle to tip of dorsal spines.</span></div>
+<div class="def-item" data-en="Maximum distance from spine centers to propodeal spine tips." data-fr="Distance maximale des centres des épines aux pointes des épines propodéales."><b>SPTI</b> <span class="def-text">Maximum distance from spine centers to propodeal spine tips.</span></div>
+<div class="def-item" data-en="Maximum distance between outer margins of SPine tips (S75)." data-fr="Distance maximale entre les marges extérieures des pointes d'éPines (S75)."><b>SPWI</b> <span class="def-text">Maximum distance between outer margins of <b>SP</b>ine tips (S75).</span></div>
+<div class="def-item" data-en="Propodeal spine index measured in lateral view (S268)." data-fr="Indice des épines propodéales mesuré en vue latérale (S268)."><b>PDI</b> <span class="def-text">Propodeal spine index measured in lateral view (S268).</span></div>
+</div>
+
+<div class="def-section"><div class="def-section-title" data-en="Legs (Poda)" data-fr="Pattes (Poda)">Legs (Poda)</div>
+<div class="def-item" data-en="Hind Tibia Length, measured from inner constriction point to distal tip (S265)." data-fr="Longueur du Tibia postérieur, mesurée du point de constriction interne à l'extrémité distale (S265)."><b>HTL</b> <span class="def-text"><b>H</b>ind <b>T</b>ibia <b>L</b>ength, measured from inner constriction point to distal tip (S265).</span></div>
+<div class="def-item" data-en="Maximum diameter of hind tibiae (measured at middle of tibiae)." data-fr="Diamètre maximum des tibias postérieurs (mesuré au milieu des tibias)."><b>HTMAX</b> <span class="def-text">Maximum diameter of hind tibiae (measured at middle of tibiae).</span></div>
+<div class="def-item" data-en="Minimum diameter of hind tibiae (measured at middle of tibiae)." data-fr="Diamètre minimum des tibias postérieurs (mesuré au milieu des tibias)."><b>HTMIN</b> <span class="def-text">Minimum diameter of hind tibiae (measured at middle of tibiae).</span></div>
+<div class="def-item" data-en="Unilateral count of setae projecting more than 10 µm strictly from straight side of hind tibiae (Lasius s. str. > 20 µm)." data-fr="Comptage unilatéral des soies dépassant de plus de 10 µm strictement du côté droit des tibias postérieurs (Lasius s. str. > 20 µm)."><b>nHT</b> <span class="def-text">Unilateral count of setae projecting more than 10 µm strictly from straight side of hind tibiae (Lasius s. str. > 20 µm).</span></div>
+<div class="def-item" data-en="Unilateral count of setae at outer edge of swollen side of hind tibiae." data-fr="Comptage unilatéral des soies au bord extérieur du côté renflé des tibias postérieurs."><b>nHTFl</b> <span class="def-text">Unilateral count of setae at outer edge of swollen side of hind tibiae.</span></div>
+<div class="def-item" data-en="Coxa. First (basal) segment of the leg, articulating with the thorax. Fore, mid, and hind coxae correspond to the three pairs of legs." data-fr="Coxa. Premier segment (basal) de la patte, s'articulant avec le thorax. Les coxae antérieure, médiane et postérieure correspondent aux trois paires de pattes."><b>Coxa</b> <span class="def-text">First (basal) segment of the leg, articulating with the thorax. Fore, mid, and hind coxae correspond to the three pairs of legs.</span></div>
+<div class="def-item" data-en="Trochanter. Small second segment of the leg between the coxa and femur." data-fr="Trochanter. Petit deuxième segment de la patte entre la coxa et le fémur."><b>Trochanter</b> <span class="def-text">Small second segment of the leg between the coxa and femur.</span></div>
+<div class="def-item" data-en="Femur. Third and usually largest segment of the leg, between the trochanter and tibia." data-fr="Fémur. Troisième et généralement plus grand segment de la patte, entre le trochanter et le tibia."><b>Femur</b> <span class="def-text">Third and usually largest segment of the leg, between the trochanter and tibia.</span></div>
+<div class="def-item" data-en="Tibia. Fourth segment of the leg, between the femur and tarsus. Often bears spurs at its distal end." data-fr="Tibia. Quatrième segment de la patte, entre le fémur et le tarse. Porte souvent des éperons à son extrémité distale."><b>Tibia</b> <span class="def-text">Fourth segment of the leg, between the femur and tarsus. Often bears spurs at its distal end.</span></div>
+<div class="def-item" data-en="Tibial Spur. Spine-like projection at the distal end of the tibia, used for grooming antennae and legs." data-fr="Éperon tibial. Projection en forme d'épine à l'extrémité distale du tibia, utilisée pour le toilettage des antennes et des pattes."><b>Tibial Spur</b> <span class="def-text">Spine-like projection at the distal end of the tibia, used for grooming antennae and legs.</span></div>
+<div class="def-item" data-en="Tarsus (pl. Tarsi). Fifth and final segment of the leg, composed of multiple tarsomeres (usually 5) and ending with pretarsal claws." data-fr="Tarse (pl. Tarses). Cinquième et dernier segment de la patte, composé de plusieurs tarsomères (généralement 5) et se terminant par des griffes prétarsales."><b>Tarsus</b> <span class="def-text">Fifth and final segment of the leg, composed of multiple tarsomeres (usually 5) and ending with pretarsal claws.</span></div>
+</div>
+
+<div class="def-section"><div class="def-section-title" data-en="Metasoma (Abdomen)" data-fr="Métasome (Abdomen)">Metasoma (Abdomen)</div>
+<div class="def-item" data-en="Maximum PEtiole Height. Measured perpendicular to straight section of ventral petiolar profile at node level." data-fr="Hauteur maximale du PÉtiole. Mesurée perpendiculairement à la section droite du profil pétiolaire ventral au niveau du nœud."><b>PEH</b> <span class="def-text">Maximum <b>PE</b>tiole <b>H</b>eight. Measured perpendicular to straight section of ventral petiolar profile at node level.</span></div>
+<div class="def-item" data-en="Greatest length of setae on dorsum of petiole." data-fr="Plus grande longueur des soies sur le dorsum du pétiole."><b>PEHL</b> <span class="def-text">Greatest length of setae on dorsum of petiole.</span></div>
+<div class="def-item" data-en="Maximum PEtiole Width." data-fr="Largeur maximale du PÉtiole."><b>PEW</b> <span class="def-text">Maximum <b>PE</b>tiole <b>W</b>idth.</span></div>
+<div class="def-item" data-en="Unilateral count of erectile setae on petiole surface." data-fr="Comptage unilatéral des soies érectiles sur la surface du pétiole."><b>nPE</b> <span class="def-text">Unilateral count of erectile setae on petiole surface.</span></div>
+<div class="def-item" data-en="PostPetiole maximum Width (profile view)." data-fr="Largeur maximale du PostPétiole (vue de profil)."><b>PPW</b> <span class="def-text"><b>P</b>ost<b>P</b>etiole maximum <b>W</b>idth (profile view).</span></div>
+<div class="def-item" data-en="PostPetiole maximum Height, measured perpendicular to suture between dorsal and ventral sclerites (profile view)." data-fr="Hauteur maximale du PostPétiole, mesurée perpendiculairement à la suture entre les sclérites dorsaux et ventraux (vue de profil)."><b>PPH</b> <span class="def-text"><b>P</b>ost<b>P</b>etiole maximum <b>H</b>eight, measured perpendicular to suture between dorsal and ventral sclerites (profile view).</span></div>
+<div class="def-item" data-en="Gaster Height. Maximum height of gaster measured perpendicular to longitudinal axis in lateral view." data-fr="Hauteur du Gastre. Hauteur maximale du gastre mesurée perpendiculairement à l'axe longitudinal en vue latérale."><b>GH</b> <span class="def-text"><b>G</b>aster <b>H</b>eight. Maximum height of gaster measured perpendicular to longitudinal axis in lateral view.</span></div>
+<div class="def-item" data-en="Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border." data-fr="Longueur des plus longues soies sur la surface dorsale de t1, excluant les soies à la bordure postérieure du segment."><b>GHL</b> <span class="def-text">Length of longest setae on dorsal surface of t1, excluding setae at posterior segment border.</span></div>
+<div class="def-item" data-en="Gaster Length. Maximum length of gaster from anterior margin of first gastral segment to posterior tip of pygidium." data-fr="Longueur du Gastre. Longueur maximale du gastre de la marge antérieure du premier segment gastral à l'extrémité postérieure du pygidium."><b>GL</b> <span class="def-text"><b>G</b>aster <b>L</b>ength. Maximum length of gaster from anterior margin of first gastral segment to posterior tip of pygidium.</span></div>
+<div class="def-item" data-en="Median pubescence spacing on transverse measurement line at middle of dorsal surface of 1st gastric tergite." data-fr="Espacement médian de la pubescence sur la ligne de mesure transversale au milieu de la surface dorsale du 1er tergite gastrique."><b>PDG</b> <span class="def-text">Median pubescence spacing on transverse measurement line at middle of dorsal surface of 1st gastric tergite.</span></div>
+<div class="def-item" data-en="Square root of median pubescence spacing on dorsal surface of first abdominal tergite (S283)." data-fr="Racine carrée de l'espacement médian de la pubescence sur la surface dorsale du premier tergite abdominal (S283)."><b>sqPDG</b> <span class="def-text">Square root of median pubescence spacing on dorsal surface of first abdominal tergite (S283).</span></div>
+<div class="def-item" data-en="Arrangement/numbering of setae on anteriormost abdominal tergite with at least one erectile seta more than 10 µm." data-fr="Disposition/numérotation des soies sur le tergite abdominal le plus antérieur avec au moins une soie érectile de plus de 10 µm."><b>TERG</b> <span class="def-text">Arrangement/numbering of setae on anteriormost abdominal tergite with at least one erectile seta more than 10 µm.</span></div>
+</div>
+
+<div class="def-section"><div class="def-section-title" data-en="General" data-fr="Général">General</div>
+<div class="def-item" data-en="Total Length. Measured from head to pygidium." data-fr="Longueur Totale. Mesurée de la tête au pygidium."><b>TL</b> <span class="def-text"><b>T</b>otal <b>L</b>ength. Measured from head to pygidium.</span></div>
+</div>
+                </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Translate SVG labels based on current language (called on SVG load)
+function translateSvgLabels(svgObject) {
+    if (!svgObject || !svgObject.contentDocument) return;
+    var cookieMatch = document.cookie.match(/aw_lang=([^;]+)/);
+    var lang = cookieMatch ? cookieMatch[1] : 'en';
+
+    // Traduire les tspans individuellement s'ils ont data-en/data-fr
+    svgObject.contentDocument.querySelectorAll('tspan[data-en][data-fr]').forEach(function(tspan) {
+        tspan.textContent = tspan.dataset[lang];
+    });
+
+    // Traduire les éléments text SANS tspans (labels simples)
+    svgObject.contentDocument.querySelectorAll('.label-text[data-en][data-fr]').forEach(function(el) {
+        // Ne pas écraser si l'élément contient des tspans
+        if (el.querySelectorAll('tspan').length === 0) {
+            el.textContent = el.dataset[lang];
+        }
+    });
+}
+
+// Tab switching
+document.querySelectorAll('.morpho-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        // Update tab states
+        document.querySelectorAll('.morpho-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        // Update section visibility
+        const section = this.dataset.section;
+        document.querySelectorAll('.diagram-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('section-' + section).classList.add('active');
+
+        // Force reload SVG objects that haven't loaded their contentDocument
+        // (happens when section was hidden on page load)
+        setTimeout(function() {
+            var activeSection = document.getElementById('section-' + section);
+            if (activeSection) {
+                activeSection.querySelectorAll('object.morpho-svg').forEach(function(obj) {
+                    if (!obj.contentDocument || !obj.contentDocument.documentElement) {
+                        var src = obj.data;
+                        obj.data = '';
+                        obj.data = src;
+                    }
+                });
+            }
+            // Invalidate magnifier cache
+            if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+        }, 50);
+
+        // Save active tab to localStorage
+        localStorage.setItem('morpho-active-tab', section);
+
+        // Show/hide diagram controls based on section
+        const controls = document.getElementById('diagramControls');
+        if (controls) {
+            if (section === 'measurements') {
+                controls.style.display = 'none';
+            } else {
+                controls.style.display = 'flex';
+            }
+        }
+    });
+});
+
+// Restore saved tab on page load
+(function() {
+    var savedTab = localStorage.getItem('morpho-active-tab');
+    if (savedTab) {
+        var tabBtn = document.querySelector('.morpho-tab[data-section="' + savedTab + '"]');
+        if (tabBtn) {
+            tabBtn.click();
+        }
+    }
+})();
+
+// View switching within sections
+document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const parent = this.closest('.diagram-section');
+        parent.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const view = this.dataset.view;
+        const sectionId = parent.id;
+        const wrapper = parent.querySelector('.diagram-wrapper');
+
+        // Handle head section with SVG
+        if (sectionId === 'section-head') {
+            const svgFrontal = wrapper.querySelector('#head-svg-frontal');
+            const imgLateral = wrapper.querySelector('#head-image-lateral');
+
+            if (view === 'frontal') {
+                svgFrontal.classList.add('active');
+                imgLateral.classList.remove('active');
+            } else {
+                svgFrontal.classList.remove('active');
+                imgLateral.classList.add('active');
+            }
+        } else {
+            // Other sections use simple img switching
+            const img = wrapper.querySelector('img');
+            const images = {
+                'section-mesosoma': {
+                    'lateral': 'img/morpho/casent0179897_p_1_high.jpg',
+                    'dorsal': 'img/morpho/svg/CASENT0179897_D.jpg'
+                },
+                'section-metasoma': {
+                    'lateral': 'img/morpho/casent0179897_p_1_high.jpg',
+                    'dorsal': 'img/morpho/svg/CASENT0179897_D.jpg'
+                }
+            };
+
+            if (images[sectionId] && images[sectionId][view]) {
+                img.src = images[sectionId][view];
+            }
+        }
+    });
+});
+
+// Toggle morphology labels AND surfaces (checkbox)
+function updateMorphologyLabels() {
+    var show = document.getElementById('toggleLabels').checked;
+    document.querySelectorAll('object.morpho-svg').forEach(function(obj) {
+        if (obj.contentDocument) {
+            var labelsLayer = obj.contentDocument.getElementById('layer-labels');
+            if (labelsLayer) {
+                labelsLayer.style.display = show ? 'inline' : 'none';
+            }
+            // Hide only surface elements (not the white background)
+            var surfacesLayer = obj.contentDocument.getElementById('layer-background');
+            if (surfacesLayer) {
+                surfacesLayer.querySelectorAll('*').forEach(function(el) {
+                    var label = el.getAttribute('inkscape:label') || '';
+                    if (label.endsWith('.surf')) {
+                        el.style.display = show ? 'inline' : 'none';
+                    }
+                });
+            }
+        }
+    });
+    // Sync morphology feature checkboxes with main toggle
+    document.querySelectorAll('#morphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    // Invalidate magnifier cache so it reflects the layer change
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+document.getElementById('toggleLabels').addEventListener('change', updateMorphologyLabels);
+
+// Toggle morphometrics (measurements layer)
+function updateMorphometrics() {
+    var show = document.getElementById('toggleMeasurements').checked;
+    document.querySelectorAll('object.morpho-svg').forEach(function(obj) {
+        if (obj.contentDocument) {
+            var measurementsLayer = obj.contentDocument.getElementById('layer-measurements');
+            if (measurementsLayer) {
+                measurementsLayer.style.display = show ? 'inline' : 'none';
+            }
+        }
+    });
+    // Sync measurement checkboxes with main toggle
+    document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    // Invalidate magnifier cache
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+document.getElementById('toggleMeasurements').addEventListener('change', updateMorphometrics);
+
+// Initialize when SVG loads
+document.getElementById('head-svg-frontal').addEventListener('load', updateMorphologyLabels);
+document.getElementById('head-svg-frontal').addEventListener('load', updateMorphometrics);
+
+// Toggle individual morphology features (show/hide labels by data-feature)
+function toggleMorphologyFeature(featureId, show) {
+    var svgObject = document.getElementById('head-svg-frontal');
+    if (svgObject && svgObject.contentDocument) {
+        var svgDoc = svgObject.contentDocument;
+        // Find all elements with this data-feature
+        svgDoc.querySelectorAll('[data-feature="' + featureId + '"]').forEach(function(el) {
+            el.style.display = show ? 'inline' : 'none';
+        });
+    }
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+
+// Initialize morphology feature checkboxes
+document.querySelectorAll('#morphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        var featureId = this.dataset.feature;
+        toggleMorphologyFeature(featureId, this.checked);
+    });
+});
+
+// Apply initial morphology feature states when SVG loads
+document.getElementById('head-svg-frontal').addEventListener('load', function() {
+    document.querySelectorAll('#morphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+        var featureId = checkbox.dataset.feature;
+        toggleMorphologyFeature(featureId, checkbox.checked);
+    });
+});
+
+// Feature click to highlight
+document.querySelectorAll('.feature-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const featureId = this.dataset.feature;
+        const section = this.closest('.diagram-section');
+
+        // Remove previous highlights from feature items
+        section.querySelectorAll('.feature-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+
+        // Try to highlight in embedded SVG (via object element)
+        const svgObject = section.querySelector('object.morpho-svg.active');
+        if (svgObject && svgObject.contentDocument) {
+            const svgDoc = svgObject.contentDocument;
+            // Remove previous SVG highlights
+            svgDoc.querySelectorAll('.label').forEach(l => l.classList.remove('highlight'));
+            // Add highlight to matching label
+            const svgLabel = svgDoc.querySelector('[data-feature="' + featureId + '"]');
+            if (svgLabel) {
+                svgLabel.classList.add('highlight');
+            }
+        }
+
+        // Visual feedback - flash the diagram area
+        const diagram = section.querySelector('.diagram-wrapper');
+        if (diagram) {
+            diagram.style.boxShadow = '0 0 20px var(--accent-primary)';
+            setTimeout(function() {
+                diagram.style.boxShadow = 'none';
+            }, 500);
+        }
+    });
+});
+
+// Download current image
+// Download SVG with measurements as SVG file
+function downloadAsSVG(section) {
+    var svgObject = null;
+    if (section === 'head') {
+        svgObject = document.getElementById('head-svg-frontal');
+    }
+    // For mesosoma/metasoma, they use img tags not SVG, so SVG export not available
+    if (!svgObject || !svgObject.contentDocument) {
+        alert('SVG export only available for HEAD section with SVG diagram');
+        return;
+    }
+
+    // Check for custom measurements and ask what to do
+    if (customMeasurements.length > 0) {
+        var choice = prompt('You have ' + customMeasurements.length + ' custom measurement(s).\n\nType:\n"keep" to include them\n"discard" to export without them\n"cancel" to abort', 'keep');
+
+        if (!choice || choice.toLowerCase() === 'cancel') {
+            return; // Abort export
+        }
+
+        if (choice.toLowerCase() === 'discard') {
+            // Remove custom measurements temporarily for export
+            var svgDoc = svgObject.contentDocument;
+            var customs = svgDoc.querySelectorAll('.custom-measurement');
+            customs.forEach(function(el) { el.style.display = 'none'; });
+
+            doSvgExport(svgObject, section);
+
+            // Restore custom measurements
+            customs.forEach(function(el) { el.style.display = 'inline'; });
+            return;
+        }
+    }
+
+    doSvgExport(svgObject, section);
+}
+
+function doSvgExport(svgObject, section) {
+    var svgDoc = svgObject.contentDocument;
+    var svgElement = svgDoc.querySelector('svg');
+    if (!svgElement) return;
+
+    // Clone the SVG to avoid modifying the original
+    var clonedSvg = svgElement.cloneNode(true);
+
+    // Serialize to string
+    var serializer = new XMLSerializer();
+    var svgString = serializer.serializeToString(clonedSvg);
+
+    // Add XML declaration (split to avoid PHP parsing)
+    svgString = '<' + '?xml version="1.0" encoding="UTF-8"?' + '>\n' + svgString;
+
+    // Create blob and download
+    var blob = new Blob([svgString], { type: 'image/svg+xml' });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    var filename = 'ant_' + section + '_morphology.svg';
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+
+    // Show confirmation
+    showExportConfirmation(filename, 'SVG');
+}
+
+// Show confirmation message after export
+function showExportConfirmation(filename, format) {
+    var msg = document.createElement('div');
+    msg.className = 'export-confirmation';
+    msg.innerHTML = '<span class="check-icon">&#10003;</span> ' + format + ' exported: <strong>' + filename + '</strong>';
+    msg.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#28a745;color:white;padding:12px 24px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:9999;font-size:14px;animation:slideUp 0.3s ease;';
+    document.body.appendChild(msg);
+
+    setTimeout(function() {
+        msg.style.opacity = '0';
+        msg.style.transition = 'opacity 0.3s';
+        setTimeout(function() { msg.remove(); }, 300);
+    }, 3000);
+}
+
+// Download diagram as PNG (renders SVG with transparency support)
+function downloadAsPNG(section) {
+    var svgObject = null;
+    var imgElement = null;
+
+    if (section === 'head') {
+        svgObject = document.getElementById('head-svg-frontal');
+        if (svgObject && svgObject.contentDocument) {
+            var svgDoc = svgObject.contentDocument;
+            var svgElement = svgDoc.querySelector('svg');
+            if (svgElement) {
+                // Check for custom measurements and ask what to do
+                if (customMeasurements.length > 0) {
+                    var choice = prompt('You have ' + customMeasurements.length + ' custom measurement(s).\n\nType:\n"keep" to include them\n"discard" to export without them\n"cancel" to abort', 'keep');
+
+                    if (!choice || choice.toLowerCase() === 'cancel') {
+                        return; // Abort export
+                    }
+
+                    if (choice.toLowerCase() === 'discard') {
+                        // Hide custom measurements temporarily
+                        var customs = svgDoc.querySelectorAll('.custom-measurement');
+                        customs.forEach(function(el) { el.style.display = 'none'; });
+
+                        renderSvgToPng(svgElement, 'ant_head_morphology.png');
+
+                        // Restore custom measurements
+                        setTimeout(function() {
+                            customs.forEach(function(el) { el.style.display = 'inline'; });
+                        }, 500);
+                        return;
+                    }
+                }
+                renderSvgToPng(svgElement, 'ant_head_morphology.png');
+                return;
+            }
+        }
+    } else if (section === 'mesosoma') {
+        imgElement = document.getElementById('mesosoma-image');
+    } else if (section === 'metasoma') {
+        imgElement = document.getElementById('metasoma-image');
+    }
+
+    // For non-SVG sections, just download the image
+    if (imgElement) {
+        var link = document.createElement('a');
+        link.href = imgElement.src;
+        link.download = 'ant_' + section + '.png';
+        link.click();
+    }
+}
+
+// Helper: Render SVG to PNG
+function renderSvgToPng(svgElement, filename) {
+    var serializer = new XMLSerializer();
+    var svgString = serializer.serializeToString(svgElement);
+
+    // Get SVG dimensions
+    var viewBox = svgElement.getAttribute('viewBox');
+    var width = 800, height = 645;
+    if (viewBox) {
+        var parts = viewBox.split(' ');
+        width = parseFloat(parts[2]) || 800;
+        height = parseFloat(parts[3]) || 645;
+    }
+
+    // Create canvas
+    var canvas = document.createElement('canvas');
+    canvas.width = width * 2;  // 2x for better quality
+    canvas.height = height * 2;
+    var ctx = canvas.getContext('2d');
+    ctx.scale(2, 2);
+
+    // Create image from SVG
+    var img = new Image();
+    var svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    var url = URL.createObjectURL(svgBlob);
+
+    img.onload = function() {
+        // Draw SVG (PNG supports transparency)
+        ctx.drawImage(img, 0, 0, width, height);
+        URL.revokeObjectURL(url);
+
+        // Convert to PNG and download
+        canvas.toBlob(function(blob) {
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(link.href);
+
+            // Show confirmation
+            showExportConfirmation(filename, 'PNG');
+        }, 'image/png');
+    };
+
+    img.src = url;
+}
+
+// Language toggle EN/FR
+var currentLang = 'en';
+
+function updateLanguage() {
+    // Update all feature items
+    document.querySelectorAll('.feature-item').forEach(function(item) {
+        const text = item.querySelector('.feature-text');
+        if (text && item.dataset[currentLang]) {
+            text.textContent = item.dataset[currentLang];
+        }
+    });
+
+    // Update tabs
+    document.querySelectorAll('.morpho-tab[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
+
+    // Update headers and paragraphs
+    document.querySelectorAll('h2[data-en][data-fr], h3[data-en][data-fr], p[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
+
+    // Update export buttons
+    document.querySelectorAll('.export-btn[data-en][data-fr]').forEach(function(el) {
+        const btnText = el.querySelector('.btn-text');
+        if (btnText) {
+            btnText.textContent = el.dataset[currentLang];
+        }
+    });
+
+    // Update toggle label text
+    document.querySelectorAll('.toggle-label[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
+
+}
+
+// Language toggle is handled by lang.js - no need to add handler here
+
+// Sync morpho language with site-wide cookie
+(function() {
+    var cookieMatch = document.cookie.match(/aw_lang=([^;]+)/);
+    var siteLang = cookieMatch ? cookieMatch[1] : 'en';
+    if (siteLang !== currentLang) {
+        currentLang = siteLang;
+        updateLanguage();
+    }
+})();
+
+// =============================================================================
+// MORPHOMETRIC MEASUREMENTS SYSTEM
+// =============================================================================
+
+// Measurement data for head frontal view
+// Coordinates based on SVG viewBox 0 28 800 645
+var headMeasurements = {
+    CL: {
+        name: { en: 'Cephalic Length', fr: 'Longueur cephalique' },
+        description: 'Median line, posterior head to clypeus border',
+        view: 'frontal',
+        // Vertical line from head/background contrast (y=85) to lowest red clypeus point (y=608)
+        endpoints: [[400, 85], [400, 608]],
+        offset: 60  // Offset dimension line to the right
+    },
+    CW: {
+        name: { en: 'Cephalic Width', fr: 'Largeur cephalique' },
+        description: 'Maximum width including eyes',
+        view: 'frontal',
+        // Horizontal line just above eyes, head dark/background light boundary
+        endpoints: [[150, 260], [640, 260]],
+        offset: -40  // Offset dimension line upward
+    },
+    EL: {
+        name: { en: 'Eye Length', fr: 'Longueur de l\'oeil' },
+        description: 'Longer diameter of elliptic eye',
+        view: 'frontal',
+        // VERTICAL line spanning eye height (right eye)
+        endpoints: [[595, 270], [595, 450]],
+        offset: 30
+    },
+    ES: {
+        name: { en: 'Eye Shorter', fr: 'Largeur de l\'oeil' },
+        description: 'Shorter diameter of elliptic eye',
+        view: 'frontal',
+        // Horizontal line showing eye width at middle
+        endpoints: [[555, 360], [635, 360]],
+        offset: -25
+    },
+    SL: {
+        name: { en: 'Scape Length', fr: 'Longueur du scape' },
+        description: 'Maximum scape length, excluding condyle',
+        view: 'frontal',
+        // Along LEFT scape (antenna)
+        endpoints: [[295, 195], [140, 70]],
+        offset: -20
+    },
+    FRS: {
+        name: { en: 'Frontal Suture Distance', fr: 'Distance suture frontale' },
+        description: 'Distance between frontal carinae behind torulus',
+        view: 'frontal',
+        // Horizontal between left and right frontal carinae behind torulus
+        endpoints: [[310, 350], [490, 350]],
+        offset: -25
+    },
+    PoOC: {
+        name: { en: 'Postocular Distance', fr: 'Distance postoculaire' },
+        description: 'Median line from occipital margin to level of posterior eye margin',
+        view: 'frontal',
+        // Vertical on median axis from posterior head margin to y-level of posterior eye margin
+        endpoints: [[400, 85], [400, 205]],
+        offset: 25
+    }
+};
+
+// SVG namespace for creating elements
+var SVG_NS = 'http://www.w3.org/2000/svg';
+
+/**
+ * Draw a dimension line with perpendicular ticks (technical drawing style)
+ * @param {SVGDocument} svgDoc - The SVG document
+ * @param {string} id - Measurement ID (e.g., 'CL')
+ * @param {Object} data - Measurement data object
+ */
+function drawMeasurement(svgDoc, id, data) {
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+
+    // Check if already drawn
+    if (svgDoc.querySelector('[data-measurement="' + id + '"]')) return;
+
+    var p1 = data.endpoints[0];
+    var p2 = data.endpoints[1];
+    var offset = data.offset || 0;
+
+    // Calculate line direction and perpendicular
+    var dx = p2[0] - p1[0];
+    var dy = p2[1] - p1[1];
+    var length = Math.sqrt(dx * dx + dy * dy);
+    var ux = dx / length;  // Unit vector along line
+    var uy = dy / length;
+    var px = -uy;  // Perpendicular unit vector
+    var py = ux;
+
+    // Offset the dimension line
+    var o1 = [p1[0] + px * offset, p1[1] + py * offset];
+    var o2 = [p2[0] + px * offset, p2[1] + py * offset];
+
+    // Create measurement group
+    var g = svgDoc.createElementNS(SVG_NS, 'g');
+    g.setAttribute('class', 'measurement');
+    g.setAttribute('data-measurement', id);
+
+    // Extension lines (from feature to dimension line)
+    if (Math.abs(offset) > 10) {
+        var ext1 = svgDoc.createElementNS(SVG_NS, 'line');
+        ext1.setAttribute('class', 'measure-line');
+        ext1.setAttribute('x1', p1[0]);
+        ext1.setAttribute('y1', p1[1]);
+        ext1.setAttribute('x2', o1[0]);
+        ext1.setAttribute('y2', o1[1]);
+        ext1.setAttribute('stroke-dasharray', '4 2');
+        ext1.setAttribute('opacity', '0.6');
+        g.appendChild(ext1);
+
+        var ext2 = svgDoc.createElementNS(SVG_NS, 'line');
+        ext2.setAttribute('class', 'measure-line');
+        ext2.setAttribute('x1', p2[0]);
+        ext2.setAttribute('y1', p2[1]);
+        ext2.setAttribute('x2', o2[0]);
+        ext2.setAttribute('y2', o2[1]);
+        ext2.setAttribute('stroke-dasharray', '4 2');
+        ext2.setAttribute('opacity', '0.6');
+        g.appendChild(ext2);
+    }
+
+    // Main dimension line
+    var line = svgDoc.createElementNS(SVG_NS, 'line');
+    line.setAttribute('class', 'measure-line');
+    line.setAttribute('x1', o1[0]);
+    line.setAttribute('y1', o1[1]);
+    line.setAttribute('x2', o2[0]);
+    line.setAttribute('y2', o2[1]);
+    g.appendChild(line);
+
+    // Perpendicular tick marks at endpoints (technical drawing style)
+    var tickLen = 12;
+    var tick1 = svgDoc.createElementNS(SVG_NS, 'line');
+    tick1.setAttribute('class', 'measure-tick');
+    tick1.setAttribute('x1', o1[0] - ux * tickLen / 2);
+    tick1.setAttribute('y1', o1[1] - uy * tickLen / 2);
+    tick1.setAttribute('x2', o1[0] + ux * tickLen / 2);
+    tick1.setAttribute('y2', o1[1] + uy * tickLen / 2);
+    g.appendChild(tick1);
+
+    var tick2 = svgDoc.createElementNS(SVG_NS, 'line');
+    tick2.setAttribute('class', 'measure-tick');
+    tick2.setAttribute('x1', o2[0] - ux * tickLen / 2);
+    tick2.setAttribute('y1', o2[1] - uy * tickLen / 2);
+    tick2.setAttribute('x2', o2[0] + ux * tickLen / 2);
+    tick2.setAttribute('y2', o2[1] + uy * tickLen / 2);
+    g.appendChild(tick2);
+
+    // Label at midpoint
+    var mid = [(o1[0] + o2[0]) / 2, (o1[1] + o2[1]) / 2];
+    // Offset label slightly from line
+    var labelOffset = 16;
+    var labelX = mid[0] + px * labelOffset;
+    var labelY = mid[1] + py * labelOffset;
+
+    // Background rect for label readability
+    var labelName = data.name[currentLang] || data.name.en;
+    var labelText = id;
+
+    var bg = svgDoc.createElementNS(SVG_NS, 'rect');
+    bg.setAttribute('class', 'measure-bg');
+    bg.setAttribute('x', labelX - 18);
+    bg.setAttribute('y', labelY - 12);
+    bg.setAttribute('width', 36);
+    bg.setAttribute('height', 18);
+    bg.setAttribute('rx', 3);
+    g.appendChild(bg);
+
+    var text = svgDoc.createElementNS(SVG_NS, 'text');
+    text.setAttribute('class', 'measure-label');
+    text.setAttribute('x', labelX);
+    text.setAttribute('y', labelY);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('data-en', data.name.en);
+    text.setAttribute('data-fr', data.name.fr);
+    text.textContent = labelText;
+    g.appendChild(text);
+
+    layer.appendChild(g);
+}
+
+/**
+ * Remove a specific measurement from SVG
+ */
+function removeMeasurement(svgDoc, id) {
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+    var existing = layer.querySelector('[data-measurement="' + id + '"]');
+    if (existing) {
+        existing.remove();
+    }
+}
+
+/**
+ * Clear all measurements from SVG
+ */
+function clearAllMeasurements(svgDoc) {
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (layer) {
+        layer.innerHTML = '';
+    }
+}
+
+/**
+ * Get the SVG document from the object element
+ */
+function getHeadSvgDoc() {
+    var svgObject = document.getElementById('head-svg-frontal');
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    return null;
+}
+
+/**
+ * Toggle a measurement on/off
+ */
+function toggleMeasurement(id, show) {
+    var svgDoc = getHeadSvgDoc();
+    if (!svgDoc) return;
+
+    // Find existing measurement group in SVG and show/hide it
+    var measureGroup = svgDoc.querySelector('[data-measurement="' + id + '"]');
+    if (measureGroup) {
+        measureGroup.style.display = show ? 'inline' : 'none';
+    }
+}
+
+// Initialize measurement checkboxes
+document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        var measureId = this.dataset.measure;
+        toggleMeasurement(measureId, this.checked);
+    });
+});
+
+// Clear all measurements button (if exists)
+var clearMeasBtn = document.getElementById('clearMeasurements');
+if (clearMeasBtn) {
+    clearMeasBtn.addEventListener('click', function() {
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, false);
+        });
+    });
+}
+
+// Show all measurements button (if exists)
+var showAllMeasBtn = document.getElementById('showAllMeasurements');
+if (showAllMeasBtn) {
+    showAllMeasBtn.addEventListener('click', function() {
+        var svgDoc = getHeadSvgDoc();
+        if (!svgDoc) return;
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, true);
+        });
+    });
+}
+
+// Hide measurements panel when not on head tab
+function updateMeasurementsPanelVisibility() {
+    var panel = document.getElementById('measurementsPanel');
+    var activeTab = document.querySelector('.morpho-tab.active');
+
+    if (activeTab && activeTab.dataset.section === 'head') {
+        panel.style.display = 'block';
+        // Restore measurements when on head tab
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, true);
+        });
+    } else {
+        panel.style.display = 'none';
+        // Hide measurements when leaving head tab
+        document.querySelectorAll('#measurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            var measureId = cb.dataset.measure;
+            toggleMeasurement(measureId, false);
+        });
+    }
+}
+
+// Update panel visibility on tab change
+document.querySelectorAll('.morpho-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        setTimeout(updateMeasurementsPanelVisibility, 10);
+    });
+});
+
+// Update panel visibility on view change (within head section)
+document.querySelectorAll('#section-head .view-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        setTimeout(updateMeasurementsPanelVisibility, 10);
+    });
+});
+
+// =============================================================================
+// MESOSOMA VIEW SWITCHING (Lateral/Dorsal)
+// =============================================================================
+
+document.querySelectorAll('#section-mesosoma .view-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        if (this.classList.contains('disabled')) return;
+
+        // Update active button
+        document.querySelectorAll('#section-mesosoma .view-btn').forEach(function(b) {
+            b.classList.remove('active');
+        });
+        this.classList.add('active');
+
+        var view = this.dataset.view;
+        var lateralSvg = document.getElementById('mesosoma-svg-lateral');
+        var dorsalSvg = document.getElementById('mesosoma-svg-dorsal');
+
+        if (view === 'lateral') {
+            if (lateralSvg) lateralSvg.classList.add('active');
+            if (dorsalSvg) dorsalSvg.classList.remove('active');
+        } else if (view === 'dorsal') {
+            if (lateralSvg) lateralSvg.classList.remove('active');
+            if (dorsalSvg) dorsalSvg.classList.add('active');
+        }
+
+        // Show/hide view-specific measurement checkboxes
+        document.querySelectorAll('#mesoMeasurementGrid label[data-view]').forEach(function(label) {
+            if (label.dataset.view === view) {
+                label.style.display = '';
+            } else {
+                label.style.display = 'none';
+            }
+        });
+
+        // Re-apply morphology toggle state and measurements
+        updateMesosomaLabels();
+        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            toggleMesoMeasurement(cb.dataset.measure, cb.checked);
+        });
+    });
+});
+
+// Initialize dorsal SVG when it loads
+var mesoDorsalSvgObj = document.getElementById('mesosoma-svg-dorsal');
+if (mesoDorsalSvgObj) {
+    mesoDorsalSvgObj.addEventListener('load', function() {
+        // Apply measurements if dorsal is active
+        var activeBtn = document.querySelector('#section-mesosoma .view-btn.active');
+        if (activeBtn && activeBtn.dataset.view === 'dorsal') {
+            updateMesosomaLabels();
+            document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+                toggleMesoMeasurement(cb.dataset.measure, cb.checked);
+            });
+        }
+    });
+}
+
+// Hide dorsal-specific measurements on initial load (lateral is default)
+document.querySelectorAll('#mesoMeasurementGrid label[data-view="dorsal"]').forEach(function(label) {
+    label.style.display = 'none';
+});
+
+// =============================================================================
+// CUSTOM MEASUREMENT TOOL (Ruler)
+// =============================================================================
+
+var rulerMode = false;
+var rulerStart = null;
+var customMeasurements = [];
+var customMeasureId = 0;
+
+// Toggle ruler mode
+function initRulerToggle() {
+    var rulerToggleBtn = document.getElementById('rulerToggle');
+    if (!rulerToggleBtn) return;
+
+    rulerToggleBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        rulerMode = !rulerMode;
+        this.classList.toggle('active', rulerMode);
+
+        // Turn off magnifier when ruler is on (they conflict)
+        if (rulerMode) {
+            var wrapper = document.getElementById('head-diagram');
+            if (wrapper) {
+                var magToggle = wrapper.querySelector('.mag-toggle');
+                var magOverlay = wrapper.querySelector('.mag-overlay');
+                if (magToggle) magToggle.classList.remove('active');
+                if (magOverlay) magOverlay.classList.remove('active');
+            }
+        }
+
+        var status = document.getElementById('rulerStatus');
+        if (status) status.textContent = rulerMode ? 'Click two points' : '';
+        rulerStart = null;
+
+        // Ensure SVG click handler is attached
+        attachSvgClickHandler();
+
+        // Change cursor on SVG
+        var svgObject = document.getElementById('head-svg-frontal');
+        if (svgObject && svgObject.contentDocument) {
+            var svg = svgObject.contentDocument.querySelector('svg');
+            if (svg) svg.style.cursor = rulerMode ? 'crosshair' : 'default';
+        }
+    });
+}
+initRulerToggle();
+
+// Handle clicks on SVG for custom measurements
+function attachSvgClickHandler() {
+    var svgObject = document.getElementById('head-svg-frontal');
+    if (!svgObject) return false;
+
+    // Wait for SVG to load
+    if (!svgObject.contentDocument) {
+        svgObject.addEventListener('load', function() {
+            attachSvgClickHandler();
+        });
+        return false;
+    }
+
+    var svgDoc = svgObject.contentDocument;
+    var svg = svgDoc.querySelector('svg');
+    if (!svg) return false;
+
+    // Avoid attaching multiple times
+    if (svg.dataset.rulerAttached) return true;
+    svg.dataset.rulerAttached = 'true';
+
+    // Click handler for ruler measurements
+    function handleRulerClick(e) {
+        if (!rulerMode) return;
+
+        // Get fresh references each time (in case SVG was reloaded)
+        var freshSvgObj = document.getElementById('head-svg-frontal');
+        if (!freshSvgObj || !freshSvgObj.contentDocument) return;
+        var freshSvgDoc = freshSvgObj.contentDocument;
+        var freshSvg = freshSvgDoc.querySelector('svg');
+        if (!freshSvg) return;
+
+        var svgRect = freshSvg.getBoundingClientRect();
+
+        // Get click position relative to SVG
+        var x = e.clientX - svgRect.left;
+        var y = e.clientY - svgRect.top;
+
+        // Convert to SVG coordinates
+        var viewBox = freshSvg.viewBox.baseVal;
+        var svgX = viewBox.x + (x / svgRect.width) * viewBox.width;
+        var svgY = viewBox.y + (y / svgRect.height) * viewBox.height;
+
+        if (!rulerStart) {
+            rulerStart = [svgX, svgY];
+            document.getElementById('rulerStatus').textContent = 'Click second point...';
+            drawTempMarker(freshSvgDoc, svgX, svgY);
+        } else {
+            var end = [svgX, svgY];
+            removeTempMarker(freshSvgDoc);
+            drawCustomMeasurement(freshSvgDoc, rulerStart, end);
+            customMeasurements.push({ start: rulerStart, end: end });
+            rulerStart = null;
+            document.getElementById('rulerStatus').textContent = 'Measurement added!';
+        }
+    }
+
+    svg.addEventListener('click', handleRulerClick);
+
+    // Also listen on the object element itself as fallback
+    svgObject.addEventListener('click', function(e) {
+        if (!rulerMode) return;
+        handleRulerClick(e);
+    });
+
+    // Also listen on the diagram wrapper as ultimate fallback
+    var wrapper = document.getElementById('head-diagram');
+    if (wrapper && !wrapper.dataset.rulerWrapperAttached) {
+        wrapper.dataset.rulerWrapperAttached = 'true';
+        wrapper.addEventListener('click', function(e) {
+            if (!rulerMode) return;
+            if (e.target.closest('object.morpho-svg') || e.target.closest('.diagram-wrapper')) {
+                handleRulerClick(e);
+            }
+        });
+    }
+
+    return true;
+}
+
+function drawTempMarker(svgDoc, x, y) {
+    removeTempMarker(svgDoc);
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+    var marker = svgDoc.createElementNS(SVG_NS, 'circle');
+    marker.setAttribute('id', 'temp-ruler-marker');
+    marker.setAttribute('cx', x);
+    marker.setAttribute('cy', y);
+    marker.setAttribute('r', 6);
+    marker.setAttribute('style', 'fill: #00ff00; stroke: #000; stroke-width: 1;');
+    layer.appendChild(marker);
+}
+
+function removeTempMarker(svgDoc) {
+    var marker = svgDoc.getElementById('temp-ruler-marker');
+    if (marker) marker.remove();
+}
+
+function initCustomMeasureTool() {
+    // Try to attach immediately, or wait for SVG to load
+    if (!attachSvgClickHandler()) {
+        var svgObject = document.getElementById('head-svg-frontal');
+        if (svgObject) {
+            svgObject.addEventListener('load', attachSvgClickHandler);
+        }
+    }
+}
+
+// Scale: 566.4 px = 1mm for head SVG
+var SCALE_PX_PER_MM = 566.4;
+
+// Draw custom measurement line with length label
+function drawCustomMeasurement(svgDoc, p1, p2) {
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+
+    customMeasureId++;
+    var g = svgDoc.createElementNS(SVG_NS, 'g');
+    g.setAttribute('class', 'measurement custom-measurement');
+    g.setAttribute('data-custom', customMeasureId);
+
+    // Calculate length
+    var dx = p2[0] - p1[0];
+    var dy = p2[1] - p1[1];
+    var lengthPx = Math.sqrt(dx * dx + dy * dy);
+    var lengthMm = lengthPx / SCALE_PX_PER_MM;
+
+    // Main line
+    var line = svgDoc.createElementNS(SVG_NS, 'line');
+    line.setAttribute('class', 'measure-line');
+    line.setAttribute('x1', p1[0]);
+    line.setAttribute('y1', p1[1]);
+    line.setAttribute('x2', p2[0]);
+    line.setAttribute('y2', p2[1]);
+    line.setAttribute('style', 'stroke: #00aa00; stroke-width: 2;');
+    g.appendChild(line);
+
+    // Endpoint circles
+    var c1 = svgDoc.createElementNS(SVG_NS, 'circle');
+    c1.setAttribute('cx', p1[0]);
+    c1.setAttribute('cy', p1[1]);
+    c1.setAttribute('r', 4);
+    c1.setAttribute('style', 'fill: #00aa00;');
+    g.appendChild(c1);
+
+    var c2 = svgDoc.createElementNS(SVG_NS, 'circle');
+    c2.setAttribute('cx', p2[0]);
+    c2.setAttribute('cy', p2[1]);
+    c2.setAttribute('r', 4);
+    c2.setAttribute('style', 'fill: #00aa00;');
+    g.appendChild(c2);
+
+    // Length label at midpoint
+    var midX = (p1[0] + p2[0]) / 2;
+    var midY = (p1[1] + p2[1]) / 2;
+    var labelText = lengthMm.toFixed(2) + ' mm';
+
+    // Background for readability
+    var bg = svgDoc.createElementNS(SVG_NS, 'rect');
+    bg.setAttribute('x', midX - 25);
+    bg.setAttribute('y', midY - 10);
+    bg.setAttribute('width', 50);
+    bg.setAttribute('height', 16);
+    bg.setAttribute('rx', 3);
+    bg.setAttribute('style', 'fill: rgba(255,255,255,0.9); stroke: #00aa00; stroke-width: 1;');
+    g.appendChild(bg);
+
+    var text = svgDoc.createElementNS(SVG_NS, 'text');
+    text.setAttribute('x', midX);
+    text.setAttribute('y', midY + 3);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('style', 'font-family: sans-serif; font-size: 12px; font-weight: bold; fill: #00aa00;');
+    text.textContent = labelText;
+    g.appendChild(text);
+
+    layer.appendChild(g);
+}
+
+// Initialize on page load - retry until SVG is ready
+function tryInitRuler() {
+    if (!attachSvgClickHandler()) {
+        setTimeout(tryInitRuler, 200);
+    }
+}
+setTimeout(tryInitRuler, 500);
+
+// Initial visibility check
+setTimeout(updateMeasurementsPanelVisibility, 100);
+
+// Update measurement labels when language changes
+var originalUpdateLanguage = updateLanguage;
+updateLanguage = function() {
+    originalUpdateLanguage();
+
+    // Update measurement panel elements
+    document.querySelectorAll('#measurementsPanel [data-en][data-fr]').forEach(function(el) {
+        if (el.classList.contains('name')) {
+            el.textContent = el.dataset[currentLang];
+        } else {
+            el.textContent = el.dataset[currentLang];
+        }
+    });
+
+    // Update labels in all SVGs
+    function updateSvgLabels(svgDoc) {
+        if (!svgDoc) return;
+        svgDoc.querySelectorAll('.label-text[data-en][data-fr]').forEach(function(el) {
+            el.textContent = el.dataset[currentLang];
+        });
+    }
+
+    // Update head SVG
+    updateSvgLabels(getHeadSvgDoc());
+
+    // Update mesosoma SVGs
+    var mesoLateral = document.getElementById('mesosoma-svg-lateral');
+    var mesoDorsal = document.getElementById('mesosoma-svg-dorsal');
+    if (mesoLateral && mesoLateral.contentDocument) updateSvgLabels(mesoLateral.contentDocument);
+    if (mesoDorsal && mesoDorsal.contentDocument) updateSvgLabels(mesoDorsal.contentDocument);
+
+    // Update metasoma SVG
+    var metaSvg = document.getElementById('metasoma-svg-lateral');
+    if (metaSvg && metaSvg.contentDocument) updateSvgLabels(metaSvg.contentDocument);
+
+    // Update search placeholder
+    var searchInput = document.getElementById('measurementSearch');
+    if (searchInput) {
+        searchInput.placeholder = searchInput.dataset['placeholder' + currentLang.charAt(0).toUpperCase() + currentLang.slice(1)] || searchInput.placeholder;
+    }
+
+    // Update measurement definitions
+    document.querySelectorAll('#measurementsList .def-item[data-en][data-fr]').forEach(function(el) {
+        var defText = el.querySelector('.def-text');
+        if (defText) {
+            defText.innerHTML = el.dataset[currentLang];
+        }
+    });
+
+    // Update section titles
+    document.querySelectorAll('#measurementsList .def-section-title[data-en][data-fr]').forEach(function(el) {
+        el.textContent = el.dataset[currentLang];
+    });
+};
+
+// =============================================================================
+// MEASUREMENTS SEARCH FUNCTIONALITY
+// =============================================================================
+
+// Search functionality for definition items
+var searchInput = document.getElementById('measurementSearch');
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        var query = this.value.toLowerCase().trim();
+        var items = document.querySelectorAll('#measurementsList .def-item');
+        var sections = document.querySelectorAll('#measurementsList .def-section');
+
+        // Filter individual items
+        items.forEach(function(item) {
+            var text = item.textContent.toLowerCase();
+            if (query === '' || text.includes(query)) {
+                item.classList.remove('hidden');
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+
+        // Hide section titles if all items in section are hidden
+        sections.forEach(function(section) {
+            var visibleItems = section.querySelectorAll('.def-item:not(.hidden)');
+            var title = section.querySelector('.def-section-title');
+            if (title) {
+                title.style.display = (query === '' || visibleItems.length > 0) ? '' : 'none';
+            }
+        });
+    });
+}
+
+// Show PDF button only on measurements tab
+function updatePdfBtnVisibility() {
+    var btn = document.querySelector('.measurements-download-btn');
+    var activeTab = document.querySelector('.morpho-tab.active');
+    if (btn && activeTab) {
+        btn.style.display = activeTab.dataset.section === 'measurements' ? 'block' : 'none';
+    }
+}
+document.querySelectorAll('.morpho-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        setTimeout(updatePdfBtnVisibility, 10);
+    });
+});
+updatePdfBtnVisibility();
+
+// =============================================================================
+// MESOSOMA SECTION
+// =============================================================================
+
+// Get mesosoma SVG document (active view)
+function getMesoSvgDoc() {
+    // Check which view is active
+    var activeBtn = document.querySelector('#section-mesosoma .view-btn.active');
+    var view = activeBtn ? activeBtn.dataset.view : 'lateral';
+    var svgObject = document.getElementById('mesosoma-svg-' + view);
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    // Fallback to lateral
+    svgObject = document.getElementById('mesosoma-svg-lateral');
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    return null;
+}
+
+// Toggle mesosoma morphology labels AND surfaces
+function updateMesosomaLabels() {
+    var show = document.getElementById('toggleMesosomaLabels').checked;
+    var svgDoc = getMesoSvgDoc();
+    if (svgDoc) {
+        var labelsLayer = svgDoc.getElementById('layer-labels');
+        var surfacesLayer = svgDoc.getElementById('layer-surfaces');
+        if (labelsLayer) {
+            labelsLayer.style.display = show ? 'inline' : 'none';
+        }
+        if (surfacesLayer) {
+            surfacesLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+    // Invalidate magnifier cache so it reflects the layer change
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+
+var toggleMesoLabels = document.getElementById('toggleMesosomaLabels');
+if (toggleMesoLabels) {
+    toggleMesoLabels.addEventListener('change', updateMesosomaLabels);
+}
+
+// Toggle mesosoma morphometrics (measurements layer)
+function updateMesoMorphometrics() {
+    var show = document.getElementById('toggleMesoMeasurements').checked;
+    var svgDoc = getMesoSvgDoc();
+    if (svgDoc) {
+        var measurementsLayer = svgDoc.getElementById('layer-measurements');
+        if (measurementsLayer) {
+            measurementsLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+    // Sync measurement checkboxes with main toggle
+    document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+var toggleMesoMeasure = document.getElementById('toggleMesoMeasurements');
+if (toggleMesoMeasure) {
+    toggleMesoMeasure.addEventListener('change', updateMesoMorphometrics);
+}
+
+// Initialize when mesosoma SVG loads
+var mesoSvgObj = document.getElementById('mesosoma-svg-lateral');
+if (mesoSvgObj) {
+    mesoSvgObj.addEventListener('load', function() {
+        updateMesosomaLabels();
+        updateMesoMorphometrics();
+    });
+}
+
+// Toggle mesosoma measurement visibility
+function toggleMesoMeasurement(id, show) {
+    var svgDoc = getMesoSvgDoc();
+    if (!svgDoc) return;
+    var measureGroup = svgDoc.querySelector('[data-measurement="' + id + '"]');
+    if (measureGroup) {
+        measureGroup.style.display = show ? 'inline' : 'none';
+    }
+}
+
+// Mesosoma measurement checkboxes
+document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        toggleMesoMeasurement(this.dataset.measure, this.checked);
+    });
+});
+
+// Clear all mesosoma measurements
+var clearMesoBtn = document.getElementById('clearMesoMeasurements');
+if (clearMesoBtn) {
+    clearMesoBtn.addEventListener('click', function() {
+        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            toggleMesoMeasurement(cb.dataset.measure, false);
+        });
+    });
+}
+
+// Show all mesosoma measurements
+var showAllMesoBtn = document.getElementById('showAllMesoMeasurements');
+if (showAllMesoBtn) {
+    showAllMesoBtn.addEventListener('click', function() {
+        document.querySelectorAll('#mesoMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            toggleMesoMeasurement(cb.dataset.measure, true);
+        });
+    });
+}
+
+// =============================================================================
+// METASOMA SECTION
+// =============================================================================
+
+// Get metasoma SVG document
+function getMetaSvgDoc() {
+    var svgObject = document.getElementById('metasoma-svg-lateral');
+    if (svgObject && svgObject.contentDocument) {
+        return svgObject.contentDocument;
+    }
+    return null;
+}
+
+// Toggle metasoma morphology labels AND surfaces
+function updateMetasomaLabels() {
+    var show = document.getElementById('toggleMetasomaLabels').checked;
+    var svgDoc = getMetaSvgDoc();
+    if (svgDoc) {
+        var labelsLayer = svgDoc.getElementById('layer-labels');
+        var surfacesLayer = svgDoc.getElementById('layer-surfaces');
+        if (labelsLayer) {
+            labelsLayer.style.display = show ? 'inline' : 'none';
+        }
+        if (surfacesLayer) {
+            surfacesLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+    // Sync morphology feature checkboxes with main toggle
+    document.querySelectorAll('#metaMorphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    // Invalidate magnifier cache so it reflects the layer change
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+
+// Toggle individual metasoma morphology features
+function toggleMetaFeature(featureId, show) {
+    var svgDoc = getMetaSvgDoc();
+    if (!svgDoc) return;
+    svgDoc.querySelectorAll('[data-feature="' + featureId + '"]').forEach(function(el) {
+        el.style.display = show ? 'inline' : 'none';
+    });
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+
+// Metasoma morphology feature checkboxes
+document.querySelectorAll('#metaMorphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        toggleMetaFeature(this.dataset.feature, this.checked);
+    });
+});
+
+var toggleMetaLabels = document.getElementById('toggleMetasomaLabels');
+if (toggleMetaLabels) {
+    toggleMetaLabels.addEventListener('change', updateMetasomaLabels);
+}
+
+// Toggle metasoma morphometrics (measurements layer)
+function updateMetaMorphometrics() {
+    var show = document.getElementById('toggleMetaMeasurements').checked;
+    var svgDoc = getMetaSvgDoc();
+    if (svgDoc) {
+        var measurementsLayer = svgDoc.getElementById('layer-measurements');
+        if (measurementsLayer) {
+            measurementsLayer.style.display = show ? 'inline' : 'none';
+        }
+    }
+    // Sync measurement checkboxes with main toggle
+    document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.checked = show;
+    });
+    if (window.invalidateSvgMagCache) window.invalidateSvgMagCache();
+}
+var toggleMetaMeasure = document.getElementById('toggleMetaMeasurements');
+if (toggleMetaMeasure) {
+    toggleMetaMeasure.addEventListener('change', updateMetaMorphometrics);
+}
+
+// Initialize when metasoma SVG loads
+var metaSvgObj = document.getElementById('metasoma-svg-lateral');
+if (metaSvgObj) {
+    metaSvgObj.addEventListener('load', function() {
+        updateMetasomaLabels();
+        updateMetaMorphometrics();
+        // Apply initial feature checkbox states
+        document.querySelectorAll('#metaMorphologyGrid input[type="checkbox"]').forEach(function(checkbox) {
+            toggleMetaFeature(checkbox.dataset.feature, checkbox.checked);
+        });
+    });
+}
+
+// Toggle metasoma measurement visibility
+function toggleMetaMeasurement(id, show) {
+    var svgDoc = getMetaSvgDoc();
+    if (!svgDoc) return;
+    var measureGroup = svgDoc.querySelector('[data-measurement="' + id + '"]');
+    if (measureGroup) {
+        measureGroup.style.display = show ? 'inline' : 'none';
+    }
+}
+
+// Metasoma measurement checkboxes
+document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        toggleMetaMeasurement(this.dataset.measure, this.checked);
+    });
+});
+
+// Clear all metasoma measurements
+var clearMetaBtn = document.getElementById('clearMetaMeasurements');
+if (clearMetaBtn) {
+    clearMetaBtn.addEventListener('click', function() {
+        document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = false;
+            toggleMetaMeasurement(cb.dataset.measure, false);
+        });
+    });
+}
+
+// Show all metasoma measurements
+var showAllMetaBtn = document.getElementById('showAllMetaMeasurements');
+if (showAllMetaBtn) {
+    showAllMetaBtn.addEventListener('click', function() {
+        document.querySelectorAll('#metaMeasurementGrid input[type="checkbox"]').forEach(function(cb) {
+            cb.checked = true;
+            toggleMetaMeasurement(cb.dataset.measure, true);
+        });
+    });
+}
+
+// =============================================================================
+// MESOSOMA RULER TOOL
+// =============================================================================
+
+// Scale: 138.67 px = 0.5mm → 277.34 px = 1mm
+var MESO_SCALE_PX_PER_MM = 277.34;
+
+var mesoRulerMode = false;
+var mesoRulerStart = null;
+var mesoCustomMeasurements = [];
+var mesoMeasureId = 0;
+
+// Get the currently active mesosoma SVG (lateral or dorsal)
+function getActiveMesoSvgObject() {
+    var activeBtn = document.querySelector('#section-mesosoma .view-btn.active');
+    var view = activeBtn ? activeBtn.dataset.view : 'lateral';
+    return document.getElementById('mesosoma-svg-' + view);
+}
+
+var mesoRulerToggle = document.getElementById('mesoRulerToggle');
+if (mesoRulerToggle) {
+    mesoRulerToggle.addEventListener('click', function() {
+        mesoRulerMode = !mesoRulerMode;
+        this.classList.toggle('active', mesoRulerMode);
+        document.getElementById('mesoRulerStatus').textContent = mesoRulerMode ? 'Click two points' : '';
+        mesoRulerStart = null;
+
+        // Set cursor on both SVGs
+        ['mesosoma-svg-lateral', 'mesosoma-svg-dorsal'].forEach(function(id) {
+            var svgObject = document.getElementById(id);
+            if (svgObject && svgObject.contentDocument) {
+                var svg = svgObject.contentDocument.querySelector('svg');
+                if (svg) svg.style.cursor = mesoRulerMode ? 'crosshair' : 'default';
+            }
+        });
+    });
+}
+
+function attachMesoSvgClickHandlerTo(svgId) {
+    var svgObject = document.getElementById(svgId);
+    if (!svgObject || !svgObject.contentDocument) return;
+
+    var svg = svgObject.contentDocument.querySelector('svg');
+    if (!svg) return;
+
+    svg.addEventListener('click', function(e) {
+        if (!mesoRulerMode) return;
+        // Only handle clicks on the currently active SVG
+        var activeSvg = getActiveMesoSvgObject();
+        if (!activeSvg || activeSvg.id !== svgId) return;
+
+        var pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        var svgPt = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+        if (!mesoRulerStart) {
+            mesoRulerStart = { x: svgPt.x, y: svgPt.y };
+            document.getElementById('mesoRulerStatus').textContent = 'Click second point';
+        } else {
+            var dx = svgPt.x - mesoRulerStart.x;
+            var dy = svgPt.y - mesoRulerStart.y;
+            var distPx = Math.sqrt(dx * dx + dy * dy);
+            var distMm = distPx / MESO_SCALE_PX_PER_MM;
+
+            drawMesoCustomMeasurement(svg, mesoRulerStart, { x: svgPt.x, y: svgPt.y }, distMm);
+
+            mesoRulerStart = null;
+            document.getElementById('mesoRulerStatus').textContent = distMm.toFixed(2) + ' mm';
+        }
+    });
+}
+
+function drawMesoCustomMeasurement(svg, p1, p2, distMm) {
+    var svgDoc = svg.ownerDocument;
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+
+    var g = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'measurement custom-measure');
+    g.setAttribute('data-custom', 'meso-' + (++mesoMeasureId));
+
+    var line = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('class', 'measure-line');
+    line.setAttribute('x1', p1.x);
+    line.setAttribute('y1', p1.y);
+    line.setAttribute('x2', p2.x);
+    line.setAttribute('y2', p2.y);
+    line.setAttribute('stroke', '#0066cc');
+    g.appendChild(line);
+
+    var midX = (p1.x + p2.x) / 2;
+    var midY = (p1.y + p2.y) / 2;
+
+    var text = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('class', 'measure-label');
+    text.setAttribute('x', midX);
+    text.setAttribute('y', midY - 10);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#0066cc');
+    text.textContent = distMm.toFixed(2) + ' mm';
+    g.appendChild(text);
+
+    layer.appendChild(g);
+    mesoCustomMeasurements.push(g);
+}
+
+// =============================================================================
+// METASOMA RULER TOOL
+// =============================================================================
+
+// Use same scale as mesosoma (same specimen)
+var META_SCALE_PX_PER_MM = 277.34;
+
+var metaRulerMode = false;
+var metaRulerStart = null;
+var metaCustomMeasurements = [];
+var metaMeasureId = 0;
+
+var metaRulerToggle = document.getElementById('metaRulerToggle');
+if (metaRulerToggle) {
+    metaRulerToggle.addEventListener('click', function() {
+        metaRulerMode = !metaRulerMode;
+        this.classList.toggle('active', metaRulerMode);
+        document.getElementById('metaRulerStatus').textContent = metaRulerMode ? 'Click two points' : '';
+        metaRulerStart = null;
+
+        var svgObject = document.getElementById('metasoma-svg-lateral');
+        if (svgObject && svgObject.contentDocument) {
+            var svg = svgObject.contentDocument.querySelector('svg');
+            if (svg) svg.style.cursor = metaRulerMode ? 'crosshair' : 'default';
+        }
+    });
+}
+
+function attachMetaSvgClickHandler() {
+    var svgObject = document.getElementById('metasoma-svg-lateral');
+    if (!svgObject || !svgObject.contentDocument) return;
+
+    var svg = svgObject.contentDocument.querySelector('svg');
+    if (!svg) return;
+
+    svg.addEventListener('click', function(e) {
+        if (!metaRulerMode) return;
+
+        var pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        var svgPt = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+        if (!metaRulerStart) {
+            metaRulerStart = { x: svgPt.x, y: svgPt.y };
+            document.getElementById('metaRulerStatus').textContent = 'Click second point';
+        } else {
+            var dx = svgPt.x - metaRulerStart.x;
+            var dy = svgPt.y - metaRulerStart.y;
+            var distPx = Math.sqrt(dx * dx + dy * dy);
+            var distMm = distPx / META_SCALE_PX_PER_MM;
+
+            drawMetaCustomMeasurement(svg, metaRulerStart, { x: svgPt.x, y: svgPt.y }, distMm);
+
+            metaRulerStart = null;
+            document.getElementById('metaRulerStatus').textContent = distMm.toFixed(2) + ' mm';
+        }
+    });
+}
+
+function drawMetaCustomMeasurement(svg, p1, p2, distMm) {
+    var svgDoc = svg.ownerDocument;
+    var layer = svgDoc.getElementById('layer-measurements');
+    if (!layer) return;
+
+    var g = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'g');
+    g.setAttribute('class', 'measurement custom-measure');
+    g.setAttribute('data-custom', 'meta-' + (++metaMeasureId));
+
+    var line = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('class', 'measure-line');
+    line.setAttribute('x1', p1.x);
+    line.setAttribute('y1', p1.y);
+    line.setAttribute('x2', p2.x);
+    line.setAttribute('y2', p2.y);
+    line.setAttribute('stroke', '#0066cc');
+    g.appendChild(line);
+
+    var midX = (p1.x + p2.x) / 2;
+    var midY = (p1.y + p2.y) / 2;
+
+    var text = svgDoc.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('class', 'measure-label');
+    text.setAttribute('x', midX);
+    text.setAttribute('y', midY - 10);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#0066cc');
+    text.textContent = distMm.toFixed(2) + ' mm';
+    g.appendChild(text);
+
+    layer.appendChild(g);
+    metaCustomMeasurements.push(g);
+}
+
+// Attach handlers when SVGs load (both lateral and dorsal)
+var mesoSvgLateral = document.getElementById('mesosoma-svg-lateral');
+if (mesoSvgLateral) {
+    mesoSvgLateral.addEventListener('load', function() {
+        attachMesoSvgClickHandlerTo('mesosoma-svg-lateral');
+        updateMorphologyLabels();
+        updateMorphometrics();
+    });
+}
+var mesoSvgDorsal = document.getElementById('mesosoma-svg-dorsal');
+if (mesoSvgDorsal) {
+    mesoSvgDorsal.addEventListener('load', function() {
+        attachMesoSvgClickHandlerTo('mesosoma-svg-dorsal');
+        updateMorphologyLabels();
+        updateMorphometrics();
+    });
+}
+
+var metaSvgForRuler = document.getElementById('metasoma-svg-lateral');
+if (metaSvgForRuler) {
+    metaSvgForRuler.addEventListener('load', function() {
+        attachMetaSvgClickHandler();
+        updateMorphologyLabels();
+        updateMorphometrics();
+    });
+}
+
+// =============================================================================
+// UPDATED EXPORT FUNCTIONS (support all sections)
+// =============================================================================
+
+// Override downloadAsSVG to support mesosoma and metasoma
+var originalDownloadAsSVG = downloadAsSVG;
+downloadAsSVG = function(section) {
+    var svgObject = null;
+    if (section === 'head') {
+        svgObject = document.getElementById('head-svg-frontal');
+    } else if (section === 'mesosoma') {
+        svgObject = document.getElementById('mesosoma-svg-lateral');
+    } else if (section === 'metasoma') {
+        svgObject = document.getElementById('metasoma-svg-lateral');
+    }
+
+    if (!svgObject || !svgObject.contentDocument) {
+        alert('SVG not available for this section');
+        return;
+    }
+
+    doSvgExport(svgObject, section);
+};
+
+// Override downloadAsPNG to support mesosoma and metasoma
+var originalDownloadAsPNG = downloadAsPNG;
+downloadAsPNG = function(section) {
+    var svgObject = null;
+
+    if (section === 'head') {
+        svgObject = document.getElementById('head-svg-frontal');
+    } else if (section === 'mesosoma') {
+        svgObject = document.getElementById('mesosoma-svg-lateral');
+    } else if (section === 'metasoma') {
+        svgObject = document.getElementById('metasoma-svg-lateral');
+    }
+
+    if (svgObject && svgObject.contentDocument) {
+        var svgDoc = svgObject.contentDocument;
+        var svgElement = svgDoc.querySelector('svg');
+        if (svgElement) {
+            renderSvgToPng(svgElement, 'ant_' + section + '_morphology.png');
+            return;
+        }
+    }
+
+    alert('SVG not available for PNG export');
+};
+
+// Show/hide panels based on active section
+function updateAllPanelsVisibility() {
+    var activeTab = document.querySelector('.morpho-tab.active');
+    if (!activeTab) return;
+
+    var section = activeTab.dataset.section;
+
+    // Head panel (always show when on head tab - only frontal view exists)
+    var headPanel = document.getElementById('measurementsPanel');
+    if (headPanel) {
+        headPanel.style.display = (section === 'head') ? 'block' : 'none';
+    }
+
+    // Mesosoma panel
+    var mesoPanel = document.getElementById('mesosomaPanel');
+    if (mesoPanel) {
+        mesoPanel.style.display = (section === 'mesosoma') ? 'block' : 'none';
+    }
+
+    // Metasoma panel
+    var metaPanel = document.getElementById('metasomaPanel');
+    if (metaPanel) {
+        metaPanel.style.display = (section === 'metasoma') ? 'block' : 'none';
+    }
+}
+
+// Update panel visibility on tab change
+document.querySelectorAll('.morpho-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        setTimeout(updateAllPanelsVisibility, 10);
+    });
+});
+
+// Initial panel visibility
+setTimeout(updateAllPanelsVisibility, 100);
+
+// =============================================================================
+// ENLARGE/FULLSCREEN TOGGLE
+// =============================================================================
+
+document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
+    var enlargeBtn = wrapper.querySelector('.enlarge-toggle');
+    if (!enlargeBtn) return;
+
+    enlargeBtn.addEventListener('click', function() {
+        var isEnlarged = wrapper.classList.toggle('enlarged');
+        enlargeBtn.classList.toggle('active', isEnlarged);
+        document.body.classList.toggle('has-enlarged-view', isEnlarged);
+    });
+});
+
+// Close enlarged view on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.diagram-wrapper.enlarged').forEach(function(wrapper) {
+            wrapper.classList.remove('enlarged');
+            var btn = wrapper.querySelector('.enlarge-toggle');
+            if (btn) btn.classList.remove('active');
+        });
+        document.body.classList.remove('has-enlarged-view');
+    }
+});
+
+// =============================================================================
+// MAGNIFYING GLASS
+// =============================================================================
+
+var magZoom = 3; // Zoom level
+var svgImageCache = {}; // Shared cache for pre-rendered SVG images
+
+// Function to invalidate cache when SVG layers change (e.g., labels toggled)
+window.invalidateSvgMagCache = function() {
+    for (var key in svgImageCache) {
+        delete svgImageCache[key];
+    }
+};
+
+document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
+    var toggle = wrapper.querySelector('.mag-toggle');
+    var lens = wrapper.querySelector('.mag-lens');
+    var overlay = wrapper.querySelector('.mag-overlay');
+    var canvas = lens ? lens.querySelector('canvas') : null;
+    var ctx = canvas ? canvas.getContext('2d') : null;
+    var magActive = false;
+
+    if (!toggle || !lens || !canvas || !overlay) return;
+
+    // Set canvas size
+    canvas.width = 225;
+    canvas.height = 225;
+
+    toggle.addEventListener('click', function() {
+        magActive = !magActive;
+        toggle.classList.toggle('active', magActive);
+        overlay.classList.toggle('active', magActive);
+        if (!magActive) {
+            lens.classList.remove('active');
+        }
+    });
+
+    // Get the SVG or image element
+    function getImageSource() {
+        var svgObj = wrapper.querySelector('object.morpho-svg.active');
+        if (svgObj && svgObj.contentDocument) {
+            return { type: 'svg', element: svgObj };
+        }
+        var img = wrapper.querySelector('img.morpho-img.active');
+        if (img) {
+            return { type: 'img', element: img };
+        }
+        // Fallback to any object
+        svgObj = wrapper.querySelector('object.morpho-svg');
+        if (svgObj && svgObj.contentDocument) {
+            return { type: 'svg', element: svgObj };
+        }
+        return null;
+    }
+
+    // Overlay captures mouse events
+    overlay.addEventListener('mousemove', function(e) {
+        var source = getImageSource();
+        if (!source) return;
+
+        var rect = source.element.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+
+        // Position lens at cursor (centered)
+        var wrapperRect = wrapper.getBoundingClientRect();
+        var lensX = e.clientX - wrapperRect.left - 112.5; // 112.5 = half lens width (225/2)
+        var lensY = e.clientY - wrapperRect.top - 112.5;  // 112.5 = half lens height (225/2)
+        lens.style.left = lensX + 'px';
+        lens.style.top = lensY + 'px';
+
+        lens.classList.add('active');
+        handleMagnify(source, x, y, rect);
+    });
+
+    overlay.addEventListener('mouseleave', function() {
+        lens.classList.remove('active');
+    });
+
+    // Hide lens when hovering view selector buttons
+    var viewSelector = wrapper.querySelector('.view-selector');
+    if (viewSelector) {
+        viewSelector.addEventListener('mouseenter', function() {
+            if (magActive) {
+                lens.classList.remove('active');
+            }
+        });
+        viewSelector.addEventListener('mouseleave', function(e) {
+            // Re-show lens if mouse returns to overlay area
+            if (magActive && overlay.contains(e.relatedTarget)) {
+                lens.classList.add('active');
+            }
+        });
+    }
+
+    // Convert SVG with external images to a usable Image object
+    function prepareSvgImage(svgObj, callback) {
+        var cacheKey = svgObj.data || svgObj.id;
+        if (svgImageCache[cacheKey]) {
+            callback(svgImageCache[cacheKey]);
+            return;
+        }
+
+        var svgDoc = svgObj.contentDocument;
+        var svgEl = svgDoc.querySelector('svg');
+        if (!svgEl) return;
+
+        // Clone SVG to avoid modifying the original
+        var clonedSvg = svgEl.cloneNode(true);
+
+        // Find all images and convert relative URLs to absolute
+        var images = clonedSvg.querySelectorAll('image');
+        var pending = images.length;
+
+        if (pending === 0) {
+            finalizeSvg();
+            return;
+        }
+
+        images.forEach(function(imgEl) {
+            var href = imgEl.getAttribute('xlink:href') || imgEl.getAttribute('href');
+            if (!href || href.startsWith('data:')) {
+                pending--;
+                if (pending === 0) finalizeSvg();
+                return;
+            }
+
+            // Resolve relative URL based on SVG location
+            // First get absolute URL of SVG, then resolve image href relative to it
+            var svgAbsoluteUrl = new URL(svgObj.data, window.location.href).href;
+            var absoluteUrl = new URL(href, svgAbsoluteUrl).href;
+
+            // Load image and convert to data URI
+            var tempImg = new Image();
+            tempImg.crossOrigin = 'anonymous';
+            tempImg.onload = function() {
+                var tempCanvas = document.createElement('canvas');
+                tempCanvas.width = tempImg.naturalWidth;
+                tempCanvas.height = tempImg.naturalHeight;
+                var tempCtx = tempCanvas.getContext('2d');
+                tempCtx.drawImage(tempImg, 0, 0);
+                try {
+                    var dataUri = tempCanvas.toDataURL('image/jpeg', 0.9);
+                    imgEl.setAttribute('xlink:href', dataUri);
+                    imgEl.setAttribute('href', dataUri);
+                } catch(e) {
+                    console.warn('Could not convert image to data URI:', e);
+                }
+                pending--;
+                if (pending === 0) finalizeSvg();
+            };
+            tempImg.onerror = function() {
+                pending--;
+                if (pending === 0) finalizeSvg();
+            };
+            tempImg.src = absoluteUrl;
+        });
+
+        function finalizeSvg() {
+            var serializer = new XMLSerializer();
+            var svgString = serializer.serializeToString(clonedSvg);
+            var svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+            var url = URL.createObjectURL(svgBlob);
+
+            var finalImg = new Image();
+            finalImg.onload = function() {
+                svgImageCache[cacheKey] = {
+                    img: finalImg,
+                    width: parseFloat(clonedSvg.getAttribute('width')) || finalImg.naturalWidth,
+                    height: parseFloat(clonedSvg.getAttribute('height')) || finalImg.naturalHeight,
+                    viewBox: clonedSvg.getAttribute('viewBox')
+                };
+                callback(svgImageCache[cacheKey]);
+            };
+            finalImg.src = url;
+        }
+    }
+
+    function handleMagnify(source, x, y, rect) {
+        // Calculate source coordinates
+        var scaleX = source.element.naturalWidth ? source.element.naturalWidth / rect.width : 1;
+        var scaleY = source.element.naturalHeight ? source.element.naturalHeight / rect.height : 1;
+
+        if (source.type === 'svg') {
+            prepareSvgImage(source.element, function(cached) {
+                if (cached.viewBox) {
+                    var parts = cached.viewBox.split(/[\s,]+/);
+                    var vbWidth = parseFloat(parts[2]);
+                    var vbHeight = parseFloat(parts[3]);
+                    scaleX = vbWidth / rect.width;
+                    scaleY = vbHeight / rect.height;
+                }
+
+                var srcX = x * scaleX;
+                var srcY = y * scaleY;
+                var zoomSize = 225 / magZoom;
+
+                ctx.clearRect(0, 0, 225, 225);
+                ctx.drawImage(cached.img,
+                    srcX - zoomSize/2, srcY - zoomSize/2, zoomSize, zoomSize,
+                    0, 0, 225, 225
+                );
+            });
+        } else {
+            // For regular images
+            var srcX = x * scaleX;
+            var srcY = y * scaleY;
+            var zoomSize = 225 / magZoom;
+
+            ctx.clearRect(0, 0, 225, 225);
+            ctx.drawImage(source.element,
+                srcX - zoomSize/2, srcY - zoomSize/2, zoomSize, zoomSize,
+                0, 0, 225, 225
+            );
+        }
+    }
+});
+</script>
+
 <?php include("php/footer.php"); ?>
-</body></html>
+</article>
+</body>
+</html>

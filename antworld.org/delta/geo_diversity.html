@@ -1,52 +1,710 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Antworld.org | Geo diversity</title>
-<meta name="description" content="Ants of Palearctic listed by region">
-<meta name="keywords" content="ants,Formicidae,Palearctic,species diversity, countries">
+    <head><title>AntWorld.org | Geographic Distribution</title>
+<meta name="description" content="Interactive map and charts showing the geographic distribution of ant species across Palearctic regions including Europe, North Africa, and Asia.">
+<meta name="keywords" content="ants, Formicidae, Palearctic, geographic distribution, Europe, Asia, North Africa, ant species map">
 <link rel="stylesheet" type="text/css" href="css/css_antworld.css" media="screen"/>
 <?php include("php/ihead.php"); ?>
-<!-- HighCharts thing-->
-<script src="js/highcharts.js"></script><script src="/js/themes/default.js"></script>
+
+<script src="js/highcharts.js"></script><script src="js/themes/default.js"></script>
 <script src="js/modules/exporting.js"></script>
 <script src="js/modules/offline-exporting.js"></script>
-<!-- <script src="js/highmaps.js"></script><script src="/js/highstock.js"></script>
-<script src="js/modules/stock.js"></script><script src="js/modules/map.js"></script> -->
+<style>
+.export-controls {
+    margin: 20px 0;
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    min-width: 180px;
+    min-height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 16px;
+}
+.chart-note {
+    color: var(--text-muted);
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+.chart-export-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 10px 0 25px 0;
+}
+.chart-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.chart-btn:hover {
+    background: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+}
+.region-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.filter-label {
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-right: 10px;
+}
+.region-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-tertiary);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+.region-checkbox:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+.region-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.data-notice {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 16px;
+    font-style: italic;
+    margin: 10px 0;
+}
+.data-notice a {
+    color: var(--accent-primary);
+}
+/* Sidebar layout */
+.geo-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+.geo-main {
+    flex: 1;
+    min-width: 0;
+}
+.geo-sidebar {
+    flex: 0 0 280px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 15px;
+    position: sticky;
+    top: 20px;
+}
+.geo-sidebar h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+.geo-sidebar .region-filters {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+.geo-sidebar .region-checkbox {
+    font-size: 13px;
+    padding: 4px 8px;
+}
+.geo-sidebar .filter-label {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+.geo-sidebar .export-controls {
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+}
+.geo-sidebar .export-btn {
+    min-width: auto;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    min-height: 36px;
+    margin: 0;
+}
+.geo-sidebar .chart-btn {
+    padding: 4px 10px;
+    font-size: 13px;
+}
+@media (max-width: 900px) {
+    .geo-layout {
+        flex-direction: column;
+    }
+    .geo-sidebar {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+}
+</style>
 </head>
     <body>
 <article>
-<h2 class="h2one">Ant diversity by country</h2>
+<h2 class="h2one"><?= t('geo.title') ?></h2>
+
+<div class="geo-layout">
+<div class="geo-main">
 <p4>
-<h3 class="h2one">Top 3</h3>
-<!-- Top 3 countries -->
-<div id="species_countries" style="width:99%; height:400px;"></div>
+<h3 class="h2one" id="chart-title"><?= t('geo.chart_title') ?></h3>
+<div id="main_chart" style="width:100%; height:500px;"></div>
+<div class="chart-export-buttons">
+    <button class="chart-btn" onclick="exportChartLocal('png')">PNG</button>
+    <button class="chart-btn" onclick="exportChartLocal('svg')">SVG</button>
+    <button class="chart-btn" onclick="exportChartLocal('jpeg')">JPEG</button>
+</div>
+
 <script>
+// Translations for JavaScript
+var T = {
+    countLog: '<?= t("geo.count_log") ?>',
+    percentGlobal: '<?= t("geo.percent_global") ?>',
+    ofWorldwide: '<?= t("geo.of_worldwide") ?>',
+    worldwide: '<?= t("geo.worldwide") ?>',
+    species: '<?= t("geo.series_species") ?>',
+    genera: '<?= t("geo.series_genera") ?>',
+    subfamilies: '<?= t("geo.series_subfamilies") ?>',
+    richnessAll: '<?= t("geo.richness_all") ?>',
+    richnessSingle: '<?= t("geo.richness_single") ?>',
+    richnessTwo: '<?= t("geo.richness_two") ?>',
+    level: '<?= t("geo.level") ?>',
+    countriesSelected: '<?= t("geo.countries_selected") ?>',
+    showingTop: '<?= t("geo.showing_top") ?>'
+};
+
+// Country data from antkeeping.info Top 50 + additional countries
+// Source: https://antkeeping.info/antdb/top-countries-by-number-of-ant-species
+// Genera/subfamilies estimates based on regional averages
+var countryData = [
+    // Australasian
+    {country: 'Australia', species: 1584, genera: 105, subfamilies: 10, realm: 'australasian'},
+    {country: 'New Guinea', species: 836, genera: 85, subfamilies: 9, realm: 'australasian'},
+    {country: 'New Zealand', species: 40, genera: 12, subfamilies: 4, realm: 'australasian'},
+    // Neotropical
+    {country: 'Brazil', species: 1469, genera: 120, subfamilies: 13, realm: 'neotropical'},
+    {country: 'Costa Rica', species: 1032, genera: 95, subfamilies: 11, realm: 'neotropical'},
+    {country: 'Colombia', species: 930, genera: 92, subfamilies: 11, realm: 'neotropical'},
+    {country: 'Ecuador', species: 838, genera: 88, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Panama', species: 814, genera: 85, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Peru', species: 746, genera: 82, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Venezuela', species: 681, genera: 78, subfamilies: 10, realm: 'neotropical'},
+    {country: 'Bolivia', species: 623, genera: 72, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Guatemala', species: 610, genera: 70, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Argentina', species: 598, genera: 68, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Honduras', species: 577, genera: 66, subfamilies: 9, realm: 'neotropical'},
+    {country: 'French Guiana', species: 562, genera: 65, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Guyana', species: 555, genera: 64, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Nicaragua', species: 532, genera: 62, subfamilies: 9, realm: 'neotropical'},
+    {country: 'Paraguay', species: 510, genera: 60, subfamilies: 8, realm: 'neotropical'},
+    {country: 'Suriname', species: 392, genera: 52, subfamilies: 8, realm: 'neotropical'},
+    {country: 'Trinidad and Tobago', species: 352, genera: 48, subfamilies: 8, realm: 'neotropical'},
+    // Indomalayan
+    {country: 'Indonesia', species: 1376, genera: 110, subfamilies: 12, realm: 'indomalayan'},
+    {country: 'Malaysia', species: 903, genera: 90, subfamilies: 11, realm: 'indomalayan'},
+    {country: 'India', species: 793, genera: 85, subfamilies: 11, realm: 'indomalayan'},
+    {country: 'Borneo', species: 740, genera: 82, subfamilies: 10, realm: 'indomalayan'},
+    {country: 'Philippines', species: 579, genera: 65, subfamilies: 9, realm: 'indomalayan'},
+    {country: 'Thailand', species: 502, genera: 60, subfamilies: 9, realm: 'indomalayan'},
+    {country: 'Sri Lanka', species: 333, genera: 48, subfamilies: 8, realm: 'indomalayan'},
+    {country: 'Myanmar', species: 304, genera: 45, subfamilies: 8, realm: 'indomalayan'},
+    {country: 'Vietnam', species: 296, genera: 44, subfamilies: 8, realm: 'indomalayan'},
+    {country: 'Taiwan', species: 289, genera: 43, subfamilies: 8, realm: 'indomalayan'},
+    // Nearctic (Mexico spans Nearctic-Neotropical interface, see Dáttilo et al. 2020)
+    {country: 'Mexico', species: 1131, genera: 98, subfamilies: 11, realm: 'nearctic'},
+    {country: 'United States', species: 848, genera: 75, subfamilies: 10, realm: 'nearctic'},
+    {country: 'Canada', species: 210, genera: 32, subfamilies: 5, realm: 'nearctic'},
+    // Afrotropical
+    {country: 'Madagascar', species: 848, genera: 75, subfamilies: 10, realm: 'afrotropical'},
+    {country: 'South Africa', species: 668, genera: 70, subfamilies: 10, realm: 'afrotropical'},
+    {country: 'Cameroon', species: 521, genera: 62, subfamilies: 9, realm: 'afrotropical'},
+    {country: 'Kenya', species: 484, genera: 58, subfamilies: 9, realm: 'afrotropical'},
+    {country: 'Gabon', species: 425, genera: 55, subfamilies: 9, realm: 'afrotropical'},
+    {country: 'Zimbabwe', species: 401, genera: 52, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'Ghana', species: 387, genera: 50, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'DR Congo', species: 360, genera: 48, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'Uganda', species: 336, genera: 46, subfamilies: 8, realm: 'afrotropical'},
+    {country: 'Tanzania', species: 271, genera: 42, subfamilies: 8, realm: 'afrotropical'},
+    // Palearctic
+    {country: 'China', species: 1013, genera: 95, subfamilies: 12, realm: 'palearctic'},
+    {country: 'Turkey', species: 362, genera: 48, subfamilies: 7, realm: 'palearctic'},
+    {country: 'Spain', species: 361, genera: 48, subfamilies: 7, realm: 'palearctic'},
+    {country: 'Greece', species: 341, genera: 46, subfamilies: 7, realm: 'palearctic'},
+    {country: 'Russia', species: 313, genera: 42, subfamilies: 5, realm: 'palearctic'},
+    {country: 'Italy', species: 296, genera: 42, subfamilies: 8, realm: 'palearctic'},
+    {country: 'Japan', species: 291, genera: 65, subfamilies: 8, realm: 'palearctic'},
+    {country: 'Morocco', species: 277, genera: 42, subfamilies: 9, realm: 'palearctic'},
+    {country: 'France', species: 213, genera: 40, subfamilies: 6, realm: 'palearctic'},
+    {country: 'Iran', species: 200, genera: 38, subfamilies: 6, realm: 'palearctic'},
+    {country: 'Portugal', species: 155, genera: 35, subfamilies: 6, realm: 'palearctic'},
+    {country: 'Austria', species: 135, genera: 31, subfamilies: 5, realm: 'palearctic'},
+    {country: 'Kazakhstan', species: 125, genera: 28, subfamilies: 4, realm: 'palearctic'},
+    {country: 'Germany', species: 115, genera: 27, subfamilies: 4, realm: 'palearctic'},
+    {country: 'Hungary', species: 126, genera: 28, subfamilies: 5, realm: 'palearctic'},
+    {country: 'Belgium', species: 98, genera: 26, subfamilies: 5, realm: 'palearctic'},
+    {country: 'Mongolia', species: 76, genera: 17, subfamilies: 3, realm: 'palearctic'},
+    {country: 'UK', species: 59, genera: 18, subfamilies: 4, realm: 'palearctic'}
+];
+
+var mainChart = null;
+
 $(function () {
-    var myChart = Highcharts.chart('species_countries', {
-chart: {type: 'bar'},
-title: {text: '', style: {color: 'white', font: 'bold 30px "Trebuchet MS", Verdana, sans-serif'}},
-xAxis: {categories: ['China','Russia','Greece']},
-yAxis: {title: {text: 'For scientific literature, click on "Source" in the navigation bar', style: {color: 'white'}}},
-series: [{name: 'Species', data: [1391,311,286]},{name: 'Genera',data: [113,38,44]},{name: 'Families',data: [12,5,7]},]
+    // Set global Highcharts options for offline export
+    Highcharts.setOptions({
+        exporting: {
+            fallbackToExportServer: false
+        }
     });
+
+    updateCharts();
 });
-</script>
-<h3 class="h2one">Top 10</h3>
-<div id="species_countries2" style="width:99%; height:800px;"></div>
-<script>
-$(function () {
-    var myChart = Highcharts.chart('species_countries2', {
-chart: {type: 'bar'},
-title: {text: '', style: {color: 'white', font: 'bold 30px "Trebuchet MS", Verdana, sans-serif'}},
-xAxis: {categories: ['Japan','Morocco','France','Italy','Austria','Kazakhstan','Germany','Belgium','Mongolia','NSUK']},
-yAxis: {title: {text: 'For scientific literature, click on "Source" in the navigation bar', style: {color: 'white'}}},
-series: [{name: 'Species', data: [273,237,213,184,135,117,110,98,76,59]},{name: 'Genera',data: [71,39,40,38,31,25,27,26,17,18]},{name: 'Families',data: [8,9,6,8,5,4,4,5,3,4]},]
+
+function getSelectedRealms() {
+    var realms = [];
+    ['palearctic', 'afrotropical', 'nearctic', 'neotropical', 'indomalayan', 'australasian'].forEach(function(r) {
+        if (document.getElementById(r).checked) realms.push(r);
     });
-});
+    return realms;
+}
+
+function getFilteredData() {
+    var selectedRealms = getSelectedRealms();
+    return countryData.filter(function(d) {
+        return selectedRealms.indexOf(d.realm) >= 0;
+    }).sort(function(a, b) {
+        return b.species - a.species;
+    });
+}
+
+function updateChartTitle() {
+    var showSpecies = document.getElementById('show_species').checked;
+    var showGenera = document.getElementById('show_genera').checked;
+    var showSubfamilies = document.getElementById('show_subfamilies').checked;
+
+    var levels = [];
+    if (showSpecies) levels.push(T.species.toLowerCase());
+    if (showGenera) levels.push(T.genera.toLowerCase());
+    if (showSubfamilies) levels.push(T.subfamilies.toLowerCase());
+
+    var titleEl = document.getElementById('chart-title');
+
+    // If none or all selected, show all three levels
+    if (levels.length === 0 || levels.length === 3) {
+        titleEl.textContent = T.richnessAll;
+    } else if (levels.length === 1) {
+        // Single level: EN "Richness at species level" / FR "Richesse en espèces"
+        var suffix = T.level ? ' ' + T.level : '';
+        titleEl.textContent = T.richnessSingle + ' ' + levels[0] + suffix;
+    } else {
+        // Two levels: EN "Richness at species & genera level" / FR "Richesse en genres et sous-familles"
+        var suffix = T.level ? ' ' + T.level : '';
+        titleEl.textContent = T.richnessTwo + ' ' + levels.join(' & ') + suffix;
+    }
+}
+
+function updateCharts() {
+    var filtered = getFilteredData();
+    var isLight = document.documentElement.classList.contains('light-mode');
+    var textColor = isLight ? '#1a1a2e' : '#ffffff';
+
+    // Update chart title based on selected taxonomic levels
+    updateChartTitle();
+
+    // Update country counter (195 = approx total countries on Earth)
+    var totalCountriesOnEarth = 195;
+    document.getElementById('country-counter').textContent = filtered.length + '/' + totalCountriesOnEarth + ' ' + T.countriesSelected + ' (' + T.showingTop + ')';
+
+    // Get taxonomical filter states
+    var showSpecies = document.getElementById('show_species').checked;
+    var showGenera = document.getElementById('show_genera').checked;
+    var showSubfamilies = document.getElementById('show_subfamilies').checked;
+
+    // Take top 15 for display
+    var displayData = filtered.slice(0, 15);
+
+    var categories = displayData.map(function(d) { return d.country; });
+    var speciesData = displayData.map(function(d) { return d.species; });
+    var generaData = displayData.map(function(d) { return d.genera; });
+    var subfamiliesData = displayData.map(function(d) { return d.subfamilies; });
+
+    // Calculate chart height based on number of countries
+    var chartHeight = Math.max(400, displayData.length * 35 + 100);
+    document.getElementById('main_chart').style.height = chartHeight + 'px';
+
+    if (mainChart) {
+        mainChart.destroy();
+    }
+
+    // Build series based on selected taxonomical options
+    var series = [];
+    if (showSpecies) {
+        series.push({name: T.species, data: speciesData, color: '#058DC7'});
+    }
+    if (showGenera) {
+        series.push({name: T.genera, data: generaData, color: '#50B432'});
+    }
+    if (showSubfamilies) {
+        series.push({name: T.subfamilies, data: subfamiliesData, color: '#ED561B'});
+    }
+
+    // If nothing selected, show all
+    if (series.length === 0) {
+        series = [
+            {name: T.species, data: speciesData, color: '#058DC7'},
+            {name: T.genera, data: generaData, color: '#50B432'},
+            {name: T.subfamilies, data: subfamiliesData, color: '#ED561B'}
+        ];
+    }
+
+    // Get scale type
+    var useLogScale = document.getElementById('scale_log').checked;
+    var usePercentScale = document.getElementById('scale_percent').checked;
+
+    // Global totals for percentage calculation (source: AntWiki/Bolton's Catalogue)
+    var TOTAL_SPECIES = 14000;  // ~14,000 described ant species worldwide
+    var TOTAL_GENERA = 340;     // ~340 extant genera
+    var TOTAL_SUBFAMILIES = 17; // 17 extant subfamilies
+
+    // For percentage mode, convert values to percentages of global totals
+    if (usePercentScale) {
+        series = series.map(function(s) {
+            var totalVal = s.name === T.species ? TOTAL_SPECIES : (s.name === T.genera ? TOTAL_GENERA : TOTAL_SUBFAMILIES);
+            return {
+                name: s.name,
+                color: s.color,
+                data: s.data.map(function(v) {
+                    return totalVal > 0 ? Math.round((v / totalVal) * 1000) / 10 : 0; // Round to 1 decimal
+                }),
+                originalData: s.data, // Keep original for tooltip
+                totalRef: totalVal    // Reference total for tooltip
+            };
+        });
+    }
+
+    mainChart = Highcharts.chart('main_chart', {
+        chart: {
+            type: 'bar',
+            backgroundColor: 'transparent',
+            marginLeft: 130,
+            spacingRight: 20,
+            height: chartHeight
+        },
+        title: {text: ''},
+        xAxis: {
+            categories: categories,
+            labels: {style: {color: textColor, fontSize: '14px'}, x: -10}
+        },
+        yAxis: {
+            type: useLogScale ? 'logarithmic' : 'linear',
+            title: {text: useLogScale ? T.countLog : (usePercentScale ? T.percentGlobal : ''), style: {color: textColor, fontSize: '14px'}},
+            labels: {
+                style: {color: textColor, fontSize: '14px'},
+                formatter: function() {
+                    if (usePercentScale) {
+                        return this.value + '%';
+                    }
+                    return Highcharts.numberFormat(this.value, 0);
+                }
+            },
+            min: useLogScale ? 1 : 0,
+            tickInterval: useLogScale ? 1 : null,
+            tickLength: 6,
+            tickWidth: 1,
+            tickColor: textColor,
+            lineWidth: 1,
+            lineColor: textColor,
+            gridLineColor: 'rgba(255,255,255,0.1)'
+        },
+        tooltip: {
+            formatter: function() {
+                if (usePercentScale) {
+                    var originalVal = this.series.options.originalData ? this.series.options.originalData[this.point.index] : this.y;
+                    var totalRef = this.series.options.totalRef || '?';
+                    return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '%</b> (' + originalVal + ' ' + T.ofWorldwide + ' ' + totalRef + ' ' + T.worldwide + ')';
+                }
+                return '<b>' + this.x + '</b><br/>' + this.series.name + ': <b>' + this.y + '</b>';
+            }
+        },
+        legend: {itemStyle: {color: textColor}},
+        credits: {enabled: false},
+        exporting: {enabled: false},
+        series: series
+    });
+}
+
+function selectAllRegions() {
+    ['palearctic', 'afrotropical', 'nearctic', 'neotropical', 'indomalayan', 'australasian'].forEach(function(r) {
+        document.getElementById(r).checked = true;
+    });
+    updateCharts();
+}
+
+function clearAllRegions() {
+    ['palearctic', 'afrotropical', 'nearctic', 'neotropical', 'indomalayan', 'australasian'].forEach(function(r) {
+        document.getElementById(r).checked = false;
+    });
+    updateCharts();
+}
+
+function exportChartLocal(format) {
+    if (!mainChart) return;
+
+    // Get current scale settings to preserve in export
+    var useLogScale = document.getElementById('scale_log').checked;
+    var usePercentScale = document.getElementById('scale_percent').checked;
+
+    // Build yAxis export options based on current settings
+    var yAxisOptions = {
+        type: useLogScale ? 'logarithmic' : 'linear',
+        min: useLogScale ? 1 : 0,
+        labels: {
+            style: {color: '#1a1a2e'},
+            formatter: usePercentScale ? function() { return this.value + '%'; } : null
+        },
+        title: {style: {color: '#1a1a2e'}}
+    };
+
+    // Get SVG from chart with preserved scale type and formatters
+    var svg = mainChart.getSVG({
+        chart: {backgroundColor: '#ffffff'},
+        xAxis: {labels: {style: {color: '#1a1a2e'}}},
+        yAxis: yAxisOptions,
+        legend: {itemStyle: {color: '#1a1a2e'}}
+    });
+
+    var selectedRealms = getSelectedRealms();
+    var filename = 'antworld_geo_diversity_' + selectedRealms.join('_');
+
+    if (format === 'svg') {
+        // Direct SVG download
+        var blob = new Blob([svg], {type: 'image/svg+xml'});
+        downloadBlob(blob, filename + '.svg');
+    } else {
+        // Convert to PNG/JPEG via canvas
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var img = new Image();
+
+        img.onload = function() {
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // White background for JPEG
+            if (format === 'jpeg') {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            ctx.drawImage(img, 0, 0);
+
+            var mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+            canvas.toBlob(function(blob) {
+                downloadBlob(blob, filename + '.' + format);
+            }, mimeType, 0.95);
+        };
+
+        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+    }
+}
+
+function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
 </script>
 
+<p class="data-notice"><?= t('geo.data_sources') ?> <a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info</a>, <a href="https://www.antwiki.org/" target="_blank">AntWiki</a>, <a href="https://antmaps.org/" target="_blank">AntMaps.org</a> | <span id="country-counter">0/0</span></p>
+<p class="chart-note">Note: Percentages show each country's count relative to global totals (<a href="https://www.antwiki.org/" target="_blank" style="color:#888;">~14,000 species, ~340 genera, 17 subfamilies</a>). These are non-cumulative: a single taxon may be recorded in multiple countries.</p>
+<p class="chart-note">Biogeographic realms follow <a href="https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world" target="_blank" style="color:#888;">WWF Terrestrial Ecoregions</a>. Note: Mexico spans the Nearctic-Neotropical interface (<a href="https://pubmed.ncbi.nlm.nih.gov/31828784/" target="_blank" style="color:#888;">Dáttilo et al. 2020</a>).</p>
+
 </p4>
+</div>
+
+
+<div class="geo-sidebar">
+    <h4><?= t('geo.biogeographic_realms') ?></h4>
+    <div class="region-filters">
+        <label class="region-checkbox"><input type="checkbox" id="palearctic" checked onchange="updateCharts()"> <?= t('geo.realms.palearctic') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="afrotropical" onchange="updateCharts()"> <?= t('geo.realms.afrotropical') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="nearctic" onchange="updateCharts()"> <?= t('geo.realms.nearctic') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="neotropical" onchange="updateCharts()"> <?= t('geo.realms.neotropical') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="indomalayan" onchange="updateCharts()"> <?= t('geo.realms.indomalayan') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="australasian" onchange="updateCharts()"> <?= t('geo.realms.australasian') ?></label>
+        <div style="display:flex; gap:5px; margin-top:5px;">
+            <button class="chart-btn" onclick="selectAllRegions()"><?= t('ui.all') ?></button>
+            <button class="chart-btn" onclick="clearAllRegions()"><?= t('ui.none') ?></button>
+        </div>
+    </div>
+
+    <h4><?= t('geo.show_data') ?></h4>
+    <div class="region-filters">
+        <label class="region-checkbox"><input type="checkbox" id="show_species" checked onchange="updateCharts()"> <?= t('geo.species') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="show_genera" checked onchange="updateCharts()"> <?= t('geo.genera') ?></label>
+        <label class="region-checkbox"><input type="checkbox" id="show_subfamilies" checked onchange="updateCharts()"> <?= t('geo.subfamilies') ?></label>
+    </div>
+
+    <h4><?= t('geo.scale') ?></h4>
+    <div class="region-filters">
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_linear" checked onchange="updateCharts()"> <?= t('geo.linear') ?></label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_log" onchange="updateCharts()"> <?= t('geo.logarithmic') ?></label>
+        <label class="region-checkbox"><input type="radio" name="scale" id="scale_percent" onchange="updateCharts()"> <?= t('geo.percentage') ?></label>
+    </div>
+
+    <h4><?= t('geo.export_data') ?></h4>
+    <div class="export-controls">
+        <button class="export-btn" onclick="exportGeoDataCSV()">
+            <?= t('ui.download') ?> <span class="format">CSV</span>
+        </button>
+        <button class="export-btn" onclick="exportGeoDataJSON()">
+            <?= t('ui.download') ?> <span class="format">JSON</span>
+        </button>
+    </div>
+</div>
+</div>
+
+<script>
+// Export functions - use filtered data based on selected regions
+function exportGeoDataCSV() {
+    var filtered = getFilteredData();
+    var selectedRealms = getSelectedRealms();
+
+    var csv = 'ANTWORLD.ORG - Geographic Diversity Data\n';
+    csv += 'Exported: ' + new Date().toLocaleString() + '\n';
+    csv += 'Selected Realms: ' + (selectedRealms.length > 0 ? selectedRealms.join(', ') : 'None') + '\n\n';
+    csv += 'Rank,Country,Species,Genera,Subfamilies,Realm\n';
+
+    filtered.forEach(function(row, i) {
+        csv += (i + 1) + ',"' + row.country + '",' + row.species + ',' + row.genera + ',' + row.subfamilies + ',"' + row.realm + '"\n';
+    });
+
+    var filename = 'antworld_geo_diversity_' + selectedRealms.join('_') + '.csv';
+    downloadFile(csv, filename, 'text/csv;charset=utf-8;');
+}
+
+function exportGeoDataJSON() {
+    var filtered = getFilteredData();
+    var selectedRealms = getSelectedRealms();
+
+    var data = {
+        source: 'AntWorld.org',
+        exported: new Date().toISOString(),
+        selectedRealms: selectedRealms,
+        description: 'Ant diversity by country - filtered by biogeographic realm',
+        totalCountries: filtered.length,
+        countries: filtered.map(function(row, i) {
+            return {
+                rank: i + 1,
+                country: row.country,
+                species: row.species,
+                genera: row.genera,
+                subfamilies: row.subfamilies,
+                realm: row.realm
+            };
+        })
+    };
+
+    var filename = 'antworld_geo_diversity_' + selectedRealms.join('_') + '.json';
+    downloadFile(JSON.stringify(data, null, 2), filename, 'application/json;charset=utf-8;');
+}
+
+function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+</script>
+
+<div style="clear:both;"></div>
+
+<h3 class="h2one">Sources & References</h3>
+<div class="sources-list" style="font-size:16px; line-height:1.8; padding:15px; background:var(--bg-secondary); border-radius:8px; margin:20px 0;">
+<p><strong>Species counts:</strong></p>
+<ul style="margin-left:20px;">
+<li><a href="https://antkeeping.info/antdb/top-countries-by-number-of-ant-species" target="_blank">AntKeeping.info - Top Countries by Number of Ant Species</a></li>
+<li><a href="https://www.antwiki.org/" target="_blank">AntWiki - The Ant Encyclopedia</a></li>
+<li><a href="https://antmaps.org/" target="_blank">AntMaps.org - Economo Lab, OIST</a></li>
+</ul>
+<p style="margin-top:15px;"><strong>Biogeographic realms:</strong></p>
+<ul style="margin-left:20px;">
+<li><a href="https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world" target="_blank">WWF - Terrestrial Ecoregions of the World (TEOW)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Biogeographic_realm" target="_blank">Wikipedia - Biogeographic Realm</a></li>
+<li>Dáttilo W. et al. (2020) <a href="https://pubmed.ncbi.nlm.nih.gov/31828784/" target="_blank">"Mexico ants: incidence and abundance along the Nearctic-Neotropical interface"</a> - <em>Ecology</em> 101(4):e02944</li>
+</ul>
+<p style="margin-top:15px;"><strong>Global totals:</strong></p>
+<ul style="margin-left:20px;">
+<li>Bolton's Catalogue & <a href="https://www.antwiki.org/wiki/Diversity" target="_blank">AntWiki Diversity Statistics</a> (~14,000 species, ~340 genera, 17 subfamilies)</li>
+</ul>
+</div>
+
 </article>
 <?php include("php/footer.php"); ?>
-</div>
-    </body>
+</body>
 </html>

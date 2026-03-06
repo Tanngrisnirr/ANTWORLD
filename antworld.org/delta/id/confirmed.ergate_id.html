@@ -1,26 +1,28 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Higher groups</title>
-		<meta name="description" content="Fast identification of the higher groups">
+    <head><title><?= lang() === "fr" ? "Groupes supérieurs" : "Higher groups" ?></title>
+		<meta name="description" content="<?= lang() === "fr" ? "Identification rapide des groupes supérieurs" : "Fast identification of the higher groups" ?>">
 		<meta name="keywords" content="ants,Aenictinae,Aneuretinae,Dorylinae,Technomyrmex,albipes,gobbosus,Dolichoderinae,Formicinae,Amblyoponinae,Discothyrea,Cerapachys,Leptogenys,poneromorphs,leptanillinae,Myrmicinae">
-<?php include("php/headersend.php") ?>
+<?php include("../php/headersend.php") ?>
     </head>
     <body onload="startTime();">
-<article><?php include("../php/navid.php") ?>
- <h2 class="h2one">Highter ants groups</h2>
+<?php include("../php/nav.php") ?>
+<article>
+ <h2 class="h2one"><?= lang() === "fr" ? "Groupes supérieurs de fourmis" : "Higher ants groups" ?></h2>
 
-<!--Technomyrmex-->
-  <div class="icones"><a href#="technomyrmex_ergate.html"></a><input type="button" class="long_button_no" disabled title="Under construction" onclic="location.href='technomyrmex_ergate.html';" value="Technomyrmex" tabindex="8"></a>
+
+  <div class="icones"><a href#="technomyrmex_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" onclic="location.href='technomyrmex_ergate.html';" value="Technomyrmex" tabindex="8"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
-<img src="img/techno_albipes.peprofil_mini.png" typeof="foaf:Image" alt="Technomyrmex Petiolus" title=" Photo by April Nobile / From www.antweb.org. Accessed 19 April 2014"/>
+<img src="../img/id/techno_albipes.peprofil_mini.png" typeof="foaf:Image" alt="Technomyrmex Petiolus" title="AntWeb"/>
 	</div>
 </div>
 <a class="caption simple-caption" href="https://www.antweb.org/images.do?subfamily=dolichoderinae&genus=technomyrmex&rank=genus&project=reunionants" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
-    <p>Photo by April Nobile AntWeb.org</p></a>
+    <p>AntWeb</p></a>
 </div>
-  <li>Petiole<a title="PEtiole" style="cursor:help;">(<b>PE</b>)</a> in <b>one distinct part</b>; <i><strong>BUT</strong></i> low and length in profile</li>
-  <li>China, Japan, Morocco
+  <li><?= lang() === "fr" ? "Pétiole " : "Petiole " ?><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;">(<b>PE</b>)</a> <?= lang() === "fr" ? "en <b>une partie distincte</b> ;" : "in <b>one distinct part</b>;" ?> <i><strong><?= lang() === "fr" ? "MAIS" : "BUT" ?></strong></i> <?= lang() === "fr" ? "bas et allongé de profil" : "low and length in profile" ?></li>
+  <li><?= lang() === "fr" ? "Chine, Japon, Maroc" : "China, Japan, Morocco" ?>
   <br><a href"dolichoderinae_ergate.html">(<strong><b>D</b>olichoderinae</strong>)</a>
   <br><a href"technomyrmex_ergate.html"><i><strong><b>T</b>echnomyrmex sp.</strong></i></a>
   <br><a href"technomyrmex_albipes_ergate.html"><i><strong><b>T</b>echnomyrmex albipes</strong></i></a>
@@ -29,75 +31,54 @@
   </li>
 </div>
 
-<!--PDF group-->
+
   <div class="icones"><a href="pdf_ergate.html"><input type="button" class="button" value="PDF group" href="pdf_ergate.html" onclick="location.href='pdf_ergate.html';" tabindex="9"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
-<img src="img/pdf_group_mini.png" typeof="foaf:Image" alt="Formica Petiolus" title=" Photo by April Nobile / From www.antweb.org. Accessed 19 April 2014"/>
+<img src="../img/id/pdf_group_mini.png" typeof="foaf:Image" alt="Formica Petiolus" title="AntWeb"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
-    <p>Photo by O. Ruiz</p></a>
+<a class="caption simple-caption" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" title="CC BY-NC 4.0" typeof="foaf:publications" alt="copyright link" >
+    <p>AntWorld.org</p></a>
 </div>
-  <!--<img title="AntWeb.  Available from http://www.antweb.org. Accessed 20 April 2014" src="counting2.html"/>-->
-  <li>Petiole <a title="PEtiole" style="cursor:help;">(<b>PE</b>)</a> in <b>one distinct part</b>; <i><strong>BUT</strong></i> <b>not</b> haft like</li>
-  <li>Petiole <a title="PEtiole" style="cursor:help;"><b>PE</b></a> can be reduce in size and pressed tight against the gaster</li>
-  <!--<li>Gaster without strangulation between<a title="First gaster segment" style="cursor:help;"><b>seg1</b></a>and<a title="Second gaster segment" style="cursor:help;"><b>seg2</b></a></li>-->
-  <li>Whole Palearctic
-         <div class="speciesmenu"><ul class="niveau1"><img src="quote_source/species.png" typeof="foaf:organism" alt="species menu" />
+  
+  <li><?= lang() === "fr" ? "Pétiole" : "Petiole" ?> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;">(<b>PE</b>)</a> <?= lang() === "fr" ? "en <b>une partie distincte</b> ;" : "in <b>one distinct part</b>;" ?> <i><strong><?= lang() === "fr" ? "MAIS" : "BUT" ?></strong></i> <b><?= lang() === "fr" ? "pas" : "not" ?></b> <?= lang() === "fr" ? "en forme de manche" : "haft like" ?></li>
+  <li><?= lang() === "fr" ? "Pétiole" : "Petiole" ?> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "peut être réduit en taille et étroitement accolé au gastre" : "can be reduced in size and pressed tight against the gaster" ?></li>
+  
+  <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palearctic" ?>
+         <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu" />
   <ul class="niveau2">
   <a href"aneuretinae_ergate.html"><strong><b>A</b>neuretinae</strong></a>
   <br><a href"ponerinae_ergate.html"><b>P</b>oneromorphes1</a>
-  <!--<br><a href"probolomyrmex_ergate.html"><i><strong><b>P</b>robolomyrmex</strong></i></a>
-  <br><a href"proceratium_ergate.html"><i><strong><b>P</b>roceratium</strong></i></a>-->
   <br><a href"dolichoderinae_ergate.html"><strong><b>D</b>olichoderinae</strong></a>
   <br><a href="pdf_ergate.html"><strong><b>D</b>orylinae</strong></a>
   <br><a href="formicinae_ergate.html"><strong><b>F</b>ormicinae</strong></a>
-  <!--<br><a href="camponotini_ergate.html"><b>C</b>amponotini</a>
-  <br><a href"formicinii_ergate.html"><b>F</b>ormicini</a>
-  <br><a href="lasinii_ergate.html"><b>L</b>asinii</a>
-  <br><a href="littleformicinae_ergate.html"><b>P</b>lagiolepinii</a></strong></i></li>-->
   </ul></ul></div></li>
   </div>
 
-<!--Amblyoponinae and others-->
-  <div class="icones"><a href="amblyoponinae_ergate.html"></a><input type="button" class="button_no" disabled title="Under construction" value="Poneromorphes 2" onclic="location.href='amblyoponinae_ergate.html';" tabindex="10"></a>
+
+  <div class="icones"><a href="amblyoponinae_ergate.html"></a><input type="button" class="button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Poneromorphes 2" onclic="location.href='amblyoponinae_ergate.html';" tabindex="10"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
-<img src="img/proceratium_algiricum.peprofil_mini.png" typeof="foaf:Image" alt="Proceratium Petiolus" title="Photo by Will Ericson / From www.antweb.org. Accessed 19 April 2014"/>
+<img src="../img/id/proceratium_algiricum.peprofil_mini.png" typeof="foaf:Image" alt="Proceratium Petiolus" title="AntWeb"/>
 	</div>
 </div>
 <a class="caption simple-caption" href="https://www.antweb.org/images.do?subfamily=dolichoderinae&genus=technomyrmex&rank=genus&project=reunionants" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
-    <p>Photo by Will Ericson AntWeb.org</p></a>
+    <p>AntWeb</p></a>
 </div>
-  <li>Petiole <a title="PEtiole" style="cursor:help;">(<b>PE</b>)</a> in <b>one part</b>; <i><strong>BUT</strong></i> similar in shape or fused to<a title="First gaster segment" style="cursor:help;"><b>seg1</b></a></b></li>
-  <li><i><strong>if</strong></i> <a title="PEtiole" style="cursor:help;"> <b>PE</b></a> fused, <i><strong>then</strong></i> strangulation between <b>seg1</b> & <b>seg2</b> and between <b>seg2</b> & <b>seg3</b>
+  <li><?= lang() === "fr" ? "Pétiole" : "Petiole" ?> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;">(<b>PE</b>)</a> <?= lang() === "fr" ? "en <b>une partie</b> ;" : "in <b>one part</b>;" ?> <i><strong><?= lang() === "fr" ? "MAIS" : "BUT" ?></strong></i> <?= lang() === "fr" ? "de forme similaire ou fusionné à" : "similar in shape or fused to" ?> <a title="<?= lang() === "fr" ? "Premier segment gastral" : "First gaster segment" ?>" style="cursor:help;"><b>seg1</b></a></li>
+  <li><i><strong><?= lang() === "fr" ? "si" : "if" ?></strong></i> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"> <b>PE</b></a> <?= lang() === "fr" ? "fusionné," : "fused," ?> <i><strong><?= lang() === "fr" ? "alors" : "then" ?></strong></i> <?= lang() === "fr" ? "étranglement entre" : "strangulation between" ?> <b>seg1</b> & <b>seg2</b> <?= lang() === "fr" ? "et entre" : "and between" ?> <b>seg2</b> & <b>seg3</b>
   <a href="amblyoponinae_ergate.html"></a><input type="button" class="button_large"  value="Amblyoponinae & Discothyrea" onclick="location.href='amblyoponinae_ergate.html';" tabindex="11"></a></li>
-  <li><i><strong>if</strong></i><a title="PEtiole" style="cursor:help;"> <b>PE</b></a> detached, <i><strong>then</strong></i> strangulation only between <b>seg1</b> & <b>seg2</b>
+  <li><i><strong><?= lang() === "fr" ? "si" : "if" ?></strong></i> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"> <b>PE</b></a> <?= lang() === "fr" ? "détaché," : "detached," ?> <i><strong><?= lang() === "fr" ? "alors" : "then" ?></strong></i> <?= lang() === "fr" ? "étranglement seulement entre" : "strangulation only between" ?> <b>seg1</b> & <b>seg2</b>
   <a href="cerapachys&leptogenys_ergate.html"><input type="button" class="button_large"  value="Cerapachys & Leptogenys" onclick="cerapachys&leptogenys_ergate.html';" tabindex="12"></a></li>
-<!--<li>
-  <br><a href"amblyopone_bruni_ergate.html"><i><strong><b>A</b>mblyoponinae bruni</strong></i></a>,<a href"amblyopone_caliginosa_ergate.html"><i><strong><b>c</b>aliginosa</strong></i></a>
-  <br><a href"amblyopone_denticulata _ergate.html"><i><strong><b>d</b>enticulata</strong></i></a>,<a href"amblyopone_fulvida_ergate.html"><i><strong><b>f</b>ulvida</strong></i></a>
-  <br><a href"amblyopone_sakaii_ergate.html"><i><strong><b>s</b>akaii</strong></i></a>,<a href"amblyopone_silvestrii_ergate.html"><i><strong><b>s</b>ilvestrii</strong></i></a>
-  <br><a href"prionopelta_kraepelini_ergate.html"><i><strong><b>P</b>rionopelta kraepelini</strong></i></a>
-  </li>-->
-<!--<li><span style="color:red">Last gastric segment <b>curved</b> under the body. One exception:<br><a href"probolomyrmex_longinodus_ergate.html"><i><strong><b>P</b>robolomyrmex longinodus</strong></i></a></span></li>
-  <li>
-  <br><a href="cerapachyinae&proceratiinae_ergate.html"><b>C</b>erapachyinae</a>
-  <br><a href"ponerinae_ergate.html"><b>P</b>onerinae</a>
-  <br><a href="cerapachys_ergate.html"><i><strong><b>C</b>erapachys</strong></i></a>
-  <br><a href="cerapachyinae&proceratiinae_ergate.html"><b>P</b>roceratiinae</a>
-  <br><a href"discothyrea_ergate.html"><i><strong><b>D</b>iscothyrea</strong></i></a>
-  <br><a href"proceratium_ergate.html"><i><strong><b>P</b>roceratium</strong></i></a>
-  <br><a href"probolomyrmex_ergate.html"><i><strong><b>P</b>robolomyrmex</strong></i></a></li>-->
 </div>
 
-<!--Myrmicinae-->
+
   <div class="icones"><a href="palm_ergate_id.html"><input type="button" class="button" value="PALM group" onclick="location.href='palm_ergate_id.html';" tabindex="13"></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
-  <img id="img1" title="AntWeb.  Available from http://www.antweb.org. Accessed 20 April 2014" /><script>
-    var imgArray = new Array("img/myrmicinae/myrmica_rubra.peprofile_mini.png","img/myrmicinae/crematogaster_hespera.peprofil_mini.png","img/myrmicinae/myrmicinae_mini.png");
+  <img id="img1" title="AntWeb" alt="Myrmicinae subfamily specimen views"/><script>
+    var imgArray = new Array("../img/id/myrmicinae/myrmica_rubra.peprofile_mini.png","../img/id/myrmicinae/crematogaster_hespera.peprofil_mini.png","../img/id/myrmicinae/myrmicinae_mini.png");
     var imgCount = 0;
     function startTime() {if(imgCount == imgArray.length) {imgCount = 0;}
     document.getElementById("img1").src = imgArray[imgCount];
@@ -105,15 +86,15 @@
 	</div>
 </div>
 <a class="caption simple-caption" href="https://www.antweb.org/images.do?subfamily=myrmicinae&rank=subfamily&project=allantwebants" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
-    <p>AntWeb.org and O. Ruiz</p></a>
+    <p>AntWeb.org and AntWorld.org</p></a>
 </div>
-  <li>Segments between thorax and gaster in <b>two distinct parts</b>;
-    <br>- petiole <a title="PEtiole" style="cursor:help;">(<b>PE</b>)</a> attached to the thorax,
-    <br>- <a title="Post-PEtiolus" style="cursor:help;"><b>PE</b></a> <a title="Post PEtiole" style="cursor:help;">(<b>PPE</b>)</a> attached to the gaster,
-     AND <b>no strangulation</b> of gaster</li>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a> and <a title="Post PEtiole" style="cursor:help;"><b>PPE</b></a> always distinct from gaster and thorax</li>
-  <li>Whole Palearctic
-         <div class="speciesmenu"><ul class="niveau1"><img src="quote_source/species.png" typeof="foaf:organism" alt="species menu" />
+  <li><?= lang() === "fr" ? "Segments entre thorax et gastre en <b>deux parties distinctes</b>" : "Segments between thorax and gaster in <b>two distinct parts</b>" ?>;
+    <br>- <?= lang() === "fr" ? "pétiole" : "petiole" ?> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;">(<b>PE</b>)</a> <?= lang() === "fr" ? "attaché au thorax" : "attached to the thorax" ?>,
+    <br>- <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post-Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "attaché au gastre" : "attached to the gaster" ?>,
+     <?= lang() === "fr" ? "ET <b>pas d'étranglement</b> du gastre" : "AND <b>no strangulation</b> of gaster" ?></li>
+  <li><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "et" : "and" ?> <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "toujours distincts du gastre et du thorax" : "always distinct from gaster and thorax" ?></li>
+  <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palearctic" ?>
+         <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu" />
   <ul class="niveau2">
   <a href"pseudomyrmicini_ergate.html"><b>P</b>seudomyrmecini</a>
   <br><a href="aenictinae_ergate.html"><b>A</b>enictinae</a>

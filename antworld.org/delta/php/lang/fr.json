@@ -1,0 +1,214 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "start_id": "Identifier",
+    "morpho": "Morpho",
+    "data": "Données",
+    "geo_diversity": "Géo-diversité",
+    "taxo_diversity": "Taxo-diversité",
+    "species_list": "Liste des espèces",
+    "training": "Entraînement",
+    "jump_to": "Aller à",
+    "subfamilies": "Sous-familles",
+    "genera": "Genres",
+    "sources": "Sources"
+  },
+  "footer": {
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "credits": "Crédits",
+    "updated": "Mis à jour"
+  },
+  "ui": {
+    "download": "Télécharger",
+    "export": "Exporter",
+    "all": "Tout",
+    "none": "Aucun",
+    "select": "Sélectionner",
+    "search": "Rechercher",
+    "close": "Fermer",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "show": "Afficher",
+    "hide": "Masquer",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent"
+  },
+  "index": {
+    "intro": "",
+    "start_id": "Commencer l'identification",
+    "news_title": "Actualités myrmécologiques",
+    "resources_title": "Ressources myrmécologiques",
+    "about_title": "À propos d'AntWorld",
+    "about_p1": "AntWorld.org a pour vocation de rendre l'identification des fourmis accessible aux chercheurs, étudiants et passionnés. Nos clés dichotomiques interactives vous guident à travers les caractères morphologiques pour identifier les espèces de fourmis de la région paléarctique.",
+    "about_p2": "Toutes les données sont librement disponibles à des fins scientifiques et éducatives sous licence Creative Commons.",
+    "stats": {
+      "species": "Espèces",
+      "genera": "Genres",
+      "subfamilies": "Sous-familles",
+      "tribes": "Tribus",
+      "id_keys": "Clés d'ID"
+    },
+    "resources": {
+      "antweb_desc": "La plus grande base de données en ligne d'images de fourmis, de spécimens et d'informations sur leur histoire naturelle.",
+      "antwiki_desc": "Ressource wiki complète sur la taxonomie, la biologie et l'histoire naturelle des fourmis.",
+      "globalants_desc": "Données complètes sur les traits des fourmis à l'échelle mondiale pour la recherche et la conservation.",
+      "antscan_desc": "Scans micro-CT 3D haute résolution révélant l'anatomie interne et externe des fourmis. Accès ouvert à 792 espèces.",
+      "antcat_desc": "Le catalogue en ligne de référence pour les noms, synonymies et historique taxonomique des fourmis."
+    }
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "we_do_not": "Nous ne faisons pas :",
+    "not_ads": "Afficher des publicités de quelque nature que ce soit,",
+    "not_share": "Partager des données à des tiers à des fins publicitaires,",
+    "not_track": "Suivre vos mouvements en dehors du site web,",
+    "not_cookies": "Utiliser des cookies ou stocker des informations sur votre ordinateur qui ne sont pas nécessaires au bon fonctionnement du site",
+    "we_do": "Nous faisons :",
+    "do_ip": "Collecter les adresses IP,",
+    "do_clicks": "Comptabiliser le nombre de clics d'une adresse IP sur le site, mais pas sur quel contenu,",
+    "do_time": "Estimer le temps passé par une adresse IP sur le site un jour donné,",
+    "do_origin": "Rechercher la provenance des adresses IP entrantes et des liens,",
+    "do_cache": "Stocker du code dans votre cache permettant un rendu approprié du site comme l'en-tête ou le CSS, améliorant ainsi la vitesse de chargement des pages",
+    "contact_us": "Nous espérons que ce résumé a répondu à toutes vos questions, sinon nous sommes là pour répondre à toute question :"
+  },
+  "credits": {
+    "role": "Rôle",
+    "role_desc": "Construction du site, design HTML5 et CSS3, programmation en JavaScript et PHP et tout ce travail peu passionnant...",
+    "searching_for": "Recherche de",
+    "seeking_translators": "Traducteurs dans les langues suivantes : russe, japonais, chinois. Intéressé(e) ?",
+    "join_us": "Rejoignez-nous",
+    "image_credits": "Crédits images",
+    "image_credits_intro": "Les photographies de spécimens de fourmis sur ce site proviennent de plusieurs sources. Chaque image renvoie à sa source originale.",
+    "antweb_desc": "la plus grande base de données en ligne d'images de fourmis et de données de spécimens.",
+    "antweb_license": "Images partagées sous",
+    "antweb_photographers": "Photographes : April Nobile, Will Ericson, Erin Prado, Shannon Hartman, et de nombreux autres contributeurs de l'Académie des sciences de Californie.",
+    "jad_desc": "Photographies et dessins de haute qualité des espèces de fourmis japonaises.",
+    "data_sources": "Sources de données",
+    "data_sources_intro": "Comptages d'espèces et données de distribution provenant de :"
+  },
+  "sources": {
+    "title": "Bibliographie et références",
+    "search_placeholder": "Rechercher auteur, année, titre...",
+    "no_results": "Aucune source trouvée correspondant à votre recherche.",
+    "sources_count": "sources",
+    "legend_pdf": "PDF en bibliothèque",
+    "legend_web": "Site web externe",
+    "legend_scholar": "Recherche Google Scholar",
+    "legend_tip": "Cliquez sur l'en-tête Source pour alterner : PDF → Scholar → Web",
+    "table": {
+      "author": "Auteur(s)",
+      "year": "Année",
+      "title": "Titre",
+      "source": "Source"
+    },
+    "online_resources": "Ressources en ligne",
+    "resource": "Ressource",
+    "description": "Description",
+    "link": "Lien"
+  },
+  "training": {
+    "load_more": "Charger plus d'IDs",
+    "test": "Test"
+  },
+  "geo": {
+    "title": "Diversité des fourmis par pays",
+    "chart_title": "Richesse spécifique par pays",
+    "richness_all": "Richesse au niveau espèce, genre et sous-famille",
+    "richness_single": "Richesse en",
+    "richness_two": "Richesse en",
+    "level": "",
+    "biogeographic_realms": "Régions biogéographiques",
+    "realms": {
+      "palearctic": "Paléarctique",
+      "afrotropical": "Afrotropicale",
+      "nearctic": "Néarctique",
+      "neotropical": "Néotropicale",
+      "indomalayan": "Indomalaise",
+      "australasian": "Australasienne"
+    },
+    "show_data": "Afficher les données",
+    "species": "Espèces",
+    "genera": "Genres",
+    "subfamilies": "Sous-familles",
+    "scale": "Échelle",
+    "linear": "Linéaire",
+    "logarithmic": "Logarithmique",
+    "percentage": "Pourcentage",
+    "export_data": "Exporter les données",
+    "sources_references": "Sources et références",
+    "data_sources": "Sources des données :",
+    "countries_selected": "pays sélectionnés",
+    "showing_top": "affichage des 15 premiers",
+    "count_log": "Nombre (échelle log)",
+    "percent_global": "Pourcentage du total mondial",
+    "of_worldwide": "sur",
+    "worldwide": "mondial",
+    "series_species": "Espèces",
+    "series_genera": "Genres",
+    "series_subfamilies": "Sous-familles"
+  },
+  "tax": {
+    "title": "Diversité taxonomique des fourmis",
+    "subfamilies": "Sous-familles",
+    "tribes": "Tribus",
+    "genera": "Genres",
+    "top_genera": "Top 11 des genres",
+    "other_genera": "Autres genres",
+    "chart_background": "Fond du graphique",
+    "dark": "Sombre",
+    "light": "Clair",
+    "display_mode": "Mode d'affichage",
+    "percentage": "Pourcentage",
+    "numbers": "Nombres",
+    "both": "Les deux",
+    "export_chart": "Exporter le graphique",
+    "export_data": "Exporter les données",
+    "download_all": "Tout télécharger",
+    "total": "Total",
+    "showing": "Affichage de",
+    "species_in": "espèces dans"
+  },
+  "list": {
+    "title": "Diversité des fourmis",
+    "search_placeholder": "Rechercher espèce, genre ou sous-famille...",
+    "filter_subfamilies": "Sous-familles :",
+    "author_note": "Les auteurs entre () signifient que le nom de la fourmi a été modifié depuis sa description originale.",
+    "table": {
+      "subfamily": "Sous-famille",
+      "tribe": "Tribu",
+      "genus": "Genre",
+      "species": "Espèce",
+      "author": "Auteur",
+      "year": "Année"
+    }
+  },
+  "morpho": {
+    "title": "Morphologie des fourmis - Guide anatomique interactif",
+    "tabs": {
+      "full_body": "Corps entier",
+      "head": "Tête",
+      "mesosoma": "Mésosome",
+      "petiole": "Pétiole",
+      "gaster": "Gastre",
+      "measurements": "Mesures"
+    },
+    "views": {
+      "dorsal": "Dorsale",
+      "lateral": "Latérale",
+      "frontal": "Frontale"
+    },
+    "controls": {
+      "labels": "Étiquettes",
+      "blind": "Aveugle"
+    },
+    "features": "Caractères anatomiques",
+    "export_diagram": "Exporter le diagramme",
+    "source": "Source"
+  }
+}

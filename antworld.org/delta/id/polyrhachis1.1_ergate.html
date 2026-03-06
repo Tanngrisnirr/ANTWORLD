@@ -3,34 +3,35 @@
     <head><title>Polyrhachis 1.1</title>
 		<meta name="description" content="Polyrhachis">
 		<meta name="keywords" content="Polyrhachis,lucidula,hippomanes,moesta,laevigata,China,ergate">
-<?php include("php/headersend.php") ?>
+<?php include("../php/headersend.php") ?>
     </head>
 <body>
-<article><?php include("../php/nav.php") ?>
+<?php include("../php/nav.php") ?>
+<article>
 <h2 class="h2one"><i><strong>Polyrhachis</strong></i> 1.0.0</h2>
-<div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="lucidula" onclic="location.href='_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li>In dorsal view,<a title="PEtiole spines" style="cursor:help;"><b>PEsp</b></a>thick, diameter narrowing continuously from the base to the tip</li>
-  <li>/!\ Only female ?</li>
-  <li>China</li>
+<div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="lucidula" onclic="location.href='_ergate.html';"></a>
+<?php include("../php/CCblanc.php"); ?>
+  <li><?= lang() === "fr" ? "En vue dorsale, " : "In dorsal view, " ?><a title="<?= lang() === "fr" ? "Épines du pétiole" : "Petiole spines" ?>" style="cursor:help;"><b>PEsp</b></a> <?= lang() === "fr" ? "épaisses, diamètre se rétrécissant continuellement de la base à l'extrémité" : "thick, diameter narrowing continuously from the base to the tip" ?></li>
+  <li><?= lang() === "fr" ? "/!\\ Seulement femelle ?" : "/!\\ Only female ?" ?></li>
+  <li><?= lang() === "fr" ? "Chine" : "China" ?></li>
 </div>
-<div class="icones"><a href"_ergate.html"></a><input type="button" class="long_button_no" disabled title="Under construction" value="hippomanes ceyl." onclic="location.href='_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li><b>Coxa I, II, III</b> darker than their legs</li>
-  <li>Tibia and femur have the same coloration</li>
-  <li>China</li>
+<div class="icones"><a href"_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="hippomanes ceyl." onclic="location.href='_ergate.html';"></a>
+<?php include("../php/CCblanc.php"); ?>
+  <li><b>Coxa I, II, III</b> <?= lang() === "fr" ? "plus foncées que leurs pattes" : "darker than their legs" ?></li>
+  <li><?= lang() === "fr" ? "Tibia et fémur ont la même coloration" : "Tibia and femur have the same coloration" ?></li>
+  <li><?= lang() === "fr" ? "Chine" : "China" ?></li>
   </div>
-<div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="moesta" onclic="location.href='_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li><b>Coxa I, II, III</b> clearer than their femora</li>
-  <li>Tibia clearer than the femora</li><br>
-  <li>China</li>
+<div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="moesta" onclic="location.href='_ergate.html';"></a>
+<?php include("../php/CCblanc.php"); ?>
+  <li><b>Coxa I, II, III</b> <?= lang() === "fr" ? "plus claires que leurs fémurs" : "clearer than their femora" ?></li>
+  <li><?= lang() === "fr" ? "Tibia plus clair que les fémurs" : "Tibia clearer than the femora" ?></li><br>
+  <li><?= lang() === "fr" ? "Chine" : "China" ?></li>
   </div>
-<div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="laevigata" onclic="location.href='_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li><b>Coxa I</b> darker than the legs</li><br>
-  <li>Tibia and femur have the same coloration</li>
-  <li>China</li>
+<div class="icones"><a href"_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="laevigata" onclic="location.href='_ergate.html';"></a>
+<?php include("../php/CCblanc.php"); ?>
+  <li><b>Coxa I</b> <?= lang() === "fr" ? "plus foncée que les pattes" : "darker than the legs" ?></li><br>
+  <li><?= lang() === "fr" ? "Tibia et fémur ont la même coloration" : "Tibia and femur have the same coloration" ?></li>
+  <li><?= lang() === "fr" ? "Chine" : "China" ?></li>
   </div>
 </div>
 </article>

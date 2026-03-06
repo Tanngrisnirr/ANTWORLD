@@ -3,24 +3,25 @@
     <head><title>Polyrhachis 2.4</title>
 		<meta name="description" content="Polyrhachis">
 		<meta name="keywords" content="Polyrhachis,rastellata,debilis,hippomanes ceylonensis,laevigata,lucidula,moesta,burmanensis,murina,lamellidens,bihamata,China,Africa,Japan,ergate">
-<?php include("php/headersend.php") ?>
+<?php include("../php/headersend.php") ?>
     </head>
 <body>
-<article><?php include("../php/nav.php") ?>
+<?php include("../php/nav.php") ?>
+<article>
 <h2 class="h2one"><i><strong>Polyrhachis</strong></i> '2/4'</h2>
-  <div class="icones"><a href"polyrhachis0_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Polyrhachis 0" onclic="location.href='polyrhachis0_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li>No pronotonal spines <b>Pnsp </b>= 0</li>
-  <li>Propodeal spines (<b>Ppsp</b>) present, body totally black matt: <a href"polyrhachis_gibba_ergate.html"><i><strong><b>P</b>olyrhachis gibba</strong></i></a></li>
-  <li>Propodeal spines (<b>Ppsp</b>) absent, yellow legs: <a href"polyrhachis_rastellata_ergate.html"><i><strong><b>P</b>olyrhachis rastellata</strong></i></a></li>
-  <li><b>Ppsp</b> absent, body totally black bright: <a href"polyrhachis_debilis_ergate.html"><i><strong><b>P</b>olyrhachis debilis</strong></i></a></li>
+  <div class="icones"><a href"polyrhachis0_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Polyrhachis 0" onclic="location.href='polyrhachis0_ergate.html';"></a>
+<?php include("../php/CCblanc.php"); ?>
+  <li><?= lang() === "fr" ? "Pas d'épines pronotales" : "No pronotonal spines" ?> <b>Pnsp </b>= 0</li>
+  <li><?= lang() === "fr" ? "Épines propodéales" : "Propodeal spines" ?> (<b>Ppsp</b>) <?= lang() === "fr" ? "présentes, corps entièrement noir mat" : "present, body totally black matt" ?>: <a href"polyrhachis_gibba_ergate.html"><i><b>P</b>olyrhachis gibba</i></a></li>
+  <li><?= lang() === "fr" ? "Épines propodéales" : "Propodeal spines" ?> (<b>Ppsp</b>) <?= lang() === "fr" ? "absentes, pattes jaunes" : "absent, yellow legs" ?>: <a href"polyrhachis_rastellata_ergate.html"><i><b>P</b>olyrhachis rastellata</i></a></li>
+  <li><b>Ppsp</b> <?= lang() === "fr" ? "absentes, corps entièrement noir brillant" : "absent, body totally black bright" ?>: <a href"polyrhachis_debilis_ergate.html"><i><b>P</b>olyrhachis debilis</i></a></li>
   </div>
 <div class="icones"><a href="polyrhachis1.1_ergate.html"><input type="button" class="long_button"  style="cursor: pointer" value="Polyrhachis 1.0.0" onclick="location.href='polyrhachis1.1_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li><b>Pnsp </b> in form of denticles</li>
-  <li>Propodeal spines (<b>Ppsp</b>) absent:</li>
-  <li>China
-             <div class="speciesmenu"><ul class="niveau1"><img src="quote_source/species.png" typeof="foaf:organism" alt="species menu" />
+<?php include("../php/CCblanc.php"); ?>
+  <li><b>Pnsp </b> <?= lang() === "fr" ? "en forme de denticules" : "in form of denticles" ?></li>
+  <li><?= lang() === "fr" ? "Épines propodéales" : "Propodeal spines" ?> (<b>Ppsp</b>) <?= lang() === "fr" ? "absentes" : "absent" ?>:</li>
+  <li><?= lang() === "fr" ? "Chine" : "China" ?>
+             <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu" />
   <ul class="niveau2">
   <a href="polyrhachis1.1_ergate.html"><i><strong><b>c</b>eylonensis </strong></i></a>
   <br><a href="polyrhachis1.1_ergate.html"><i><strong><b>l</b>aevigata</strong></i></a>
@@ -28,17 +29,17 @@
   <br><a href="polyrhachis1.1_ergate.html"><i><strong><b>m</b>oesta</strong></i></a>
 	</ul></ul></div></li>
 </div>
-<div class="icones"><a href"polyrhachis 1.0_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Polyrhachis 1.0.0" onclic="location.href='polyrhachis 1.0_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li><b>Pnsp </b> well developed<br>
-  <i><strong>BUT</strong></i><br>
-  <b>Mnsp</b> absent</li>
-  <li><a title="PEtiole" style="cursor:help;"><b>PE</b></a>with 4 protuberances :<br>
-  - 4 sharp spines: <a href"_ergate.html"><i><strong><b>b</b></strong></i>urmanensis</a><br>
-  - 2 true spines and 2 lateral protuberances: <a href"_ergate.html"><i><strong><b>m</b>urina</strong></i></a></li>
-  <li>Otherwise <b>PEsp</b> = 2</li>
-  <li>North Africa, China
-      <div class="speciesmenu"><ul class="niveau1"><img src="quote_source/species.png" typeof="foaf:organism" alt="species menu" />
+<div class="icones"><a href"polyrhachis 1.0_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Polyrhachis 1.0.0" onclic="location.href='polyrhachis 1.0_ergate.html';"></a>
+<?php include("../php/CCblanc.php"); ?>
+  <li><b>Pnsp </b> <?= lang() === "fr" ? "bien développées" : "well developed" ?><br>
+  <i><strong><?= lang() === "fr" ? "MAIS" : "BUT" ?></strong></i><br>
+  <b>Mnsp</b> <?= lang() === "fr" ? "absentes" : "absent" ?></li>
+  <li><a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "avec 4 protubérances" : "with 4 protuberances" ?> :<br>
+  - <?= lang() === "fr" ? "4 épines aiguës" : "4 sharp spines" ?>: <a href"_ergate.html"><i><b>b</b>urmanensis</i></a><br>
+  - <?= lang() === "fr" ? "2 vraies épines et 2 protubérances latérales" : "2 true spines and 2 lateral protuberances" ?>: <a href"_ergate.html"><i><b>m</b>urina</i></a></li>
+  <li><?= lang() === "fr" ? "Sinon" : "Otherwise" ?> <b>PEsp</b> = 2</li>
+  <li><?= lang() === "fr" ? "Afrique du Nord, Chine" : "North Africa, China" ?>
+      <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu" />
   <ul class="niveau2">
   <a href"_ergate.html"><i><strong><b>a</b>rmata</strong></i></a>
   <br><a href"_ergate.html"><i><strong><b>b</b></strong></i>icolor</a>
@@ -51,12 +52,12 @@
   <br><a href"_ergate.html"><i><strong><b>t</b>hompsoni</strong></i></a>
 </ul></ul></div></li>
   </div>
-<div class="icones"><a href"polyrhachis1_1_ergate.html"><input type="button" class="long_button_no" disabled title="Under construction" value="Polyrhachis 1.0.1" onclic="location.href='polyrhachis 1.1_ergate.html';"></a>
-<?php include("php/CCblanc.php"); ?>
-  <li><b>Pnsp </b> well developed <i>AND</i> <b>Mnsp</b> present</li>
-  <li>Only the head is black/dark: <a href"polyrhachis_lamellidens_ergate.html"><i><strong><b>P</b>olyrhachis lamellidens</strong></i></a></li>
-  <li>Head & thorax are black bright: <a href"polyrhachis_bihamata_ergate.html"><i><strong><b>P</b>olyrhachis bihamata</strong></i></a></li>
-  <li>China, Japan</li>
+<div class="icones"><a href"polyrhachis1_1_ergate.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Polyrhachis 1.0.1" onclic="location.href='polyrhachis 1.1_ergate.html';"></a>
+<?php include("../php/CCblanc.php"); ?>
+  <li><b>Pnsp </b> <?= lang() === "fr" ? "bien développées" : "well developed" ?> <i><?= lang() === "fr" ? "ET" : "AND" ?></i> <b>Mnsp</b> <?= lang() === "fr" ? "présentes" : "present" ?></li>
+  <li><?= lang() === "fr" ? "Seulement la tête est noire/foncée" : "Only the head is black/dark" ?>: <a href"polyrhachis_lamellidens_ergate.html"><i><b>P</b>olyrhachis lamellidens</i></a></li>
+  <li><?= lang() === "fr" ? "Tête et thorax sont noir brillant" : "Head & thorax are black bright" ?>: <a href"polyrhachis_bihamata_ergate.html"><i><b>P</b>olyrhachis bihamata</i></a></li>
+  <li><?= lang() === "fr" ? "Chine, Japon" : "China, Japan" ?></li>
 </div>
 </article>
 <?php include("../php/footer.php"); ?>

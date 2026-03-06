@@ -2,9 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-		        <!--[if lt IE 9]>
-                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-                <![endif]-->
 <meta http-equiv="language" content="english, en">
 <meta name="description" content="Identification key for the ants of the palearctic region">
 <meta name="keywords" content="ants, Formicidae, identification key, key">
@@ -17,7 +14,6 @@
 		new FastClick(document.body);}, false);</script>-->
     </head>  
     <body>
-<?php include("php/header.html"); ?>
 <?php include("php/nav.php"); ?>
 <p>Mot de passe</p>
         <form action="php/contributors.php" method="post">

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     width="800" height="600" viewBox="0 0 800 600">
+
+  <sodipodi:namedview
+     inkscape:document-units="px"
+     inkscape:zoom="1"
+     inkscape:cx="400"
+     inkscape:cy="300"/>
+
+  <!-- Layer 1: Background (bottom) -->
+  <g inkscape:groupmode="layer" id="layer-background" inkscape:label="background">
+    <rect x="0" y="0" width="800" height="600" fill="#ffffff"/>
+  </g>
+
+  <!-- Layer 2: Reference Photo (lock this layer, hide for export) -->
+  <g inkscape:groupmode="layer" id="layer-reference" inkscape:label="reference" style="opacity:0.5">
+    <!-- Import photo here: File > Import -->
+    <text x="400" y="300" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#999">
+      Import reference photo here
+    </text>
+  </g>
+
+  <!-- Layer 3: Main Body Outline -->
+  <g inkscape:groupmode="layer" id="layer-outline" inkscape:label="outline">
+    <!-- Trace body outline here with Bezier tool -->
+    <!-- Use 2px black stroke, no fill -->
+  </g>
+
+  <!-- Layer 4: Internal Features (sutures, spiracles) -->
+  <g inkscape:groupmode="layer" id="layer-features" inkscape:label="features">
+    <!-- Draw sutures with dashed lines -->
+    <!-- Add spiracles as small circles -->
+  </g>
+
+  <!-- Layer 5: Surface Sculpture (texture) -->
+  <g inkscape:groupmode="layer" id="layer-sculpture" inkscape:label="sculpture">
+    <!-- Add surface texture patterns -->
+    <!-- Use 0.3-0.5px gray strokes -->
+  </g>
+
+  <!-- Layer 6: Setae (hairs) -->
+  <g inkscape:groupmode="layer" id="layer-setae" inkscape:label="setae">
+    <!-- Draw individual hairs -->
+    <!-- Use 0.5px black strokes -->
+  </g>
+
+  <!-- Layer 7: Label Anchor Points -->
+  <g inkscape:groupmode="layer" id="layer-points" inkscape:label="points">
+    <!-- Small circles marking feature locations -->
+    <!-- Example point: -->
+    <circle class="label-point" cx="200" cy="150" r="4" fill="#000" stroke="#000" stroke-width="1"/>
+  </g>
+
+  <!-- Layer 8: Labels and Leader Lines (top) -->
+  <g inkscape:groupmode="layer" id="layer-labels" inkscape:label="labels">
+    <!-- Label groups with data-feature attribute for interactivity -->
+    <!-- Example label: -->
+    <g class="label" data-feature="example">
+      <line class="label-line" x1="200" y1="150" x2="120" y2="100"
+            stroke="#000" stroke-width="1" stroke-dasharray="4,2"/>
+      <text class="label-text" x="115" y="95"
+            font-family="sans-serif" font-size="12" fill="#000" text-anchor="end">
+        Example Label
+      </text>
+    </g>
+  </g>
+
+</svg>
