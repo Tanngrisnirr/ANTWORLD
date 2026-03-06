@@ -1,27 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>AntWorld.org | Taxonomy</title>
-<meta name="description" content="Ants of Palearctic listed by region">
-<meta name="keywords" content="ants,Formicidae,Palearctic,species diversity, countries">
+    <head><title>AntWorld.org | Taxonomic Diversity</title>
+<meta name="description" content="Explore the taxonomic diversity of Palearctic ants with interactive charts showing species distribution across subfamilies, genera, and tribes.">
+<meta name="keywords" content="ants, Formicidae, Palearctic, taxonomy, subfamilies, genera, species diversity, Formicinae, Myrmicinae">
 <?php include("php/ihead.php"); ?>
 <script src="js/d3.min.js"></script><script src="js/d3pie.min.js"></script>
-<script src="js/modules/exporting.js"></script>
-<script src="js/modules/offline-exporting.js"></script>
+<style>
+.export-controls {
+    margin: 20px 0;
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    min-width: 180px;
+    min-height: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 16px;
+}
+.chart-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color, #333);
+}
+.chart-export-row {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.chart-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+.chart-tab {
+    padding: 12px 24px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.chart-tab:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+.chart-tab.active {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+.chart-container {
+    display: none;
+}
+.chart-container.active {
+    display: block;
+}
+.chart-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 15px 0;
+    padding: 12px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+}
+.chart-filter-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: var(--bg-tertiary);
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+.chart-filter-item:hover {
+    opacity: 0.8;
+}
+.chart-filter-item input {
+    width: 12px;
+    height: 12px;
+}
+.chart-filter-item .color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.chart-filter-panel {
+    margin-top: 10px;
+}
+.filter-header {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.genera-main-chart .chart-filters {
+    margin: 0;
+    padding: 10px;
+}
+#genera-rest-filters {
+    max-height: none;
+    overflow-y: visible;
+}
+.chart-total {
+    text-align: center;
+    font-size: 18px;
+    color: var(--text-primary);
+    margin: 10px 0;
+}
+.chart-total strong {
+    color: var(--accent-primary);
+    font-size: 24px;
+}
+.filter-btns {
+    display: flex;
+    gap: 8px;
+    margin-left: 15px;
+}
+.filter-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.filter-btn:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+/* Genera dual chart layout - stacked column */
+.genera-charts-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+.genera-main-chart {
+    width: 100%;
+    max-width: 800px;
+    overflow: visible;
+}
+.genera-main-chart:last-child {
+    max-width: 800px;
+}
+/* Display options */
+.display-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+    padding: 10px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+}
+.display-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--bg-tertiary);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+.display-option:hover {
+    background: var(--accent-secondary);
+    color: white;
+}
+.display-option.active {
+    background: var(--accent-primary);
+    color: white;
+}
+.display-option input {
+    display: none;
+}
+/* Sidebar layout */
+.tax-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    position: relative;
+}
+.tax-main {
+    flex: 1;
+    min-width: 0;
+    overflow: visible;
+}
+.tax-sidebar-wrapper {
+    flex: 0 0 280px;
+    width: 280px;
+    min-width: 280px;
+}
+.tax-sidebar {
+    width: 280px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 15px;
+    box-sizing: border-box;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    z-index: 100;
+}
+.tax-sidebar.sticky-active {
+    position: fixed;
+    top: 80px;
+}
+/* Chart background toggle */
+.bg-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+.bg-toggle-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.bg-toggle-btn.dark {
+    background: #1a1a2e;
+    color: white;
+}
+.bg-toggle-btn.light {
+    background: #ffffff;
+    color: #1a1a2e;
+}
+.bg-toggle-btn.active {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px var(--accent-primary);
+}
+/* Chart background styles */
+.chart-section.light-bg {
+    background: #ffffff;
+    border-radius: 12px;
+}
+.chart-section.light-bg svg text {
+    fill: #1a1a2e !important;
+}
+.chart-section.light-bg .evenly-spaced-labels text {
+    fill: #1a1a2e !important;
+}
+.chart-section.light-bg .evenly-spaced-labels line {
+    stroke: #1a1a2e !important;
+}
+.chart-section.light-bg .evenly-spaced-labels circle {
+    fill: #1a1a2e !important;
+}
+/* Light mode (site theme) - invert chart text colors */
+.light-mode .chart-section svg text {
+    fill: #1a1a2e !important;
+}
+.light-mode .chart-section .evenly-spaced-labels text {
+    fill: #1a1a2e !important;
+}
+.light-mode .chart-section .evenly-spaced-labels line {
+    stroke: #1a1a2e !important;
+}
+.light-mode .chart-section .evenly-spaced-labels circle {
+    fill: #1a1a2e !important;
+}
+/* Light mode + dark chart background - add dark bg and keep white text */
+.light-mode .chart-section:not(.light-bg) {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 20px;
+}
+.light-mode .chart-section:not(.light-bg) svg text {
+    fill: white !important;
+}
+.light-mode .chart-section:not(.light-bg) .evenly-spaced-labels text {
+    fill: white !important;
+}
+.light-mode .chart-section:not(.light-bg) .evenly-spaced-labels line {
+    stroke: white !important;
+}
+.light-mode .chart-section:not(.light-bg) .evenly-spaced-labels circle {
+    fill: white !important;
+}
+.tax-sidebar h4 {
+    margin: 0 0 15px 0;
+    color: var(--text-primary);
+    font-size: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+.tax-sidebar .export-controls {
+    flex-direction: column;
+    margin: 0 0 20px 0;
+    padding: 0;
+    gap: 10px;
+}
+.tax-sidebar .export-btn {
+    width: 100%;
+    margin: 0;
+    min-width: unset;
+}
+.tax-sidebar .display-options {
+    flex-direction: column;
+    margin: 0;
+    padding: 10px;
+    gap: 8px;
+}
+.tax-sidebar .display-option {
+    width: 100%;
+    justify-content: center;
+}
+@media (max-width: 1200px) {
+    .tax-layout {
+        flex-direction: column;
+    }
+    .tax-sidebar-wrapper {
+        flex: none;
+        width: 100%;
+        min-width: unset;
+    }
+    .tax-sidebar {
+        width: 100%;
+        position: static !important;
+    }
+    .tax-sidebar .export-controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tax-sidebar .export-btn {
+        width: auto;
+        min-width: 180px;
+    }
+    .tax-sidebar .display-options {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tax-sidebar .display-option {
+        width: auto;
+    }
+}
+</style>
 </head>
     <body>
 <article>
-<h2 class="h2one">Taxonomical Ant diversity</h2>
+<h2 class="h2one"><?= t('tax.title') ?></h2>
+
+<div class="tax-layout">
+<div class="tax-main">
+
+<div class="chart-tabs">
+    <button class="chart-tab active" onclick="showChart('subfamilies')"><?= t('tax.subfamilies') ?></button>
+    <button class="chart-tab" onclick="showChart('tribes')"><?= t('tax.tribes') ?></button>
+    <button class="chart-tab" onclick="showChart('genera')"><?= t('tax.genera') ?></button>
+</div>
+
 <p4>
-<!--PIE Subfamilies-->
-<div id="cont"></div>
+
+<div class="chart-container active" id="subfamilies-container">
+<div class="chart-total" id="subfamilies-total"></div>
+<div class="chart-filters" id="subfamilies-filters"></div>
+<div class="chart-section">
+<div id="pieSubfamilies"></div>
 <script>
-var pie = new d3pie("cont", {
-"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
-"subtitle": {"text": "by Subfamilies","color": "white","fontSize": 25,"font": "courier"},
-"location": "pie-center","titleSubtitlePadding": 0},
-<!--"footer": {"text": "","color": "white","fontSize": 10,"font": "open sans","location": "bottom-center"},-->
-"size": {"canvasWidth": 700,"canvasHeight": 500,"pieInnerRadius": "80%","pieOuterRadius": "70%"},
-"data": {"sortOrder": "label-desc","content": [
+var subfamiliesData = [
 {"label": "Myrmicinae","value": 426,"color": "#3924c1"},
 {"label": "Formicinae","value": 324,"color": "#24acc1"},
 {"label": "Dorylinae","value": 48,"color": "#e98125"},
@@ -30,7 +418,14 @@ var pie = new d3pie("cont", {
 {"label": "Amblyoponidae","value": 24,"color": "#daca61"},
 {"label": "Leptanillinae","value": 9,"color": "#e4a14b"},
 {"label": "Proceratiinae","value": 9,"color": "#cb2121"},
-{"label": "Pseudomyrmicinae","value": 1,"color": "#830909"},]},
+{"label": "Pseudomyrmicinae","value": 1,"color": "#830909"}
+];
+var pieSubfamilies = new d3pie("pieSubfamilies", {
+"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
+"subtitle": {"text": "by Subfamilies","color": "white","fontSize": 25,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 0},
+"size": {"canvasWidth": 700,"canvasHeight": 500,"pieInnerRadius": "80%","pieOuterRadius": "70%"},
+"data": {"sortOrder": "label-desc","content": subfamiliesData},
 "labels": {"outer": {"format": "label-percentage1","pieDistance": 20},"inner": {"format": "none"},
 "mainLabel": {"fontSize": 20,"color": "white"},"percentage": {"color": "white","fontSize": 20,"decimalPlaces": 1},"value": {"color": "white","fontSize": 11},"lines": {"enabled": true},"truncation": {"enabled": true}},
 "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 20}
@@ -39,17 +434,17 @@ var pie = new d3pie("cont", {
 	}
 });
 </script>
+</div>
+</div>
 
-<!--PIE TRIBES -->
-<div id="cont"></div>
+
+<div class="chart-container" id="tribes-container">
+<div class="chart-total" id="tribes-total"></div>
+<div class="chart-filters" id="tribes-filters"></div>
+<div class="chart-section">
+<div id="pieTribes"></div>
 <script>
-var pie = new d3pie("cont", {
-"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
-"subtitle": {"text": "by Tribes","color": "white","fontSize": 25,"font": "courier"},
-"location": "pie-center","titleSubtitlePadding": 0},
-<!--"footer": {"text": "","color": "white","fontSize": 10,"font": "open sans","location": "bottom-center"},-->
-"size": {"canvasWidth": 790,"canvasHeight": 500,"pieInnerRadius": "80%","pieOuterRadius": "70%"},
-"data": {"sortOrder": "label-desc","content": [
+var tribesData = [
 {"label": "Aenictini","value": 35,"color": "#3924c1"},
 {"label": "Amblyoponini","value": 24,"color": "#24acc1"},
 {"label": "Attini","value": 132,"color": "#e98125"},
@@ -67,12 +462,19 @@ var pie = new d3pie("cont", {
 {"label": "Solenopsidini","value": 39,"color": "#996633"},
 {"label": "Stenammini","value": 16,"color": "#00cc99"},
 {"label": "Tapinomini","value": 22,"color": "#8c1aff"},
-]},
+{"label": "Other tribes","value": 67,"color": "#888888"}
+];
+var pieTribes = new d3pie("pieTribes", {
+"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
+"subtitle": {"text": "by Tribes","color": "white","fontSize": 25,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 0},
+"size": {"canvasWidth": 950,"canvasHeight": 600,"pieInnerRadius": "75%","pieOuterRadius": "55%"},
+"data": {"sortOrder": "value-desc","content": tribesData},
 "labels": {
-	"outer": {"format": "label-percentage1","pieDistance": 20},
+	"outer": {"format": "label-percentage1","pieDistance": 45},
 	"inner": {"format": "none"},
-	"mainLabel": {"fontSize": 20,"color": "white"},
-		"percentage": {"color": "white","fontSize": 20,"decimalPlaces": 1},
+	"mainLabel": {"fontSize": 16,"color": "white"},
+		"percentage": {"color": "white","fontSize": 16,"decimalPlaces": 1},
 		"value": {"color": "white","fontSize": 11},
 		"lines": {"enabled": true},
 		"truncation": {"enabled": true}},
@@ -87,82 +489,1046 @@ var pie = new d3pie("cont", {
 	}
 });
 </script>
+</div>
+</div>
 
-<!--PIE GENERA
-#Aenictus 35
-#Aphaenogaster 83
-Bothriomyrmex 15
-#Camponotus 71
-Cardiocondyla 11
-#Cataglyphis 32
-Cerapachys 12
-Crematogaster 22
-#Formica 52
-Hypoponera 15
-#Lasius 63
-Lepisiota 7
-Leptanilla 7
-Leptothorax 20
-Messor 29
-Monomorium 24
-#Myrmica 48
-Paratrechina 12
-Pheidole 13
-Plagiolepis 12
-#Polyrhachis 51
-#Ponera 32
-Proformica 10
-Solenopsis 9
-Stigmatomma 12
-Tapinoma 14
-#Temnothorax 57
-#Tetramorium 54
- -->
 
-<!--PIE Genera -->
-<div id="cont"></div>
+
+<div class="chart-container" id="genera-container">
+<div class="chart-total" id="genera-total"></div>
+<div class="chart-section">
+<div class="genera-charts-wrapper">
+    <div class="genera-main-chart">
+        <div id="pieGenera"></div>
+        <div class="chart-filter-panel">
+            <div class="filter-header">Top 11 Genera</div>
+            <div class="chart-filters" id="genera-filters"></div>
+        </div>
+    </div>
+    <div class="genera-main-chart">
+        <div id="pieGeneraRestEven"></div>
+        <div class="chart-filter-panel">
+            <div class="filter-header">Other Genera</div>
+            <div class="chart-filters" id="genera-rest-filters"></div>
+        </div>
+    </div>
+</div>
 <script>
-var pie = new d3pie("cont", {
-"header": {"title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
-"subtitle": {"text": "by Genera","color": "white","fontSize": 25,"font": "courier"},
-"location": "pie-center","titleSubtitlePadding": 0},
-<!--"footer": {"text": "","color": "white","fontSize": 10,"font": "open sans","location": "bottom-center"},-->
-"size": {"canvasWidth": 740,"canvasHeight": 500,"pieInnerRadius": "80%","pieOuterRadius": "70%"},
-"data": {"sortOrder": "label-desc","content": [
-{"label": "Aenictus","value": 35,"color": "#3924c1"},
+// Spectrograph-adjacent colors for subfamilies (Dark/Saturated → Light/Bright)
+var subfamilyColors = {
+    'Myrmicinae':     ['#CC0000', '#FF6633'],  // Red → Orange
+    'Formicinae':     ['#CC6600', '#FFEE33'],  // Orange → Yellow
+    'Dolichoderinae': ['#669900', '#CCFF66'],  // Yellow-Green → Light Lime
+    'Ponerinae':      ['#006644', '#66FFCC'],  // Dark Teal → Light Cyan
+    'Dorylinae':      ['#003366', '#66CCFF'],  // Dark Navy → Sky Blue (saturation)
+    'Amblyoponinae':  ['#330066', '#AA66FF'],  // Dark Indigo → Light Violet (saturation)
+    'Leptanillinae':  ['#660044', '#FF66AA']   // Dark Magenta → Light Pink
+};
+
+// Genus to subfamily mapping
+var genusToSubfamily = {
+    // Top genera
+    'Aphaenogaster': 'Myrmicinae', 'Camponotus': 'Formicinae', 'Lasius': 'Formicinae',
+    'Temnothorax': 'Myrmicinae', 'Tetramorium': 'Myrmicinae', 'Formica': 'Formicinae',
+    'Polyrhachis': 'Formicinae', 'Myrmica': 'Myrmicinae', 'Aenictus': 'Dorylinae',
+    'Cataglyphis': 'Formicinae', 'Ponera': 'Ponerinae',
+    // Rest genera
+    'Messor': 'Myrmicinae', 'Monomorium': 'Myrmicinae', 'Crematogaster': 'Myrmicinae',
+    'Leptothorax': 'Myrmicinae', 'Pheidole': 'Myrmicinae', 'Cardiocondyla': 'Myrmicinae',
+    'Solenopsis': 'Myrmicinae', 'Lepisiota': 'Formicinae', 'Proformica': 'Formicinae',
+    'Paratrechina': 'Formicinae', 'Plagiolepis': 'Formicinae',
+    'Bothriomyrmex': 'Dolichoderinae', 'Tapinoma': 'Dolichoderinae',
+    'Hypoponera': 'Ponerinae', 'Cerapachys': 'Dorylinae',
+    'Stigmatomma': 'Amblyoponinae', 'Leptanilla': 'Leptanillinae'
+};
+
+// Get color for genus based on subfamily (interpolate between two colors)
+function getSubfamilyColor(genus, indexInSubfamily, totalInSubfamily) {
+    var subfamily = genusToSubfamily[genus] || 'Myrmicinae';
+    var colors = subfamilyColors[subfamily] || ['#888888', '#cccccc'];
+    // Interpolate between the two colors based on position
+    var t = totalInSubfamily > 1 ? indexInSubfamily / (totalInSubfamily - 1) : 0.5;
+    return interpolateColor(colors[0], colors[1], t);
+}
+
+function interpolateColor(color1, color2, t) {
+    var r1 = parseInt(color1.slice(1, 3), 16);
+    var g1 = parseInt(color1.slice(3, 5), 16);
+    var b1 = parseInt(color1.slice(5, 7), 16);
+    var r2 = parseInt(color2.slice(1, 3), 16);
+    var g2 = parseInt(color2.slice(3, 5), 16);
+    var b2 = parseInt(color2.slice(5, 7), 16);
+    var r = Math.round(r1 + (r2 - r1) * t);
+    var g = Math.round(g1 + (g2 - g1) * t);
+    var b = Math.round(b1 + (b2 - b1) * t);
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+// Top genera data
+var topGeneraData = [
 {"label": "Aphaenogaster","value": 83,"color": "#24acc1"},
 {"label": "Camponotus","value": 71,"color": "#e98125"},
-{"label": "Cataglyphis","value": 32,"color": "#4daa4b"},
-{"label": "Formica","value": 52,"color": "#90c469"},
 {"label": "Lasius","value": 63,"color": "#daca61"},
-{"label": "Myrmica","value": 48,"color": "#e4a14b"},
-{"label": "Polyrhachis","value": 51,"color": "#cb2121"},
-{"label": "Ponera","value": 32,"color": "#830909"},
 {"label": "Temnothorax","value": 57,"color": "#e60000"},
 {"label": "Tetramorium","value": 54,"color": "#cccc00"},
-]},
+{"label": "Formica","value": 52,"color": "#90c469"},
+{"label": "Polyrhachis","value": 51,"color": "#cb2121"},
+{"label": "Myrmica","value": 48,"color": "#e4a14b"},
+{"label": "Aenictus","value": 35,"color": "#3924c1"},
+{"label": "Cataglyphis","value": 32,"color": "#4daa4b"},
+{"label": "Ponera","value": 32,"color": "#830909"}
+];
+
+// Rest genera data (other genera) - 17 named genera
+var restGeneraData = [
+{"label": "Messor","value": 29,"color": "#ff6b6b"},
+{"label": "Monomorium","value": 24,"color": "#4ecdc4"},
+{"label": "Crematogaster","value": 22,"color": "#45b7d1"},
+{"label": "Leptothorax","value": 20,"color": "#96ceb4"},
+{"label": "Bothriomyrmex","value": 15,"color": "#ffeaa7"},
+{"label": "Hypoponera","value": 15,"color": "#dfe6e9"},
+{"label": "Tapinoma","value": 14,"color": "#fd79a8"},
+{"label": "Pheidole","value": 13,"color": "#a29bfe"},
+{"label": "Cerapachys","value": 12,"color": "#74b9ff"},
+{"label": "Paratrechina","value": 12,"color": "#55efc4"},
+{"label": "Plagiolepis","value": 12,"color": "#ffeaa7"},
+{"label": "Stigmatomma","value": 12,"color": "#fab1a0"},
+{"label": "Cardiocondyla","value": 11,"color": "#e17055"},
+{"label": "Proformica","value": 10,"color": "#00b894"},
+{"label": "Solenopsis","value": 9,"color": "#e84393"},
+{"label": "Lepisiota","value": 7,"color": "#0984e3"},
+{"label": "Leptanilla","value": 7,"color": "#6c5ce7"},
+{"label": "Other genera","value": 105,"color": "#888888"}
+];
+
+// Total species in top genera
+var topGeneraTotal = topGeneraData.reduce(function(sum, item) { return sum + item.value; }, 0);
+// Total species in rest genera (including "other genera")
+var restTotal = restGeneraData.reduce(function(sum, item) { return sum + item.value; }, 0);
+// Grand total should equal subfamilies total (927)
+var grandTotal = topGeneraTotal + restTotal;
+
+// Combined data for main chart (top + others segment)
+var generaData = topGeneraData.concat([{"label": "Others","value": restTotal,"color": "#888888"}]);
+
+var pieGenera = new d3pie("pieGenera", {
+"header": {"title": {"text": "Species","color": "white","fontSize": 38,"font": "courier"},
+"subtitle": {"text": "by Genera","color": "white","fontSize": 20,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 10},
+"size": {"canvasWidth": 650,"canvasHeight": 480,"pieInnerRadius": "75%","pieOuterRadius": "65%"},
+"data": {"sortOrder": "value-desc","content": generaData},
 "labels": {
-	"outer": {"format": "label-percentage1","pieDistance": 20},
-	"inner": {"format": "none"},
-	"mainLabel": {"fontSize": 20,"color": "white"},
-		"percentage": {"color": "white","fontSize": 20,"decimalPlaces": 1},
-		"value": {"color": "white","fontSize": 11},
-		"lines": {"enabled": true},
-		"truncation": {"enabled": true}},
-"effects": {
-	"pullOutSegmentOnClick": {
-	"effect": "linear",
-	"speed": 400,
-	"size": 20
-		}
-	},
-	"misc": {"gradient": {"enabled": true,"percentage": 100, "segmentStroke": "pink"}
-	}
+    "outer": {"format": "label-percentage1","pieDistance": 25},
+    "inner": {"format": "none"},
+    "mainLabel": {"fontSize": 16,"color": "white"},
+    "percentage": {"color": "white","fontSize": 16,"decimalPlaces": 1},
+    "value": {"color": "white","fontSize": 11},
+    "lines": {"enabled": true},
+    "truncation": {"enabled": true}},
+"effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
+"misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+});
+
+// Pull-out of grey segment is handled in showChart() when Genera tab is clicked
+
+// Custom labels with lines attached to actual pie segments
+function addEvenlySpacedLabels(containerId, data, total) {
+    var svg = d3.select("#" + containerId + " svg");
+    var n = data.length;
+
+    // Fixed pie dimensions (canvas now 800x480)
+    var centerX = 400;
+    var centerY = 242.5;
+    var pieOuterRadius = 136.5;
+    var labelRadius = pieOuterRadius + 55;
+
+    var labelGroup = svg.append("g").attr("class", "evenly-spaced-labels");
+
+    // Calculate actual segment angles based on data values
+    // d3pie starts at top (-90°) and goes clockwise, sorted by value-desc
+    var cumulativeAngle = -90; // Start at top
+
+    data.forEach(function(item, i) {
+        // Calculate this segment's angular size based on its value
+        var segmentAngle = (item.value / total) * 360;
+
+        // Middle angle of this segment (where the line should attach)
+        var segmentMidAngle = cumulativeAngle + (segmentAngle / 2);
+        var segmentMidRad = segmentMidAngle * Math.PI / 180;
+
+        // Label positioned at same angle as segment (not evenly spaced)
+        var labelAngleRad = segmentMidRad;
+
+        // Line starts at the actual segment on the pie edge
+        var lineStartX = centerX + pieOuterRadius * Math.cos(segmentMidRad);
+        var lineStartY = centerY + pieOuterRadius * Math.sin(segmentMidRad);
+
+        // Label position (at segment angle, close to segment)
+        var labelX = centerX + labelRadius * Math.cos(labelAngleRad);
+        var labelY = centerY + labelRadius * Math.sin(labelAngleRad);
+
+        // Draw line from segment to label
+        labelGroup.append("line")
+            .attr("x1", lineStartX).attr("y1", lineStartY)
+            .attr("x2", labelX).attr("y2", labelY)
+            .attr("stroke", item.color).attr("stroke-width", 1.5).attr("opacity", 0.9);
+
+        // Small dot at segment attachment point
+        labelGroup.append("circle")
+            .attr("cx", lineStartX).attr("cy", lineStartY)
+            .attr("r", 3).attr("fill", item.color);
+
+        // Position label text
+        var pct = ((item.value / total) * 100).toFixed(1);
+        var normalizedAngle = ((segmentMidAngle + 90) % 360 + 360) % 360;
+        var textAnchor = normalizedAngle > 180 ? "end" : "start";
+        var offsetX = normalizedAngle > 180 ? -8 : 8;
+
+        labelGroup.append("text")
+            .attr("x", labelX + offsetX).attr("y", labelY + 4)
+            .attr("text-anchor", textAnchor)
+            .attr("fill", "white").attr("font-size", "14px").attr("font-family", "arial")
+            .text(item.label + " " + pct + "%");
+
+        // Move to next segment
+        cumulativeAngle += segmentAngle;
+    });
+}
+
+// Chart with evenly-spaced custom labels
+var pieGeneraRestEven = new d3pie("pieGeneraRestEven", {
+"header": {"title": {"text": "Others","color": "white","fontSize": 38,"font": "courier"},
+"subtitle": {"text": restTotal + " species","color": "white","fontSize": 20,"font": "courier"},
+"location": "pie-center","titleSubtitlePadding": 10},
+"size": {"canvasWidth": 800,"canvasHeight": 480,"pieInnerRadius": 102,"pieOuterRadius": 136.5},
+"data": {"sortOrder": "value-desc","content": restGeneraData},
+"labels": {
+    "outer": {"format": "none"},
+    "inner": {"format": "none"},
+    "lines": {"enabled": false}},
+"effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
+"misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+});
+
+// Add evenly-spaced labels to third chart
+setTimeout(function() { addEvenlySpacedLabels("pieGeneraRestEven", restGeneraData, restTotal); }, 600);
+
+// Align title/subtitle baselines using fixed positions from div base
+function alignChartTitles() {
+    // Fixed y positions (from top of 480px canvas)
+    var titleY = 235;    // Title baseline
+    var subtitleY = 260; // Subtitle baseline
+
+    // Align pieGenera
+    var generaTitle = document.querySelector('#pieGenera .p3_title, #pieGenera [class$="_title"]');
+    var generaSubtitle = document.querySelector('#pieGenera .p3_subtitle, #pieGenera [class$="_subtitle"]');
+    if (generaTitle) generaTitle.setAttribute('y', titleY);
+    if (generaSubtitle) generaSubtitle.setAttribute('y', subtitleY);
+
+    // Align pieGeneraRestEven
+    var restTitle = document.querySelector('#pieGeneraRestEven [class$="_title"]');
+    var restSubtitle = document.querySelector('#pieGeneraRestEven [class$="_subtitle"]');
+    if (restTitle) restTitle.setAttribute('y', titleY);
+    if (restSubtitle) restSubtitle.setAttribute('y', subtitleY);
+}
+setTimeout(alignChartTitles, 700);
+
+function rebuildGeneraWithOrg(mode) {
+    var data = topGeneraData.slice(); // Clone array
+
+    // Always sort by subfamily for color mode
+    data.sort(function(a, b) {
+        var subA = genusToSubfamily[a.label] || '';
+        var subB = genusToSubfamily[b.label] || '';
+        if (subA !== subB) return subA.localeCompare(subB);
+        return b.value - a.value; // Within subfamily, sort by value
+    });
+
+    // Count genera per subfamily and assign gradient colors
+    var subfamilyCounts = {};
+    var subfamilyIndices = {};
+    data.forEach(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        subfamilyCounts[sub] = (subfamilyCounts[sub] || 0) + 1;
+    });
+
+    data = data.map(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        var idx = subfamilyIndices[sub] || 0;
+        subfamilyIndices[sub] = idx + 1;
+        return {
+            label: item.label,
+            value: item.value,
+            color: getSubfamilyColor(item.label, idx, subfamilyCounts[sub])
+        };
+    });
+
+    // Add "others" segment
+    var chartData = data.concat([{"label": restGeneraData.length + " others","value": restTotal,"color": "#888888"}]);
+
+    document.getElementById('pieGenera').innerHTML = '';
+    new d3pie("pieGenera", {
+        "header": {"title": {"text": "Species","color": "white","fontSize": 38,"font": "courier"},
+        "subtitle": {"text": "by Genera","color": "white","fontSize": 20,"font": "courier"},
+        "location": "pie-center","titleSubtitlePadding": 10},
+        "size": {"canvasWidth": 650,"canvasHeight": 480,"pieInnerRadius": "75%","pieOuterRadius": "65%"},
+        "data": {"sortOrder": "none","content": chartData},
+        "labels": {
+            "outer": {"format": "label-percentage1","pieDistance": 25},
+            "inner": {"format": "none"},
+            "mainLabel": {"fontSize": 16,"color": "white"},
+            "percentage": {"color": "white","fontSize": 16,"decimalPlaces": 1},
+            "lines": {"enabled": true},
+            "truncation": {"enabled": true}},
+        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
+        "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+    });
+
+    // Pull out grey segment and align titles
+    setTimeout(function() {
+        var segment = document.querySelector('#pieGenera [data-index="' + data.length + '"]');
+        if (segment && segment.parentNode) {
+            var g = segment.parentNode;
+            g.setAttribute('transform', (g.getAttribute('transform') || '') + ' translate(25, -15)');
+        }
+        alignChartTitles();
+    }, 100);
+}
+
+function rebuildGeneraRestWithOrg(mode) {
+    var data = restGeneraData.slice(); // Clone array
+
+    // Always sort by subfamily for color mode
+    data.sort(function(a, b) {
+        var subA = genusToSubfamily[a.label] || '';
+        var subB = genusToSubfamily[b.label] || '';
+        if (subA !== subB) return subA.localeCompare(subB);
+        return b.value - a.value;
+    });
+
+    // Count genera per subfamily and assign gradient colors
+    var subfamilyCounts = {};
+    var subfamilyIndices = {};
+    data.forEach(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        subfamilyCounts[sub] = (subfamilyCounts[sub] || 0) + 1;
+    });
+
+    data = data.map(function(item) {
+        var sub = genusToSubfamily[item.label] || 'Unknown';
+        var idx = subfamilyIndices[sub] || 0;
+        subfamilyIndices[sub] = idx + 1;
+        return {
+            label: item.label,
+            value: item.value,
+            color: getSubfamilyColor(item.label, idx, subfamilyCounts[sub])
+        };
+    });
+
+    var total = data.reduce(function(sum, item) { return sum + item.value; }, 0);
+
+    document.getElementById('pieGeneraRestEven').innerHTML = '';
+    new d3pie("pieGeneraRestEven", {
+        "header": {"title": {"text": "Others","color": "white","fontSize": 38,"font": "courier"},
+        "subtitle": {"text": total + " species","color": "white","fontSize": 20,"font": "courier"},
+        "location": "pie-center","titleSubtitlePadding": 10},
+        "size": {"canvasWidth": 800,"canvasHeight": 480,"pieInnerRadius": 102,"pieOuterRadius": 136.5},
+        "data": {"sortOrder": "none","content": data},
+        "labels": {"outer": {"format": "none"},"inner": {"format": "none"},"lines": {"enabled": false}},
+        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
+        "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+    });
+
+    setTimeout(function() {
+        addEvenlySpacedLabels("pieGeneraRestEven", data, total);
+        alignChartTitles();
+    }, 100);
+}
+
+function exportAllGeneraCSV() {
+    var csv = 'Genus,Species Count,Category\n';
+    topGeneraData.forEach(function(item) {
+        csv += '"' + item.label + '",' + item.value + ',Top Genera\n';
+    });
+    restGeneraData.forEach(function(item) {
+        csv += '"' + item.label + '",' + item.value + ',Other Genera\n';
+    });
+    var total = topGeneraData.reduce(function(s,i){return s+i.value;},0) + restTotal;
+    csv += '\nTotal,' + total + ',All Genera\n';
+    downloadFile(csv, 'all_genera_data.csv', 'text/csv;charset=utf-8;');
+}
+</script>
+</div>
+</div>
+
+
+<script>
+var chartRebuilt = { subfamilies: false, tribes: false, genera: false };
+var currentDisplayMode = 'percentage'; // 'percentage', 'value', 'both'
+
+function getDisplayFormat() {
+    switch(currentDisplayMode) {
+        case 'percentage': return 'label-percentage1';
+        case 'value': return 'label-value1';
+        case 'both': return 'label'; // We'll use modified labels
+        default: return 'label-percentage1';
+    }
+}
+
+// Create data with combined labels for "both" mode
+function prepareDataForDisplay(data) {
+    if (currentDisplayMode !== 'both') {
+        return data;
+    }
+    var total = data.reduce(function(sum, item) { return sum + item.value; }, 0);
+    return data.map(function(item) {
+        var pctNum = (item.value / total) * 100;
+        var pct = pctNum % 1 === 0 ? pctNum.toFixed(0) : pctNum.toFixed(1);
+        return {
+            label: item.label + ' (' + item.value + '; ' + pct + '%)',
+            value: item.value,
+            color: item.color
+        };
+    });
+}
+
+function setDisplayMode(mode) {
+    currentDisplayMode = mode;
+    // Update UI
+    document.querySelectorAll('.display-option').forEach(function(opt) {
+        opt.classList.remove('active');
+        if (opt.querySelector('input').value === mode) {
+            opt.classList.add('active');
+        }
+    });
+    // Rebuild all visible charts
+    rebuildChart('subfamilies');
+    rebuildChart('tribes');
+    rebuildChart('genera');
+    rebuildGeneraRest();
+}
+
+function rebuildGeneraRest() {
+    rebuildGeneraRestFiltered();
+}
+
+function rebuildGeneraRestFiltered() {
+    // Get filtered data based on checkboxes
+    var filteredData = [];
+    document.querySelectorAll('[data-chart="genera-rest"]').forEach(function(cb, index) {
+        if (cb.checked) {
+            filteredData.push(restGeneraData[index]);
+        }
+    });
+
+    var filteredTotal = filteredData.reduce(function(sum, item) { return sum + item.value; }, 0);
+
+    if (filteredData.length === 0) {
+        document.getElementById('pieGeneraRestEven').innerHTML = '<p style="color:white;text-align:center;padding:50px;">Select at least one item</p>';
+        return;
+    }
+
+    document.getElementById('pieGeneraRestEven').innerHTML = '';
+    new d3pie("pieGeneraRestEven", {
+        "header": {"title": {"text": "Others","color": "white","fontSize": 38,"font": "courier"},
+        "subtitle": {"text": filteredTotal + " species","color": "white","fontSize": 20,"font": "courier"},
+        "location": "pie-center","titleSubtitlePadding": 10},
+        "size": {"canvasWidth": 800,"canvasHeight": 480,"pieInnerRadius": 102,"pieOuterRadius": 136.5},
+        "data": {"sortOrder": "value-desc","content": filteredData},
+        "labels": {
+            "outer": {"format": "none"},
+            "inner": {"format": "none"},
+            "lines": {"enabled": false}},
+        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 30}},
+        "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+    });
+    // Re-add evenly-spaced labels and align titles
+    setTimeout(function() {
+        addEvenlySpacedLabels("pieGeneraRestEven", filteredData, filteredTotal);
+        alignChartTitles();
+    }, 100);
+}
+
+function showChart(chartType) {
+    // Update tabs
+    document.querySelectorAll('.chart-tab').forEach(function(tab) {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    // Update containers
+    document.querySelectorAll('.chart-container').forEach(function(container) {
+        container.classList.remove('active');
+    });
+    document.getElementById(chartType + '-container').classList.add('active');
+
+    // Rebuild chart on first view to fix label positioning
+    if (!chartRebuilt[chartType]) {
+        setTimeout(function() {
+            if (chartType === 'genera') {
+                // Use color scheme rebuild for genera
+                rebuildGeneraWithOrg('subfamily');
+                rebuildGeneraRestWithOrg('subfamily');
+            } else {
+                rebuildChart(chartType);
+            }
+            chartRebuilt[chartType] = true;
+        }, 50);
+    }
+
+    // Pull out the grey "17 others" segment and align titles when Genera tab is shown
+    if (chartType === 'genera') {
+        setTimeout(function() {
+            var lastIndex = document.querySelectorAll('#pieGenera [data-index]').length - 1;
+            var segment = document.querySelector('#pieGenera [data-index="' + lastIndex + '"]');
+            if (segment && segment.parentNode) {
+                var g = segment.parentNode;
+                var currentTransform = g.getAttribute('transform') || '';
+                if (currentTransform.indexOf('translate(25') === -1) {
+                    g.setAttribute('transform', currentTransform + ' translate(25, -15)');
+                }
+            }
+            alignChartTitles();
+        }, 200);
+        // Enable sticky sidebar for genera
+        enableStickySidebar(true);
+    } else {
+        // Disable sticky sidebar for other tabs
+        enableStickySidebar(false);
+    }
+}
+
+// Sticky sidebar for genera only
+var stickyEnabled = false;
+var sidebarScrollHandler = null;
+
+function enableStickySidebar(enable) {
+    var sidebar = document.querySelector('.tax-sidebar');
+    var wrapper = document.querySelector('.tax-sidebar-wrapper');
+    if (!sidebar || !wrapper) return;
+
+    stickyEnabled = enable;
+
+    if (enable) {
+        // Add scroll handler
+        if (!sidebarScrollHandler) {
+            sidebarScrollHandler = function() {
+                if (!stickyEnabled) return;
+
+                var scrollY = window.scrollY || window.pageYOffset;
+                var wrapperRect = wrapper.getBoundingClientRect();
+                var wrapperTop = wrapper.offsetTop;
+                var headerOffset = 80;
+
+                if (wrapperRect.top < headerOffset) {
+                    sidebar.classList.add('sticky-active');
+                } else {
+                    sidebar.classList.remove('sticky-active');
+                }
+            };
+            window.addEventListener('scroll', sidebarScrollHandler);
+        }
+        // Trigger initial check
+        sidebarScrollHandler();
+    } else {
+        // Remove sticky class
+        sidebar.classList.remove('sticky-active');
+    }
+}
+
+function updateTotals() {
+    var subfamiliesTotal = subfamiliesData.reduce(function(sum, item) { return sum + item.value; }, 0);
+    var tribesTotal = tribesData.reduce(function(sum, item) { return sum + item.value; }, 0);
+    // Genera total = top genera + all rest genera (including "other genera")
+    var generaTotal = topGeneraTotal + restTotal;
+    // Count of named genera (excluding "Other genera" and "Other tribes" entries)
+    var namedGeneraCount = topGeneraData.length + restGeneraData.length - 1; // -1 for "Other genera"
+    var namedTribesCount = tribesData.length - 1; // -1 for "Other tribes"
+
+    document.getElementById('subfamilies-total').innerHTML = 'Total: <strong>' + subfamiliesTotal + '</strong> species in <strong>' + subfamiliesData.length + '</strong> subfamilies';
+    document.getElementById('tribes-total').innerHTML = 'Total: <strong>' + tribesTotal + '</strong> species in <strong>' + namedTribesCount + '+</strong> tribes';
+    document.getElementById('genera-total').innerHTML = 'Total: <strong>' + generaTotal + '</strong> species in <strong>' + namedGeneraCount + '+</strong> genera';
+}
+
+function buildFilters() {
+    buildFilterFor('subfamilies', subfamiliesData);
+    buildFilterFor('tribes', tribesData);
+    buildFilterFor('genera', topGeneraData);
+    buildFilterFor('genera-rest', restGeneraData);
+}
+
+function buildFilterFor(type, data) {
+    var container = document.getElementById(type + '-filters');
+    var html = '';
+    data.forEach(function(item, index) {
+        html += '<label class="chart-filter-item">';
+        html += '<input type="checkbox" checked data-chart="' + type + '" data-index="' + index + '">';
+        html += '<span class="color-dot" style="background:' + item.color + '"></span>';
+        html += item.label + ' (' + item.value + ')';
+        html += '</label>';
+    });
+    html += '<span class="filter-btns">';
+    html += '<button class="filter-btn" onclick="toggleAllFilters(\'' + type + '\', true)">All</button>';
+    html += '<button class="filter-btn" onclick="toggleAllFilters(\'' + type + '\', false)">None</button>';
+    html += '</span>';
+    container.innerHTML = html;
+}
+
+function toggleAllFilters(type, checked) {
+    document.querySelectorAll('[data-chart="' + type + '"]').forEach(function(cb) {
+        cb.checked = checked;
+    });
+    if (type === 'genera-rest') {
+        rebuildGeneraRestFiltered();
+    } else {
+        rebuildChart(type);
+    }
+}
+
+function rebuildChart(type) {
+    var data, containerId, chartVar, config;
+
+    if (type === 'subfamilies') {
+        data = subfamiliesData;
+        containerId = 'pieSubfamilies';
+        config = {
+            canvasWidth: 700, canvasHeight: 500,
+            pieInnerRadius: "80%", pieOuterRadius: "70%",
+            pieDistance: 20, fontSize: 20, percentSize: 20,
+            sortOrder: "label-desc"
+        };
+    } else if (type === 'tribes') {
+        data = tribesData;
+        containerId = 'pieTribes';
+        config = {
+            canvasWidth: 950, canvasHeight: 600,
+            pieInnerRadius: "75%", pieOuterRadius: "55%",
+            pieDistance: 45, fontSize: 16, percentSize: 16,
+            sortOrder: "value-desc"
+        };
+    } else if (type === 'genera') {
+        data = topGeneraData;
+        containerId = 'pieGenera';
+        config = {
+            canvasWidth: 650, canvasHeight: 480,
+            pieInnerRadius: "75%", pieOuterRadius: "65%",
+            pieDistance: 25, fontSize: 16, percentSize: 16,
+            sortOrder: "value-desc"
+        };
+    }
+
+    // Get filtered data based on checkboxes
+    var filteredData = [];
+    document.querySelectorAll('[data-chart="' + type + '"]').forEach(function(cb, index) {
+        if (cb.checked) {
+            filteredData.push(data[index]);
+        }
+    });
+
+    // For genera chart, always add the grey "others" segment
+    if (type === 'genera') {
+        filteredData = filteredData.concat([{"label": restGeneraData.length + " others","value": restTotal,"color": "#888888"}]);
+    }
+
+    if (filteredData.length === 0) {
+        document.getElementById(containerId).innerHTML = '<p style="color:white;text-align:center;padding:50px;">Select at least one item</p>';
+        return;
+    }
+
+    // Clear existing chart
+    document.getElementById(containerId).innerHTML = '';
+
+    // Rebuild chart with filtered data
+    var subtitleText = type === 'subfamilies' ? 'by Subfamilies' : (type === 'tribes' ? 'by Tribes' : 'by Genera');
+    var displayData = prepareDataForDisplay(filteredData);
+
+    new d3pie(containerId, {
+        "header": {
+            "title": {"text": "Species","color": "white","fontSize": 45,"font": "courier"},
+            "subtitle": {"text": subtitleText,"color": "white","fontSize": 25,"font": "courier"},
+            "location": "pie-center","titleSubtitlePadding": 0
+        },
+        "size": {
+            "canvasWidth": config.canvasWidth,
+            "canvasHeight": config.canvasHeight,
+            "pieInnerRadius": config.pieInnerRadius,
+            "pieOuterRadius": config.pieOuterRadius
+        },
+        "data": {"sortOrder": config.sortOrder,"content": displayData},
+        "labels": {
+            "outer": {"format": getDisplayFormat(),"pieDistance": config.pieDistance},
+            "inner": {"format": "none"},
+            "mainLabel": {"fontSize": config.fontSize,"color": "white"},
+            "percentage": {"color": "white","fontSize": config.percentSize,"decimalPlaces": 1},
+            "value": {"color": "white","fontSize": config.percentSize},
+            "lines": {"enabled": true},
+            "truncation": {"enabled": true}
+        },
+        "effects": {"pullOutSegmentOnClick": {"effect": "linear","speed": 400,"size": 20}},
+        "misc": {"gradient": {"enabled": true,"percentage": 100,"segmentStroke": "pink"}}
+    });
+
+    // Update total display
+    var total = filteredData.reduce(function(sum, item) { return sum + item.value; }, 0);
+    var typeName = type === 'subfamilies' ? 'subfamilies' : (type === 'tribes' ? 'tribes' : 'genera');
+    var count = type === 'genera' ? filteredData.length - 1 : filteredData.length; // Don't count grey "others" segment
+    document.getElementById(type + '-total').innerHTML = 'Showing: <strong>' + total + '</strong> species in <strong>' + count + '</strong> ' + typeName;
+
+    // Align titles if genera chart
+    if (type === 'genera') {
+        setTimeout(alignChartTitles, 50);
+    }
+}
+
+function addFilterListeners() {
+    document.querySelectorAll('.chart-filter-item input').forEach(function(cb) {
+        cb.addEventListener('change', function() {
+            var chartType = this.getAttribute('data-chart');
+            if (chartType === 'genera-rest') {
+                rebuildGeneraRestFiltered();
+            } else {
+                rebuildChart(chartType);
+            }
+        });
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateTotals();
+    buildFilters();
+    addFilterListeners();
+
+    // Rebuild subfamilies (visible on load) to fix label positioning
+    setTimeout(function() {
+        rebuildChart('subfamilies');
+        chartRebuilt.subfamilies = true;
+    }, 100);
 });
 </script>
+
+
+<script>
+function exportChartSVG(containerId, filename) {
+    var container = document.getElementById(containerId);
+    var svg = container.querySelector('svg');
+    if (!svg) {
+        alert('Chart not found');
+        return;
+    }
+
+    // Clone SVG to add background without modifying original
+    var svgClone = svg.cloneNode(true);
+    var width = svg.getAttribute('width') || svg.width.baseVal.value || 800;
+    var height = svg.getAttribute('height') || svg.height.baseVal.value || 600;
+
+    // Use current background setting
+    var bgColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#ffffff' : '#1a1a2e';
+    var textColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#1a1a2e' : 'white';
+
+    // Create background rectangle as first element
+    var bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bgRect.setAttribute('width', width);
+    bgRect.setAttribute('height', height);
+    bgRect.setAttribute('fill', bgColor);
+    svgClone.insertBefore(bgRect, svgClone.firstChild);
+
+    // Update text colors in clone
+    svgClone.querySelectorAll('text').forEach(function(text) {
+        text.setAttribute('fill', textColor);
+    });
+
+    var serializer = new XMLSerializer();
+    var svgString = serializer.serializeToString(svgClone);
+    svgString = '<' + '?xml version="1.0" encoding="UTF-8"?' + '>\n' + svgString;
+
+    downloadFile(svgString, filename + '.svg', 'image/svg+xml;charset=utf-8;');
+}
+
+function exportChartPNG(containerId, filename) {
+    var container = document.getElementById(containerId);
+    var svg = container.querySelector('svg');
+    if (!svg) {
+        alert('Chart not found');
+        return;
+    }
+
+    // Clone SVG and apply background/text colors
+    var svgClone = svg.cloneNode(true);
+    var bgColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#ffffff' : '#1a1a2e';
+    var textColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#1a1a2e' : 'white';
+
+    // Update text colors in clone for PNG rendering
+    svgClone.querySelectorAll('text').forEach(function(text) {
+        text.setAttribute('fill', textColor);
+    });
+
+    var serializer = new XMLSerializer();
+    var svgString = serializer.serializeToString(svgClone);
+    var svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+    var url = URL.createObjectURL(svgBlob);
+
+    var img = new Image();
+    img.onload = function() {
+        var canvas = document.createElement('canvas');
+        canvas.width = svg.width.baseVal.value || 800;
+        canvas.height = svg.height.baseVal.value || 600;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        var pngUrl = canvas.toDataURL('image/png');
+        var a = document.createElement('a');
+        a.href = pngUrl;
+        a.download = filename + '.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    img.src = url;
+}
+
+function exportDataCSV(data, filename) {
+    var csv = 'Label,Species Count,Color\n';
+    var total = data.reduce(function(sum, item) { return sum + item.value; }, 0);
+
+    data.forEach(function(item) {
+        var percentage = ((item.value / total) * 100).toFixed(1);
+        csv += '"' + item.label + '",' + item.value + ',' + percentage + '%\n';
+    });
+
+    csv += '\nTotal,' + total + ',100%\n';
+    downloadFile(csv, filename + '.csv', 'text/csv;charset=utf-8;');
+}
+
+function exportAllDataCSV() {
+    var csv = 'ANTWORLD.ORG - Taxonomical Diversity Data\n';
+    csv += 'Exported: ' + new Date().toLocaleString() + '\n\n';
+
+    csv += '=== SUBFAMILIES ===\n';
+    csv += 'Subfamily,Species Count\n';
+    subfamiliesData.forEach(function(item) {
+        csv += '"' + item.label + '",' + item.value + '\n';
+    });
+
+    csv += '\n=== TRIBES ===\n';
+    csv += 'Tribe,Species Count\n';
+    tribesData.forEach(function(item) {
+        csv += '"' + item.label + '",' + item.value + '\n';
+    });
+
+    csv += '\n=== GENERA ===\n';
+    csv += 'Genus,Species Count\n';
+    generaData.forEach(function(item) {
+        csv += '"' + item.label + '",' + item.value + '\n';
+    });
+
+    downloadFile(csv, 'antworld_taxonomy_data.csv', 'text/csv;charset=utf-8;');
+}
+
+function exportAllDataJSON() {
+    var data = {
+        source: 'AntWorld.org',
+        exported: new Date().toISOString(),
+        region: 'Palearctic',
+        subfamilies: subfamiliesData.map(function(item) {
+            return { name: item.label, speciesCount: item.value };
+        }),
+        tribes: tribesData.map(function(item) {
+            return { name: item.label, speciesCount: item.value };
+        }),
+        topGenera: generaData.map(function(item) {
+            return { name: item.label, speciesCount: item.value };
+        })
+    };
+
+    downloadFile(JSON.stringify(data, null, 2), 'antworld_taxonomy_data.json', 'application/json;charset=utf-8;');
+}
+
+function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Get current active chart info
+function getCurrentChart() {
+    var activeContainer = document.querySelector('.chart-container.active');
+    if (!activeContainer) return null;
+
+    var id = activeContainer.id;
+    if (id === 'subfamilies-container') return { containerId: 'pieSubfamilies', name: 'subfamilies_chart' };
+    if (id === 'tribes-container') return { containerId: 'pieTribes', name: 'tribes_chart' };
+    if (id === 'genera-container') return { containerId: 'pieGenera', name: 'genera_chart' };
+    return null;
+}
+
+function exportCurrentChartSVG() {
+    var chart = getCurrentChart();
+    if (chart) exportChartSVG(chart.containerId, chart.name);
+}
+
+function exportCurrentChartPNG() {
+    var chart = getCurrentChart();
+    if (chart) exportChartPNG(chart.containerId, chart.name);
+}
+
+function exportCurrentChartJPEG() {
+    var chart = getCurrentChart();
+    if (chart) exportChartJPEG(chart.containerId, chart.name);
+}
+
+function exportChartJPEG(containerId, filename) {
+    var container = document.getElementById(containerId);
+    var svg = container.querySelector('svg');
+    if (!svg) {
+        alert('Chart not found');
+        return;
+    }
+
+    // Clone SVG and apply background/text colors
+    var svgClone = svg.cloneNode(true);
+    var bgColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#ffffff' : '#1a1a2e';
+    var textColor = (typeof currentChartBg !== 'undefined' && currentChartBg === 'light') ? '#1a1a2e' : 'white';
+
+    // Update text colors in clone
+    svgClone.querySelectorAll('text').forEach(function(text) {
+        text.setAttribute('fill', textColor);
+    });
+
+    var serializer = new XMLSerializer();
+    var svgString = serializer.serializeToString(svgClone);
+    var svgBlob = new Blob([svgString], {type: 'image/svg+xml;charset=utf-8'});
+    var url = URL.createObjectURL(svgBlob);
+
+    var img = new Image();
+    img.onload = function() {
+        var canvas = document.createElement('canvas');
+        canvas.width = svg.width.baseVal.value || 800;
+        canvas.height = svg.height.baseVal.value || 600;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        var jpegUrl = canvas.toDataURL('image/jpeg', 0.95);
+        var a = document.createElement('a');
+        a.href = jpegUrl;
+        a.download = filename + '.jpg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    img.src = url;
+}
+</script>
+
 </p4>
+
+</div>
+
+<div class="tax-sidebar-wrapper">
+<div class="tax-sidebar">
+    <h4><?= t('tax.chart_background') ?></h4>
+    <div class="bg-toggle">
+        <button class="bg-toggle-btn dark active" onclick="setChartBackground('dark')"><?= t('tax.dark') ?></button>
+        <button class="bg-toggle-btn light" onclick="setChartBackground('light')"><?= t('tax.light') ?></button>
+    </div>
+
+    <h4><?= t('tax.display_mode') ?></h4>
+    <div class="display-options">
+        <label class="display-option active" onclick="setDisplayMode('percentage')">
+            <input type="radio" name="displayMode" value="percentage" checked> <?= t('tax.percentage') ?>
+        </label>
+        <label class="display-option" onclick="setDisplayMode('value')">
+            <input type="radio" name="displayMode" value="value"> <?= t('tax.numbers') ?>
+        </label>
+        <label class="display-option" onclick="setDisplayMode('both')">
+            <input type="radio" name="displayMode" value="both"> <?= t('tax.both') ?>
+        </label>
+    </div>
+
+    <h4><?= t('tax.export_chart') ?></h4>
+    <div class="export-controls">
+        <button class="export-btn" onclick="exportCurrentChartSVG()">
+            Chart <span class="format">SVG</span>
+        </button>
+        <button class="export-btn" onclick="exportCurrentChartPNG()">
+            Chart <span class="format">PNG</span>
+        </button>
+        <button class="export-btn" onclick="exportCurrentChartJPEG()">
+            Chart <span class="format">JPEG</span>
+        </button>
+    </div>
+
+    <h4><?= t('tax.export_data') ?></h4>
+    <div class="export-controls">
+        <button class="export-btn" onclick="exportAllDataCSV()">
+            <?= t('tax.download_all') ?> <span class="format">CSV</span>
+        </button>
+        <button class="export-btn" onclick="exportAllDataJSON()">
+            <?= t('tax.download_all') ?> <span class="format">JSON</span>
+        </button>
+    </div>
+</div>
+</div>
+
+<script>
+var currentChartBg = 'dark';
+
+function setChartBackground(mode) {
+    currentChartBg = mode;
+    var sections = document.querySelectorAll('.chart-section');
+    var textColor = mode === 'light' ? '#1a1a2e' : 'white';
+
+    // Update toggle buttons
+    document.querySelectorAll('.bg-toggle-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.classList.contains(mode)) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Update chart sections
+    sections.forEach(function(section) {
+        if (mode === 'light') {
+            section.classList.add('light-bg');
+        } else {
+            section.classList.remove('light-bg');
+        }
+    });
+
+    // Update all SVG text elements
+    document.querySelectorAll('.chart-section svg text').forEach(function(text) {
+        text.style.fill = textColor;
+    });
+
+    // Update d3pie labels and titles
+    document.querySelectorAll('.chart-section [class*="_title"], .chart-section [class*="_subtitle"]').forEach(function(el) {
+        el.style.fill = textColor;
+    });
+
+    // Update evenly spaced labels
+    document.querySelectorAll('.evenly-spaced-labels text').forEach(function(text) {
+        text.style.fill = textColor;
+    });
+}
+
+</script>
+
+</div>
+
+<div style="clear:both;"></div>
 </article>
 <?php include("php/footer.php"); ?>
-</div>
-    </body>
+</body>
 </html>

@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800"
+   height="600"
+   viewBox="0 0 800 600"
+   id="ant-metasoma-lateral-v2"
+   version="1.1"
+   sodipodi:docname="ant_metasoma_lateral_v2.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <title
+     id="title1">Ant Metasoma - Lateral View</title>
+  <desc
+     id="desc1">Scientific diagram of ant metasoma (abdomen) anatomy, lateral view. Specimen CASENT4031895.</desc>
+  <sodipodi:namedview
+     inkscape:document-units="px"
+     inkscape:zoom="2.3754093"
+     inkscape:cx="553.37833"
+     inkscape:cy="428.97871"
+     inkscape:current-layer="layer-labels"
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="marker7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Stop"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1"
+         d="M 0,4 V -4"
+         id="path7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Stop"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Stop"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:none;stroke:context-stroke;stroke-width:1"
+         d="M 0,4 V -4"
+         id="path23" />
+    </marker>
+    <style
+       id="style1">
+      /* ==============================================
+         MORPHOLOGY (-logy): Black, 14pt, dotted lines 4px
+         ============================================== */
+      .label-point { fill: #000000; stroke: none; cursor: pointer; }
+      .label-line { stroke: #000000; stroke-width: 4; stroke-dasharray: 8 4; }
+      .label-text {
+        font-family: sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        fill: #000000;
+        stroke: #ffffff;
+        stroke-width: 1;
+        paint-order: stroke fill;
+      }
+
+      /* Surface areas - semi-transparent filled polygons */
+      .surface-area { fill: rgba(0, 0, 0, 0.15); stroke: #000000; stroke-width: 1.5; cursor: pointer; }
+      .surface-area:hover { fill: rgba(0, 0, 0, 0.3); }
+
+      /* Highlight states */
+      .label.highlight .label-point { fill: #ff0000; }
+      .label.highlight .label-line { stroke: #ff0000; stroke-width: 4; }
+      .label.highlight .label-text { fill: #ff0000; font-weight: bold; stroke: #000000; stroke-width: 1; }
+
+      /* ==============================================
+         MORPHOMETRY (-metry): Red, 14pt, lines 2px
+         ============================================== */
+      .measurement .measure-line { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-tick { stroke: #ff0000; stroke-width: 2; }
+      .measurement .measure-label {
+        font-family: sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        fill: #ff0000;
+        stroke: #000000;
+        stroke-width: 1;
+        paint-order: stroke fill;
+      }
+      .measure-dline { stroke: #ff0000; stroke-width: 2; stroke-dasharray: 2 2; }
+    </style>
+  </defs>
+  <!-- Layer: Background -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-background"
+     inkscape:label="background"
+     style="display:inline">
+    <rect
+       x="0"
+       y="0"
+       width="800"
+       height="600"
+       fill="#ffffff"
+       id="rect1"
+       sodipodi:insensitive="true"
+       style="display:inline" />
+  </g>
+  <!-- Layer: Surfaces (colored regions) -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-surfaces"
+     inkscape:label="surfaces"
+     style="display:inline">
+    <!-- TODO: Add surface areas in Inkscape -->
+  </g>
+  <!-- Layer: Reference (profile image) -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-reference"
+     inkscape:label="reference"
+     style="display:inline;opacity:0.5"
+     sodipodi:insensitive="true">
+    <image
+       xlink:href="../CASENT4031895_P_2.jpg"
+       x="0"
+       y="0"
+       width="800"
+       height="600"
+       preserveAspectRatio="xMidYMid"
+       id="reference-image" />
+  </g>
+  <!-- Layer: Outline -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-outline"
+     inkscape:label="outline"
+     style="display:inline" />
+  <!-- Layer: Features -->
+  <g
+     inkscape:groupmode="layer"
+     id="layer-features"
+     inkscape:label="features"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer-measurements"
+     inkscape:label="measurements"
+     style="display:inline"
+     transform="translate(-34.921875,-228.625)">
+    <!-- PEH: Petiole Height -->
+    <g
+       class="measurement"
+       data-measurement="PEH"
+       id="measure-PEH"
+       inkscape:label="PEH"
+       style="display:inline"
+       transform="translate(217.06488,79.780809)">
+      <line
+         class="measure-line"
+         x1="130"
+         y1="324.55225"
+         x2="130"
+         y2="432.01343"
+         id="PEH-line"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:none" />
+      <line
+         class="measure-tick"
+         x1="120.03268"
+         y1="323.61264"
+         x2="140.03268"
+         y2="323.61264"
+         id="PEH-tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="119.8308"
+         y1="432.84418"
+         x2="139.8308"
+         y2="432.84418"
+         id="PEH-tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-dline"
+         x1="141.37189"
+         y1="323.57996"
+         x2="237.55386"
+         y2="323.57996"
+         id="PEH-ext1"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2,2;stroke-dashoffset:0" />
+      <line
+         class="measure-dline"
+         x1="141.69203"
+         y1="432.84354"
+         x2="234.69203"
+         y2="432.84354"
+         id="PEH-ext2"
+         style="stroke:#ff0000;stroke-width:1.99867;stroke-dasharray:1.99867, 1.99867;stroke-dashoffset:0" />
+      <text
+         class="measure-label"
+         x="121.51299"
+         y="378.62393"
+         text-anchor="end"
+         id="PEH-label"
+         style="font-weight:bold;font-size:16px;font-family:sans-serif;fill:#ff0000;stroke:#000000;stroke-width:1;paint-order:stroke fill">PEH</text>
+    </g>
+    <!-- PEW: Petiole Width (lateral view shows length, but we label it) -->
+    <!-- GL: Gaster Length -->
+    <g
+       class="measurement"
+       data-measurement="GL"
+       id="measure-GL"
+       inkscape:label="GL"
+       style="display:none">
+      <line
+         class="measure-line"
+         x1="280"
+         y1="220"
+         x2="710"
+         y2="220"
+         id="GL-line"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="280"
+         y1="210"
+         x2="280"
+         y2="230"
+         id="GL-tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="710"
+         y1="210"
+         x2="710"
+         y2="230"
+         id="GL-tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-dline"
+         x1="280"
+         y1="230"
+         x2="280"
+         y2="280"
+         id="GL-ext1"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2, 2" />
+      <line
+         class="measure-dline"
+         x1="710"
+         y1="230"
+         x2="710"
+         y2="400"
+         id="GL-ext2"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2, 2" />
+      <text
+         class="measure-label"
+         x="495"
+         y="215"
+         text-anchor="middle"
+         id="GL-label"
+         style="font-weight:bold;font-size:16px;font-family:sans-serif;fill:#ff0000;stroke:#000000;stroke-width:1;paint-order:stroke fill">GL</text>
+    </g>
+    <!-- GH: Gaster Height -->
+    <g
+       class="measurement"
+       data-measurement="GH"
+       id="measure-GH"
+       inkscape:label="GH"
+       style="display:inline"
+       transform="rotate(-143.92842,596.61689,420.38595)">
+      <line
+         class="measure-line"
+         x1="750"
+         y1="250"
+         x2="750"
+         y2="520"
+         id="GH-line"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="740"
+         y1="250"
+         x2="760"
+         y2="250"
+         id="GH-tick1"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-tick"
+         x1="740"
+         y1="520"
+         x2="760"
+         y2="520"
+         id="GH-tick2"
+         style="stroke:#ff0000;stroke-width:2" />
+      <line
+         class="measure-dline"
+         x1="500"
+         y1="250"
+         x2="750"
+         y2="250"
+         id="GH-ext1"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2, 2" />
+      <line
+         class="measure-dline"
+         x1="500"
+         y1="520"
+         x2="750"
+         y2="520"
+         id="GH-ext2"
+         style="stroke:#ff0000;stroke-width:2;stroke-dasharray:2, 2" />
+    </g>
+    <text
+       class="measure-label"
+       x="413.80255"
+       y="357.21756"
+       id="GH-label"
+       style="font-weight:bold;font-size:16px;font-family:sans-serif;display:inline;fill:#ff0000;stroke:#000000;stroke-width:1;paint-order:stroke fill">GH</text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer-labels"
+     inkscape:label="labels"
+     style="display:inline"
+     transform="translate(-156.02246,181.13672)">
+    <!-- Label: Petiole -->
+    <!-- Label: Petiolar Node -->
+    <!-- Label: Gaster -->
+    <!-- Label: Tergite 1 (first gastral tergite) -->
+    <!-- Label: Tergites (general) -->
+    <g
+       class="label"
+       data-feature="tergites"
+       id="tergites-grp"
+       inkscape:label="Tergites.grp"
+       transform="translate(44.997539,-285.17717)">
+      <text
+         class="label-text"
+         x="775.58789"
+         y="236.90355"
+         data-en="Tergites (Tg)"
+         data-fr="Tergites (Tg)"
+         id="tergites-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="Tergites-label">Tergites (Tg)</text>
+      <text
+         class="label-text"
+         x="856.01886"
+         y="484.51157"
+         text-anchor="middle"
+         data-en="Tg IV"
+         data-fr="Tg IV"
+         id="tergiteIV-label"
+         style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="TergiteIV-label">Tg IV</text>
+      <text
+         class="label-text"
+         x="838.37646"
+         y="405.30621"
+         text-anchor="middle"
+         data-en="Tg I"
+         data-fr="Tg I"
+         id="tergiteIII-label"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="TergiteIII-label">Tg III</text>
+      <text
+         class="label-text"
+         x="724.55383"
+         y="308.78992"
+         text-anchor="middle"
+         data-en="Tg I"
+         data-fr="Tg I"
+         id="tergiteI-label"
+         style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="TergiteII-label">Tg II</text>
+      <text
+         class="label-text"
+         x="350"
+         y="140"
+         text-anchor="middle"
+         data-en="Tg I"
+         data-fr="Tg I"
+         id="Tergite1-label"
+         style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         transform="translate(276.80608,132.02144)"
+         inkscape:label="TergiteI-label">Tg I</text>
+      <path
+         style="display:none;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#marker7);marker-end:url(#Stop)"
+         d="m 635.85649,161.46353 c 0,0 109.95787,-13.355 163.74487,11.98133 53.787,25.33633 111.69422,96.82431 133.12591,139.11658 21.43169,42.29227 15.97511,90.52562 15.97511,90.52562"
+         id="path8"
+         sodipodi:nodetypes="czzc"
+         inkscape:label="Tergites-line"
+         transform="translate(-44.912649,32.43691)" />
+    </g>
+    <!-- Label: Sternites -->
+    <g
+       class="label"
+       data-feature="sternites"
+       id="sternites-grp"
+       inkscape:label="Sternites.grp"
+       transform="translate(0.0848932,-252.74026)">
+      <text
+         class="label-text"
+         x="648.42151"
+         y="493.76205"
+         data-en="Sternites"
+         data-fr="Sternites"
+         id="sternites-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="Sternites-label">Sternites (St)</text>
+      <text
+         class="label-text"
+         x="855.6687"
+         y="499.33438"
+         text-anchor="middle"
+         data-en="St IV"
+         data-fr="St IV"
+         id="text3"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="SterniteIV-label">St IV</text>
+      <text
+         class="label-text"
+         x="791.43219"
+         y="482.69818"
+         text-anchor="middle"
+         data-en="St III"
+         data-fr="St III"
+         id="text4"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="SterniteIII-label">St III</text>
+      <text
+         class="label-text"
+         x="693.58472"
+         y="430.11343"
+         text-anchor="middle"
+         data-en="St II"
+         data-fr="St II"
+         id="text5"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="SterniteII-label">St II</text>
+      <text
+         class="label-text"
+         x="633.77783"
+         y="376.0386"
+         text-anchor="middle"
+         data-en="St I"
+         data-fr="St I"
+         id="text6"
+         style="display:inline;font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="SterniteI-label"
+         transform="translate(-3.2e-6)">St I</text>
+      <path
+         style="display:none;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Stop);marker-end:url(#marker7)"
+         d="M 562.72213,168.98443 842.95217,346.0419"
+         id="path6"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="Sternites-line"
+         transform="translate(-0.0848932,252.74026)" />
+    </g>
+    <!-- Label: Acidopore (Formicinae - formic acid opening) -->
+    <!-- Label: Pygidium (terminal segment) -->
+    <g
+       class="label"
+       data-feature="pygidium"
+       id="pygidium-grp"
+       inkscape:label="Pygidium.grp"
+       transform="translate(97.808671,-126.44829)">
+      <path
+         class="label-line"
+         d="m 820.48509,364.76421 -0.0523,108.16652"
+         id="pygidium-line"
+         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
+      <text
+         class="label-text"
+         x="820.76562"
+         y="485"
+         data-en="Pygidium"
+         data-fr="Pygidium"
+         id="pygidium-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan4"
+           x="820.76562"
+           y="485">Pygidium</tspan><tspan
+           sodipodi:role="line"
+           id="tspan5"
+           x="820.76562"
+           y="502.5">(Tg V)</tspan></text>
+    </g>
+    <!-- Label: Hypopygium (terminal sternite) -->
+    <g
+       class="label"
+       data-feature="hypopygium"
+       id="hypopygium-grp"
+       inkscape:label="Hypopygium.grp"
+       transform="translate(-171.89354,-193.56645)">
+      <path
+         class="label-line"
+         d="m 1067.5294,452.42236 -80,40"
+         id="hypopygium-line"
+         style="stroke:#000000;stroke-width:4;stroke-dasharray:8, 4" />
+      <text
+         class="label-text"
+         x="921.81854"
+         y="510"
+         data-en="Hypopygium"
+         data-fr="Hypopygium"
+         id="hypopygium-txt"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"><tspan
+           sodipodi:role="line"
+           id="tspan2"
+           x="921.81854"
+           y="510">Hypopygium</tspan><tspan
+           sodipodi:role="line"
+           id="tspan3"
+           x="921.81854"
+           y="527.5">(St V, Acidopore)</tspan></text>
+    </g>
+    <g
+       class="label"
+       data-feature="petiole"
+       inkscape:groupmode="layer"
+       id="layer1"
+       inkscape:label="Petiole.grp"
+       style="display:inline"
+       transform="translate(36.9912,-306.43762)">
+      <path
+         style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:7.99998, 4;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 537.42516,303.01774 537.25632,177.31406"
+         id="path6-0"
+         inkscape:connector-type="polyline"
+         inkscape:connector-curvature="0"
+         inkscape:label="PetioleI-dline"
+         sodipodi:nodetypes="cc" />
+      <text
+         class="label-text"
+         x="510.14905"
+         y="173.30406"
+         data-en="Metapleural Gland"
+         data-fr="Glande métapleurale"
+         id="metapleural-txt-2"
+         style="font-weight:bold;font-size:14px;font-family:sans-serif;text-align:start;display:inline;fill:#000000;stroke:#ffffff;stroke-width:1;paint-order:stroke fill"
+         inkscape:label="PetioleI-label"><tspan
+           sodipodi:role="line"
+           id="tspan3-1"
+           x="510.14905"
+           y="173.30406">Petiole (I)</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:37.7953px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';writing-mode:lr-tb;direction:ltr;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-dasharray:2, 2;stroke-dashoffset:0"
+       x="737.78271"
+       y="-32.035706"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1" /></text>
+  </g>
+  <!-- Layer: Labels -->
+  <!-- Layer: Measurements -->
+</svg>

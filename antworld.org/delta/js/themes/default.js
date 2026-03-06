@@ -11,5 +11,5 @@ legend: {itemStyle: {font: '9pt Trebuchet MS, Verdana, sans-serif',color: 'white
     }
 };
 
-// Apply the theme
+
 Highcharts.setOptions(Highcharts.theme);

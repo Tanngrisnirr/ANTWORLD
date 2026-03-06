@@ -3,74 +3,75 @@
     <head><title>Polyergus</title>
 		<meta name="description" content="Polyergus Genus">
 		<meta name="keywords" content="Polyergus,ergate,rufescens,samurai,nigerrimus,France, China,Japan,Siberia,Formica,cunicularia,japonica,hayashi,candida,picea">
-<?php include("php/headersend.php") ?>
+<?php include("../php/headersend.php") ?>
     </head>
     <body>
-<article><?php include("../php/nav.php") ?>
-<h2 class="h2one"><i><strong>Polyergus</strong></i> genus</h2>
+<?php include("../php/nav.php") ?>
+<article>
+<h2 class="h2one"><i><strong>Polyergus</strong></i> <?= lang() === "fr" ? "genre" : "genus" ?></h2>
 
-<!--Rufescens-->
+
   <div class="icones3"><a href="species/polyergus_rufescens_ergate.html"><input type="button" class="long_button" value="rufescens" onclick="location.href='species/polyergus_rufescens_ergate.html';"></a>
 <div class="copyright">
-<a href="https://www.antweb.org/specimenImages.do?name=casent0281063&project=worldants" target="_blank"><img src="quote_source/quote_image.png" typeof="foaf:publications" alt="copyright link"/></a>
+<a href="../credits.html#image-credits" title="Image credits"><img src="../img/id/icons/quote_image.png" alt="©"/></a>
 </div>
 <div id="id3wrapper">
 	<div id="box-1" class="box">
-  <img src="img/formicinae/polyergus/p_breviceps_mini.png" title="Image of a Polyergus breviceps body"/>
+  <img src="../img/id/formicinae/polyergus/p_breviceps_mini.png" title="Polyergus breviceps" alt="Polyergus breviceps worker dorsal view"/>
 <span class="caption simple-caption">
-    <p><a title="Accessed 7 August 2017" typeof="foaf:publications" href="https://www.antweb.org/specimenImages.do?name=casent0281063&project=worldants" target="_blank">Photo by April Nobile AntWeb.org</a></p>
+    <p><a title="Accessed 7 August 2017" typeof="foaf:publications" href="https://www.antweb.org/specimenImages.do?name=casent0281063&project=worldants" target="_blank">AntWeb</a></p>
 </span>
 	</div>
 </div>
-  <span style="color:red"><li>Body not punctured, smooth and bright</li></span>
-  <li>Whole body yellow or orange</li>
-  <li>Host: potentially all <i><strong>Serviformica</strong></i>, preferencially populous and less aggressiv nest like <i><strong>Formica cunicularia</strong></i></li>
-  <li>France, Japan</li>
+  <span style="color:red"><li><?= lang() === "fr" ? "Corps non ponctué, lisse et brillant" : "Body not punctured, smooth and bright" ?></li></span>
+  <li><?= lang() === "fr" ? "Corps entièrement jaune ou orange" : "Whole body yellow or orange" ?></li>
+  <li><?= lang() === "fr" ? "Hôte : potentiellement toutes les" : "Host: potentially all" ?> <i><strong>Serviformica</strong></i>, <?= lang() === "fr" ? "préférentiellement les nids populeux et moins agressifs comme" : "preferentially populous and less aggressive nest like" ?> <i><strong>Formica cunicularia</strong></i></li>
+  <li><?= lang() === "fr" ? "France, Japon" : "France, Japan" ?></li>
   </div>
   
-<!--Samurai-->
+
   <div class="icones3"> <a href="species/polyergus_samurai_ergate.html"><input type="button" class="long_button" value="samurai" onclick="location.href='species/polyergus_samurai_ergate.html';"></a>
 <div class="copyright">
-<a href="https://www.antweb.org/description.do?genus=polyergus&species=samurai&rank=species&project=worldants" target="_blank"><img src="quote_source/quote_image.png" typeof="foaf:publications" alt="copyright link"/></a>
+<a href="../credits.html#image-credits" title="Image credits"><img src="../img/id/icons/quote_image.png" alt="©"/></a>
 </div>
 <div id="id3wrapper">
 	<div id="box-1" class="box">
-  <img src="img/formicinae/polyergus/p_samurai_mini.png" title="Image of a Polyergus samurai"/>
+  <img src="../img/id/formicinae/polyergus/p_samurai_mini.png" title="Polyergus samurai" alt="Polyergus samurai worker dorsal view"/>
 <span class="caption simple-caption">
-    <p><a title="Accessed 7 August 2017" typeof="foaf:publications" href="https://www.antweb.org/description.do?genus=polyergus&species=samurai&rank=species&project=worldants" target="_blank">Photo by April Nobile AntWeb.org</a></p>
+    <p><a title="Accessed 7 August 2017" typeof="foaf:publications" href="https://www.antweb.org/description.do?genus=polyergus&species=samurai&rank=species&project=worldants" target="_blank">AntWeb</a></p>
 </span>
 	</div>
 </div>
-  <li><b>Coxi</b> (<b>I II</b> & <b>III</b>) and gaster paler than thorax and head</li>
-  <li>Upper half of the body (incl. antennae and legs) with very fine grayish and dense pubescence</li>
-  <!--<li>Above part of the body finely punctured and opaque. Under surface of the body ; legs, mandibles and tip of gaster somewhat shining</li>-->
-  <li>Whole body brownish black to deep reddish brown</li>
-  <li>China, Japan
-             <div class="speciesmenu"><ul class="niveau1"><img src="quote_source/species.png" typeof="foaf:organism" alt="species menu" />
+  <li><b>Coxi</b> (<b>I II</b> & <b>III</b>) <?= lang() === "fr" ? "et gastre plus pâles que le thorax et la tête" : "and gaster paler than thorax and head" ?></li>
+  <li><?= lang() === "fr" ? "Moitié supérieure du corps (y compris antennes et pattes) avec une pubescence grisâtre très fine et dense" : "Upper half of the body (incl. antennae and legs) with very fine grayish and dense pubescence" ?></li>
+  
+  <li><?= lang() === "fr" ? "Corps entièrement brun noirâtre à brun rougeâtre foncé" : "Whole body brownish black to deep reddish brown" ?></li>
+  <li><?= lang() === "fr" ? "Chine, Japon" : "China, Japan" ?>
+             <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu" />
   <ul class="niveau2">
 Host: <i><strong>Formica japonica</strong></i>, <i><strong>Formica hayashi</strong></i>
 	</ul></ul></div></li>
 </div>
 
-<!--Nigerrimus-->
+
   <div class="icones3"> <a href="species/polyergus_nigerrimus_ergate.html"></a><input type="button" class="long_button" value="nigerrimus" onclick="location.href='species/polyergus_nigerrimus_ergate.html';">
 <div class="copyright">
-<a href="https://www.antweb.org/description.do?genus=polyergus&species=nigerrimus&rank=species&project=worldants" target="_blank"><img src="quote_source/quote_image.png" typeof="foaf:publications" alt="copyright link"/></a>
+<a href="../credits.html#image-credits" title="Image credits"><img src="../img/id/icons/quote_image.png" alt="©"/></a>
 </div>
 <div id="id3wrapper">
 	<div id="box-1" class="box">
-  <img src="img/formicinae/polyergus/p_nigerrimus_mini.png" title="Image of a Polyergus nigerrimus"/>
+  <img src="../img/id/formicinae/polyergus/p_nigerrimus_mini.png" title="Polyergus nigerrimus" alt="Polyergus nigerrimus worker dorsal view"/>
 <span class="caption simple-caption">
-    <p><a title="Accessed 7 August 2017" typeof="foaf:publications" href="https://www.antweb.org/description.do?genus=polyergus&species=nigerrimus&rank=species&project=worldants" target="_blank">Photo by April Nobile AntWeb.org</a></p>
+    <p><a title="Accessed 7 August 2017" typeof="foaf:publications" href="https://www.antweb.org/description.do?genus=polyergus&species=nigerrimus&rank=species&project=worldants" target="_blank">AntWeb</a></p>
 </span>
 	</div>
 </div>
-  <li><b>Coxi</b> (<b>I II</b> & <b>III</b>) and gaster as dark as thorax and head</li>
-  <li>Upper half of the body (incl. antennae and legs) with thick white-brownish and sparse pubescence</li>
-  <!--<li>Above part of the body finely punctured and opaque. Under surface of the body ; legs, mandibles and tip of gaster somewhat shining</li>-->
-  <li>Whole body brown</li>
-  <li>Japan, Siberia
-           <div class="speciesmenu"><ul class="niveau1"><img src="quote_source/species.png" typeof="foaf:organism" alt="species menu" />
+  <li><b>Coxi</b> (<b>I II</b> & <b>III</b>) <?= lang() === "fr" ? "et gastre aussi sombres que le thorax et la tête" : "and gaster as dark as thorax and head" ?></li>
+  <li><?= lang() === "fr" ? "Moitié supérieure du corps (y compris antennes et pattes) avec une pubescence blanc-brunâtre épaisse et clairsemée" : "Upper half of the body (incl. antennae and legs) with thick white-brownish and sparse pubescence" ?></li>
+  
+  <li><?= lang() === "fr" ? "Corps entièrement brun" : "Whole body brown" ?></li>
+  <li><?= lang() === "fr" ? "Japon, Sibérie" : "Japan, Siberia" ?>
+           <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu" />
   <ul class="niveau2">
   Host: <i><strong>Formica candida</strong></i>, <i><strong>Formica picea</strong></i>
 	</ul></ul></div></li>

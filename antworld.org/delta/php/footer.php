@@ -1,7 +1,22 @@
-<footer>
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en" formtarget="_blank"><img typeof="foaf:Image" alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png" /></a><a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en"></a>
-</br><a href="mailto:info@antweb.org"><span class="icon icon-mail4"> Contact Us</span></a>
-</br><a href="http://antworld.org/privacy"><span class="icon icon-blocked"> Privacy</span></a>
-<a rel="license" href="http://antworld.org/access.php" title="Contributors" alt="Contributors"><span class="icon icon-users"> Contributors</span></a>
-<a rel="other" href="http://gruene-oase-essen.de/" title="Gruene oase" alt="Gruene oase" formtarget="_blank"><span class="icon icon-link"> Gruene oase</span></a>
+<?php
+
+$basePath = '';
+if (strpos($_SERVER['REQUEST_URI'], '/id/species/') !== false) {
+    $basePath = '../../';
+} elseif (strpos($_SERVER['REQUEST_URI'], '/id/') !== false ||
+    strpos($_SERVER['REQUEST_URI'], '/species/') !== false ||
+    strpos($_SERVER['REQUEST_URI'], '/games/') !== false) {
+    $basePath = '../';
+}
+?>
+<footer class="aw-footer">
+<a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="CC BY-NC 4.0" style="border:0; height:15px; vertical-align:middle;" src="<?php echo $basePath; ?>img/logos/cc-by-nc-4.0.png" /></a>
+<span class="sep">|</span>
+<a href="mailto:info@antworld.org"><?= t('footer.contact') ?></a>
+<span class="sep">|</span>
+<a href="<?php echo $basePath; ?>privacy.html"><?= t('footer.privacy') ?></a>
+<span class="sep">|</span>
+<a href="<?php echo $basePath; ?>credits.html"><?= t('footer.credits') ?></a>
+<span class="sep">|</span>
+<span class="last-updated"><?= t('footer.updated') ?> <?php echo date('M Y'); ?></span>
 </footer>

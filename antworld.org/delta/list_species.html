@@ -1,49 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>AntWorld.org | Species list</title>
-<meta name="description" content="Ants of Palearctic listed Amblyoponinae Aneuretinae Dorylinae Dolichoderinae Formicinae Leptanillinae Martialinae Myrmicinae Myrmeciinae Ponerinae Proceratiinae Pseudomyrmicinae">
-<meta name="keywords" content="ants,Palearctic,Amblyoponinae,Aneuretinae,Dolichoderinae,Dorylinae,Formicinae,Leptanillinae,Martialinae,Myrmicinae,Myrmeciinae,Ponerinae,Proceratiinae,Pseudomyrmicinae">
+    <head><title>AntWorld.org | Species Checklist</title>
+<meta name="description" content="Complete checklist of 936 ant species across 74 genera found in the Palearctic region. Browse by subfamily, genus, or search by name.">
+<meta name="keywords" content="ants, Formicidae, Palearctic, species checklist, ant species list, Formicinae, Myrmicinae, Dolichoderinae, Ponerinae">
 <?php include("php/ihead.php"); ?>
 <style>
-th {background-color:#000047; text-align: center; opacity:0.85;
+th {background-color: var(--bg-secondary); text-align: center; opacity:0.85;
 	border: 1px solid rgba(0,0,0,0);
-	-webkit-background-clip: padding-box; /* for Safari */
-    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	-webkit-background-clip: padding-box;
+    background-clip: padding-box;
 	}
+#speciesTable tbody tr {
+    background-color: var(--bg-secondary);
+}
+#speciesTable tbody tr:hover {
+    background-color: var(--bg-tertiary, rgba(50, 50, 90, 0.8));
+}
+.light-mode #speciesTable tbody tr {
+    background-color: rgba(200, 200, 220, 0.4);
+}
+.light-mode #speciesTable tbody tr:hover {
+    background-color: rgba(180, 180, 210, 0.6);
+}
+.export-controls {
+    margin: 20px 0;
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.export-btn {
+    background: #2c5aa0;
+    color: white;
+    border: 2px solid #4a7bc4;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.export-btn:hover {
+    background: #3d6db8;
+    border-color: #6a9be4;
+}
+.export-btn .format {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 16px;
+}
+.filter-input {
+    padding: 10px 16px;
+    border: 2px solid var(--accent-primary);
+    border-radius: 6px;
+    width: 300px;
+    font-size: 16px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+.filter-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.3);
+}
+.filter-input::placeholder {
+    color: var(--text-muted, #888);
+}
+.species-count {
+    color: var(--text-muted, #ccc);
+    font-size: 16px;
+}
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.filter-label {
+    font-weight: bold;
+    color: var(--text-primary);
+    min-width: 100px;
+}
+.filter-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--bg-tertiary);
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+.filter-checkbox:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+.filter-checkbox input {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+.filter-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.filter-btn:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+.sortable:hover {
+    background: rgba(44, 90, 160, 0.5);
+}
+.sortable::after {
+    content: " ⇅";
+    opacity: 0.5;
+}
+.sortable.asc::after {
+    content: " ▲";
+    opacity: 1;
+}
+.sortable.desc::after {
+    content: " ▼";
+    opacity: 1;
+}
 </style>
     </head>
     <body>
 <article>
 <?php include("php/top.php"); ?>
-<h2 class="h2one">Ant diversity</h2>
-<p4>
-Authors in () means the name of the ant as been modified since its original description.
-<br>
-<table>
-<!--15/11/18
-Subfamilies 8 Tribes 17 Genera 74 Species 936
-Aenictini 35 sp
-Amblyoponini 24 sp
-Attini 132 sp
-Bothriomyrmecini 15 sp
-Camponotinii 123 sp
-Cerapachynini 12 sp
-Crematogastrini 184 sp
-Formicinii 89 sp
-Lasinii 72 sp
-Leptomyrmecini 2 sp
-Pagiolepini 42 sp
-Ponerini 44 sp
-Proceratiini 8 sp
-Pseudomyrmecini 1 sp
-Solenopsidini 39 sp
-Stenammini 16 sp
-Tapinomini 22 sp
----
+<h2 class="h2one"><?= t('list.title') ?></h2>
 
- -->
-<caption>Last udpade 15/11/2018 14:11 UTC | total species: 936</caption>
-<tr><th>&nbsp;Species names&nbsp;</th><th>&nbsp;Subf. / Tribe&nbsp;</th></tr>
+<div class="export-controls">
+    <input type="text" class="filter-input" id="speciesFilter" placeholder="<?= t('list.search_placeholder') ?>" onkeyup="filterSpecies()">
+    <span class="species-count" id="speciesCount"></span>
+    <button class="export-btn" onclick="exportSpeciesToCSV()">
+        <?= t('ui.download') ?> <span class="format">CSV</span>
+    </button>
+    <button class="export-btn" onclick="exportSpeciesToJSON()">
+        <?= t('ui.download') ?> <span class="format">JSON</span>
+    </button>
+    <button class="export-btn" onclick="exportSpeciesToTXT()">
+        <?= t('ui.download') ?> <span class="format">TXT</span>
+    </button>
+</div>
+
+<div class="filter-section">
+    <div class="filter-group">
+        <span class="filter-label"><?= t('list.filter_subfamilies') ?></span>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Amblyoponinae" checked onchange="filterSpecies()"> Amblyoponinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Dolichoderinae" checked onchange="filterSpecies()"> Dolichoderinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Dorylinae" checked onchange="filterSpecies()"> Dorylinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Formicinae" checked onchange="filterSpecies()"> Formicinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Leptanillinae" checked onchange="filterSpecies()"> Leptanillinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Myrmicinae" checked onchange="filterSpecies()"> Myrmicinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Ponerinae" checked onchange="filterSpecies()"> Ponerinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Proceratiinae" checked onchange="filterSpecies()"> Proceratiinae</label>
+        <label class="filter-checkbox"><input type="checkbox" data-subfamily="Pseudomyrmicinae" checked onchange="filterSpecies()"> Pseudomyrmicinae</label>
+        <button class="filter-btn" onclick="toggleAllSubfamilies(true)"><?= t('ui.all') ?></button>
+        <button class="filter-btn" onclick="toggleAllSubfamilies(false)"><?= t('ui.none') ?></button>
+    </div>
+</div>
+
+<p4>
+<?= t('list.author_note') ?>
+<br>
+<table id="speciesTable">
+<tr><th class="sortable" onclick="sortTable(0)">&nbsp;Species names&nbsp;</th><th class="sortable" onclick="sortTable(1)">&nbsp;Tribe / Subfamily&nbsp;</th></tr>
  <tr><td><i>Acantholepis kabulica</i> (Pisarski 1967a)</td><td>Pagiolepini / Formicinae</td></tr>
  <tr><td><i>Acantholepis sericea</i> (Forel 1892a)</td><td>Pagiolepini / Formicinae</td></tr>
  <tr><td><i>Acanthomyrmex crassispinus</i> Wheeler 1930b</td><td>Pagiolepini / Formicinae</td></tr>
@@ -982,8 +1133,191 @@ Tapinomini 22 sp
  <tr><td><i>Vollenhovia yambaru</i></td><td>Stenammini / Myrmicinae</td></tr>
 </table>
 </p4>
+<div style="clear:both;"></div>
 </article>
+
+<script>
+// Initialize species count on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateSpeciesCount();
+});
+
+var totalSpecies = 0;
+
+function updateSpeciesCount() {
+    var table = document.getElementById('speciesTable');
+    var rows = table.getElementsByTagName('tr');
+    var visibleCount = 0;
+    if (totalSpecies === 0) totalSpecies = rows.length - 1;
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].style.display !== 'none') {
+            visibleCount++;
+        }
+    }
+    document.getElementById('speciesCount').textContent = 'Showing ' + visibleCount + ' of ' + totalSpecies + ' species';
+}
+
+function getSelectedSubfamilies() {
+    var checkboxes = document.querySelectorAll('[data-subfamily]');
+    var selected = [];
+    checkboxes.forEach(function(cb) {
+        if (cb.checked) {
+            selected.push(cb.getAttribute('data-subfamily'));
+        }
+    });
+    return selected;
+}
+
+function filterSpecies() {
+    var input = document.getElementById('speciesFilter');
+    var filter = input.value.toLowerCase();
+    var table = document.getElementById('speciesTable');
+    var rows = table.getElementsByTagName('tr');
+    var selectedSubfamilies = getSelectedSubfamilies();
+
+    for (var i = 1; i < rows.length; i++) {
+        var cells = rows[i].getElementsByTagName('td');
+        if (cells.length < 2) continue;
+
+        var speciesText = cells[0].textContent.toLowerCase();
+        var taxonomyText = cells[1].textContent;
+        var subfamily = taxonomyText.split(' / ')[1] || '';
+
+        // Check text filter
+        var textMatch = filter === '' || speciesText.indexOf(filter) > -1 || taxonomyText.toLowerCase().indexOf(filter) > -1;
+
+        // Check subfamily filter
+        var subfamilyMatch = selectedSubfamilies.indexOf(subfamily.trim()) > -1;
+
+        rows[i].style.display = (textMatch && subfamilyMatch) ? '' : 'none';
+    }
+    updateSpeciesCount();
+}
+
+function toggleAllSubfamilies(checked) {
+    var checkboxes = document.querySelectorAll('[data-subfamily]');
+    checkboxes.forEach(function(cb) {
+        cb.checked = checked;
+    });
+    filterSpecies();
+}
+
+var sortDirection = [true, true]; // true = ascending
+
+function sortTable(columnIndex) {
+    var table = document.getElementById('speciesTable');
+    var tbody = table.querySelector('tbody') || table;
+    var rows = Array.from(tbody.querySelectorAll('tr')).slice(1); // Skip header
+    var headers = table.querySelectorAll('th');
+
+    // Toggle direction
+    sortDirection[columnIndex] = !sortDirection[columnIndex];
+    var ascending = sortDirection[columnIndex];
+
+    // Update header classes
+    headers.forEach(function(h, i) {
+        h.classList.remove('asc', 'desc');
+        if (i === columnIndex) {
+            h.classList.add(ascending ? 'asc' : 'desc');
+        }
+    });
+
+    // Sort rows
+    rows.sort(function(a, b) {
+        var aVal = a.cells[columnIndex].textContent.trim().toLowerCase();
+        var bVal = b.cells[columnIndex].textContent.trim().toLowerCase();
+        if (aVal < bVal) return ascending ? -1 : 1;
+        if (aVal > bVal) return ascending ? 1 : -1;
+        return 0;
+    });
+
+    // Re-append sorted rows
+    rows.forEach(function(row) {
+        tbody.appendChild(row);
+    });
+}
+
+function getVisibleSpeciesData() {
+    var table = document.getElementById('speciesTable');
+    var rows = table.getElementsByTagName('tr');
+    var data = [];
+
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].style.display !== 'none') {
+            var cells = rows[i].getElementsByTagName('td');
+            if (cells.length >= 2) {
+                var speciesText = cells[0].textContent.trim();
+                var taxonomyText = cells[1].textContent.trim();
+                var taxonomyParts = taxonomyText.split(' / ');
+                data.push({
+                    species: speciesText,
+                    tribe: taxonomyParts[0] || '',
+                    subfamily: taxonomyParts[1] || ''
+                });
+            }
+        }
+    }
+    return data;
+}
+
+function exportSpeciesToCSV() {
+    var data = getVisibleSpeciesData();
+    var csv = 'Species,Tribe,Subfamily\n';
+
+    data.forEach(function(row) {
+        csv += '"' + row.species.replace(/"/g, '""') + '",';
+        csv += '"' + row.tribe.replace(/"/g, '""') + '",';
+        csv += '"' + row.subfamily.replace(/"/g, '""') + '"\n';
+    });
+
+    downloadFile(csv, 'antworld_species_list.csv', 'text/csv;charset=utf-8;');
+}
+
+function exportSpeciesToJSON() {
+    var data = getVisibleSpeciesData();
+    var json = JSON.stringify({
+        source: 'AntWorld.org',
+        exported: new Date().toISOString(),
+        region: 'Palearctic',
+        count: data.length,
+        species: data
+    }, null, 2);
+
+    downloadFile(json, 'antworld_species_list.json', 'application/json;charset=utf-8;');
+}
+
+function exportSpeciesToTXT() {
+    var data = getVisibleSpeciesData();
+    var txt = 'ANTWORLD.ORG - Species List (Palearctic Region)\n';
+    txt += 'Exported: ' + new Date().toLocaleString() + '\n';
+    txt += 'Total species: ' + data.length + '\n';
+    txt += '=' .repeat(60) + '\n\n';
+
+    var currentSubfamily = '';
+    data.forEach(function(row) {
+        if (row.subfamily !== currentSubfamily) {
+            currentSubfamily = row.subfamily;
+            txt += '\n--- ' + currentSubfamily.toUpperCase() + ' ---\n\n';
+        }
+        txt += row.species + ' [' + row.tribe + ']\n';
+    });
+
+    downloadFile(txt, 'antworld_species_list.txt', 'text/plain;charset=utf-8;');
+}
+
+function downloadFile(content, filename, mimeType) {
+    var blob = new Blob([content], { type: mimeType });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+</script>
+
 <?php include("php/footer.php"); ?>
-</div>
-    </body>
+</body>
 </html>
