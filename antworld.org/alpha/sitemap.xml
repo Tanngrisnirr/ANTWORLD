@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Generated: 2026-02-26 -->
+  <!-- Generated: 2026-03-09 -->
 
   <!-- Main Pages -->
   <url><loc>https://antworld.org/</loc><lastmod>2026-02-26</lastmod><priority>1.0</priority></url>
@@ -52,4 +52,85 @@
   <url><loc>https://antworld.org/id/species/polyergus_nigerrimus_ergate</loc><lastmod>2026-02-26</lastmod><priority>0.6</priority></url>
   <url><loc>https://antworld.org/id/species/polyergus_samurai_ergate</loc><lastmod>2026-02-26</lastmod><priority>0.6</priority></url>
   <url><loc>https://antworld.org/id/species/discothyrea_kamiteta_ergate</loc><lastmod>2026-02-26</lastmod><priority>0.6</priority></url>
+
+  <!-- Scientific Literature PDFs (80 documents) -->
+  <url><loc>https://antworld.org/zdocs/ANTWORLD%202024%20-%20Morphometrie%20guide%20v3.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/ANTWORLD%202024%20-%20Traduction%20morphologie%20corrigee.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Boer%202003%20-%20First%20description%20of%20the%20worker%20cast%20of%20worker%20of%20Lasius%20viehmeyeri%20Emery.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Boi%20et%20al%202013%20-%20Mating%20and%20post-mating%20behavior%20of%20Polyergus%20rufescens.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Borowiec%202013%20-%20Ants%20of%20Greece%20additions%20and%20corrections.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Borowiec%202014%20-%20Review%20of%20Mediterranean%20members%20of%20the%20Aphaenogaster%20cecconii%20group%20with%20description%20of%20four%20new%20species.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Brady%202014%20-%20The%20rise%20of%20army%20ants%20and%20their%20relatives%20diversification%20of%20specialized%20predatory%20doryline%20ants.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Brown%201958%20-%20Stings%20in%20Ectatommini.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Cagniant%201990a%20-%20Contribution%20a%20la%20connaissance%20des%20fourmis%20marocaines%20Aphaenogaster%20gemella.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Cagniant%201990b%20-%20Contribution%20a%20la%20connaissance%20des%20fourmis%20marocaines%20Aphaenogaster%20sicardi.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Cagniant%201994%20-%20Contribution%20a%20la%20connaissance%20des%20fourmis%20marocaines%20Aphaenogaster%20rifensis.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Cagniant%202006%20-%20Liste%20actualisee%20des%20fourmis%20du%20Maroc.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Casevitz-Weulersse%202009%20-%20Liste%20actualisee%20des%20Fourmis%20de%20France.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Csosz%20et%20al%202013%20-%20AntProfiler%20morphometrics%20software.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/D%27Ettorre%202001%20-%20Sociobiology%20of%20slave-making%20ants.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Donisthorpe%201920%20-%20Ants%20from%20Mesopotamia%20and%20North-West%20Persia.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Donisthorpe%201933a%20-%20A%20new%20species%20of%20Aphaenogaster%20from%20India%20A.%20beesoni.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Eguchi%202015%20-%20Redefinition%20of%20the%20genus%20Bannapone.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Eguchi%202016%20-%20First%20discovery%20of%20subdichthadiigyne%20in%20Yunodorylus.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Emery%201890%20-%20Pyramica%20revision.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Emery%201909%20-%20Beitraege%20zur%20Monographie%20der%20Formiciden%20des%20palaearktischen%20Faunengebietes%20VI.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Emery%201915f%20-%20Escursioni%20zoologiche%20del%20Dr.%20Enrico%20Festa%20nell%27Isola%20di%20Rodi.%20XII.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Emery%201924c%20-%20Formiche%20di%20Spagna%20raccolte%20dal%20Prof.%20Filippo%20Silvestri.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/GAGA%202017%20-%20Collection%20Protocols.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Guenard%202012%20-%20A%20checklist%20of%20the%20ants%20of%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Heller%202004%20-%20Formica%20sanguinea%20slave%20defense%20against%20Polyergus%20rufescens.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Jaitrong%202013%20-%20Aenictus%20wroughtonii%20and%20related%20species%20in%20the%20Oriental%20region.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Johnson%20et%20al%202001%20-%20Polyergus%20breviceps.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Katayama%202013%20-%20Predatory%20behaviours%20of%20Discothyrea%20kamiteta%20on%20spider%20eggs.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Lebas%202016%20-%20Cle%20Formicinae%20et%20Myrmicinae%20gynes%20et%20ergates%20v5.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Li%202005%20-%20A%20New%20Species%20of%20the%20Ant%20Genus%20Aenictus%20from%20Henan%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Loon%201990%20-%20A%20new%20polygynous%20Lasius%20species%20from%20central%20Europe.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Mayr%201861%20-%20Ameisenfauna%20Russlands.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Mayr%201861%20-%20Die%20europaeischen%20Formiciden.%20Nach%20der%20analytischen%20Methode%20bearbeitet.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Mei%201998%20-%20Lasius%20myrmidon%20sp.%20nov.%20a%20new%20hypogaeic%20ant%20from%20Greece.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Nishizono%201990%20-%20The%20genus%20Aphaenogaster%20in%20Kagoshima-ken%20southern%20Japan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Nylander%20W.%201849%20-%20Additamentum%20alterum%20adnotationum%20in%20monographiam%20formicarum%20borealium.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Onoyama%201999%20-%20A%20new%20and%20a%20newly%20recorded%20species%20of%20the%20ant%20genus%20Amblyopone%20from%20Japan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Pisarski%201967%20-%20Ameisen%20in%20Afghanistan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Radchenko%202007%20-%20The%20ants%20of%20the%20genus%20Myrmica%20from%20baltic%20and%20saxonian%20amber%20late%20Eocene.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Radchenko%202016%20-%20Ants%20of%20Russia.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Roger%201859%20-%20Beitraege%20zur%20Kenntniss%20der%20Ameisenfauna%20der%20Mittelmeerlander.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Roger%201862%20-%20Einige%20neue%20exotische%20Ameisen-Gattungen%20und%20Arten.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Ruzsky%201905%20-%20Ameisen%20des%20oestlichen%20Russlands%20und%20Uralgebirges.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Schulz%201994%20-%20Aphaenogaster%20graeca%20nova%20species%20aus%20dem%20Olymp-Gebirge.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Seifert%201992%20-%20A%20taxonomic%20revision%20of%20the%20paleartic%20member%20of%20the%20ant%20subgenus%20Lasius%20s.%20str..pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%201984%20-%20A%20new%20species%20of%20the%20army%20ant%20genus%20Aenictus%20from%20Taiwan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%201987%20-%20A%20new%20species%20of%20Amblyopone%20from%20Japan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%201989%20-%20The%20ant%20Tribe%20Amblyoponini%20of%20Taiwan%2C%20with%20a%20description%20of%20a%20new%20species.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%202002%20-%20East%20Asian%20species%20of%20the%20genus%20Acropyga.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%202009%20-%20A%20synopsis%20of%20the%20family%20Formicidae%20of%20Taiwan.%20Research%20Bulletin%20of%20Kanto%20Gakuen%20University.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%202012%20-%20Additions%20to%20knowledge%20of%20the%20ant_fauna%20of%20Taiwan%20genera%20Anillomyrma%20and%20Carebara.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%202013%20-%20Leptanillinae%20new%20ants%20from%20Japan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Terayama%202013%20-%20Two%20new%20species%20of%20the%20ant%20genus%20Aphaenogaster%20Mayr%20from%20Japan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Tinaut%201988%20-%20Ants%20of%20South%20Spain.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Tohme%201969%20-%20Description%20d%20especes%20nouvelles%20de%20fourmis%20au%20Liban.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wang%201989a%20-%20Taxonomic%20studies%20on%20the%20genus%20Camponotus%20Mayr%20in%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wang%201991%20-%20Taxonomic%20studies%20on%20the%20genus%20Polyrhachis%20Mayr%20of%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wang%201992a%20-%20A%20new%20species%20of%20the%20ant%20genus%20Acropyga%20of%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wang%201992c%20-%20Ants%20of%20the%20Jianfengling%20forest%20region%20in%20Hainan%20Province.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wang%201993%20-%20Taxonomic%20study%20of%20the%20ant%20tribe%20Odontomachini%20in%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wang%201994%20-%20Second%20revisionary%20studies%20on%20genus%20Camponotus%20Mayr%20of%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wasmann%201894%20-%20Kritisches%20Verzeichniss%20der%20myrmecophilen%20Arthropoden%20Part%2036-37.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wasmann%201894%20-%20Kritisches%20Verzeichniss%20der%20myrmecophilen%20Arthropoden%20Part%2038-39.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wasmann%201894%20-%20Kritisches%20Verzeichniss%20der%20myrmecophilen%20Arthropoden%20Part%2042-43.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wetterer%202012%20-%20Worldwide%20spread%20of%20Cerapachys%20biroi.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wilson%201964%20-%20The%20true%20army%20ants%20of%20the%20Indo-Australian%20area.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wolf%201915%20-%20Studien%20ueber%20palaearktische%20Formiciden%20I..pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wu%201990%20-%20A%20taxonomic%20study%20on%20the%20genus%20Tetraponera%20Smith%20in%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Wu%201994%20-%20A%20new%20genus%20of%20ants%20from%20Yunnan%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Xu%201996%20-%20A%20new%20species%20of%20the%20genus%20Gnamptogenys%20from%20southwester%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Xu%201998%20-%20Four%20new%20species%20of%20Amblyoponinae%20from%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Xu%201998%20-%20Two%20new%20species%20of%20the%20genera%20Mystrium%20and%20Cryptopone%20from%20Yunnan%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Xu%202000b%20-%20Two%20new%20genera%20of%20ant%20subfamilies%20Dorylinae%20and%20Ponerinae%20from%20Yunnan%20China.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Xu%202011%20-%20Description%20of%20Myopopone%20castanea%20from%20Himalaya%20Region.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Yano%201911%20-%20A%20new%20slave-making%20ant%20from%20Japan.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Yano%201912%20-%20Ergatoid%20queens%20of%20slave-making%20ant%20Polyergus%20samurai.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Zhou%201997a%20-%20Three%20new%20species%20of%20Formicidae%20from%20Guangxi.pdf</loc><priority>0.4</priority></url>
+  <url><loc>https://antworld.org/zdocs/Zhou%202001%20-%20A%20new%20species%20of%20the%20ant%20genus%20Liometopum%20Mayr%20from%20Guangxi%20China.pdf</loc><priority>0.4</priority></url>
 </urlset>

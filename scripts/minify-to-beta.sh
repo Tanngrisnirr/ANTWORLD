@@ -20,13 +20,17 @@ if [ ! -d "$ALPHA_DIR" ]; then
     exit 1
 fi
 
-# Clear beta directory (keep the directory itself)
-echo "Clearing beta directory..."
-rm -rf "$BETA_DIR"/*
+# Clear beta directory (keep zdocs to avoid re-uploading unchanged PDFs)
+echo "Clearing beta directory (preserving zdocs)..."
+find "$BETA_DIR" -mindepth 1 -maxdepth 1 ! -name 'zdocs' -exec rm -rf {} +
 
-# Copy all files from alpha to beta
+# Copy all files from alpha to beta (exclude zdocs, preserve timestamps)
 echo "Copying files from alpha to beta..."
-cp -r "$ALPHA_DIR"/* "$BETA_DIR"/
+rsync -a --exclude='zdocs' "$ALPHA_DIR/" "$BETA_DIR/"
+
+# Sync zdocs separately (only copy changed files based on checksum)
+echo "Syncing zdocs (only changed files)..."
+rsync -a --checksum "$ALPHA_DIR/zdocs/" "$BETA_DIR/zdocs/"
 
 # Remove HTML comments from HTML files
 echo "Removing HTML comments from .html files..."

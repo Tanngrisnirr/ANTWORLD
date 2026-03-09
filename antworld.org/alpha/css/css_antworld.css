@@ -165,11 +165,12 @@
 a {padding: 0; text-decoration: none; color: var(--text-primary); opacity:1.0;}
 a:active{background-color:none; text-decoration: none; color: var(--text-primary);}
 a:hover{color: var(--text-primary); font-weight: bold; text-shadow: 0px 0px 5px var(--text-primary); opacity:1;}
-h2{padding-top:10px; text-align:center; color: var(--accent-primary); font-size:1.8em;}
-h3{padding-top:8px; text-align:center; color: var(--accent-primary); font-size:1.4em;}
+/* Semantic heading styles */
+h1{padding-top:10px; text-align:center; color: var(--accent-primary); font-size:1.6em; position:relative;}
+h2{padding-top:10px; text-align:center; color: var(--accent-primary); font-size:1.4em; cursor:pointer;}
+h3{padding-top:8px; text-align:center; color: var(--accent-primary); font-size:1.2em; cursor:pointer;}
+h2:hover, h3:hover{color: var(--text-primary); font-weight: bold; text-shadow: 0px 0px 5px var(--text-primary); opacity:1;}
 .pone, .ptwo, .pthree{max-width:98%; margin-left:25%; position:relative; text-align:center; color: var(--text-primary); font-size:2vw; opacity:1;}
-.h2one, .h2two, .h2three, .h2four{position:relative; left:0; text-align:center; color: var(--accent-primary); font-size:1.6em; cursor:pointer; opacity:1;}
-.h2two:hover, .h2three:hover, .h2four:hover{color: var(--text-primary); font-weight: bold; text-shadow: 0px 0px 5px var(--text-primary); opacity:1;}
 .left{max-width:98%; position:relative; text-align:center; color: var(--text-primary); font-size:2vw;}
 p{color: var(--text-primary); text-align:left; word-wrap: break-word; font-size:20px;}
 p a{color: var(--accent-primary); font-weight: bold; opacity:0.9;}
