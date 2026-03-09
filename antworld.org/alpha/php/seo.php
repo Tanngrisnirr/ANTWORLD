@@ -151,9 +151,15 @@ function aw_get_seo_config() {
 }
 
 /**
- * Output canonical link tag
+ * Output canonical link tag (only once per page)
  */
 function aw_output_canonical() {
+    // Prevent duplicate canonical tags
+    if (defined('AW_CANONICAL_OUTPUT')) {
+        return;
+    }
+    define('AW_CANONICAL_OUTPUT', true);
+
     $url = aw_get_canonical_url();
     echo '<link rel="canonical" href="' . htmlspecialchars($url) . '">' . "\n";
 }
@@ -277,10 +283,19 @@ function aw_output_jsonld() {
 }
 
 /**
+ * Output standard meta description tag
+ */
+function aw_output_description() {
+    $config = aw_get_seo_config();
+    echo '<meta name="description" content="' . htmlspecialchars($config['description']) . '">' . "\n";
+}
+
+/**
  * Output all SEO tags
  */
 function aw_output_seo() {
     echo "<!-- SEO Tags -->\n";
+    aw_output_description();
     aw_output_canonical();
     aw_output_hreflang();
     echo "<!-- Open Graph -->\n";

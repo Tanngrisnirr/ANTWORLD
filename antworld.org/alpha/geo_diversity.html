@@ -198,12 +198,12 @@
 </head>
     <body>
 <article>
-<h2 class="h2one"><?= t('geo.title') ?></h2>
+<h1><?= t('geo.title') ?></h1>
 
 <div class="geo-layout">
 <div class="geo-main">
 <p4>
-<h3 class="h2one" id="chart-title"><?= t('geo.chart_title') ?></h3>
+<h3 id="chart-title"><?= t('geo.chart_title') ?></h3>
 <div id="main_chart" style="width:100%; height:500px;"></div>
 <div class="chart-export-buttons">
     <button class="chart-btn" onclick="exportChartLocal('png')">PNG</button>
@@ -684,7 +684,7 @@ function downloadFile(content, filename, mimeType) {
 
 <div style="clear:both;"></div>
 
-<h3 class="h2one">Sources & References</h3>
+<h3>Sources & References</h3>
 <div class="sources-list" style="font-size:16px; line-height:1.8; padding:15px; background:var(--bg-secondary); border-radius:8px; margin:20px 0;">
 <p><strong>Species counts:</strong></p>
 <ul style="margin-left:20px;">

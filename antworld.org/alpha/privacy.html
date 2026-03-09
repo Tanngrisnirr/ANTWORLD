@@ -1,35 +1,71 @@
 <!DOCTYPE html>
 <html class="js" lang="en">
-<head><title>AntWorld.org | Privacy</title>
+<head><title>AntWorld.org | Privacy Policy</title>
 <?php include("php/ihead.php"); ?>
+<meta name="description" content="Privacy policy for AntWorld.org. We respect your privacy and collect minimal data.">
 <style>
-.left2{text-align:left;}
+.privacy-section { max-width: 800px; margin: 0 auto; padding: 20px; text-align: left; }
+.privacy-section h2 { color: var(--accent-primary); margin-top: 30px; }
+.privacy-section h3 { color: var(--accent-primary); margin-top: 20px; }
+.privacy-section ul { list-style: none; padding-left: 0; }
+.privacy-section li { padding: 8px 0; padding-left: 25px; position: relative; }
+.privacy-section li::before { content: ""; position: absolute; left: 0; top: 12px; width: 12px; height: 12px; border-radius: 50%; }
+.privacy-section .do-not li::before { background: #87CEEB; }
+.privacy-section .do li::before { background: #4a9cb8; }
+.last-updated { font-size: 0.9em; color: var(--text-secondary); margin-top: 40px; }
 </style>
 </head>
-    <body>
+<body>
 <article>
-<br>
-<h2 class="h2one"><?= t('privacy.title') ?></h2>
-<br>
-<br>
-<p class="left2">
-<?= t('privacy.we_do_not') ?><br>
-- <?= t('privacy.not_ads') ?><br>
-- <?= t('privacy.not_share') ?><br>
-- <?= t('privacy.not_track') ?><br>
-- <?= t('privacy.not_cookies') ?><br>
-<br>
-<?= t('privacy.we_do') ?><br>
-- <?= t('privacy.do_ip') ?><br>
-- <?= t('privacy.do_clicks') ?><br>
-- <?= t('privacy.do_time') ?><br>
-- <?= t('privacy.do_origin') ?><br>
-- <?= t('privacy.do_cache') ?><br>
-<br>
-<?= t('privacy.contact_us') ?> <a href="mailto:info@antworld.org">Contact Us</a>
-</p>
+
+<h1><?= t('privacy.title') ?></h1>
+
+<div class="privacy-section">
+
+<p>AntWorld.org is committed to protecting your privacy. This policy explains what data we collect and how we use it.</p>
+
+<h2>What We Do NOT Do</h2>
+<ul class="do-not">
+<li><?= t('privacy.not_ads') ?></li>
+<li><?= t('privacy.not_share') ?></li>
+<li><?= t('privacy.not_track') ?></li>
+<li><?= t('privacy.not_cookies') ?></li>
+<li>Sell, rent, or monetize any user data</li>
+<li>Use third-party tracking or analytics services</li>
+<li>Require account creation or personal information</li>
+</ul>
+
+<h2>What We Do Collect</h2>
+<p>For basic site functionality and improvement, we collect:</p>
+<ul class="do">
+<li><strong>IP addresses</strong> - For security and aggregate statistics</li>
+<li><strong>Page visit counts</strong> - To understand which content is useful</li>
+<li><strong>Session duration</strong> - Approximate time spent per visit</li>
+<li><strong>Referrer data</strong> - Where visitors come from</li>
+<li><strong>Browser cache</strong> - <?= t('privacy.do_cache') ?></li>
+</ul>
+
+<h2>Local Storage</h2>
+<p>We use browser local storage only for:</p>
+<ul class="do">
+<li><strong>Theme preference</strong> - Light or dark mode setting</li>
+<li><strong>Language preference</strong> - Your chosen language</li>
+</ul>
+<p>This data stays on your device and is never sent to our servers.</p>
+
+<h2>Open Source</h2>
+<p>AntWorld.org is fully open source. You can review our code and verify our privacy practices:</p>
+<p><a href="https://github.com/Tanngrisnirr/ANTWORLD" target="_blank"><strong>View our source code on GitHub</strong></a></p>
+
+<h2>Contact</h2>
+<p><?= t('privacy.contact_us') ?></p>
+<p><a href="mailto:info@antworld.org">info@antworld.org</a></p>
+
+<p class="last-updated">Last updated: March 2025</p>
+
+</div>
+
 </article>
-<br><br>
 <?php include("php/footer.php"); ?>
-    </body>
+</body>
 </html>

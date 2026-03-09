@@ -1,3 +1,13 @@
+<!-- SEO: Canonical URL for ID pages -->
+<?php
+// Include SEO system if not already loaded (for ID pages that don't use ihead.php)
+if (!function_exists('aw_output_canonical')) {
+    include_once(__DIR__ . '/seo.php');
+}
+// Output canonical (function handles duplicate prevention internally)
+aw_output_canonical();
+?>
+
 <!-- jQuery 3.1.1 -->
 <?php
 $inSpecies = strpos($_SERVER['REQUEST_URI'], '/id/species/') !== false;
