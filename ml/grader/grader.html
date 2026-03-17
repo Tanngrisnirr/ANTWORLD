@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTWORLD - Image Quality Grader</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            background: #16213e;
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e94560;
+        }
+
+        h1 { font-size: 1.5rem; color: #e94560; }
+
+        .header-right { display: flex; align-items: center; gap: 1.5rem; }
+
+        .header-stats {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .header-stats .stat-item {
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .header-stats .stat-item.a { background: rgba(39, 174, 96, 0.4); }
+        .header-stats .stat-item.b { background: rgba(46, 204, 113, 0.4); }
+        .header-stats .stat-item.c { background: rgba(243, 156, 18, 0.4); }
+        .header-stats .stat-item.d { background: rgba(230, 126, 34, 0.4); }
+        .header-stats .stat-item.e { background: rgba(192, 57, 43, 0.4); }
+        .header-stats .stat-issues { color: #e94560; }
+
+        .progress-info { display: flex; gap: 0.75rem; align-items: center; }
+
+        .progress-bar {
+            width: 200px;
+            height: 20px;
+            background: #0f3460;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            transition: width 0.3s;
+        }
+
+        .progress-text { font-size: 0.9rem; color: #aaa; }
+
+        main {
+            flex: 1;
+            display: flex;
+            padding: 0.5rem;
+            gap: 0.75rem;
+            overflow: hidden;
+        }
+
+        .image-panel {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            background: #0f0f1a;
+            border-radius: 10px;
+            padding: 0.5rem;
+            overflow-y: auto;
+        }
+
+        /* Thumbnail carousel sidebar */
+        .thumbnail-carousel {
+            flex: 0 0 120px;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, #0f0f1a 0%, #16213e 100%);
+            border-radius: 10px;
+            padding: 0.5rem;
+            overflow: hidden;
+        }
+
+        .carousel-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-align: center;
+            padding: 0.3rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #2a2a4a;
+            margin-bottom: 0.5rem;
+        }
+
+        .carousel-track {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #e94560 #1a1a2e;
+            padding: 0.25rem 0;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .carousel-track::-webkit-scrollbar-track {
+            background: #1a1a2e;
+            border-radius: 2px;
+        }
+
+        .carousel-track::-webkit-scrollbar-thumb {
+            background: #e94560;
+            border-radius: 2px;
+        }
+
+        .thumb-item {
+            width: 95px;
+            height: 95px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.6;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .thumb-item:hover {
+            opacity: 0.9;
+            border-color: #3498db;
+            transform: scale(1.03);
+        }
+
+        .thumb-item.current {
+            opacity: 1;
+            border-color: #e94560;
+            box-shadow: 0 0 15px rgba(233, 69, 96, 0.6);
+            transform: scale(1.12);
+        }
+
+        /* Status dot indicator */
+        .thumb-item::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e74c3c;
+            border: 2px solid rgba(0,0,0,0.3);
+        }
+
+        /* Complete = image quality graded (green) */
+        .thumb-item.complete::after {
+            background: #27ae60;
+        }
+
+        /* Current = grey dot */
+        .thumb-item.current::after {
+            background: #888;
+        }
+
+        /* Incomplete = red dot (default) */
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-position {
+            font-size: 0.7rem;
+            color: #e94560;
+            text-align: center;
+            padding: 0.4rem 0 0.2rem;
+            border-top: 1px solid #2a2a4a;
+            margin-top: 0.5rem;
+        }
+
+        /* Navigation bar above image */
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0.5rem;
+            background: #16213e;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            gap: 0.5rem;
+        }
+
+        .nav-buttons { display: flex; gap: 0.4rem; }
+
+        .nav-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-center .keyboard-help {
+            font-size: 0.75rem;
+            color: #fff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border: 2px solid #0f3460;
+            background: transparent;
+            color: #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover { background: #0f3460; border-color: #e94560; }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .nav-btn.skip-btn { border-color: #f39c12; }
+        .nav-btn.skip-btn:hover { background: #f39c12; color: #000; }
+
+        .nav-btn.import-btn { border-color: #3498db; }
+        .nav-btn.import-btn:hover { background: #3498db; }
+
+        .nav-btn.export-btn { border-color: #e94560; background: #e94560; }
+        .nav-btn.export-btn:hover { background: #ff6b6b; }
+
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            min-height: 0;
+            max-height: calc(100vh - 280px);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .metadata {
+            margin-top: 4px;
+            padding-top: 4px;
+            text-align: center;
+            color: #888;
+            flex-shrink: 0;
+        }
+
+        .metadata .species {
+            font-size: 1.2rem;
+            color: #e94560;
+            font-style: italic;
+        }
+
+        .metadata .details { font-size: 0.9rem; margin-top: 0.5rem; }
+
+        .control-panel {
+            flex: 0 0 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .section {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .section h2 {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grade-buttons { display: flex; gap: 0.4rem; justify-content: space-between; }
+
+        .grade-btn {
+            width: 42px;
+            height: 42px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .grade-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(233, 69, 96, 0.3);
+        }
+
+        .grade-btn.selected { box-shadow: 0 0 0 3px #fff; }
+
+        .grade-legend {
+            font-size: 0.75rem;
+            color: #fff;
+            margin-top: 0.4rem;
+            line-height: 1.4;
+        }
+
+        .grade-a { background: #27ae60; color: white; }
+        .grade-b { background: #2ecc71; color: white; }
+        .grade-c { background: #f39c12; color: white; }
+        .grade-d { background: #e67e22; color: white; }
+        .grade-e { background: #c0392b; color: white; }
+
+        /* Caste buttons */
+        .caste-buttons { display: flex; gap: 0.3rem; }
+
+        .caste-btn {
+            flex: 1;
+            padding: 0.4rem 0.2rem;
+            font-size: 0.75rem;
+            border: 2px solid #0f3460;
+            background: transparent;
+            color: #aaa;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .caste-btn:hover { border-color: #3498db; color: #fff; }
+        .caste-btn.selected { background: #3498db; border-color: #3498db; color: #fff; }
+        .caste-btn.from-api { border-style: dashed; }
+        .caste-btn.selected.from-api { border-style: solid; }
+
+        .caste-btn .symbol {
+            font-size: 1.6rem;
+            font-weight: bold;
+            line-height: 1;
+            display: block;
+        }
+
+        .caste-btn .symbol svg {
+            width: 18px;
+            height: 24px;
+            vertical-align: middle;
+        }
+
+        .subcaste-buttons {
+            display: none;
+            margin-top: 0.3rem;
+        }
+        .subcaste-buttons.visible {
+            display: flex;
+        }
+        .caste-btn.subcaste {
+            font-size: 0.65rem;
+            padding: 0.25rem 0.15rem;
+            background: #1a1a2e;
+            border-color: #2a2a4e;
+        }
+        .caste-btn.subcaste:hover { border-color: #e67e22; }
+        .caste-btn.subcaste.selected { background: #e67e22; border-color: #e67e22; }
+
+        .caste-source {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+
+        /* Specimen condition section */
+        .specimen-section {
+            border: 1px solid #0f3460;
+        }
+
+        .specimen-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: #0f3460;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .specimen-toggle input { width: 18px; height: 18px; cursor: pointer; }
+        .specimen-toggle label { cursor: pointer; font-size: 0.9rem; }
+        .specimen-toggle.active { background: #e94560; }
+
+        .specimen-details {
+            display: none;
+            padding-top: 0.5rem;
+        }
+
+        .specimen-details.visible { display: block; }
+
+        .checkbox-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .checkbox-group-title {
+            font-size: 0.75rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .checkbox-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: #0f3460;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover { background: #1a4a7a; }
+        .checkbox-item input { width: 14px; height: 14px; cursor: pointer; }
+        .checkbox-item.checked { background: #e94560; }
+
+        /* Damage tabs */
+        .damage-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .damage-tab {
+            padding: 0.3rem 0.6rem;
+            background: #1a2a4a;
+            border: 1px solid #3a3a5a;
+            color: #888;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.15s;
+        }
+
+        .damage-tab:hover { background: #2a3a5a; color: #fff; }
+        .damage-tab.active { background: #e94560; color: #fff; border-color: #e94560; }
+        .damage-tab.has-data { border-color: #4ecdc4; color: #4ecdc4; }
+        .damage-tab.active.has-data { background: #e94560; color: #fff; border-color: #e94560; }
+
+        /* Damage areas grid */
+        .damage-areas {
+            display: none;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #0a0a1a;
+            border-radius: 4px;
+        }
+
+        .damage-areas.visible { display: flex; }
+
+        .damage-area-item {
+            display: flex;
+            flex-direction: column;
+            background: #0f3460;
+            padding: 0.4rem;
+            border-radius: 4px;
+            min-width: 80px;
+        }
+
+        .damage-area-item.checked { border: 1px solid #e94560; }
+
+        .damage-area-item label {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .damage-area-item input { width: 14px; height: 14px; cursor: pointer; }
+
+        .damage-area-item .severity-row {
+            display: none;
+            margin-top: 0.3rem;
+        }
+
+        .damage-area-item.checked .severity-row { display: flex; }
+
+        .severity-row {
+            display: flex;
+        }
+
+        .severity-btn {
+            flex: 1;
+            padding: 0.2rem;
+            font-size: 0.7rem;
+            border: none;
+            background: #1a2a4a;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .severity-btn:first-child { border-radius: 3px 0 0 3px; }
+        .severity-btn:last-child { border-radius: 0 3px 3px 0; }
+
+        .severity-btn:hover { background: #2a3a5a; }
+        .severity-btn.selected { background: #e94560; color: white; }
+        .severity-btn.s1.selected { background: #27ae60; }
+        .severity-btn.s2.selected { background: #2ecc71; }
+        .severity-btn.s3.selected { background: #f39c12; }
+        .severity-btn.s4.selected { background: #e67e22; }
+        .severity-btn.s5.selected { background: #c0392b; }
+
+        /* Severity score */
+        .severity-score {
+            margin-top: 0.5rem;
+            padding: 0.4rem 0.6rem;
+            background: #1a1a2e;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .severity-score span {
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .severity-score.high span { color: #e67e22; }
+        .severity-score.critical span { color: #c0392b; }
+
+        /* Actions */
+        .action-buttons { display: flex; gap: 0.5rem; }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.6rem;
+            font-size: 0.85rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn.skip { background: #0f3460; color: #eee; }
+        .action-btn.export { background: #e94560; color: white; }
+        .action-btn:hover { opacity: 0.9; }
+
+        .stats { margin-top: 0.75rem; font-size: 0.75rem; color: #666; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.3rem;
+            margin-top: 0.4rem;
+        }
+
+        .stat-item { text-align: center; padding: 0.2rem; border-radius: 4px; font-size: 0.7rem; }
+        .stat-item.a { background: rgba(39, 174, 96, 0.3); }
+        .stat-item.b { background: rgba(46, 204, 113, 0.3); }
+        .stat-item.c { background: rgba(243, 156, 18, 0.3); }
+        .stat-item.d { background: rgba(230, 126, 34, 0.3); }
+        .stat-item.e { background: rgba(192, 57, 43, 0.3); }
+
+        .keyboard-help {
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .load-section { text-align: center; padding: 2rem; }
+        .load-section p { margin-bottom: 1rem; color: #888; }
+        .load-btn { background: #3498db; color: white; padding: 1rem 2rem; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer; }
+
+        .error-msg { color: #e94560; margin-top: 1rem; }
+        .loading { color: #3498db; }
+
+        .issue-indicator {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ANTWORLD Image Quality Grader</h1>
+        <div class="header-right">
+            <div class="header-stats" id="headerStats">
+                <span class="stat-item a">A:<span id="countA">0</span></span>
+                <span class="stat-item b">B:<span id="countB">0</span></span>
+                <span class="stat-item c">C:<span id="countC">0</span></span>
+                <span class="stat-item d">D:<span id="countD">0</span></span>
+                <span class="stat-item e">E:<span id="countE">0</span></span>
+                <span class="stat-issues">Issues:<span id="issueCount">0</span></span>
+            </div>
+            <div class="progress-info">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text" id="progressText">0 / 0</span>
+            </div>
+        </div>
+    </header>
+
+    <main id="mainContent">
+        <div class="section load-section">
+            <h2>Load Images</h2>
+            <p>Click to load the image list and start grading</p>
+            <button class="load-btn" id="loadBtn">Load Images</button>
+            <p id="statusMsg" class="loading" style="margin-top: 1rem;"></p>
+        </div>
+    </main>
+
+    <script>
+        const IMAGE_LIST_URL = './image_list.json';
+        const IMAGE_BASE_PATH = '../data/raw/';
+        const CASTE_DATA_URL = '../data/metadata/caste_data.json';
+
+        let images = [];
+        let currentIndex = 0;
+        let grades = {}; // { filename: { image_quality: "A", specimen_issues: {...} | null } }
+        let casteData = {}; // { specimen_id: { caste: "ergate"|"female"|"male"|null, ... } }
+
+        // Damage state: { damageType: { area: severity } }
+        let currentDamageData = {};
+        let activeDamageTab = null;
+
+        // Normalize AntWeb caste/subcaste values to grader values
+        function normalizeAntwebCaste(rawCaste, rawSubcaste) {
+            if (!rawCaste) return null;
+            const lower = rawCaste.toLowerCase();
+            const subLower = (rawSubcaste || '').toLowerCase();
+
+            // Check subcaste first for worker types (handle compound like "major/soldier")
+            if (subLower.includes('major') || subLower.includes('soldier')) return 'soldier';
+            if (subLower === 'minor' || lower === 'minor') return 'minor';
+            if (subLower === 'media' || lower === 'media') return 'media';
+
+            // Main caste types
+            if (['worker', 'w', 'ergate'].includes(lower) && subLower === 'normal') return 'ergate';
+            if (['worker', 'w', 'ergate'].includes(lower)) return 'ergate';
+            if (['male', 'm', 'alate male'].includes(lower)) return 'male';
+            if (['queen', 'q', 'female', 'gyne'].includes(lower)) return 'female';
+            if (subLower.includes('dealate') || subLower.includes('alate')) return 'female';
+            return null;
+        }
+
+        const mainContent = document.getElementById('mainContent');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+
+        // Load saved grades
+        function loadSavedGrades() {
+            const saved = localStorage.getItem('antworld_grades_v2');
+            if (saved) {
+                try { grades = JSON.parse(saved); } catch (e) { grades = {}; }
+            }
+        }
+
+        // Save grades
+        function saveGrades() {
+            localStorage.setItem('antworld_grades_v2', JSON.stringify(grades));
+        }
+
+        // Load button
+        document.getElementById('loadBtn').addEventListener('click', async () => {
+            const statusMsg = document.getElementById('statusMsg');
+            statusMsg.textContent = 'Loading...';
+
+            try {
+                // Load images and caste data in parallel (cache-bust with timestamp)
+                const cacheBust = '?t=' + Date.now();
+                const [imageResponse, casteResponse] = await Promise.all([
+                    fetch(IMAGE_LIST_URL + cacheBust),
+                    fetch(CASTE_DATA_URL + cacheBust).catch(() => null) // Don't fail if caste data missing
+                ]);
+
+                if (!imageResponse.ok) throw new Error('Failed to load image list');
+
+                const data = await imageResponse.json();
+                images = data.images || [];
+
+                // Load caste data if available
+                if (casteResponse && casteResponse.ok) {
+                    const casteJson = await casteResponse.json();
+                    casteData = casteJson.specimens || {};
+                    console.log(`Loaded caste data for ${Object.keys(casteData).length} specimens`);
+                }
+
+                if (images.length === 0) {
+                    statusMsg.textContent = 'No images found!';
+                    statusMsg.className = 'error-msg';
+                    return;
+                }
+
+                loadSavedGrades();
+                initGrader();
+            } catch (err) {
+                statusMsg.textContent = 'Error: ' + err.message;
+                statusMsg.className = 'error-msg';
+            }
+        });
+
+        // Init grader UI
+        function initGrader() {
+            mainContent.innerHTML = `
+                <div class="thumbnail-carousel">
+                    <div class="carousel-label">Queue</div>
+                    <div class="carousel-track" id="carouselTrack"></div>
+                    <div class="carousel-position" id="carouselPosition">1 / ${images.length}</div>
+                </div>
+
+                <div class="image-panel">
+                    <div class="nav-bar">
+                        <div class="nav-buttons">
+                            <button class="nav-btn" id="prevBtn">&#8592; Prev</button>
+                            <button class="nav-btn skip-btn" id="skipBtn">Skip</button>
+                            <button class="nav-btn" id="ungradedBtn">Ungraded</button>
+                            <button class="nav-btn" id="lastGradedBtn">Last Graded</button>
+                            <button class="nav-btn" id="nextBtn">Next &#8594;</button>
+                        </div>
+                        <div class="nav-right">
+                            <button class="nav-btn import-btn" id="importBtn">Import</button>
+                            <button class="nav-btn export-btn" id="exportBtn">Export</button>
+                            <input type="file" id="importFile" accept=".json" style="display:none">
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <img id="currentImage" src="" alt="Ant image">
+                    </div>
+                    <div class="metadata">
+                        <div class="species" id="speciesName"></div>
+                        <div class="details" id="imageDetails"></div>
+                    </div>
+                </div>
+
+                <div class="control-panel">
+                    <div class="section">
+                        <h2>Image Quality (1-5)</h2>
+                        <div class="grade-buttons">
+                            <button class="grade-btn grade-a" data-grade="A">A</button>
+                            <button class="grade-btn grade-b" data-grade="B">B</button>
+                            <button class="grade-btn grade-c" data-grade="C">C</button>
+                            <button class="grade-btn grade-d" data-grade="D">D</button>
+                            <button class="grade-btn grade-e" data-grade="E">E</button>
+                        </div>
+                        <div class="grade-legend">A:Museum | B:Good | C:OK | D:Poor | E:Unusable</div>
+                    </div>
+
+                    <div class="section">
+                        <h2>Caste</h2>
+                        <div class="caste-buttons" id="casteButtons">
+                            <button class="caste-btn" data-caste="unknown"><span class="symbol">?</span>Unknown</button>
+                            <button class="caste-btn" data-caste="ergate"><span class="symbol">☿</span>Ergate</button>
+                            <button class="caste-btn" data-caste="female"><span class="symbol">♀</span>Female</button>
+                            <button class="caste-btn" data-caste="male"><span class="symbol">♂</span>Male</button>
+                            <button class="caste-btn" data-caste="ergatoid"><span class="symbol"><svg viewBox="0 0 24 32"><circle cx="10" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M 16 5 Q 20 9 16 13" fill="none" stroke="currentColor" stroke-width="2"/><line x1="10" y1="15" x2="10" y2="26" stroke="currentColor" stroke-width="2"/><line x1="5" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="2"/></svg></span>Ergatoid</button>
+                        </div>
+                        <div class="caste-buttons subcaste-buttons" id="subcasteErgate" data-for="ergate">
+                            <button class="caste-btn subcaste" data-subcaste="major">Major</button>
+                            <button class="caste-btn subcaste" data-subcaste="minor">Minor</button>
+                            <button class="caste-btn subcaste" data-subcaste="media">Media</button>
+                            <button class="caste-btn subcaste" data-subcaste="soldier">Soldier</button>
+                        </div>
+                        <div class="caste-buttons subcaste-buttons" id="subcasteFemale" data-for="female">
+                            <button class="caste-btn subcaste" data-subcaste="winged">Winged</button>
+                            <button class="caste-btn subcaste" data-subcaste="unwinged">Unwinged</button>
+                        </div>
+                        <div class="caste-buttons subcaste-buttons" id="subcasteMale" data-for="male">
+                            <button class="caste-btn subcaste" data-subcaste="winged">Winged</button>
+                            <button class="caste-btn subcaste" data-subcaste="unwinged">Unwinged</button>
+                        </div>
+                        <div class="caste-source" id="casteSource"></div>
+                    </div>
+
+                    <div class="section specimen-section">
+                        <h2>Specimen Condition</h2>
+                        <div class="specimen-toggle" id="specimenToggle">
+                            <input type="checkbox" id="hasIssues">
+                            <label for="hasIssues">Specimen has issues (D)</label>
+                        </div>
+                        <div class="specimen-details" id="specimenDetails">
+                            <div class="checkbox-group">
+                                <div class="checkbox-group-title">Missing parts</div>
+                                <div class="checkbox-row" id="missingGroup">
+                                    <label class="checkbox-item"><input type="checkbox" value="antenna">Antenna</label>
+                                    <label class="checkbox-item"><input type="checkbox" value="antennae">Antennae</label>
+                                    <label class="checkbox-item"><input type="checkbox" value="leg">Leg(s)</label>
+                                    <label class="checkbox-item"><input type="checkbox" value="gaster">Gaster</label>
+                                    <label class="checkbox-item"><input type="checkbox" value="head">Head</label>
+                                    <label class="checkbox-item"><input type="checkbox" value="other">Other</label>
+                                </div>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox-group-title">Damage by area (select damage type, then affected areas + severity)</div>
+
+                                <!-- Damage type tabs -->
+                                <div class="damage-tabs">
+                                    <button class="damage-tab" data-damage="cut">Cut</button>
+                                    <button class="damage-tab" data-damage="crushed">Crushed</button>
+                                    <button class="damage-tab" data-damage="discolored">Discolored</button>
+                                    <button class="damage-tab" data-damage="dust">Dust</button>
+                                    <button class="damage-tab" data-damage="incomplete">Incomplete</button>
+                                    <button class="damage-tab" data-damage="folded">Folded</button>
+                                </div>
+
+                                <!-- Area grid (shown when a damage tab is active) -->
+                                <div class="damage-areas" id="damageAreas">
+                                    <div class="damage-area-item" data-area="head">
+                                        <label><input type="checkbox">Head</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="damage-area-item" data-area="antenna">
+                                        <label><input type="checkbox">Antenna</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="damage-area-item" data-area="mesosoma">
+                                        <label><input type="checkbox">Mesosoma</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="damage-area-item" data-area="petiole">
+                                        <label><input type="checkbox">Petiole</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="damage-area-item" data-area="gaster">
+                                        <label><input type="checkbox">Gaster</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="damage-area-item" data-area="legs">
+                                        <label><input type="checkbox">Legs</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="damage-area-item" data-area="wings">
+                                        <label><input type="checkbox">Wings</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Severity score display -->
+                                <div class="severity-score" id="severityScore">
+                                    Total severity: <span id="severityValue">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            `;
+
+            // Event listeners
+            document.querySelectorAll('.grade-btn').forEach(btn => {
+                btn.addEventListener('click', () => setGrade(btn.dataset.grade));
+            });
+
+            document.getElementById('prevBtn').addEventListener('click', () => navigate(-1));
+            document.getElementById('nextBtn').addEventListener('click', () => navigate(1));
+            document.getElementById('ungradedBtn').addEventListener('click', jumpToUngraded);
+            document.getElementById('lastGradedBtn').addEventListener('click', jumpToLastGraded);
+            document.getElementById('skipBtn').addEventListener('click', skipImage);
+            document.getElementById('exportBtn').addEventListener('click', exportGrades);
+
+            // Import functionality
+            document.getElementById('importBtn').addEventListener('click', () => {
+                document.getElementById('importFile').click();
+            });
+
+            document.getElementById('importFile').addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        if (data.grades) {
+                            grades = data.grades;
+                            saveGrades();
+                            updateDisplay();
+                            const count = Object.keys(grades).length;
+                            alert(`Imported ${count} grades successfully!`);
+                            // Jump to first ungraded image
+                            jumpToUngraded();
+                        } else {
+                            alert('Invalid file format: no grades found');
+                        }
+                    } catch (err) {
+                        alert('Error importing file: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+                // Reset input so same file can be re-imported
+                e.target.value = '';
+            });
+
+            // Caste buttons (main caste)
+            document.querySelectorAll('.caste-btn:not(.subcaste)').forEach(btn => {
+                btn.addEventListener('click', () => setCaste(btn.dataset.caste));
+            });
+
+            // Subcaste buttons
+            document.querySelectorAll('.caste-btn.subcaste').forEach(btn => {
+                btn.addEventListener('click', () => setSubcaste(btn.dataset.subcaste));
+            });
+
+            // Specimen issues toggle
+            document.getElementById('hasIssues').addEventListener('change', (e) => {
+                document.getElementById('specimenDetails').classList.toggle('visible', e.target.checked);
+                document.getElementById('specimenToggle').classList.toggle('active', e.target.checked);
+                saveCurrentSpecimenState();
+            });
+
+            // Checkbox styling (missing parts, damage type)
+            document.querySelectorAll('.checkbox-item input').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    e.target.closest('.checkbox-item').classList.toggle('checked', e.target.checked);
+                    saveCurrentSpecimenState();
+                });
+            });
+
+            // Damage tabs
+            document.querySelectorAll('.damage-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    selectDamageTab(tab.dataset.damage);
+                });
+            });
+
+            // Damage area items - checkboxes
+            document.querySelectorAll('.damage-area-item input').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    const areaItem = e.target.closest('.damage-area-item');
+                    areaItem.classList.toggle('checked', e.target.checked);
+                    if (!e.target.checked) {
+                        // Clear severity selection when unchecked
+                        areaItem.querySelectorAll('.severity-btn').forEach(btn => btn.classList.remove('selected'));
+                    }
+                    saveCurrentSpecimenState();
+                });
+            });
+
+            // Severity buttons (for damage areas)
+            document.querySelectorAll('.damage-area-item .severity-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const row = btn.closest('.severity-row');
+                    row.querySelectorAll('.severity-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    saveCurrentSpecimenState();
+                });
+            });
+
+            document.addEventListener('keydown', handleKeyboard);
+            renderCarousel();
+            updateDisplay();
+        }
+
+        // Save specimen state for current image
+        function saveCurrentSpecimenState() {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+            const hasIssues = document.getElementById('hasIssues').checked;
+
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, specimen_issues: null };
+            }
+
+            if (hasIssues) {
+                grades[img.filename].specimen_issues = {
+                    has_issues: true,
+                    missing: getCheckedValues('missingGroup'),
+                    affected_areas: getAffectedAreas(),
+                    severity_score: calculateSeverityScore()
+                };
+            } else {
+                grades[img.filename].specimen_issues = null;
+            }
+            saveGrades();
+            updateStats();
+        }
+
+        function getCheckedValues(groupId) {
+            return Array.from(document.querySelectorAll(`#${groupId} input:checked`)).map(cb => cb.value);
+        }
+
+        // Damage tab functions
+        function selectDamageTab(damageType) {
+            // Save current tab's state first
+            if (activeDamageTab) {
+                saveDamageTabState(activeDamageTab);
+            }
+
+            // Activate new tab
+            activeDamageTab = damageType;
+            document.querySelectorAll('.damage-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.damage-tab[data-damage="${damageType}"]`)?.classList.add('active');
+
+            // Show areas panel
+            document.getElementById('damageAreas')?.classList.add('visible');
+
+            // Load this damage type's data
+            loadDamageTabState(damageType);
+        }
+
+        function saveDamageTabState(damageType) {
+            const areas = {};
+            document.querySelectorAll('.damage-area-item').forEach(item => {
+                const cb = item.querySelector('input[type="checkbox"]');
+                if (cb.checked) {
+                    const area = item.dataset.area;
+                    const sevBtn = item.querySelector('.severity-btn.selected');
+                    areas[area] = sevBtn ? parseInt(sevBtn.dataset.sev) : 1;
+                }
+            });
+            if (Object.keys(areas).length > 0) {
+                currentDamageData[damageType] = areas;
+            } else {
+                delete currentDamageData[damageType];
+            }
+            updateTabIndicators();
+        }
+
+        function loadDamageTabState(damageType) {
+            const data = currentDamageData[damageType] || {};
+            document.querySelectorAll('.damage-area-item').forEach(item => {
+                const area = item.dataset.area;
+                const cb = item.querySelector('input[type="checkbox"]');
+                const severity = data[area];
+
+                cb.checked = !!severity;
+                item.classList.toggle('checked', !!severity);
+                item.querySelectorAll('.severity-btn').forEach(b => b.classList.remove('selected'));
+                if (severity) {
+                    item.querySelector(`.severity-btn.s${severity}`)?.classList.add('selected');
+                }
+            });
+        }
+
+        function updateTabIndicators() {
+            document.querySelectorAll('.damage-tab').forEach(tab => {
+                const hasData = currentDamageData[tab.dataset.damage];
+                tab.classList.toggle('has-data', !!hasData);
+            });
+            updateSeverityScore();
+        }
+
+        function calculateSeverityScore() {
+            // Calculate total severity from currentDamageData
+            let total = 0;
+            Object.values(currentDamageData).forEach(areas => {
+                Object.values(areas).forEach(severity => {
+                    total += severity;
+                });
+            });
+            return total;
+        }
+
+        function updateSeverityScore() {
+            const total = calculateSeverityScore();
+            const scoreEl = document.getElementById('severityScore');
+            const valueEl = document.getElementById('severityValue');
+            if (scoreEl && valueEl) {
+                valueEl.textContent = total;
+                scoreEl.classList.remove('high', 'critical');
+                if (total >= 15) {
+                    scoreEl.classList.add('critical');
+                } else if (total >= 8) {
+                    scoreEl.classList.add('high');
+                }
+            }
+        }
+
+        function resetDamageUI() {
+            currentDamageData = {};
+            activeDamageTab = null;
+            document.querySelectorAll('.damage-tab').forEach(t => {
+                t.classList.remove('active', 'has-data');
+            });
+            document.getElementById('damageAreas')?.classList.remove('visible');
+            document.querySelectorAll('.damage-area-item').forEach(item => {
+                item.classList.remove('checked');
+                item.querySelector('input[type="checkbox"]').checked = false;
+                item.querySelectorAll('.severity-btn').forEach(b => b.classList.remove('selected'));
+            });
+            updateSeverityScore();
+        }
+
+        function getAffectedAreas() {
+            // Save current tab state first
+            if (activeDamageTab) {
+                saveDamageTabState(activeDamageTab);
+            }
+            return Object.keys(currentDamageData).length > 0 ? currentDamageData : null;
+        }
+
+        // Update display
+        function updateDisplay() {
+            if (images.length === 0) return;
+
+            const img = images[currentIndex];
+            const imgPath = IMAGE_BASE_PATH + img.path;
+
+            document.getElementById('currentImage').src = imgPath;
+            document.getElementById('speciesName').textContent = img.species;
+
+            const gradeData = grades[img.filename];
+            const hasIssue = gradeData?.specimen_issues?.has_issues;
+            document.getElementById('imageDetails').innerHTML =
+                `${img.subfamily} | ${img.view} view | ${img.specimen_id}` +
+                (hasIssue ? '<span class="issue-indicator">ISSUES</span>' : '');
+
+            // Update progress
+            updateStats();
+
+            // Highlight current grade
+            document.querySelectorAll('.grade-btn').forEach(btn => btn.classList.remove('selected'));
+            if (gradeData?.image_quality) {
+                const gradeBtn = document.querySelector(`.grade-${gradeData.image_quality.toLowerCase()}`);
+                if (gradeBtn) gradeBtn.classList.add('selected');
+            }
+
+            // Highlight current caste - check for AntWeb data if no manual selection
+            document.querySelectorAll('.caste-btn:not(.subcaste)').forEach(btn => {
+                btn.classList.remove('selected', 'from-api');
+            });
+            document.querySelectorAll('.caste-btn.subcaste').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.querySelectorAll('.subcaste-buttons').forEach(el => el.classList.remove('visible'));
+
+            let currentCaste = gradeData?.caste;
+            let casteSource = gradeData?.caste_source;
+
+            // If no caste set, try to get from AntWeb data (display only, don't save)
+            if (!currentCaste && img.specimen_id && casteData[img.specimen_id]) {
+                const specimenData = casteData[img.specimen_id];
+                const antwebCaste = normalizeAntwebCaste(specimenData.caste, specimenData.subcaste);
+                if (antwebCaste) {
+                    currentCaste = antwebCaste;
+                    casteSource = 'antweb'; // Mark as suggested, not verified
+                }
+            }
+
+            currentCaste = currentCaste || 'unknown';
+            const casteBtn = document.querySelector(`.caste-btn[data-caste="${currentCaste}"]`);
+            if (casteBtn) {
+                casteBtn.classList.add('selected');
+                if (casteSource === 'antweb') {
+                    casteBtn.classList.add('from-api');
+                }
+            }
+            const sourceEl = document.getElementById('casteSource');
+            sourceEl.textContent = casteSource === 'antweb' ? 'Source: AntWeb' : '';
+
+            // Show subcaste group for current caste and highlight selection
+            showSubcasteFor(currentCaste);
+            document.querySelectorAll('.caste-btn.subcaste').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.subcaste === gradeData?.subcaste);
+            });
+
+            // Update specimen checkboxes
+            const hasIssues = gradeData?.specimen_issues?.has_issues || false;
+            document.getElementById('hasIssues').checked = hasIssues;
+            document.getElementById('specimenDetails').classList.toggle('visible', hasIssues);
+            document.getElementById('specimenToggle').classList.toggle('active', hasIssues);
+
+            // Reset all checkboxes
+            document.querySelectorAll('.checkbox-item input').forEach(cb => {
+                cb.checked = false;
+                cb.closest('.checkbox-item').classList.remove('checked');
+            });
+
+            // Reset damage UI
+            resetDamageUI();
+
+            if (gradeData?.specimen_issues) {
+                const si = gradeData.specimen_issues;
+
+                // Missing parts
+                (si.missing || []).forEach(val => {
+                    const cb = document.querySelector(`#missingGroup input[value="${val}"]`);
+                    if (cb) {
+                        cb.checked = true;
+                        cb.closest('.checkbox-item').classList.add('checked');
+                    }
+                });
+
+                // Load affected areas - handle multiple formats
+                const areas = si.affected_areas || si.affected_area || {};
+                currentDamageData = {};
+
+                if (Array.isArray(areas)) {
+                    // Legacy array format: ["head", "gaster"] - no damage info
+                    // Skip - can't convert without damage type
+                } else if (typeof areas === 'object') {
+                    const firstKey = Object.keys(areas)[0];
+                    const firstValue = areas[firstKey];
+
+                    if (firstValue && typeof firstValue === 'object' && firstValue.damage !== undefined) {
+                        // Old single-damage format: { area: { damage, severity } }
+                        // Convert to new format: { damageType: { area: severity } }
+                        Object.entries(areas).forEach(([area, data]) => {
+                            if (data.damage) {
+                                if (!currentDamageData[data.damage]) currentDamageData[data.damage] = {};
+                                currentDamageData[data.damage][area] = data.severity || 1;
+                            }
+                        });
+                    } else if (firstValue && typeof firstValue === 'object' && !firstValue.damage) {
+                        // New multi-damage format: { damageType: { area: severity } }
+                        currentDamageData = { ...areas };
+                    } else if (typeof firstValue === 'number') {
+                        // Very old format: { area: severity } - no damage info
+                        // Skip - can't convert without damage type
+                    }
+                }
+
+                updateTabIndicators();
+            }
+
+            // Nav buttons
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === images.length - 1;
+
+            // Update carousel
+            updateCarouselHighlight();
+        }
+
+        function updateStats() {
+            const graded = Object.values(grades).filter(g => g?.image_quality && g.image_quality !== 'skip').length;
+            const percent = images.length > 0 ? (graded / images.length) * 100 : 0;
+            progressFill.style.width = percent + '%';
+            progressText.textContent = `${graded} / ${images.length}`;
+
+            const counts = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+            let issueCount = 0;
+            Object.values(grades).forEach(g => {
+                if (g?.image_quality && counts[g.image_quality] !== undefined) counts[g.image_quality]++;
+                if (g?.specimen_issues?.has_issues) issueCount++;
+            });
+
+            document.getElementById('countA').textContent = counts.A;
+            document.getElementById('countB').textContent = counts.B;
+            document.getElementById('countC').textContent = counts.C;
+            document.getElementById('countD').textContent = counts.D;
+            document.getElementById('countE').textContent = counts.E;
+            document.getElementById('issueCount').textContent = issueCount;
+        }
+
+        // Set grade
+        function setGrade(grade) {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, caste: null, specimen_issues: null };
+            }
+            grades[img.filename].image_quality = grade;
+            // Keep existing caste - don't override
+            saveGrades();
+
+            // Only update grade buttons and stats, not the whole display
+            document.querySelectorAll('.grade-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelector(`.grade-${grade.toLowerCase()}`)?.classList.add('selected');
+            updateStats();
+            updateCarouselHighlight();
+        }
+
+        // Set caste
+        function setCaste(caste) {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, caste: null, subcaste: null, specimen_issues: null };
+            }
+            grades[img.filename].caste = caste;
+            grades[img.filename].subcaste = null; // Reset subcaste when caste changes
+            grades[img.filename].caste_source = 'manual';
+            saveGrades();
+            updateDisplay();
+            showSubcasteFor(caste);
+        }
+
+        function setSubcaste(subcaste) {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, caste: null, subcaste: null, specimen_issues: null };
+            }
+            // Toggle subcaste - click again to deselect
+            if (grades[img.filename].subcaste === subcaste) {
+                grades[img.filename].subcaste = null;
+            } else {
+                grades[img.filename].subcaste = subcaste;
+            }
+            saveGrades();
+            updateSubcasteDisplay();
+        }
+
+        function showSubcasteFor(caste) {
+            // Hide all subcaste groups
+            document.querySelectorAll('.subcaste-buttons').forEach(el => el.classList.remove('visible'));
+            // Show the one matching the caste
+            const subcasteEl = document.querySelector(`.subcaste-buttons[data-for="${caste}"]`);
+            if (subcasteEl) subcasteEl.classList.add('visible');
+        }
+
+        function updateSubcasteDisplay() {
+            const img = images[currentIndex];
+            const gradeData = grades[img?.filename];
+            const subcaste = gradeData?.subcaste;
+
+            document.querySelectorAll('.caste-btn.subcaste').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.subcaste === subcaste);
+            });
+        }
+
+        // Navigate
+        function navigate(direction) {
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < images.length) {
+                currentIndex = newIndex;
+                updateDisplay();
+            }
+        }
+
+        // Render thumbnail carousel
+        function renderCarousel() {
+            const track = document.getElementById('carouselTrack');
+            if (!track) return;
+
+            track.innerHTML = images.map((img, i) => {
+                const gradeData = grades[img.filename];
+                const isGraded = gradeData?.image_quality && gradeData.image_quality !== 'skip';
+                const isCurrent = i === currentIndex;
+
+                const classes = ['thumb-item'];
+                if (isCurrent) classes.push('current');
+                else if (isGraded) classes.push('complete');
+
+                return `<div class="${classes.join(' ')}" data-index="${i}" title="${img.species} (${img.view})">
+                    <img src="${IMAGE_BASE_PATH}${img.path}" loading="lazy" alt="">
+                </div>`;
+            }).join('');
+
+            // Add click handlers
+            track.querySelectorAll('.thumb-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    currentIndex = parseInt(el.dataset.index);
+                    updateDisplay();
+                });
+            });
+
+            scrollToCurrentThumb();
+        }
+
+        // Scroll to center current thumbnail
+        function scrollToCurrentThumb() {
+            const track = document.getElementById('carouselTrack');
+            const current = track?.querySelector('.thumb-item.current');
+            if (current) {
+                current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Update carousel highlight without re-rendering
+        function updateCarouselHighlight() {
+            const track = document.getElementById('carouselTrack');
+            if (!track) return;
+
+            track.querySelectorAll('.thumb-item').forEach((el, i) => {
+                const gradeData = grades[images[i].filename];
+                const isGraded = !!(gradeData?.image_quality && gradeData.image_quality !== 'skip');
+                const isCurrent = i === currentIndex;
+
+                el.classList.toggle('current', isCurrent);
+                el.classList.toggle('complete', isGraded && !isCurrent);
+            });
+
+            // Update position indicator
+            const posEl = document.getElementById('carouselPosition');
+            if (posEl) posEl.textContent = `${currentIndex + 1} / ${images.length}`;
+
+            scrollToCurrentThumb();
+        }
+
+        // Jump to ungraded
+        function jumpToUngraded() {
+            for (let i = 0; i < images.length; i++) {
+                if (!grades[images[i].filename]?.image_quality) {
+                    currentIndex = i;
+                    updateDisplay();
+                    return;
+                }
+            }
+            alert('All images graded!');
+        }
+
+        // Jump to last graded image
+        function jumpToLastGraded() {
+            for (let i = images.length - 1; i >= 0; i--) {
+                if (grades[images[i].filename]?.image_quality) {
+                    currentIndex = i;
+                    updateDisplay();
+                    return;
+                }
+            }
+            alert('No graded images yet!');
+        }
+
+        // Skip
+        function skipImage() {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, specimen_issues: null };
+            }
+            grades[img.filename].image_quality = 'skip';
+            saveGrades();
+            navigate(1);
+        }
+
+        // Export
+        function exportGrades() {
+            const now = new Date();
+            const dateStr = now.getFullYear().toString() +
+                (now.getMonth() + 1).toString().padStart(2, '0') +
+                now.getDate().toString().padStart(2, '0') + '_' +
+                now.getHours().toString().padStart(2, '0') +
+                now.getMinutes().toString().padStart(2, '0') +
+                now.getSeconds().toString().padStart(2, '0');
+
+            const exportData = {
+                version: '2.1',
+                graded_at: now.toISOString().split('T')[0],
+                total: images.length,
+                graded: Object.values(grades).filter(g => g?.image_quality && g.image_quality !== 'skip').length,
+                with_issues: Object.values(grades).filter(g => g?.specimen_issues?.has_issues).length,
+                grades: grades
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `GradedFiles_${dateStr}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Keyboard
+        function handleKeyboard(e) {
+            if (e.target.tagName === 'INPUT') return;
+
+            switch (e.key) {
+                case '1': setGrade('A'); break;
+                case '2': setGrade('B'); break;
+                case '3': setGrade('C'); break;
+                case '4': setGrade('D'); break;
+                case '5': setGrade('E'); break;
+                case 'ArrowLeft': navigate(-1); break;
+                case 'ArrowRight': navigate(1); break;
+                case 's': case 'S': skipImage(); break;
+                case 'u': case 'U': jumpToUngraded(); break;
+                case 'w': case 'W': setCaste('ergate'); break;
+                case 'f': case 'F': setCaste('female'); break;
+                case 'm': case 'M': setCaste('male'); break;
+                case 'e': case 'E': setCaste('ergatoid'); break;
+                case '?': setCaste('unknown'); break;
+                case 'd': case 'D':
+                    const cb = document.getElementById('hasIssues');
+                    cb.checked = !cb.checked;
+                    cb.dispatchEvent(new Event('change'));
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,14 +1,11 @@
-# Local-only files (not pushed to GitHub)
+# Local-only directories (not pushed to GitHub)
+local/
+planning/
 CLAUDE.md
-backups/
-orga/
-sources/
 
-# Large files - ML training data
-TrainingSets/
-
-# Archives (old versions - large)
-archives/
+# ML data (large training images)
+ml/data/
+ml/venv/
 
 # Academic PDFs (large, external content)
 **/docs/*.pdf
@@ -21,24 +18,15 @@ antworld.org/*/docs/*.pdf
 # Screenshots (temporary, root level)
 /*.png
 
-# Security logs (sensitive)
-securitylogs/
-
-# Cookie files (sensitive)
-scripts/.antweb_cookies.*
-
 # Backup folders
 **/backup_svg/
 
 # Large image files (TIF)
 *.tif
 
-# Dashboard (requires local scripts)
-dashboard.html
+# Dashboard config files
 antworld.org/*/php/dashboard_*.json
 antworld.org/*/php/dashboard_*.php
-scripts/antworld_dashboard_sync.py
-scripts/DASHBOARD_SYNC_INFO.txt
 
 # OS files
 .DS_Store
@@ -67,5 +55,6 @@ venv/
 # Backup files
 *.bak
 *~
+
+# Testing
 beta/
-scripts/
