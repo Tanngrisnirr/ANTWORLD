@@ -26,7 +26,12 @@
             border-bottom: 2px solid #e94560;
         }
 
-        h1 { font-size: 1.5rem; color: #e94560; }
+        h1 { font-size: 1.3rem; color: #e94560; }
+
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+
+        .header-nav { display: flex; gap: 0.3rem; }
+        .header-nav .nav-btn { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
 
         .header-right { display: flex; align-items: center; gap: 1.5rem; }
 
@@ -183,6 +188,11 @@
             background: #888;
         }
 
+        /* Skipped = orange dot */
+        .thumb-item.skipped::after {
+            background: #f39c12;
+        }
+
         /* Incomplete = red dot (default) */
 
         .thumb-item img {
@@ -200,8 +210,8 @@
             margin-top: 0.5rem;
         }
 
-        /* Navigation bar above image */
-        .nav-bar {
+        /* Annotation toolbar above image */
+        .annotation-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -210,25 +220,16 @@
             border-radius: 6px;
             margin-bottom: 6px;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
-        .nav-buttons { display: flex; gap: 0.4rem; }
-
-        .nav-center {
-            flex: 1;
-            text-align: center;
-        }
-
-        .nav-center .keyboard-help {
-            font-size: 0.75rem;
-            color: #fff;
-        }
-
-        .nav-right {
+        .annot-left, .annot-center, .annot-right {
             display: flex;
             align-items: center;
             gap: 0.4rem;
         }
+
+        .annot-center { flex: 1; justify-content: center; }
 
         .nav-btn {
             padding: 0.4rem 0.8rem;
@@ -262,6 +263,12 @@
             overflow: auto;
             min-height: 0;
             max-height: calc(100vh - 280px);
+            position: relative;
+        }
+
+        .annotation-wrapper {
+            position: relative;
+            display: inline-block;
         }
 
         .image-container img {
@@ -269,6 +276,15 @@
             max-height: 100%;
             object-fit: contain;
             border-radius: 5px;
+            display: block;
+        }
+
+        #annotationCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: auto;
+            cursor: crosshair;
         }
 
         .metadata {
@@ -627,7 +643,16 @@
 </head>
 <body>
     <header>
-        <h1>ANTWORLD Image Quality Grader</h1>
+        <div class="header-left">
+            <h1>ANTWORLD Grader</h1>
+            <div class="header-nav" id="headerNav" style="display:none;">
+                <button class="nav-btn" id="prevBtn">&#8592;</button>
+                <button class="nav-btn skip-btn" id="skipBtn">Skip</button>
+                <button class="nav-btn" id="ungradedBtn">Ungr</button>
+                <button class="nav-btn" id="lastGradedBtn">Last</button>
+                <button class="nav-btn" id="nextBtn">&#8594;</button>
+            </div>
+        </div>
         <div class="header-right">
             <div class="header-stats" id="headerStats">
                 <span class="stat-item a">A:<span id="countA">0</span></span>
@@ -660,14 +685,39 @@
         const IMAGE_BASE_PATH = '../data/raw/';
         const CASTE_DATA_URL = '../data/metadata/caste_data.json';
 
-        let images = [];
+        let allImages = [];  // All loaded images
+        let images = [];     // Currently filtered images
         let currentIndex = 0;
+        let currentFilter = 'all';
         let grades = {}; // { filename: { image_quality: "A", specimen_issues: {...} | null } }
         let casteData = {}; // { specimen_id: { caste: "ergate"|"female"|"male"|null, ... } }
 
         // Damage state: { damageType: { area: severity } }
         let currentDamageData = {};
         let activeDamageTab = null;
+
+        function applyFilter() {
+            const filter = document.getElementById('filterSelect').value;
+            currentFilter = filter;
+
+            if (filter === 'all') {
+                images = [...allImages];
+            } else if (filter === 'graded') {
+                images = allImages.filter(img => {
+                    const g = grades[img.filename];
+                    return g?.image_quality && g.image_quality !== 'skip';
+                });
+            } else if (filter === 'skipped') {
+                images = allImages.filter(img => grades[img.filename]?.image_quality === 'skip');
+            } else if (filter === 'ungraded') {
+                images = allImages.filter(img => !grades[img.filename]?.image_quality);
+            }
+
+            currentIndex = 0;
+            renderCarousel();
+            updateDisplay();
+            updateStats();
+        }
 
         // Normalize AntWeb caste/subcaste values to grader values
         function normalizeAntwebCaste(rawCaste, rawSubcaste) {
@@ -722,7 +772,8 @@
                 if (!imageResponse.ok) throw new Error('Failed to load image list');
 
                 const data = await imageResponse.json();
-                images = data.images || [];
+                allImages = data.images || [];
+                images = [...allImages];
 
                 // Load caste data if available
                 if (casteResponse && casteResponse.ok) {
@@ -755,22 +806,47 @@
                 </div>
 
                 <div class="image-panel">
-                    <div class="nav-bar">
-                        <div class="nav-buttons">
-                            <button class="nav-btn" id="prevBtn">&#8592; Prev</button>
-                            <button class="nav-btn skip-btn" id="skipBtn">Skip</button>
-                            <button class="nav-btn" id="ungradedBtn">Ungraded</button>
-                            <button class="nav-btn" id="lastGradedBtn">Last Graded</button>
-                            <button class="nav-btn" id="nextBtn">Next &#8594;</button>
+                    <div class="annotation-bar">
+                        <div class="annot-left">
+                            <label style="color:#aaa;font-size:0.75rem;">Part:</label>
+                            <select id="partSelect" style="padding:0.25rem;border-radius:4px;background:#0f3460;color:#fff;border:1px solid #e94560;font-size:0.8rem;">
+                                <option value="head">Head (H)</option>
+                                <option value="mesosoma">Mesosoma (M)</option>
+                                <option value="gaster">Gaster (G)</option>
+                                <option value="petiole">Petiole (P)</option>
+                                <option value="postpetiole">Post-petiole (O)</option>
+                                <option value="antenna">Antenna (A)</option>
+                                <option value="leg">Leg (L)</option>
+                                <option value="sting">Sting (T)</option>
+                                <option value="wing">Wing (I)</option>
+                            </select>
+                            <label style="color:#aaa;font-size:0.75rem;margin-left:0.5rem;">Mode:</label>
+                            <label style="color:#fff;font-size:0.75rem;"><input type="radio" name="drawMode" value="box" checked> Box</label>
+                            <label style="color:#fff;font-size:0.75rem;"><input type="radio" name="drawMode" value="poly"> Poly</label>
                         </div>
-                        <div class="nav-right">
-                            <button class="nav-btn import-btn" id="importBtn">Import</button>
-                            <button class="nav-btn export-btn" id="exportBtn">Export</button>
+                        <div class="annot-center">
+                            <button class="nav-btn" id="deleteAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Delete</button>
+                            <button class="nav-btn" id="clearAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Clear All</button>
+                            <span id="annotCount" style="color:#aaa;font-size:0.75rem;margin-left:0.5rem;"></span>
+                        </div>
+                        <div class="annot-right">
+                            <label style="color:#aaa;font-size:0.75rem;">Filter:</label>
+                            <select id="filterSelect" style="padding:0.25rem;border-radius:4px;background:#0f3460;color:#fff;border:1px solid #e94560;font-size:0.8rem;">
+                                <option value="all">All</option>
+                                <option value="graded">Graded</option>
+                                <option value="skipped">Skipped</option>
+                                <option value="ungraded">Ungraded</option>
+                            </select>
+                            <button class="nav-btn import-btn" id="importBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Import</button>
+                            <button class="nav-btn export-btn" id="exportBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Export</button>
                             <input type="file" id="importFile" accept=".json" style="display:none">
                         </div>
                     </div>
                     <div class="image-container">
-                        <img id="currentImage" src="" alt="Ant image">
+                        <div class="annotation-wrapper">
+                            <img id="currentImage" src="" alt="Ant image">
+                            <canvas id="annotationCanvas"></canvas>
+                        </div>
                     </div>
                     <div class="metadata">
                         <div class="species" id="speciesName"></div>
@@ -830,9 +906,17 @@
                                     <label class="checkbox-item"><input type="checkbox" value="antenna">Antenna</label>
                                     <label class="checkbox-item"><input type="checkbox" value="antennae">Antennae</label>
                                     <label class="checkbox-item"><input type="checkbox" value="leg">Leg(s)</label>
+                                    <label class="checkbox-item"><input type="checkbox" value="petiole">Petiole</label>
+                                    <label class="checkbox-item"><input type="checkbox" value="postpetiole">Post-petiole</label>
                                     <label class="checkbox-item"><input type="checkbox" value="gaster">Gaster</label>
                                     <label class="checkbox-item"><input type="checkbox" value="head">Head</label>
                                     <label class="checkbox-item"><input type="checkbox" value="other">Other</label>
+                                </div>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox-group-title">Sting</div>
+                                <div class="checkbox-row" id="stingGroup">
+                                    <label class="checkbox-item"><input type="checkbox" value="visible">Visible</label>
                                 </div>
                             </div>
                             <div class="checkbox-group">
@@ -882,6 +966,16 @@
                                     </div>
                                     <div class="damage-area-item" data-area="petiole">
                                         <label><input type="checkbox">Petiole</label>
+                                        <div class="severity-row">
+                                            <button class="severity-btn s1" data-sev="1">1</button>
+                                            <button class="severity-btn s2" data-sev="2">2</button>
+                                            <button class="severity-btn s3" data-sev="3">3</button>
+                                            <button class="severity-btn s4" data-sev="4">4</button>
+                                            <button class="severity-btn s5" data-sev="5">5</button>
+                                        </div>
+                                    </div>
+                                    <div class="damage-area-item" data-area="postpetiole">
+                                        <label><input type="checkbox">Post-petiole</label>
                                         <div class="severity-row">
                                             <button class="severity-btn s1" data-sev="1">1</button>
                                             <button class="severity-btn s2" data-sev="2">2</button>
@@ -944,6 +1038,7 @@
             document.getElementById('lastGradedBtn').addEventListener('click', jumpToLastGraded);
             document.getElementById('skipBtn').addEventListener('click', skipImage);
             document.getElementById('exportBtn').addEventListener('click', exportGrades);
+            document.getElementById('filterSelect').addEventListener('change', applyFilter);
 
             // Import functionality
             document.getElementById('importBtn').addEventListener('click', () => {
@@ -961,9 +1056,17 @@
                         if (data.grades) {
                             grades = data.grades;
                             saveGrades();
+
+                            // Also import annotations if present
+                            if (data.annotations) {
+                                annotations = data.annotations;
+                                localStorage.setItem('antworld_annotations_v1', JSON.stringify(annotations));
+                            }
+
                             updateDisplay();
                             const count = Object.keys(grades).length;
-                            alert(`Imported ${count} grades successfully!`);
+                            const annotCount = data.annotations ? Object.keys(data.annotations).length : 0;
+                            alert(`Imported ${count} grades` + (annotCount > 0 ? ` and ${annotCount} annotated images` : '') + ` successfully!`);
                             // Jump to first ungraded image
                             jumpToUngraded();
                         } else {
@@ -1035,6 +1138,13 @@
             });
 
             document.addEventListener('keydown', handleKeyboard);
+
+            // Show header nav now that images are loaded
+            document.getElementById('headerNav').style.display = 'flex';
+
+            // Initialize annotation system
+            initAnnotations();
+
             renderCarousel();
             updateDisplay();
         }
@@ -1054,10 +1164,18 @@
                     has_issues: true,
                     missing: getCheckedValues('missingGroup'),
                     affected_areas: getAffectedAreas(),
-                    severity_score: calculateSeverityScore()
+                    severity_score: calculateSeverityScore(),
+                    sting_visible: getCheckedValues('stingGroup').includes('visible')
                 };
             } else {
                 grades[img.filename].specimen_issues = null;
+            }
+            // Save sting visibility even without issues
+            if (!grades[img.filename].specimen_issues) {
+                const stingVisible = getCheckedValues('stingGroup').includes('visible');
+                if (stingVisible) {
+                    grades[img.filename].sting_visible = true;
+                }
             }
             saveGrades();
             updateStats();
@@ -1299,6 +1417,24 @@
                 }
 
                 updateTabIndicators();
+
+                // Load sting visibility
+                if (si.sting_visible) {
+                    const stingCb = document.querySelector('#stingGroup input[value="visible"]');
+                    if (stingCb) {
+                        stingCb.checked = true;
+                        stingCb.closest('.checkbox-item').classList.add('checked');
+                    }
+                }
+            }
+
+            // Load sting from top-level (when no issues)
+            if (gradeData?.sting_visible) {
+                const stingCb = document.querySelector('#stingGroup input[value="visible"]');
+                if (stingCb) {
+                    stingCb.checked = true;
+                    stingCb.closest('.checkbox-item').classList.add('checked');
+                }
             }
 
             // Nav buttons
@@ -1311,9 +1447,14 @@
 
         function updateStats() {
             const graded = Object.values(grades).filter(g => g?.image_quality && g.image_quality !== 'skip').length;
-            const percent = images.length > 0 ? (graded / images.length) * 100 : 0;
+            const totalImages = allImages.length;
+            const percent = totalImages > 0 ? (graded / totalImages) * 100 : 0;
             progressFill.style.width = percent + '%';
-            progressText.textContent = `${graded} / ${images.length}`;
+            if (currentFilter === 'all') {
+                progressText.textContent = `${graded} / ${totalImages}`;
+            } else {
+                progressText.textContent = `${graded} / ${totalImages} (${images.length} shown)`;
+            }
 
             const counts = { A: 0, B: 0, C: 0, D: 0, E: 0 };
             let issueCount = 0;
@@ -1417,11 +1558,13 @@
             track.innerHTML = images.map((img, i) => {
                 const gradeData = grades[img.filename];
                 const isGraded = gradeData?.image_quality && gradeData.image_quality !== 'skip';
+                const isSkipped = gradeData?.image_quality === 'skip';
                 const isCurrent = i === currentIndex;
 
                 const classes = ['thumb-item'];
                 if (isCurrent) classes.push('current');
                 else if (isGraded) classes.push('complete');
+                else if (isSkipped) classes.push('skipped');
 
                 return `<div class="${classes.join(' ')}" data-index="${i}" title="${img.species} (${img.view})">
                     <img src="${IMAGE_BASE_PATH}${img.path}" loading="lazy" alt="">
@@ -1456,10 +1599,12 @@
             track.querySelectorAll('.thumb-item').forEach((el, i) => {
                 const gradeData = grades[images[i].filename];
                 const isGraded = !!(gradeData?.image_quality && gradeData.image_quality !== 'skip');
+                const isSkipped = gradeData?.image_quality === 'skip';
                 const isCurrent = i === currentIndex;
 
                 el.classList.toggle('current', isCurrent);
                 el.classList.toggle('complete', isGraded && !isCurrent);
+                el.classList.toggle('skipped', isSkipped && !isCurrent);
             });
 
             // Update position indicator
@@ -1515,13 +1660,16 @@
                 now.getMinutes().toString().padStart(2, '0') +
                 now.getSeconds().toString().padStart(2, '0');
 
+            const annotatedCount = Object.keys(annotations).length;
             const exportData = {
-                version: '2.1',
+                version: '3.0',
                 graded_at: now.toISOString().split('T')[0],
-                total: images.length,
+                total: allImages.length,
                 graded: Object.values(grades).filter(g => g?.image_quality && g.image_quality !== 'skip').length,
                 with_issues: Object.values(grades).filter(g => g?.specimen_issues?.has_issues).length,
-                grades: grades
+                annotated: annotatedCount,
+                grades: grades,
+                annotations: annotations
             };
 
             const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
@@ -1535,7 +1683,12 @@
 
         // Keyboard
         function handleKeyboard(e) {
-            if (e.target.tagName === 'INPUT') return;
+            // Allow arrow keys even when checkbox is focused
+            const isCheckbox = e.target.tagName === 'INPUT' && e.target.type === 'checkbox';
+            const isArrowKey = e.key === 'ArrowLeft' || e.key === 'ArrowRight';
+
+            if (e.target.tagName === 'INPUT' && !isCheckbox) return;
+            if (isCheckbox && !isArrowKey) return;
 
             switch (e.key) {
                 case '1': setGrade('A'); break;
@@ -1549,7 +1702,7 @@
                 case 'u': case 'U': jumpToUngraded(); break;
                 case 'w': case 'W': setCaste('ergate'); break;
                 case 'f': case 'F': setCaste('female'); break;
-                case 'm': case 'M': setCaste('male'); break;
+                // m: male caste (handled below with mesosoma)
                 case 'e': case 'E': setCaste('ergatoid'); break;
                 case '?': setCaste('unknown'); break;
                 case 'd': case 'D':
@@ -1557,8 +1710,443 @@
                     cb.checked = !cb.checked;
                     cb.dispatchEvent(new Event('change'));
                     break;
+                // Annotation part shortcuts
+                case 'h': case 'H': selectPart('head'); break;
+                case 'g': case 'G': selectPart('gaster'); break;
+                case 'p': case 'P': selectPart('petiole'); break;
+                case 'o': case 'O': selectPart('postpetiole'); break;
+                case 'a': case 'A': selectPart('antenna'); break;
+                case 'l': case 'L': selectPart('leg'); break;
+                case 't': case 'T': selectPart('sting'); break;
+                case 'i': case 'I': selectPart('wing'); break;
+                // M: Shift+M = mesosoma, m = male caste
+                case 'm': setCaste('male'); break;
+                case 'M': selectPart('mesosoma'); break;
+                case 'b': case 'B': setDrawMode('box'); break;
+                case 'y': case 'Y': setDrawMode('poly'); break;
+                case 'Delete': case 'Backspace': deleteSelectedAnnotation(); break;
+                case 'Escape': cancelDrawing(); break;
             }
         }
+
+        // ==================== ANNOTATION SYSTEM ====================
+
+        const PART_COLORS = {
+            head: '#e94560',
+            mesosoma: '#00ff88',
+            gaster: '#00bfff',
+            petiole: '#ffaa00',
+            postpetiole: '#ff6600',
+            antenna: '#ff00ff',
+            leg: '#ffff00',
+            sting: '#ff0000',
+            wing: '#00ffff'
+        };
+
+        let annotations = {}; // { filename: { part: [ {type, ...coords} ] } }
+        let currentAnnotations = []; // Flat array of annotations for current image
+        let selectedAnnotation = null;
+        let isDrawing = false;
+        let drawStart = null;
+        let polyPoints = [];
+        let polyMousePos = null; // Current mouse position for polygon preview
+        let canvas = null;
+        let ctx = null;
+
+        function initAnnotations() {
+            canvas = document.getElementById('annotationCanvas');
+            ctx = canvas.getContext('2d');
+
+            // Load saved annotations
+            const saved = localStorage.getItem('antworld_annotations_v1');
+            if (saved) {
+                try { annotations = JSON.parse(saved); } catch (e) { annotations = {}; }
+            }
+
+            // Canvas event listeners
+            canvas.addEventListener('mousedown', onCanvasMouseDown);
+            canvas.addEventListener('mousemove', onCanvasMouseMove);
+            canvas.addEventListener('mouseup', onCanvasMouseUp);
+            canvas.addEventListener('dblclick', onCanvasDblClick);
+            canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+            // Delete/Clear buttons
+            document.getElementById('deleteAnnotBtn').addEventListener('click', deleteSelectedAnnotation);
+            document.getElementById('clearAnnotBtn').addEventListener('click', clearAllAnnotations);
+
+            // Resize canvas when image loads
+            document.getElementById('currentImage').addEventListener('load', resizeCanvas);
+        }
+
+        function resizeCanvas() {
+            const img = document.getElementById('currentImage');
+            canvas.width = img.offsetWidth;
+            canvas.height = img.offsetHeight;
+            loadCurrentAnnotations();
+            renderAnnotations();
+        }
+
+        function selectPart(part) {
+            document.getElementById('partSelect').value = part;
+        }
+
+        function setDrawMode(mode) {
+            document.querySelector(`input[name="drawMode"][value="${mode}"]`).checked = true;
+        }
+
+        function getSelectedPart() {
+            return document.getElementById('partSelect').value;
+        }
+
+        function getDrawMode() {
+            return document.querySelector('input[name="drawMode"]:checked').value;
+        }
+
+        function loadCurrentAnnotations() {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+            currentAnnotations = [];
+
+            const imgAnnots = annotations[img.filename];
+            if (imgAnnots) {
+                Object.entries(imgAnnots).forEach(([part, annots]) => {
+                    annots.forEach((a, idx) => {
+                        currentAnnotations.push({ ...a, part, id: `${part}_${idx}` });
+                    });
+                });
+            }
+            selectedAnnotation = null;
+            updateAnnotCount();
+        }
+
+        function saveCurrentAnnotations() {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+
+            // Group by part
+            const byPart = {};
+            currentAnnotations.forEach(a => {
+                if (!byPart[a.part]) byPart[a.part] = [];
+                const { part, id, ...coords } = a;
+                byPart[a.part].push(coords);
+            });
+
+            if (Object.keys(byPart).length > 0) {
+                annotations[img.filename] = byPart;
+            } else {
+                delete annotations[img.filename];
+            }
+
+            localStorage.setItem('antworld_annotations_v1', JSON.stringify(annotations));
+            updateAnnotCount();
+        }
+
+        function updateAnnotCount() {
+            const countEl = document.getElementById('annotCount');
+            if (!countEl) return;
+
+            // Count by part
+            const counts = {};
+            currentAnnotations.forEach(a => {
+                counts[a.part] = (counts[a.part] || 0) + 1;
+            });
+
+            const parts = Object.entries(counts).map(([p, c]) => `${p[0].toUpperCase()}:${c}`);
+            countEl.textContent = parts.length > 0 ? parts.join(' ') : '';
+        }
+
+        function renderAnnotations() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw all annotations
+            currentAnnotations.forEach((a, idx) => {
+                const color = PART_COLORS[a.part] || '#fff';
+                const isSelected = selectedAnnotation === idx;
+
+                ctx.strokeStyle = color;
+                ctx.lineWidth = isSelected ? 3 : 2;
+                ctx.fillStyle = color + '33'; // 20% opacity
+
+                if (a.type === 'box') {
+                    ctx.strokeRect(a.x, a.y, a.w, a.h);
+                    ctx.fillRect(a.x, a.y, a.w, a.h);
+
+                    // Label
+                    ctx.fillStyle = color;
+                    ctx.font = '12px sans-serif';
+                    ctx.fillText(a.part, a.x + 2, a.y - 4);
+                } else if (a.type === 'poly' && a.points.length > 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(a.points[0][0], a.points[0][1]);
+                    for (let i = 1; i < a.points.length; i++) {
+                        ctx.lineTo(a.points[i][0], a.points[i][1]);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.fillStyle = color + '33';
+                    ctx.fill();
+
+                    // Label
+                    ctx.fillStyle = color;
+                    ctx.font = '12px sans-serif';
+                    ctx.fillText(a.part, a.points[0][0] + 2, a.points[0][1] - 4);
+                }
+            });
+
+            // Draw current drawing in progress
+            if (isDrawing && drawStart) {
+                const color = PART_COLORS[getSelectedPart()] || '#fff';
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+
+                if (getDrawMode() === 'box' && drawStart.current) {
+                    const x = Math.min(drawStart.x, drawStart.current.x);
+                    const y = Math.min(drawStart.y, drawStart.current.y);
+                    const w = Math.abs(drawStart.current.x - drawStart.x);
+                    const h = Math.abs(drawStart.current.y - drawStart.y);
+                    ctx.strokeRect(x, y, w, h);
+                }
+
+                ctx.setLineDash([]);
+            }
+
+            // Draw polygon points in progress
+            if (polyPoints.length > 0) {
+                const color = PART_COLORS[getSelectedPart()] || '#fff';
+                const first = polyPoints[0];
+                const last = polyPoints[polyPoints.length - 1];
+
+                // Check if mouse is near first point (sticky)
+                let isNearFirst = false;
+                let snapTarget = polyMousePos;
+                if (polyMousePos && polyPoints.length >= 3) {
+                    const dist = Math.sqrt(Math.pow(polyMousePos.x - first[0], 2) + Math.pow(polyMousePos.y - first[1], 2));
+                    if (dist < 20) {
+                        isNearFirst = true;
+                        snapTarget = { x: first[0], y: first[1] };
+                    }
+                }
+
+                ctx.strokeStyle = color;
+                ctx.fillStyle = color;
+                ctx.lineWidth = 2;
+
+                // Draw lines between points
+                ctx.beginPath();
+                ctx.moveTo(first[0], first[1]);
+                for (let i = 1; i < polyPoints.length; i++) {
+                    ctx.lineTo(polyPoints[i][0], polyPoints[i][1]);
+                }
+                ctx.stroke();
+
+                // Draw preview line from last point to mouse/snap target
+                if (snapTarget) {
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 5]);
+                    ctx.moveTo(last[0], last[1]);
+                    ctx.lineTo(snapTarget.x, snapTarget.y);
+                    if (isNearFirst) {
+                        // Also draw closing line to first point
+                        ctx.moveTo(snapTarget.x, snapTarget.y);
+                        ctx.lineTo(first[0], first[1]);
+                    }
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                // Draw points
+                polyPoints.forEach((p, i) => {
+                    ctx.beginPath();
+                    if (i === 0) {
+                        // First point - show snap zone when can close
+                        if (polyPoints.length >= 3) {
+                            ctx.arc(p[0], p[1], isNearFirst ? 12 : 8, 0, Math.PI * 2);
+                            ctx.strokeStyle = isNearFirst ? '#fff' : color;
+                            ctx.lineWidth = isNearFirst ? 3 : 2;
+                            ctx.stroke();
+                            ctx.fillStyle = isNearFirst ? color : color + '44';
+                            ctx.fill();
+                        } else {
+                            ctx.arc(p[0], p[1], 4, 0, Math.PI * 2);
+                            ctx.fillStyle = color;
+                            ctx.fill();
+                        }
+                    } else {
+                        ctx.arc(p[0], p[1], 4, 0, Math.PI * 2);
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                    }
+                });
+            }
+        }
+
+        function getCanvasCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        function onCanvasMouseDown(e) {
+            if (e.button !== 0) return; // Left click only
+
+            const coords = getCanvasCoords(e);
+            const mode = getDrawMode();
+
+            if (mode === 'box') {
+                isDrawing = true;
+                drawStart = { x: coords.x, y: coords.y, current: coords };
+            } else if (mode === 'poly') {
+                // Check if clicking near first point to close polygon
+                if (polyPoints.length >= 3) {
+                    const first = polyPoints[0];
+                    const dist = Math.sqrt(Math.pow(coords.x - first[0], 2) + Math.pow(coords.y - first[1], 2));
+                    if (dist < 15) { // Within 15px of first point
+                        closePolygon();
+                        return;
+                    }
+                }
+                polyPoints.push([coords.x, coords.y]);
+                renderAnnotations();
+            }
+
+            // Check if clicking on existing annotation (for selection)
+            const clicked = findAnnotationAt(coords.x, coords.y);
+            if (clicked !== null && !isDrawing && polyPoints.length === 0) {
+                selectedAnnotation = clicked;
+                renderAnnotations();
+            }
+        }
+
+        function onCanvasMouseMove(e) {
+            const coords = getCanvasCoords(e);
+            const mode = getDrawMode();
+
+            if (mode === 'box' && isDrawing) {
+                drawStart.current = coords;
+                renderAnnotations();
+            } else if (mode === 'poly' && polyPoints.length > 0) {
+                // Track mouse for polygon preview line
+                polyMousePos = coords;
+                renderAnnotations();
+            }
+        }
+
+        function onCanvasMouseUp(e) {
+            if (!isDrawing || getDrawMode() !== 'box') return;
+
+            const coords = getCanvasCoords(e);
+            const x = Math.min(drawStart.x, coords.x);
+            const y = Math.min(drawStart.y, coords.y);
+            const w = Math.abs(coords.x - drawStart.x);
+            const h = Math.abs(coords.y - drawStart.y);
+
+            // Only add if box is big enough
+            if (w > 5 && h > 5) {
+                currentAnnotations.push({
+                    type: 'box',
+                    part: getSelectedPart(),
+                    x: Math.round(x),
+                    y: Math.round(y),
+                    w: Math.round(w),
+                    h: Math.round(h)
+                });
+                saveCurrentAnnotations();
+            }
+
+            isDrawing = false;
+            drawStart = null;
+            renderAnnotations();
+        }
+
+        function onCanvasDblClick(e) {
+            // Complete polygon on double-click
+            closePolygon();
+        }
+
+        function closePolygon() {
+            if (polyPoints.length >= 3) {
+                currentAnnotations.push({
+                    type: 'poly',
+                    part: getSelectedPart(),
+                    points: polyPoints.map(p => [Math.round(p[0]), Math.round(p[1])])
+                });
+                saveCurrentAnnotations();
+            }
+            polyPoints = [];
+            polyMousePos = null;
+            renderAnnotations();
+        }
+
+        function findAnnotationAt(x, y) {
+            for (let i = currentAnnotations.length - 1; i >= 0; i--) {
+                const a = currentAnnotations[i];
+                if (a.type === 'box') {
+                    if (x >= a.x && x <= a.x + a.w && y >= a.y && y <= a.y + a.h) {
+                        return i;
+                    }
+                } else if (a.type === 'poly') {
+                    if (pointInPolygon(x, y, a.points)) {
+                        return i;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function pointInPolygon(x, y, points) {
+            let inside = false;
+            for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+                const xi = points[i][0], yi = points[i][1];
+                const xj = points[j][0], yj = points[j][1];
+                const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+            return inside;
+        }
+
+        function deleteSelectedAnnotation() {
+            if (selectedAnnotation !== null) {
+                currentAnnotations.splice(selectedAnnotation, 1);
+                selectedAnnotation = null;
+                saveCurrentAnnotations();
+                renderAnnotations();
+            }
+        }
+
+        function clearAllAnnotations() {
+            if (currentAnnotations.length === 0) return;
+            if (confirm('Clear all annotations for this image?')) {
+                currentAnnotations = [];
+                selectedAnnotation = null;
+                saveCurrentAnnotations();
+                renderAnnotations();
+            }
+        }
+
+        function cancelDrawing() {
+            isDrawing = false;
+            drawStart = null;
+            polyPoints = [];
+            polyMousePos = null;
+            renderAnnotations();
+        }
+
+        // Override updateDisplay to also load annotations
+        const originalUpdateDisplay = updateDisplay;
+        updateDisplay = function() {
+            originalUpdateDisplay();
+            if (canvas) {
+                // Wait for image to load before resizing canvas
+                const img = document.getElementById('currentImage');
+                if (img.complete) {
+                    resizeCanvas();
+                }
+            }
+        };
     </script>
 </body>
 </html>
