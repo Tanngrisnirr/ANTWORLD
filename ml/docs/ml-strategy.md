@@ -313,6 +313,35 @@ Message: "Not recognized as an ant"
 | Heavy distortion | Destroys morphological features |
 | Extreme color shifts | Color is diagnostic |
 
+### Body Part Annotation Guidelines
+
+**Bounding Boxes vs Polygons:**
+
+| Part | Method | Notes |
+|------|--------|-------|
+| Head | Box | Include whole head, small pronotum overlap OK |
+| Mesosoma | Box | Natural rectangular shape |
+| Gaster | Box | Same |
+| Petiole | Box | Tight box fine |
+| Post-petiole | Box | If present |
+| Legs | Box or Poly | Poly if bent/curved |
+| Antennae | Poly preferred | Curved shapes benefit from polygons |
+| Wings | Poly | Irregular shapes |
+| Sting | Box | Small box if visible |
+
+**Precision rules:**
+- Boxes with ~80% target part coverage are acceptable
+- Minor overlap with adjacent parts is fine (model learns from many examples)
+- Don't agonize over pixel-perfect boundaries
+- Save polygons for curved/irregular parts where boxes include too much background
+- Multiple annotations per part allowed (6 legs, 2 antennae, etc.)
+
+**Why overlap is OK:**
+- Object detection models (YOLO, Faster R-CNN) expect some background in boxes
+- IoU metrics account for this
+- Model learns to focus on central object, not edges
+- Hundreds of examples average out minor inconsistencies
+
 ---
 
 ## 5. Model Specifications
