@@ -46,18 +46,41 @@ An open-source project for ant identification and information.
 <?= t('credits.jad_desc') ?>
 </p>
 
-<h2 id="ml-training">ML Training Data</h2>
+<h2 class="h2one" id="ml-training">ML Training Data Sources</h2>
 <p class="pone">
-Our species identification model is trained using specimen images from the following sources:
+Our ant identification model is trained using specimen photographs from the following sources.
+We gratefully acknowledge these contributors:
+</p>
+
+<h3 class="h3two">AntWeb.org</h3>
+<p class="ptwo">
+<a href="https://www.antweb.org/" target="_blank"><strong>AntWeb.org</strong></a> - California Academy of Sciences
+<br>44 species, 15 subfamilies, 1,429 specimen images
+<br>License: <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA 3.0</a>
+<br>Photographers: April Nobile, Will Ericson, Erin Prado, Shannon Hartman, and contributors
+</p>
+
+<h3 class="h3three">Alexander Wild Photography</h3>
+<p class="pthree">
+<a href="https://www.alexanderwild.com/Professional/Public-Domain" target="_blank"><strong>Alex Wild Public Domain Collection</strong></a>
+<br>8 ant species images released to public domain
+<br>License: Public Domain (no restrictions)
+</p>
+
+<h3 class="h3two">Japanese Ant Database (JAD)</h3>
+<p class="ptwo">
+<a href="http://ant.miyakyo-u.ac.jp/" target="_blank"><strong>Japanese Ant Database</strong></a> (JADG)
+<br>Permission pending
+</p>
+
+<p class="pone">
+<br><strong>Usage Policy:</strong> Training images are used solely for neural network training.
+Original images are not displayed or redistributed on this website.
 <br><br>
-<strong>AntWeb.org</strong> - 44 species, 15 subfamilies, 1428 specimen images (CC BY-SA 3.0)
-<br>
-<strong>Japanese Ant Database</strong> - Used with permission from JADG
-<br>
-<strong>AntWiki.org</strong> - Reference data (images have individual licenses per owner)
-<br><br>
-Images are used solely for training our neural network model. They are not displayed or redistributed.
-Our project is open source: <a href="https://github.com/Tanngrisnirr/ANTWORLD" target="_blank">GitHub</a>
+<strong>Open Source:</strong> Our identification model and code are available on
+<a href="https://github.com/Tanngrisnirr/ANTWORLD" target="_blank">GitHub</a>.
+Full source attribution is maintained in our
+<a href="https://github.com/Tanngrisnirr/ANTWORLD/blob/master/TrainingSets/metadata/sources.json" target="_blank">training data metadata</a>.
 </p>
 
 <h1><?= t('credits.data_sources') ?></h1>

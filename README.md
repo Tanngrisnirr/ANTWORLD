@@ -166,10 +166,26 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 - [x] Accessibility improvements
 
 ### Phase 2 — Intelligence (Current)
-- [x] Training dataset: 44 species, 15 subfamilies, 1428 images
+- [x] Training dataset: 44 species, 15 subfamilies, 1,429 images
+- [x] **Image Quality Grader** — Rate training images A-E, track specimen damage
 - [ ] Visual identification engine (subfamily → genus → species)
-- [ ] Photo quality assessment
+- [ ] Photo quality assessment model
 - [ ] Spaced repetition training
+
+#### Image Quality Grader
+
+Internal tool for rating ML training images before model training.
+
+<p align="center">
+  <img src="docs/screenshots/grader.png" alt="Image Quality Grader" width="900"/>
+</p>
+
+**Features:**
+- **Quality grades A-E** — Museum grade to unusable
+- **Specimen condition tracking** — Missing parts, damage types (cut, crushed, dust), severity per body region (1-5)
+- **Keyboard shortcuts** — 1-5 for grades, arrows for navigation, S to skip, D for damage toggle
+- **LocalStorage persistence** — Progress saved automatically
+- **JSON export** — For ML pipeline integration
 
 ### Phase 3 — Platform
 - [ ] Expert validation pipeline
