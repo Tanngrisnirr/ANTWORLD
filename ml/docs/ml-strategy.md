@@ -627,4 +627,245 @@ DORSAL VIEW
 
 ---
 
-*Last updated: 2026-03-16*
+## 13. Automated Morphometrics
+
+### Overview
+
+Beyond identification, the ML system can automatically extract morphometric measurements from images. This requires:
+1. **Scale calibration** — pixels-per-mm ratio from annotated scale bars
+2. **Precise segmentation** — pixel-perfect body part boundaries
+3. **Landmark detection** — key measurement points
+
+### Scale Annotation System
+
+The grader tool captures scale bar annotations:
+
+```json
+{
+  "type": "line",
+  "part": "scale",
+  "x1": 921, "y1": 757,
+  "x2": 800, "y2": 756,
+  "pixelLength": 121,
+  "realValue": 0.2,
+  "unit": "mm",
+  "pixelsPerUnit": 605
+}
+```
+
+This calibration enables conversion from pixels to real-world measurements.
+
+### From Bounding Boxes to Segmentation Masks
+
+**Current:** Rough bounding boxes/polygons for training data
+
+**Future:** ML outputs pixel-perfect segmentation masks
+
+```
+Training Data (manual)          ML Output (automatic)
+┌─────────────────┐            ┌─────────────────┐
+│  ┌──────────┐   │            │    ████████     │
+│  │  HEAD    │   │     →      │   ██████████    │
+│  │  (box)   │   │            │  ████████████   │
+│  └──────────┘   │            │   ██████████    │
+└─────────────────┘            └─────────────────┘
+   Rough box                   Precise mask (pixel-level)
+```
+
+**Model architectures for segmentation:**
+- U-Net — lightweight, good for medical/scientific imaging
+- Mask R-CNN — instance segmentation (separates multiple legs, antennae)
+- SAM (Segment Anything) — pre-trained, fine-tune for ants
+
+### Automatic Surface Area Calculation
+
+Once segmentation masks exist:
+
+```javascript
+// Count pixels in mask
+const pixelCount = mask.filter(p => p > 0).length;
+
+// Convert to real-world area
+const pixelsPerMm = scaleAnnotation.pixelsPerUnit;
+const areaMm2 = pixelCount / (pixelsPerMm * pixelsPerMm);
+
+// Example:
+// Head mask = 45,000 pixels
+// Scale = 605 px/mm
+// Area = 45,000 / (605)² = 0.123 mm²
+```
+
+### Distance Measurements Between Parts
+
+**Why distances matter:** Morphometric indices are ratios of measurements, crucial for taxonomy.
+
+**Key indices:**
+
+| Index | Formula | Diagnostic Value |
+|-------|---------|------------------|
+| Cephalic Index (CI) | HW/HL × 100 | Head shape |
+| Scape Index (SI) | SL/HW × 100 | Antenna proportions |
+| Weber's Length (WL) | Diagonal mesosoma | Overall size |
+| Petiole Index (PI) | PW/PL × 100 | Petiole shape |
+| Eye Index (EI) | EL/HL × 100 | Eye size relative to head |
+
+**Measurement types:**
+
+```
+HEAD MEASUREMENTS
+┌─────────────────────────┐
+│         HW              │  HW = Head Width (max)
+│    ←─────────→          │  HL = Head Length
+│    ╭─────────╮          │  SL = Scape Length
+│   ╱     ○     ╲   ▲     │  EL = Eye Length
+│  │           │   │      │
+│  │    ───    │   HL     │
+│   ╲         ╱    │      │
+│    ╲_______╱     ▼      │
+└─────────────────────────┘
+
+PROFILE MEASUREMENTS
+┌─────────────────────────────────────────┐
+│                                          │
+│    ○──┬────────────┬──○──┬──○           │
+│       │     WL     │     │              │
+│       ←────────────→     │              │
+│            │             PL             │
+│       Mesosoma      Petiole             │
+└─────────────────────────────────────────┘
+```
+
+### Standard Morphometric Abbreviations
+
+Reference: Csősz & Schulz (2010) - Zootaxa 2401
+
+**Head Measurements (full-face view):**
+
+| Abbrev | Name | Description |
+|--------|------|-------------|
+| CL | Cephalic Length | Anteriormost clypeal margin to mid-point of posterior head margin |
+| CW | Cephalic Width | Maximum head width including compound eyes |
+| CS | Cephalic Size | (CL + CW) / 2 — indicator of body size |
+| EH | Eye Height | Minimum diameter of compound eye |
+| EL | Eye Length | Maximum diameter of compound eye |
+| EYE | Eye Size Index | ((EL + EH) / 2) / CS |
+| OMD | Oculo-Malar Distance | Eye margin to mandibular junction (profile view) |
+| FL | Frontal Lobes Width | Maximum distance between external frontal lobe borders |
+| FR | Frons Width | Minimum width between frontal carinae |
+| POC | Postocular Distance | Posterior eye margin to posterior head margin |
+| SL | Scape Length | Proximal scape lobe to distal end |
+
+**Mesosoma Measurements:**
+
+| Abbrev | Name | Description |
+|--------|------|-------------|
+| ML | Mesosoma Length | Diagonal from pronotal slope to propodeal lobes (profile) |
+| MW | Mesosoma Width | Maximum pronotum width (dorsal) |
+| SPL | Spiracle-Declivity | Propodeal spiracle center to propodeal declivity |
+| SPSP | Propodeal Spine Length | Spine tip to propodeal spiracle (profile) |
+
+**Petiole Measurements:**
+
+| Abbrev | Name | Description |
+|--------|------|-------------|
+| NOH | Petiolar Node Height | Maximum height of petiolar node |
+| NOL | Petiolar Node Length | Length of petiolar node |
+| PEH | Petiole Height | Maximum petiole height (profile) |
+| PEL | Petiole Length | Posteriormost point to petiolar spiracle |
+| PEW | Petiole Width | Maximum width (dorsal) |
+
+**Postpetiole Measurements:**
+
+| Abbrev | Name | Description |
+|--------|------|-------------|
+| PPH | Postpetiole Height | Maximum height (profile) |
+| PPL | Postpetiole Length | Maximum length (profile) |
+| PPW | Postpetiole Width | Maximum width (dorsal) |
+
+### Implementation Approach
+
+**Phase 1: Landmark annotation (manual)**
+- Add landmark points to grader tool (e.g., "head_left", "head_right")
+- Train landmark detection model
+
+**Phase 2: Automatic landmark detection**
+- Model predicts key measurement points
+- Calculate distances using scale calibration
+
+**Phase 3: Full segmentation**
+- Train segmentation model using bounding box annotations
+- Extract precise boundaries automatically
+- Calculate surface areas
+
+### Grader Tool Support
+
+Current annotation types:
+- `box` — bounding box (x, y, w, h)
+- `poly` — polygon (array of points)
+- `line` — scale bar (x1, y1, x2, y2, realValue, unit, pixelsPerUnit)
+- `measurement` — morphometric line annotation (x1, y1, x2, y2, measurement, pixelLength)
+- `ignore` — regions to exclude from training
+
+**Measurement annotation format:**
+```json
+{
+  "type": "line",
+  "part": "measurement",
+  "measurement": "CL",
+  "measurementName": "Cephalic Length",
+  "bodyPart": "head",
+  "view": "full-face",
+  "x1": 150, "y1": 200,
+  "x2": 150, "y2": 450,
+  "pixelLength": 250
+}
+```
+
+**Keyboard shortcuts:**
+- `N` — Select measurement mode
+- `H` — Cranium, `M` — Mesosoma, `G` — Gaster
+- `R` — Scale bar, `X` — Ignore region
+
+Future additions:
+- `landmark` — single point markers for measurement endpoints
+- `distance` — line between two landmarks with automatic mm calculation
+
+### Training Data Requirements
+
+| Task | Images Needed | Notes |
+|------|---------------|-------|
+| Segmentation masks | 1,000+ per body part | Can bootstrap from boxes |
+| Landmark detection | 2,000+ | Manual point annotation |
+| Distance prediction | 500+ | Derived from landmarks |
+
+### Output Format
+
+```json
+{
+  "image": "casent0106203_h_1.jpg",
+  "scale": {
+    "pixelsPerMm": 605
+  },
+  "measurements": {
+    "head_width_mm": 1.52,
+    "head_length_mm": 1.38,
+    "cephalic_index": 110.1,
+    "scape_length_mm": 1.21,
+    "scape_index": 79.6,
+    "eye_length_mm": 0.34
+  },
+  "areas": {
+    "head_mm2": 1.65,
+    "mesosoma_mm2": 2.12,
+    "gaster_mm2": 1.89
+  },
+  "segmentation_masks": {
+    "head": "base64_encoded_mask...",
+    "mesosoma": "base64_encoded_mask..."
+  }
+}
+```
+
+---
+
+*Last updated: 2026-03-20*

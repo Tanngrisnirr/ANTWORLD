@@ -269,6 +269,7 @@
         .annotation-wrapper {
             position: relative;
             display: inline-block;
+            transform-origin: center center;
         }
 
         .image-container img {
@@ -285,6 +286,66 @@
             left: 0;
             pointer-events: auto;
             cursor: crosshair;
+        }
+
+        #annotationCanvas.delete-mode {
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20" stroke="%23ff0000" stroke-width="3"/><line x1="20" y1="4" x2="4" y2="20" stroke="%23ff0000" stroke-width="3"/></svg>') 12 12, crosshair;
+        }
+
+        .delete-mode-active {
+            background: #c0392b !important;
+            border-color: #c0392b !important;
+        }
+
+        /* Zoom controls */
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #0a2540;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            border: 1px solid #3498db;
+        }
+
+        .zoom-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: #3498db;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+        }
+
+        .zoom-btn:hover { background: #2980b9; }
+        .zoom-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .zoom-level {
+            font-size: 0.75rem;
+            color: #3498db;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .zoom-fit {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.3rem;
+        }
+
+        /* Zoomed image container */
+        .image-container.zoomed {
+            cursor: grab;
+        }
+
+        .image-container.zoomed:active {
+            cursor: grabbing;
         }
 
         .metadata {
@@ -646,11 +707,11 @@
         <div class="header-left">
             <h1>ANTWORLD Grader</h1>
             <div class="header-nav" id="headerNav" style="display:none;">
-                <button class="nav-btn" id="prevBtn">&#8592;</button>
-                <button class="nav-btn skip-btn" id="skipBtn">Skip</button>
-                <button class="nav-btn" id="ungradedBtn">Ungr</button>
-                <button class="nav-btn" id="lastGradedBtn">Last</button>
-                <button class="nav-btn" id="nextBtn">&#8594;</button>
+                <button class="nav-btn" id="prevBtn" title="Previous image (←)">&#8592;</button>
+                <button class="nav-btn skip-btn" id="skipBtn" title="Skip image (S)">Skip</button>
+                <button class="nav-btn" id="ungradedBtn" title="Jump to ungraded (U)">Ungr</button>
+                <button class="nav-btn" id="lastGradedBtn" title="Jump to last graded">Last</button>
+                <button class="nav-btn" id="nextBtn" title="Next image (→)">&#8594;</button>
             </div>
         </div>
         <div class="header-right">
@@ -809,8 +870,8 @@
                     <div class="annotation-bar">
                         <div class="annot-left">
                             <label style="color:#aaa;font-size:0.75rem;">Part:</label>
-                            <select id="partSelect" style="padding:0.25rem;border-radius:4px;background:#0f3460;color:#fff;border:1px solid #e94560;font-size:0.8rem;">
-                                <option value="head">Head (H)</option>
+                            <select id="partSelect" style="padding:0.25rem;border-radius:4px;background:#0f3460;color:#fff;border:1px solid #e94560;font-size:0.8rem;" title="Select body part to annotate">
+                                <option value="cranium">Cranium (H)</option>
                                 <option value="mesosoma">Mesosoma (M)</option>
                                 <option value="gaster">Gaster (G)</option>
                                 <option value="petiole">Petiole (P)</option>
@@ -819,15 +880,75 @@
                                 <option value="leg">Leg (L)</option>
                                 <option value="sting">Sting (T)</option>
                                 <option value="wing">Wing (I)</option>
+                                <option value="scale">Scale (R)</option>
+                                <option value="measurement">Measurement (N)</option>
+                                <option value="ignore">Ignore (X)</option>
+                            </select>
+                            <select id="measurementSelect" style="display:none;padding:0.25rem;border-radius:4px;background:#0f3460;color:#00ffaa;border:1px solid #00ffaa;font-size:0.8rem;margin-left:0.3rem;" title="Select morphometric measurement">
+                                <optgroup label="Head">
+                                    <option value="CL">CL - Cephalic Length</option>
+                                    <option value="CW">CW - Cephalic Width</option>
+                                    <option value="EH">EH - Eye Height</option>
+                                    <option value="EL">EL - Eye Length</option>
+                                    <option value="OMD">OMD - Oculo-Malar Distance</option>
+                                    <option value="FL">FL - Frontal Lobes Width</option>
+                                    <option value="FR">FR - Frons Width</option>
+                                    <option value="POC">POC - Postocular Distance</option>
+                                    <option value="SL">SL - Scape Length</option>
+                                </optgroup>
+                                <optgroup label="Mesosoma">
+                                    <option value="ML">ML - Mesosoma Length</option>
+                                    <option value="MW">MW - Mesosoma Width</option>
+                                    <option value="SPL">SPL - Spiracle-Declivity</option>
+                                    <option value="SPSP">SPSP - Propodeal Spine</option>
+                                </optgroup>
+                                <optgroup label="Petiole">
+                                    <option value="NOH">NOH - Node Height</option>
+                                    <option value="NOL">NOL - Node Length</option>
+                                    <option value="PEH">PEH - Petiole Height</option>
+                                    <option value="PEL">PEL - Petiole Length</option>
+                                    <option value="PEW">PEW - Petiole Width</option>
+                                </optgroup>
+                                <optgroup label="Postpetiole">
+                                    <option value="PPH">PPH - Postpetiole Height</option>
+                                    <option value="PPL">PPL - Postpetiole Length</option>
+                                    <option value="PPW">PPW - Postpetiole Width</option>
+                                </optgroup>
                             </select>
                             <label style="color:#aaa;font-size:0.75rem;margin-left:0.5rem;">Mode:</label>
-                            <label style="color:#fff;font-size:0.75rem;"><input type="radio" name="drawMode" value="box" checked> Box</label>
-                            <label style="color:#fff;font-size:0.75rem;"><input type="radio" name="drawMode" value="poly"> Poly</label>
+                            <label style="color:#fff;font-size:0.75rem;" title="Box mode (B)"><input type="radio" name="drawMode" value="box" checked> Box</label>
+                            <label style="color:#fff;font-size:0.75rem;" title="Polygon mode (Y)"><input type="radio" name="drawMode" value="poly"> Poly</label>
+                            <label style="color:#fff;font-size:0.75rem;" title="Line mode for scale bars"><input type="radio" name="drawMode" value="line"> Line</label>
+                            <div id="scaleInputs" style="display:none;margin-left:0.5rem;padding:0.25rem 0.5rem;background:#0a3060;border-radius:4px;">
+                                <span style="color:#aaa;font-size:0.7rem;">Pixels: <span id="scalePixels" style="color:#fff;">—</span></span>
+                                <input type="number" id="scaleValue" step="0.1" min="0" placeholder="Value" style="width:50px;padding:0.15rem;margin-left:0.3rem;background:#0f3460;border:1px solid #e94560;border-radius:3px;color:#fff;font-size:0.75rem;">
+                                <select id="scaleUnit" style="padding:0.15rem;background:#0f3460;border:1px solid #e94560;border-radius:3px;color:#fff;font-size:0.75rem;">
+                                    <option value="mm">mm</option>
+                                    <option value="um">μm</option>
+                                </select>
+                                <button id="saveScaleBtn" class="nav-btn" style="font-size:0.7rem;padding:0.15rem 0.4rem;margin-left:0.2rem;" title="Save scale annotation">Save</button>
+                            </div>
                         </div>
                         <div class="annot-center">
-                            <button class="nav-btn" id="deleteAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Delete</button>
-                            <button class="nav-btn" id="clearAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Clear All</button>
+                            <button class="nav-btn" id="deleteAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Toggle delete mode (Del)">Delete Mode</button>
+                            <div style="position:relative;display:inline-block;">
+                                <button class="nav-btn" id="selectDeleteBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Select annotations to delete">Select to Delete</button>
+                                <div id="deleteDropdown" style="display:none;position:absolute;top:100%;left:0;background:#16213e;border:1px solid #e94560;border-radius:4px;min-width:180px;max-height:200px;overflow-y:auto;z-index:100;">
+                                    <div id="deleteDropdownList" style="padding:0.25rem;"></div>
+                                    <div style="padding:0.25rem;border-top:1px solid #333;">
+                                        <button id="confirmDeleteBtn" class="nav-btn" style="font-size:0.7rem;padding:0.2rem 0.4rem;width:100%;background:#c0392b;border-color:#c0392b;">Delete Selected</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="nav-btn" id="clearAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Clear all annotations on this image">Clear All</button>
                             <span id="annotCount" style="color:#aaa;font-size:0.75rem;margin-left:0.5rem;"></span>
+                            <div class="zoom-controls">
+                                <button class="zoom-btn" id="zoomOutBtn" title="Zoom out (-)">−</button>
+                                <span class="zoom-level" id="zoomLevel">100%</span>
+                                <button class="zoom-btn" id="zoomInBtn" title="Zoom in (+)">+</button>
+                                <button class="zoom-btn zoom-fit" id="zoomFitBtn" title="Fit to view (0)">Fit</button>
+                                <button class="zoom-btn zoom-fit" id="zoom100Btn" title="100% zoom (1)">1:1</button>
+                            </div>
                         </div>
                         <div class="annot-right">
                             <label style="color:#aaa;font-size:0.75rem;">Filter:</label>
@@ -837,8 +958,8 @@
                                 <option value="skipped">Skipped</option>
                                 <option value="ungraded">Ungraded</option>
                             </select>
-                            <button class="nav-btn import-btn" id="importBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Import</button>
-                            <button class="nav-btn export-btn" id="exportBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;">Export</button>
+                            <button class="nav-btn import-btn" id="importBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Import grades from JSON file">Import</button>
+                            <button class="nav-btn export-btn" id="exportBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Export grades to JSON file">Export</button>
                             <input type="file" id="importFile" accept=".json" style="display:none">
                         </div>
                     </div>
@@ -858,11 +979,11 @@
                     <div class="section">
                         <h2>Image Quality (1-5)</h2>
                         <div class="grade-buttons">
-                            <button class="grade-btn grade-a" data-grade="A">A</button>
-                            <button class="grade-btn grade-b" data-grade="B">B</button>
-                            <button class="grade-btn grade-c" data-grade="C">C</button>
-                            <button class="grade-btn grade-d" data-grade="D">D</button>
-                            <button class="grade-btn grade-e" data-grade="E">E</button>
+                            <button class="grade-btn grade-a" data-grade="A" title="Grade A: Museum quality (1)">A</button>
+                            <button class="grade-btn grade-b" data-grade="B" title="Grade B: Good (2)">B</button>
+                            <button class="grade-btn grade-c" data-grade="C" title="Grade C: OK (3)">C</button>
+                            <button class="grade-btn grade-d" data-grade="D" title="Grade D: Poor (4)">D</button>
+                            <button class="grade-btn grade-e" data-grade="E" title="Grade E: Unusable (5)">E</button>
                         </div>
                         <div class="grade-legend">A:Museum | B:Good | C:OK | D:Poor | E:Unusable</div>
                     </div>
@@ -870,11 +991,11 @@
                     <div class="section">
                         <h2>Caste</h2>
                         <div class="caste-buttons" id="casteButtons">
-                            <button class="caste-btn" data-caste="unknown"><span class="symbol">?</span>Unknown</button>
-                            <button class="caste-btn" data-caste="ergate"><span class="symbol">☿</span>Ergate</button>
-                            <button class="caste-btn" data-caste="female"><span class="symbol">♀</span>Female</button>
-                            <button class="caste-btn" data-caste="male"><span class="symbol">♂</span>Male</button>
-                            <button class="caste-btn" data-caste="ergatoid"><span class="symbol"><svg viewBox="0 0 24 32"><circle cx="10" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M 16 5 Q 20 9 16 13" fill="none" stroke="currentColor" stroke-width="2"/><line x1="10" y1="15" x2="10" y2="26" stroke="currentColor" stroke-width="2"/><line x1="5" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="2"/></svg></span>Ergatoid</button>
+                            <button class="caste-btn" data-caste="unknown" title="Unknown caste (?)"><span class="symbol">?</span>Unknown</button>
+                            <button class="caste-btn" data-caste="ergate" title="Worker/Ergate (W)"><span class="symbol">☿</span>Ergate</button>
+                            <button class="caste-btn" data-caste="female" title="Queen/Female (F)"><span class="symbol">♀</span>Female</button>
+                            <button class="caste-btn" data-caste="male" title="Male (m)"><span class="symbol">♂</span>Male</button>
+                            <button class="caste-btn" data-caste="ergatoid" title="Ergatoid queen (E)"><span class="symbol"><svg viewBox="0 0 24 32"><circle cx="10" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M 16 5 Q 20 9 16 13" fill="none" stroke="currentColor" stroke-width="2"/><line x1="10" y1="15" x2="10" y2="26" stroke="currentColor" stroke-width="2"/><line x1="5" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="2"/></svg></span>Ergatoid</button>
                         </div>
                         <div class="caste-buttons subcaste-buttons" id="subcasteErgate" data-for="ergate">
                             <button class="caste-btn subcaste" data-subcaste="major">Major</button>
@@ -895,7 +1016,7 @@
 
                     <div class="section specimen-section">
                         <h2>Specimen Condition</h2>
-                        <div class="specimen-toggle" id="specimenToggle">
+                        <div class="specimen-toggle" id="specimenToggle" title="Toggle specimen issues (D)">
                             <input type="checkbox" id="hasIssues">
                             <label for="hasIssues">Specimen has issues (D)</label>
                         </div>
@@ -1298,6 +1419,11 @@
         // Update display
         function updateDisplay() {
             if (images.length === 0) return;
+
+            // Reset zoom when changing images
+            if (typeof resetZoom === 'function') {
+                resetZoom();
+            }
 
             const img = images[currentIndex];
             const imgPath = IMAGE_BASE_PATH + img.path;
@@ -1711,7 +1837,7 @@
                     cb.dispatchEvent(new Event('change'));
                     break;
                 // Annotation part shortcuts
-                case 'h': case 'H': selectPart('head'); break;
+                case 'h': case 'H': selectPart('cranium'); break;
                 case 'g': case 'G': selectPart('gaster'); break;
                 case 'p': case 'P': selectPart('petiole'); break;
                 case 'o': case 'O': selectPart('postpetiole'); break;
@@ -1719,20 +1845,35 @@
                 case 'l': case 'L': selectPart('leg'); break;
                 case 't': case 'T': selectPart('sting'); break;
                 case 'i': case 'I': selectPart('wing'); break;
+                case 'r': case 'R': selectPart('scale'); break;
+                case 'x': case 'X': selectPart('ignore'); break;
+                case 'n': case 'N': selectPart('measurement'); break;
                 // M: Shift+M = mesosoma, m = male caste
                 case 'm': setCaste('male'); break;
                 case 'M': selectPart('mesosoma'); break;
                 case 'b': case 'B': setDrawMode('box'); break;
                 case 'y': case 'Y': setDrawMode('poly'); break;
-                case 'Delete': case 'Backspace': deleteSelectedAnnotation(); break;
-                case 'Escape': cancelDrawing(); break;
+                case 'Delete': case 'Backspace': toggleDeleteMode(); break;
+                case 'Escape':
+                    if (deleteMode) toggleDeleteMode();
+                    else cancelDrawing();
+                    break;
+                // Zoom shortcuts
+                case '=': case '+': setZoom(zoomLevel + ZOOM_STEP); break;
+                case '-': case '_': setZoom(zoomLevel - ZOOM_STEP); break;
+                case '0': zoomToFit(); break;
+                case '1': setZoom(1); break;
+                case '2': setZoom(2); break;
+                case '3': setZoom(3); break;
+                case '4': setZoom(4); break;
             }
         }
 
         // ==================== ANNOTATION SYSTEM ====================
 
         const PART_COLORS = {
-            head: '#e94560',
+            cranium: '#e94560',
+            head: '#e94560',      // Legacy alias for cranium
             mesosoma: '#00ff88',
             gaster: '#00bfff',
             petiole: '#ffaa00',
@@ -1740,7 +1881,216 @@
             antenna: '#ff00ff',
             leg: '#ffff00',
             sting: '#ff0000',
-            wing: '#00ffff'
+            wing: '#00ffff',
+            scale: '#ffffff',     // White for scale bars
+            ignore: '#888888',    // Gray for ignore regions
+            measurement: '#00ffaa' // Cyan-green for morphometric measurements
+        };
+
+        // Morphometric measurements reference
+        // Source: Csősz & Schulz (2010) - Revision of Tetramorium ferox complex, Zootaxa 2401
+        const MORPHOMETRICS = {
+            // HEAD MEASUREMENTS (full-face view)
+            CL: {
+                name: 'Cephalic Length',
+                abbrev: 'CL',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'Length of head in full-face view, measured in a straight line from the anteriormost point of median clypeal margin to the mid-point of the posterior margin of the head. Concavity of posterior margin reduces CL.',
+                figure: 'Fig. 1'
+            },
+            CW: {
+                name: 'Cephalic Width',
+                abbrev: 'CW',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'Maximum width of head in full-face view, including compound eyes.',
+                figure: 'Fig. 1'
+            },
+            CS: {
+                name: 'Cephalic Size',
+                abbrev: 'CS',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'Calculated from the arithmetic mean of CL and CW. Used as a less variable indicator of body size.',
+                calculated: true,
+                formula: '(CL + CW) / 2'
+            },
+            EH: {
+                name: 'Eye Height',
+                abbrev: 'EH',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'The minimum diameter of the compound eye.',
+                figure: 'Fig. 2'
+            },
+            EL: {
+                name: 'Eye Length',
+                abbrev: 'EL',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'The maximum diameter of the compound eye.',
+                figure: 'Fig. 2'
+            },
+            EYE: {
+                name: 'Eye Size Index',
+                abbrev: 'EYE',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'Calculated from the arithmetic mean of EL and EH, divided by CS.',
+                calculated: true,
+                formula: '((EL + EH) / 2) / CS'
+            },
+            OMD: {
+                name: 'Oculo-Malar Distance',
+                abbrev: 'OMD',
+                body_part: 'head',
+                view: 'profile',
+                description: 'The minimal distance between anterior (lower) margin of the compound eye and the mandibular junction in profile.',
+                figure: 'Fig. 2'
+            },
+            FL: {
+                name: 'Frontal Lobes Width',
+                abbrev: 'FL',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'The maximum distance between external borders of the frontal lobes.',
+                figure: 'Fig. 1'
+            },
+            FR: {
+                name: 'Frons Width',
+                abbrev: 'FR',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'The minimum width of the frons between the frontal carinae.',
+                figure: 'Fig. 1'
+            },
+            POC: {
+                name: 'Postocular Distance',
+                abbrev: 'POC',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'Measured from the reference line fitted on the posterior margin of compound eyes to median posterior margin of the head.',
+                figure: 'Fig. 1'
+            },
+            SL: {
+                name: 'Scape Length',
+                abbrev: 'SL',
+                body_part: 'head',
+                view: 'full-face',
+                description: 'The maximum length of the scape, measured from the proximal point of scape lobe to the distal end of scape.',
+                figure: 'Fig. 1'
+            },
+
+            // MESOSOMA MEASUREMENTS
+            ML: {
+                name: 'Mesosoma Length',
+                abbrev: 'ML',
+                body_part: 'mesosoma',
+                view: 'profile',
+                description: 'The diagonal length of mesosoma measured in lateral view from the anteriormost point of the pronotal slope to the posterior (or postero-ventral) margin of the propodeal lobes.',
+                figure: 'Fig. 3'
+            },
+            MW: {
+                name: 'Mesosoma Width',
+                abbrev: 'MW',
+                body_part: 'mesosoma',
+                view: 'dorsal',
+                description: 'The maximum width of the pronotum from above.',
+                figure: 'Fig. 3'
+            },
+            SPL: {
+                name: 'Spiracle-Declivity Distance',
+                abbrev: 'SPL',
+                body_part: 'mesosoma',
+                view: 'profile',
+                description: 'The minimal distance between the center of propodeal spiracle and the propodeal declivity.',
+                figure: 'Fig. 4'
+            },
+            SPSP: {
+                name: 'Propodeal Spine Length',
+                abbrev: 'SPSP',
+                body_part: 'mesosoma',
+                view: 'profile',
+                description: 'The maximum length of propodeal teeth, measured in lateral view from the tip of spine to the propodeal spiracle.',
+                figure: 'Fig. 4'
+            },
+
+            // PETIOLE MEASUREMENTS
+            NOH: {
+                name: 'Petiolar Node Height',
+                abbrev: 'NOH',
+                body_part: 'petiole',
+                view: 'profile',
+                description: 'The maximum height of the petiolar node.',
+                figure: 'Fig. 4'
+            },
+            NOL: {
+                name: 'Petiolar Node Length',
+                abbrev: 'NOL',
+                body_part: 'petiole',
+                view: 'profile',
+                description: 'The length of the petiolar node. Though this character is fairly difficult to measure, the accuracy of that measurement is high.',
+                figure: 'Fig. 3'
+            },
+            PEH: {
+                name: 'Petiole Height',
+                abbrev: 'PEH',
+                body_part: 'petiole',
+                view: 'profile',
+                description: 'The maximum height of the petiole.',
+                figure: 'Fig. 4'
+            },
+            PEL: {
+                name: 'Petiole Length',
+                abbrev: 'PEL',
+                body_part: 'petiole',
+                view: 'profile',
+                description: 'The distance between the posteriormost point of the petiole and the petiolar spiracle.',
+                figure: 'Fig. 3'
+            },
+            PEW: {
+                name: 'Petiole Width',
+                abbrev: 'PEW',
+                body_part: 'petiole',
+                view: 'dorsal',
+                description: 'The maximum width of the petiole in dorsal view.',
+                figure: 'Fig. 3'
+            },
+
+            // POSTPETIOLE MEASUREMENTS
+            PPH: {
+                name: 'Postpetiole Height',
+                abbrev: 'PPH',
+                body_part: 'postpetiole',
+                view: 'profile',
+                description: 'The maximum height of the postpetiole in lateral view.',
+                figure: 'Fig. 4'
+            },
+            PPL: {
+                name: 'Postpetiole Length',
+                abbrev: 'PPL',
+                body_part: 'postpetiole',
+                view: 'profile',
+                description: 'The maximum length of the postpetiole in lateral view.',
+                figure: 'Fig. 3'
+            },
+            PPW: {
+                name: 'Postpetiole Width',
+                abbrev: 'PPW',
+                body_part: 'postpetiole',
+                view: 'dorsal',
+                description: 'The maximum width of the postpetiole in dorsal view.',
+                figure: 'Fig. 3'
+            }
+        };
+
+        // Group morphometrics by body part for UI
+        const MORPHO_BY_PART = {
+            head: ['CL', 'CW', 'CS', 'EH', 'EL', 'EYE', 'OMD', 'FL', 'FR', 'POC', 'SL'],
+            mesosoma: ['ML', 'MW', 'SPL', 'SPSP'],
+            petiole: ['NOH', 'NOL', 'PEH', 'PEL', 'PEW'],
+            postpetiole: ['PPH', 'PPL', 'PPW']
         };
 
         let annotations = {}; // { filename: { part: [ {type, ...coords} ] } }
@@ -1752,6 +2102,18 @@
         let polyMousePos = null; // Current mouse position for polygon preview
         let canvas = null;
         let ctx = null;
+        let deleteMode = false; // Delete mode active
+        let lineStart = null;   // Start point for line drawing
+        let tempScaleLine = null; // Temporary scale line data before saving
+
+        // Zoom state
+        let zoomLevel = 1;
+        const ZOOM_MIN = 0.25;
+        const ZOOM_MAX = 8;
+        const ZOOM_STEP = 0.25;
+        let isPanning = false;
+        let panStart = { x: 0, y: 0 };
+        let scrollStart = { x: 0, y: 0 };
 
         function initAnnotations() {
             canvas = document.getElementById('annotationCanvas');
@@ -1770,12 +2132,68 @@
             canvas.addEventListener('dblclick', onCanvasDblClick);
             canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 
-            // Delete/Clear buttons
-            document.getElementById('deleteAnnotBtn').addEventListener('click', deleteSelectedAnnotation);
+            // Delete mode toggle
+            document.getElementById('deleteAnnotBtn').addEventListener('click', toggleDeleteMode);
+
+            // Select to delete dropdown
+            document.getElementById('selectDeleteBtn').addEventListener('click', toggleDeleteDropdown);
+            document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDeleteSelected);
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                const dropdown = document.getElementById('deleteDropdown');
+                const btn = document.getElementById('selectDeleteBtn');
+                if (dropdown && !dropdown.contains(e.target) && e.target !== btn) {
+                    dropdown.style.display = 'none';
+                }
+            });
+
+            // Clear all button
             document.getElementById('clearAnnotBtn').addEventListener('click', clearAllAnnotations);
+
+            // Save scale button
+            document.getElementById('saveScaleBtn').addEventListener('click', saveScaleLine);
+
+            // Part select change - auto-switch to line mode for scale/measurement
+            document.getElementById('partSelect').addEventListener('change', (e) => {
+                const measurementSelect = document.getElementById('measurementSelect');
+                if (e.target.value === 'scale') {
+                    document.querySelector('input[name="drawMode"][value="line"]').checked = true;
+                    measurementSelect.style.display = 'none';
+                } else if (e.target.value === 'measurement') {
+                    document.querySelector('input[name="drawMode"][value="line"]').checked = true;
+                    measurementSelect.style.display = 'inline-block';
+                } else if (e.target.value !== 'ignore') {
+                    // Switch back to box mode for body parts
+                    document.querySelector('input[name="drawMode"][value="box"]').checked = true;
+                    measurementSelect.style.display = 'none';
+                } else {
+                    measurementSelect.style.display = 'none';
+                }
+                // Hide scale inputs when not scale
+                if (e.target.value !== 'scale' && !tempScaleLine) {
+                    document.getElementById('scaleInputs').style.display = 'none';
+                }
+            });
 
             // Resize canvas when image loads
             document.getElementById('currentImage').addEventListener('load', resizeCanvas);
+
+            // Zoom controls
+            document.getElementById('zoomInBtn').addEventListener('click', () => setZoom(zoomLevel + ZOOM_STEP));
+            document.getElementById('zoomOutBtn').addEventListener('click', () => setZoom(zoomLevel - ZOOM_STEP));
+            document.getElementById('zoomFitBtn').addEventListener('click', zoomToFit);
+            document.getElementById('zoom100Btn').addEventListener('click', () => setZoom(1));
+
+            // Mouse wheel zoom
+            const imageContainer = document.querySelector('.image-container');
+            imageContainer.addEventListener('wheel', onWheelZoom, { passive: false });
+
+            // Pan with middle mouse button or when zoomed > 100%
+            imageContainer.addEventListener('mousedown', onPanStart);
+            imageContainer.addEventListener('mousemove', onPanMove);
+            imageContainer.addEventListener('mouseup', onPanEnd);
+            imageContainer.addEventListener('mouseleave', onPanEnd);
         }
 
         function resizeCanvas() {
@@ -1786,8 +2204,117 @@
             renderAnnotations();
         }
 
+        // ==================== ZOOM SYSTEM ====================
+
+        function setZoom(level) {
+            zoomLevel = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, level));
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const wrapper = document.querySelector('.annotation-wrapper');
+            const container = document.querySelector('.image-container');
+
+            wrapper.style.transform = `scale(${zoomLevel})`;
+
+            // Update zoom level display
+            document.getElementById('zoomLevel').textContent = `${Math.round(zoomLevel * 100)}%`;
+
+            // Update button states
+            document.getElementById('zoomInBtn').disabled = zoomLevel >= ZOOM_MAX;
+            document.getElementById('zoomOutBtn').disabled = zoomLevel <= ZOOM_MIN;
+
+            // Add/remove zoomed class for cursor styling
+            if (zoomLevel > 1) {
+                container.classList.add('zoomed');
+            } else {
+                container.classList.remove('zoomed');
+            }
+        }
+
+        function zoomToFit() {
+            setZoom(1);
+            // Reset scroll position
+            const container = document.querySelector('.image-container');
+            container.scrollLeft = 0;
+            container.scrollTop = 0;
+        }
+
+        function onWheelZoom(e) {
+            // Only zoom if Ctrl is held or if over the image area
+            if (!e.ctrlKey && !e.metaKey) return;
+
+            e.preventDefault();
+
+            const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+            const container = document.querySelector('.image-container');
+            const wrapper = document.querySelector('.annotation-wrapper');
+
+            // Get mouse position relative to container
+            const rect = container.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left + container.scrollLeft;
+            const mouseY = e.clientY - rect.top + container.scrollTop;
+
+            // Calculate position in image space before zoom
+            const imgX = mouseX / zoomLevel;
+            const imgY = mouseY / zoomLevel;
+
+            // Apply new zoom
+            const oldZoom = zoomLevel;
+            setZoom(zoomLevel + delta);
+
+            // Adjust scroll to keep mouse position stable
+            if (zoomLevel !== oldZoom) {
+                const newMouseX = imgX * zoomLevel;
+                const newMouseY = imgY * zoomLevel;
+                container.scrollLeft += newMouseX - mouseX;
+                container.scrollTop += newMouseY - mouseY;
+            }
+        }
+
+        function onPanStart(e) {
+            // Middle mouse button (1) or left button when zoomed > 1 and Shift held
+            if (e.button === 1 || (e.button === 0 && e.shiftKey && zoomLevel > 1)) {
+                e.preventDefault();
+                isPanning = true;
+                panStart = { x: e.clientX, y: e.clientY };
+                const container = document.querySelector('.image-container');
+                scrollStart = { x: container.scrollLeft, y: container.scrollTop };
+                container.style.cursor = 'grabbing';
+            }
+        }
+
+        function onPanMove(e) {
+            if (!isPanning) return;
+            e.preventDefault();
+            const container = document.querySelector('.image-container');
+            const dx = e.clientX - panStart.x;
+            const dy = e.clientY - panStart.y;
+            container.scrollLeft = scrollStart.x - dx;
+            container.scrollTop = scrollStart.y - dy;
+        }
+
+        function onPanEnd(e) {
+            if (isPanning) {
+                isPanning = false;
+                const container = document.querySelector('.image-container');
+                container.style.cursor = zoomLevel > 1 ? 'grab' : '';
+            }
+        }
+
+        function resetZoom() {
+            zoomLevel = 1;
+            applyZoom();
+            const container = document.querySelector('.image-container');
+            container.scrollLeft = 0;
+            container.scrollTop = 0;
+        }
+
         function selectPart(part) {
-            document.getElementById('partSelect').value = part;
+            const partSelect = document.getElementById('partSelect');
+            partSelect.value = part;
+            // Trigger change event to update UI (measurement select visibility, draw mode)
+            partSelect.dispatchEvent(new Event('change'));
         }
 
         function setDrawMode(mode) {
@@ -1810,12 +2337,31 @@
             const imgAnnots = annotations[img.filename];
             if (imgAnnots) {
                 Object.entries(imgAnnots).forEach(([part, annots]) => {
+                    // Migrate legacy "head" to "cranium"
+                    const normalizedPart = part === 'head' ? 'cranium' : part;
                     annots.forEach((a, idx) => {
-                        currentAnnotations.push({ ...a, part, id: `${part}_${idx}` });
+                        currentAnnotations.push({ ...a, part: normalizedPart, id: `${normalizedPart}_${idx}` });
                     });
                 });
             }
             selectedAnnotation = null;
+
+            // Exit delete mode when changing images
+            if (deleteMode) {
+                deleteMode = false;
+                const btn = document.getElementById('deleteAnnotBtn');
+                const canvas = document.getElementById('annotationCanvas');
+                if (btn) {
+                    btn.classList.remove('delete-mode-active');
+                    btn.textContent = 'Delete Mode';
+                }
+                if (canvas) canvas.classList.remove('delete-mode');
+            }
+
+            // Close dropdown
+            const dropdown = document.getElementById('deleteDropdown');
+            if (dropdown) dropdown.style.display = 'none';
+
             updateAnnotCount();
         }
 
@@ -1891,6 +2437,45 @@
                     ctx.fillStyle = color;
                     ctx.font = '12px sans-serif';
                     ctx.fillText(a.part, a.points[0][0] + 2, a.points[0][1] - 4);
+                } else if (a.type === 'line') {
+                    // Draw semi-transparent line
+                    ctx.strokeStyle = color + '99'; // 60% opacity
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x1, a.y1);
+                    ctx.lineTo(a.x2, a.y2);
+                    ctx.stroke();
+
+                    // Draw endpoint half-circles (outline only, facing outward)
+                    const angle = Math.atan2(a.y2 - a.y1, a.x2 - a.x1);
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    // Start point: half-circle facing away from end
+                    ctx.beginPath();
+                    ctx.arc(a.x1, a.y1, 6, angle + Math.PI / 2, angle + Math.PI * 1.5);
+                    ctx.stroke();
+                    // End point: half-circle facing away from start
+                    ctx.beginPath();
+                    ctx.arc(a.x2, a.y2, 6, angle - Math.PI / 2, angle + Math.PI / 2);
+                    ctx.stroke();
+
+                    // Label with value or measurement type
+                    const midX = (a.x1 + a.x2) / 2;
+                    const midY = (a.y1 + a.y2) / 2;
+                    ctx.fillStyle = color;
+                    ctx.font = '12px sans-serif';
+                    let label;
+                    if (a.part === 'measurement' && a.measurement) {
+                        // Morphometric measurement - show abbreviation and pixel length
+                        label = `${a.measurement} (${a.pixelLength}px)`;
+                    } else if (a.realValue && a.unit) {
+                        // Scale bar with real value
+                        label = `${a.realValue}${a.unit}`;
+                    } else {
+                        // Default - just pixel length
+                        label = `${a.pixelLength}px`;
+                    }
+                    ctx.fillText(label, midX, midY - 8);
                 }
             });
 
@@ -1910,6 +2495,72 @@
                 }
 
                 ctx.setLineDash([]);
+            }
+
+            // Draw line in progress with half-circle endpoints
+            if (lineStart && polyMousePos) {
+                const color = PART_COLORS[getSelectedPart()] || '#fff';
+                ctx.strokeStyle = color + '99'; // 60% opacity
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+
+                ctx.beginPath();
+                ctx.moveTo(lineStart.x, lineStart.y);
+                ctx.lineTo(polyMousePos.x, polyMousePos.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Half-circle at start point (outline only)
+                const angle = Math.atan2(polyMousePos.y - lineStart.y, polyMousePos.x - lineStart.x);
+                ctx.strokeStyle = color;
+                ctx.beginPath();
+                ctx.arc(lineStart.x, lineStart.y, 6, angle + Math.PI / 2, angle + Math.PI * 1.5);
+                ctx.stroke();
+                // Half-circle at current mouse position
+                ctx.beginPath();
+                ctx.arc(polyMousePos.x, polyMousePos.y, 6, angle - Math.PI / 2, angle + Math.PI / 2);
+                ctx.stroke();
+
+                // Show pixel length preview and snap indicator
+                const dist = Math.round(Math.sqrt(
+                    Math.pow(polyMousePos.x - lineStart.x, 2) +
+                    Math.pow(polyMousePos.y - lineStart.y, 2)
+                ));
+                ctx.fillStyle = color;
+                ctx.font = '12px sans-serif';
+                const midX = (lineStart.x + polyMousePos.x) / 2;
+                const midY = (lineStart.y + polyMousePos.y) / 2;
+                const snapLabel = polyMousePos.snapped ? ` [${polyMousePos.snapped === 'horizontal' ? 'H' : 'V'}]` : '';
+                ctx.fillText(`${dist}px${snapLabel}`, midX, midY - 8);
+            }
+
+            // Draw temp scale line (before saving) with half-circle endpoints
+            if (tempScaleLine) {
+                const color = PART_COLORS['scale'] || '#fff';
+                ctx.strokeStyle = color + '99'; // 60% opacity
+                ctx.lineWidth = 2;
+
+                ctx.beginPath();
+                ctx.moveTo(tempScaleLine.x1, tempScaleLine.y1);
+                ctx.lineTo(tempScaleLine.x2, tempScaleLine.y2);
+                ctx.stroke();
+
+                // Half-circle endpoints (outline only)
+                const angle = Math.atan2(tempScaleLine.y2 - tempScaleLine.y1, tempScaleLine.x2 - tempScaleLine.x1);
+                ctx.strokeStyle = color;
+                ctx.beginPath();
+                ctx.arc(tempScaleLine.x1, tempScaleLine.y1, 6, angle + Math.PI / 2, angle + Math.PI * 1.5);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(tempScaleLine.x2, tempScaleLine.y2, 6, angle - Math.PI / 2, angle + Math.PI / 2);
+                ctx.stroke();
+
+                // Label
+                ctx.fillStyle = color;
+                ctx.font = '12px sans-serif';
+                const midX = (tempScaleLine.x1 + tempScaleLine.x2) / 2;
+                const midY = (tempScaleLine.y1 + tempScaleLine.y2) / 2;
+                ctx.fillText(`${tempScaleLine.pixelLength}px`, midX, midY - 8);
             }
 
             // Draw polygon points in progress
@@ -1984,9 +2635,10 @@
 
         function getCanvasCoords(e) {
             const rect = canvas.getBoundingClientRect();
+            // Account for zoom: divide by zoomLevel to get original image coordinates
             return {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top
+                x: (e.clientX - rect.left) / zoomLevel,
+                y: (e.clientY - rect.top) / zoomLevel
             };
         }
 
@@ -1994,6 +2646,18 @@
             if (e.button !== 0) return; // Left click only
 
             const coords = getCanvasCoords(e);
+
+            // Delete mode: click to delete annotation
+            if (deleteMode) {
+                const clicked = findAnnotationAt(coords.x, coords.y);
+                if (clicked !== null) {
+                    currentAnnotations.splice(clicked, 1);
+                    saveCurrentAnnotations();
+                    renderAnnotations();
+                }
+                return;
+            }
+
             const mode = getDrawMode();
 
             if (mode === 'box') {
@@ -2004,20 +2668,64 @@
                 if (polyPoints.length >= 3) {
                     const first = polyPoints[0];
                     const dist = Math.sqrt(Math.pow(coords.x - first[0], 2) + Math.pow(coords.y - first[1], 2));
-                    if (dist < 15) { // Within 15px of first point
+                    if (dist < 15) {
                         closePolygon();
                         return;
                     }
                 }
                 polyPoints.push([coords.x, coords.y]);
                 renderAnnotations();
-            }
+            } else if (mode === 'line') {
+                if (!lineStart) {
+                    // First click: set start point
+                    lineStart = { x: coords.x, y: coords.y };
+                    renderAnnotations();
+                } else {
+                    // Second click: complete the line with snap-to-axis
+                    const snapped = snapToAxis(lineStart.x, lineStart.y, coords.x, coords.y);
+                    const pixelLength = Math.sqrt(
+                        Math.pow(snapped.x - lineStart.x, 2) +
+                        Math.pow(snapped.y - lineStart.y, 2)
+                    );
+                    const selectedPart = getSelectedPart();
 
-            // Check if clicking on existing annotation (for selection)
-            const clicked = findAnnotationAt(coords.x, coords.y);
-            if (clicked !== null && !isDrawing && polyPoints.length === 0) {
-                selectedAnnotation = clicked;
-                renderAnnotations();
+                    if (selectedPart === 'measurement') {
+                        // Morphometric measurement - save immediately with measurement type
+                        const measurementType = document.getElementById('measurementSelect').value;
+                        const measurementInfo = MORPHOMETRICS[measurementType] || {};
+                        currentAnnotations.push({
+                            type: 'line',
+                            part: 'measurement',
+                            measurement: measurementType,
+                            measurementName: measurementInfo.name || measurementType,
+                            bodyPart: measurementInfo.body_part || 'unknown',
+                            view: measurementInfo.view || 'unknown',
+                            x1: Math.round(lineStart.x),
+                            y1: Math.round(lineStart.y),
+                            x2: Math.round(snapped.x),
+                            y2: Math.round(snapped.y),
+                            pixelLength: Math.round(pixelLength)
+                        });
+                        saveCurrentAnnotations();
+                        lineStart = null;
+                        renderAnnotations();
+                    } else {
+                        // Scale bar - store temp data and show inputs for value entry
+                        tempScaleLine = {
+                            x1: Math.round(lineStart.x),
+                            y1: Math.round(lineStart.y),
+                            x2: Math.round(snapped.x),
+                            y2: Math.round(snapped.y),
+                            pixelLength: Math.round(pixelLength)
+                        };
+                        // Show scale inputs and populate pixel length
+                        document.getElementById('scalePixels').textContent = Math.round(pixelLength);
+                        document.getElementById('scaleInputs').style.display = 'flex';
+                        document.getElementById('scaleValue').focus();
+                        lineStart = null;
+                        renderAnnotations();
+                    }
+                }
             }
         }
 
@@ -2031,6 +2739,11 @@
             } else if (mode === 'poly' && polyPoints.length > 0) {
                 // Track mouse for polygon preview line
                 polyMousePos = coords;
+                renderAnnotations();
+            } else if (mode === 'line' && lineStart) {
+                // Track mouse for line preview with snap-to-axis
+                const snapped = snapToAxis(lineStart.x, lineStart.y, coords.x, coords.y);
+                polyMousePos = snapped;
                 renderAnnotations();
             }
         }
@@ -2081,6 +2794,48 @@
             renderAnnotations();
         }
 
+        function saveScaleLine() {
+            if (!tempScaleLine) {
+                alert('Draw a line on the scale bar first');
+                return;
+            }
+
+            const valueInput = document.getElementById('scaleValue');
+            const unitSelect = document.getElementById('scaleUnit');
+            const realValue = parseFloat(valueInput.value);
+
+            if (!realValue || realValue <= 0) {
+                alert('Enter a valid scale value');
+                valueInput.focus();
+                return;
+            }
+
+            const unit = unitSelect.value;
+            const pixelsPerUnit = tempScaleLine.pixelLength / realValue;
+
+            currentAnnotations.push({
+                type: 'line',
+                part: 'scale',
+                x1: tempScaleLine.x1,
+                y1: tempScaleLine.y1,
+                x2: tempScaleLine.x2,
+                y2: tempScaleLine.y2,
+                pixelLength: tempScaleLine.pixelLength,
+                realValue: realValue,
+                unit: unit,
+                pixelsPerUnit: Math.round(pixelsPerUnit * 100) / 100
+            });
+
+            saveCurrentAnnotations();
+
+            // Reset
+            tempScaleLine = null;
+            valueInput.value = '';
+            document.getElementById('scalePixels').textContent = '—';
+            document.getElementById('scaleInputs').style.display = 'none';
+            renderAnnotations();
+        }
+
         function findAnnotationAt(x, y) {
             for (let i = currentAnnotations.length - 1; i >= 0; i--) {
                 const a = currentAnnotations[i];
@@ -2092,9 +2847,56 @@
                     if (pointInPolygon(x, y, a.points)) {
                         return i;
                     }
+                } else if (a.type === 'line') {
+                    if (pointNearLine(x, y, a.x1, a.y1, a.x2, a.y2, 10)) {
+                        return i;
+                    }
                 }
             }
             return null;
+        }
+
+        function pointNearLine(px, py, x1, y1, x2, y2, threshold) {
+            // Calculate distance from point to line segment
+            const A = px - x1;
+            const B = py - y1;
+            const C = x2 - x1;
+            const D = y2 - y1;
+
+            const dot = A * C + B * D;
+            const lenSq = C * C + D * D;
+            let param = lenSq !== 0 ? dot / lenSq : -1;
+
+            let xx, yy;
+            if (param < 0) {
+                xx = x1;
+                yy = y1;
+            } else if (param > 1) {
+                xx = x2;
+                yy = y2;
+            } else {
+                xx = x1 + param * C;
+                yy = y1 + param * D;
+            }
+
+            const dist = Math.sqrt(Math.pow(px - xx, 2) + Math.pow(py - yy, 2));
+            return dist <= threshold;
+        }
+
+        function snapToAxis(x1, y1, x2, y2, threshold = 15) {
+            // Calculate angle in degrees
+            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+            // Snap to horizontal (0° or 180°)
+            if (Math.abs(angle) <= threshold || Math.abs(angle) >= 180 - threshold) {
+                return { x: x2, y: y1, snapped: 'horizontal' };
+            }
+            // Snap to vertical (90° or -90°)
+            if (Math.abs(Math.abs(angle) - 90) <= threshold) {
+                return { x: x1, y: y2, snapped: 'vertical' };
+            }
+            // No snap
+            return { x: x2, y: y2, snapped: null };
         }
 
         function pointInPolygon(x, y, points) {
@@ -2108,12 +2910,75 @@
             return inside;
         }
 
-        function deleteSelectedAnnotation() {
-            if (selectedAnnotation !== null) {
-                currentAnnotations.splice(selectedAnnotation, 1);
-                selectedAnnotation = null;
+        function toggleDeleteMode() {
+            deleteMode = !deleteMode;
+            const btn = document.getElementById('deleteAnnotBtn');
+            const canvas = document.getElementById('annotationCanvas');
+
+            if (deleteMode) {
+                btn.classList.add('delete-mode-active');
+                btn.textContent = 'Exit Delete';
+                canvas.classList.add('delete-mode');
+                // Cancel any drawing in progress
+                cancelDrawing();
+            } else {
+                btn.classList.remove('delete-mode-active');
+                btn.textContent = 'Delete Mode';
+                canvas.classList.remove('delete-mode');
+            }
+        }
+
+        function toggleDeleteDropdown() {
+            const dropdown = document.getElementById('deleteDropdown');
+            const list = document.getElementById('deleteDropdownList');
+
+            if (dropdown.style.display === 'none') {
+                // Populate list
+                if (currentAnnotations.length === 0) {
+                    list.innerHTML = '<div style="color:#888;padding:0.5rem;font-size:0.75rem;">No annotations</div>';
+                } else {
+                    list.innerHTML = currentAnnotations.map((a, i) => {
+                        const color = PART_COLORS[a.part] || '#fff';
+                        return `<label style="display:flex;align-items:center;gap:0.3rem;padding:0.25rem;cursor:pointer;font-size:0.75rem;border-radius:3px;margin-bottom:2px;background:#0f3460;">
+                            <input type="checkbox" data-index="${i}" style="cursor:pointer;">
+                            <span style="width:10px;height:10px;background:${color};border-radius:2px;"></span>
+                            <span style="color:#fff;">${a.part} (${a.type})</span>
+                        </label>`;
+                    }).join('');
+                }
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+
+        function confirmDeleteSelected() {
+            const checkboxes = document.querySelectorAll('#deleteDropdownList input:checked');
+            const indices = Array.from(checkboxes).map(cb => parseInt(cb.dataset.index)).sort((a, b) => b - a);
+
+            if (indices.length === 0) {
+                alert('No annotations selected');
+                return;
+            }
+
+            const msg = indices.length === 1
+                ? 'Delete this annotation?'
+                : `Delete ${indices.length} annotations?`;
+
+            if (confirm(msg)) {
+                // Delete from highest index to lowest to preserve indices
+                indices.forEach(i => currentAnnotations.splice(i, 1));
                 saveCurrentAnnotations();
                 renderAnnotations();
+                document.getElementById('deleteDropdown').style.display = 'none';
+            }
+        }
+
+        function deleteSelectedAnnotation() {
+            // Legacy function - kept for keyboard shortcut
+            // In delete mode, this is handled by clicking
+            if (!deleteMode) {
+                toggleDeleteMode();
             }
         }
 
@@ -2132,6 +2997,11 @@
             drawStart = null;
             polyPoints = [];
             polyMousePos = null;
+            lineStart = null;
+            tempScaleLine = null;
+            document.getElementById('scaleInputs').style.display = 'none';
+            document.getElementById('scaleValue').value = '';
+            document.getElementById('scalePixels').textContent = '—';
             renderAnnotations();
         }
 
