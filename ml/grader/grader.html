@@ -264,6 +264,8 @@
             min-height: 0;
             max-height: calc(100vh - 280px);
             position: relative;
+            /* Prevent browser back/forward gestures when scrolling at edges */
+            overscroll-behavior: contain;
         }
 
         .annotation-wrapper {
@@ -476,6 +478,38 @@
             margin-top: 0.3rem;
             font-style: italic;
         }
+
+        /* Sculpturing section */
+        .sculpturing-section {
+            border: 1px solid #0f3460;
+        }
+        .sculpturing-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+        .sculpt-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.3rem 0.5rem;
+            background: #1a1a2e;
+            border: 2px solid #2a2a4e;
+            border-radius: 4px;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.7rem;
+            min-width: 40px;
+            transition: all 0.2s;
+        }
+        .sculpt-btn:hover { border-color: #9b59b6; color: #fff; }
+        .sculpt-btn.selected { background: #9b59b6; border-color: #9b59b6; color: #fff; }
+        .sculpt-btn .sculpt-value { font-weight: bold; font-size: 0.85rem; }
+        .sculpt-btn .sculpt-label { font-size: 0.6rem; color: #aaa; margin-top: 1px; }
+        .sculpt-btn.selected .sculpt-label { color: #fff; }
+        .sculpt-btn.sculpt-na { border-color: #444; }
+        .sculpt-btn.sculpt-na:hover { border-color: #666; }
+        .sculpt-btn.sculpt-na.selected { background: #444; border-color: #666; }
 
         /* Specimen condition section */
         .specimen-section {
@@ -885,22 +919,31 @@
                                 <option value="ignore">Ignore (X)</option>
                             </select>
                             <select id="measurementSelect" style="display:none;padding:0.25rem;border-radius:4px;background:#0f3460;color:#00ffaa;border:1px solid #00ffaa;font-size:0.8rem;margin-left:0.3rem;" title="Select morphometric measurement">
-                                <optgroup label="Head">
-                                    <option value="CL">CL - Cephalic Length</option>
-                                    <option value="CW">CW - Cephalic Width</option>
+                                <optgroup label="Head (full-face view)">
+                                    <option value="HL">HL - Head Length</option>
+                                    <option value="HW">HW - Head Width (across eyes)</option>
+                                    <option value="IOW">IOW - Inter-ocular Width</option>
+                                    <option value="EW">EW - Max Eye Width</option>
                                     <option value="EH">EH - Eye Height</option>
                                     <option value="EL">EL - Eye Length</option>
+                                    <option value="ClyL">ClyL - Clypeus Length</option>
+                                    <option value="MdL">MdL - Mandible Length</option>
                                     <option value="OMD">OMD - Oculo-Malar Distance</option>
-                                    <option value="FL">FL - Frontal Lobes Width</option>
+                                    <option value="FLW">FLW - Frontal Lobes Width</option>
                                     <option value="FR">FR - Frons Width</option>
                                     <option value="POC">POC - Postocular Distance</option>
                                     <option value="SL">SL - Scape Length</option>
                                 </optgroup>
                                 <optgroup label="Mesosoma">
+                                    <option value="WL">WL - Weber's Length</option>
                                     <option value="ML">ML - Mesosoma Length</option>
+                                    <option value="PW">PW - Pronotum Width</option>
                                     <option value="MW">MW - Mesosoma Width</option>
                                     <option value="SPL">SPL - Spiracle-Declivity</option>
                                     <option value="SPSP">SPSP - Propodeal Spine</option>
+                                </optgroup>
+                                <optgroup label="Legs">
+                                    <option value="HFL">HFL - Hind Femur Length</option>
                                 </optgroup>
                                 <optgroup label="Petiole">
                                     <option value="NOH">NOH - Node Height</option>
@@ -1012,6 +1055,33 @@
                             <button class="caste-btn subcaste" data-subcaste="unwinged">Unwinged</button>
                         </div>
                         <div class="caste-source" id="casteSource"></div>
+                    </div>
+
+                    <div class="section sculpturing-section">
+                        <h2>Sculpturing</h2>
+                        <div class="sculpturing-buttons">
+                            <button class="sculpt-btn" data-sculpt="1" title="Smooth, shiny cuticle">
+                                <span class="sculpt-value">1</span>
+                                <span class="sculpt-label">Smooth</span>
+                            </button>
+                            <button class="sculpt-btn" data-sculpt="1.5" title="Between smooth and wrinkled">
+                                <span class="sculpt-value">1.5</span>
+                            </button>
+                            <button class="sculpt-btn" data-sculpt="2" title="Shallow wrinkles/pits">
+                                <span class="sculpt-value">2</span>
+                                <span class="sculpt-label">Wrinkled</span>
+                            </button>
+                            <button class="sculpt-btn" data-sculpt="2.5" title="Between wrinkled and heavily textured">
+                                <span class="sculpt-value">2.5</span>
+                            </button>
+                            <button class="sculpt-btn" data-sculpt="3" title="Heavily textured with ridges/grooves/pits">
+                                <span class="sculpt-value">3</span>
+                                <span class="sculpt-label">Textured</span>
+                            </button>
+                            <button class="sculpt-btn sculpt-na" data-sculpt="na" title="Not assessable from this image">
+                                <span class="sculpt-value">N/A</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="section specimen-section">
@@ -1210,6 +1280,11 @@
             // Subcaste buttons
             document.querySelectorAll('.caste-btn.subcaste').forEach(btn => {
                 btn.addEventListener('click', () => setSubcaste(btn.dataset.subcaste));
+            });
+
+            // Sculpturing buttons
+            document.querySelectorAll('.sculpt-btn').forEach(btn => {
+                btn.addEventListener('click', () => setSculpturing(btn.dataset.sculpt));
             });
 
             // Specimen issues toggle
@@ -1486,6 +1561,11 @@
                 btn.classList.toggle('selected', btn.dataset.subcaste === gradeData?.subcaste);
             });
 
+            // Update sculpturing display
+            document.querySelectorAll('.sculpt-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.sculpt === gradeData?.sculpturing);
+            });
+
             // Update specimen checkboxes
             const hasIssues = gradeData?.specimen_issues?.has_issues || false;
             document.getElementById('hasIssues').checked = hasIssues;
@@ -1655,6 +1735,34 @@
             // Show the one matching the caste
             const subcasteEl = document.querySelector(`.subcaste-buttons[data-for="${caste}"]`);
             if (subcasteEl) subcasteEl.classList.add('visible');
+        }
+
+        // Set sculpturing
+        function setSculpturing(value) {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, caste: null, subcaste: null, specimen_issues: null };
+            }
+            // Toggle - click same value to deselect
+            if (grades[img.filename].sculpturing === value) {
+                grades[img.filename].sculpturing = null;
+            } else {
+                grades[img.filename].sculpturing = value;
+            }
+            saveGrades();
+            updateSculpturingDisplay();
+        }
+
+        function updateSculpturingDisplay() {
+            const img = images[currentIndex];
+            const gradeData = grades[img?.filename];
+            const sculpturing = gradeData?.sculpturing;
+
+            document.querySelectorAll('.sculpt-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.sculpt === sculpturing);
+            });
         }
 
         function updateSubcasteDisplay() {
@@ -2108,12 +2216,15 @@
 
         // Zoom state
         let zoomLevel = 1;
-        const ZOOM_MIN = 0.25;
+        const ZOOM_MIN = 0.5;
         const ZOOM_MAX = 8;
         const ZOOM_STEP = 0.25;
         let isPanning = false;
         let panStart = { x: 0, y: 0 };
         let scrollStart = { x: 0, y: 0 };
+        // Base dimensions at zoom level 1 (fitted to container)
+        let baseWidth = 0;
+        let baseHeight = 0;
 
         function initAnnotations() {
             canvas = document.getElementById('annotationCanvas');
@@ -2185,15 +2296,30 @@
             document.getElementById('zoomFitBtn').addEventListener('click', zoomToFit);
             document.getElementById('zoom100Btn').addEventListener('click', () => setZoom(1));
 
-            // Mouse wheel zoom
+            // Mouse wheel zoom (Ctrl+wheel) and prevent navigation gestures
             const imageContainer = document.querySelector('.image-container');
             imageContainer.addEventListener('wheel', onWheelZoom, { passive: false });
+
+            // Prevent horizontal wheel/scroll from triggering browser back/forward
+            imageContainer.addEventListener('wheel', (e) => {
+                if (zoomLevel > 1) {
+                    // When zoomed, prevent all wheel events from bubbling to browser
+                    e.stopPropagation();
+                }
+            }, { passive: true });
 
             // Pan with middle mouse button or when zoomed > 100%
             imageContainer.addEventListener('mousedown', onPanStart);
             imageContainer.addEventListener('mousemove', onPanMove);
             imageContainer.addEventListener('mouseup', onPanEnd);
             imageContainer.addEventListener('mouseleave', onPanEnd);
+
+            // Prevent back/forward mouse buttons
+            imageContainer.addEventListener('mousedown', (e) => {
+                if (e.button === 3 || e.button === 4) {
+                    e.preventDefault();
+                }
+            });
         }
 
         function resizeCanvas() {
@@ -2939,10 +3065,19 @@
                 } else {
                     list.innerHTML = currentAnnotations.map((a, i) => {
                         const color = PART_COLORS[a.part] || '#fff';
+                        // For measurement lines, show the measurement acronym
+                        let label;
+                        if (a.part === 'measurement' && a.measurement) {
+                            label = `${a.measurement} - measurement line`;
+                        } else if (a.part === 'scale' && a.realValue) {
+                            label = `Scale: ${a.realValue}${a.unit}`;
+                        } else {
+                            label = `${a.part} (${a.type})`;
+                        }
                         return `<label style="display:flex;align-items:center;gap:0.3rem;padding:0.25rem;cursor:pointer;font-size:0.75rem;border-radius:3px;margin-bottom:2px;background:#0f3460;">
                             <input type="checkbox" data-index="${i}" style="cursor:pointer;">
                             <span style="width:10px;height:10px;background:${color};border-radius:2px;"></span>
-                            <span style="color:#fff;">${a.part} (${a.type})</span>
+                            <span style="color:#fff;">${label}</span>
                         </label>`;
                     }).join('');
                 }
