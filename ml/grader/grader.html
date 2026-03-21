@@ -371,6 +371,9 @@
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+            padding-right: 0.5rem;
         }
 
         .section {
@@ -510,6 +513,131 @@
         .sculpt-btn.sculpt-na { border-color: #444; }
         .sculpt-btn.sculpt-na:hover { border-color: #666; }
         .sculpt-btn.sculpt-na.selected { background: #444; border-color: #666; }
+
+        /* Spines section */
+        .spines-section {
+            border: 1px solid #0f3460;
+            padding: 0.5rem 1rem !important;
+        }
+        .section-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+        }
+        .section-header-row h2 {
+            margin: 0;
+        }
+        .spines-row-compact {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .spines-row-compact label {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+        .spine-input {
+            width: 45px;
+            padding: 0.25rem;
+            background: #1a1a2e;
+            border: 2px solid #2a2a4e;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .spine-input:focus {
+            border-color: #e94560;
+            outline: none;
+        }
+        .spines-total {
+            font-size: 0.8rem;
+            color: #e94560;
+            font-weight: bold;
+            margin-left: auto;
+        }
+
+        /* Color section - compact */
+        .color-section {
+            border: 1px solid #0f3460;
+            position: relative;
+            padding: 0.5rem 1rem !important;
+        }
+        .color-row-inline {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            justify-content: center;
+        }
+        .color-label {
+            font-size: 0.7rem;
+            color: #888;
+            flex-shrink: 0;
+        }
+        .color-selected {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #666;
+            background: #1a1a2e;
+            transition: all 0.15s;
+        }
+        .color-selected:hover {
+            border-color: #e94560;
+        }
+        .color-selected.has-color {
+            border-color: #fff;
+        }
+        .color-picker-popup {
+            position: absolute;
+            left: 0;
+            right: 0;
+            background: #16213e;
+            border: 2px solid #e94560;
+            border-radius: 6px;
+            padding: 0.4rem;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            gap: 3px;
+        }
+        .color-swatch {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.1s;
+        }
+        .color-swatch:hover {
+            transform: scale(1.15);
+            z-index: 1;
+            border-color: #fff;
+        }
+        .color-auto-btn {
+            padding: 0.15rem 0.35rem;
+            font-size: 0.65rem;
+            background: #0f3460;
+            border: 1px solid #3498db;
+            color: #3498db;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .color-auto-btn:hover {
+            background: #3498db;
+            color: #fff;
+        }
 
         /* Specimen condition section */
         .specimen-section {
@@ -914,6 +1042,7 @@
                                 <option value="leg">Leg (L)</option>
                                 <option value="sting">Sting (T)</option>
                                 <option value="wing">Wing (I)</option>
+                                <option value="ocelli">Ocelli (C)</option>
                                 <option value="scale">Scale (R)</option>
                                 <option value="measurement">Measurement (N)</option>
                                 <option value="ignore">Ignore (X)</option>
@@ -959,9 +1088,10 @@
                                 </optgroup>
                             </select>
                             <label style="color:#aaa;font-size:0.75rem;margin-left:0.5rem;">Mode:</label>
-                            <label style="color:#fff;font-size:0.75rem;" title="Box mode (B)"><input type="radio" name="drawMode" value="box" checked> Box</label>
-                            <label style="color:#fff;font-size:0.75rem;" title="Polygon mode (Y)"><input type="radio" name="drawMode" value="poly"> Poly</label>
+                            <label style="color:#fff;font-size:0.75rem;" title="Box mode (B)"><input type="radio" name="drawMode" value="box"> Box</label>
+                            <label style="color:#fff;font-size:0.75rem;" title="Polygon mode (Y)"><input type="radio" name="drawMode" value="poly" checked> Poly</label>
                             <label style="color:#fff;font-size:0.75rem;" title="Line mode for scale bars"><input type="radio" name="drawMode" value="line"> Line</label>
+                            <label id="freehandLabel" style="display:none;color:#fff;font-size:0.7rem;margin-left:0.3rem;background:#0a3060;padding:0.15rem 0.4rem;border-radius:3px;" title="Disable angle snapping for freehand measurements"><input type="checkbox" id="freehandMode" style="margin-right:0.2rem;"> Freehand</label>
                             <div id="scaleInputs" style="display:none;margin-left:0.5rem;padding:0.25rem 0.5rem;background:#0a3060;border-radius:4px;">
                                 <span style="color:#aaa;font-size:0.7rem;">Pixels: <span id="scalePixels" style="color:#fff;">—</span></span>
                                 <input type="number" id="scaleValue" step="0.1" min="0" placeholder="Value" style="width:50px;padding:0.15rem;margin-left:0.3rem;background:#0f3460;border:1px solid #e94560;border-radius:3px;color:#fff;font-size:0.75rem;">
@@ -973,6 +1103,7 @@
                             </div>
                         </div>
                         <div class="annot-center">
+                            <button class="nav-btn" id="editAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Edit polygon vertices (double-click polygon to edit)">Edit Points</button>
                             <button class="nav-btn" id="deleteAnnotBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Toggle delete mode (Del)">Delete Mode</button>
                             <div style="position:relative;display:inline-block;">
                                 <button class="nav-btn" id="selectDeleteBtn" style="font-size:0.75rem;padding:0.25rem 0.5rem;" title="Select annotations to delete">Select to Delete</button>
@@ -1081,6 +1212,34 @@
                             <button class="sculpt-btn sculpt-na" data-sculpt="na" title="Not assessable from this image">
                                 <span class="sculpt-value">N/A</span>
                             </button>
+                        </div>
+                    </div>
+
+                    <div class="section spines-section">
+                        <div class="section-header-row">
+                            <h2>Spines</h2>
+                            <span class="spines-total" id="spinesTotalDisplay"></span>
+                        </div>
+                        <div class="spines-row-compact">
+                            <label>Meso:</label>
+                            <input type="number" id="spinesMesosoma" class="spine-input" min="0" max="20" value="0">
+                            <label>Pet:</label>
+                            <input type="number" id="spinesPetiole" class="spine-input" min="0" max="10" value="0">
+                        </div>
+                    </div>
+
+                    <div class="section color-section">
+                        <h2>Dominant Color</h2>
+                        <div class="color-row-inline">
+                            <span class="color-label">H:</span>
+                            <div class="color-selected" id="colorSelectedHead" data-part="head" title="Auto-detected from cranium polygon">—</div>
+                            <span class="color-label">M:</span>
+                            <div class="color-selected" id="colorSelectedMesosoma" data-part="mesosoma" title="Auto-detected from mesosoma polygon">—</div>
+                            <span class="color-label">G:</span>
+                            <div class="color-selected" id="colorSelectedGaster" data-part="gaster" title="Auto-detected from gaster polygon">—</div>
+                        </div>
+                        <div class="color-picker-popup" id="colorPickerPopup" style="display:none;">
+                            <div class="color-picker-grid" id="colorPickerGrid"></div>
                         </div>
                     </div>
 
@@ -1286,6 +1445,17 @@
             document.querySelectorAll('.sculpt-btn').forEach(btn => {
                 btn.addEventListener('click', () => setSculpturing(btn.dataset.sculpt));
             });
+
+            // Spines inputs
+            document.getElementById('spinesMesosoma').addEventListener('input', saveSpines);
+            document.getElementById('spinesPetiole').addEventListener('input', saveSpines);
+
+            // Initialize color wheels
+            initColorWheels();
+
+            // Color auto-extract buttons
+            // Color auto-detection now happens automatically when polygons are drawn
+            // (cranium/mesosoma/gaster polygons trigger autoExtractColor)
 
             // Specimen issues toggle
             document.getElementById('hasIssues').addEventListener('change', (e) => {
@@ -1566,6 +1736,12 @@
                 btn.classList.toggle('selected', btn.dataset.sculpt === gradeData?.sculpturing);
             });
 
+            // Update spines display
+            updateSpinesDisplay();
+
+            // Update color display
+            updateColorDisplay();
+
             // Update specimen checkboxes
             const hasIssues = gradeData?.specimen_issues?.has_issues || false;
             document.getElementById('hasIssues').checked = hasIssues;
@@ -1775,6 +1951,330 @@
             });
         }
 
+        // Spines
+        function saveSpines() {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, caste: null, subcaste: null, specimen_issues: null };
+            }
+
+            const mesosoma = document.getElementById('spinesMesosoma').value;
+            const petiole = document.getElementById('spinesPetiole').value;
+
+            grades[img.filename].spines = {
+                mesosoma: mesosoma !== '' ? parseInt(mesosoma) : null,
+                petiole: petiole !== '' ? parseInt(petiole) : null
+            };
+
+            saveGrades();
+            updateSpinesTotalDisplay();
+        }
+
+        function updateSpinesDisplay() {
+            const img = images[currentIndex];
+            const gradeData = grades[img?.filename];
+            const spines = gradeData?.spines;
+
+            const mesoInput = document.getElementById('spinesMesosoma');
+            const petiInput = document.getElementById('spinesPetiole');
+
+            mesoInput.value = spines?.mesosoma ?? '';
+            petiInput.value = spines?.petiole ?? '';
+
+            updateSpinesTotalDisplay();
+        }
+
+        function updateSpinesTotalDisplay() {
+            const img = images[currentIndex];
+            const gradeData = grades[img?.filename];
+            const spines = gradeData?.spines;
+
+            const total = (spines?.mesosoma || 0) + (spines?.petiole || 0);
+            const display = document.getElementById('spinesTotalDisplay');
+            if (spines?.mesosoma !== null || spines?.petiole !== null) {
+                display.textContent = `Total: ${total}`;
+            } else {
+                display.textContent = '';
+            }
+        }
+
+        // Color picker - compact version
+        let activeColorPart = null; // Which body part picker is open for
+
+        function initColorWheels() {
+            // Build the color picker grid
+            const grid = document.getElementById('colorPickerGrid');
+            grid.innerHTML = '';
+            GLAD_COLORS.forEach(color => {
+                const swatch = document.createElement('div');
+                swatch.className = 'color-swatch';
+                swatch.style.backgroundColor = color.hex;
+                swatch.dataset.colorId = color.id;
+                swatch.title = `${color.id}: ${color.name}`;
+                swatch.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (activeColorPart) {
+                        setColor(activeColorPart, color.id);
+                        closeColorPicker();
+                    }
+                });
+                grid.appendChild(swatch);
+            });
+
+            // Click handlers for color selection boxes
+            ['Head', 'Mesosoma', 'Gaster'].forEach(part => {
+                const box = document.getElementById(`colorSelected${part}`);
+                box.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openColorPicker(part.toLowerCase(), box);
+                });
+            });
+
+            // Close picker when clicking outside
+            document.addEventListener('click', (e) => {
+                const popup = document.getElementById('colorPickerPopup');
+                if (popup.style.display !== 'none' && !popup.contains(e.target)) {
+                    closeColorPicker();
+                }
+            });
+        }
+
+        function openColorPicker(part, anchorElement) {
+            activeColorPart = part;
+            const popup = document.getElementById('colorPickerPopup');
+            popup.style.display = 'block';
+            // Position below the clicked element
+            const rect = anchorElement.getBoundingClientRect();
+            const section = anchorElement.closest('.color-section');
+            const sectionRect = section.getBoundingClientRect();
+            popup.style.top = (rect.bottom - sectionRect.top + 4) + 'px';
+        }
+
+        function closeColorPicker() {
+            document.getElementById('colorPickerPopup').style.display = 'none';
+            activeColorPart = null;
+        }
+
+        function setColor(bodyPart, gladId, rgbHex = null, deltaE = null) {
+            if (images.length === 0) return;
+            const img = images[currentIndex];
+
+            if (!grades[img.filename]) {
+                grades[img.filename] = { image_quality: null, caste: null, subcaste: null, specimen_issues: null };
+            }
+
+            if (!grades[img.filename].color) {
+                grades[img.filename].color = {};
+            }
+
+            // Toggle - click same to deselect
+            const current = grades[img.filename].color[bodyPart];
+            const currentGlad = current?.glad || current;
+            if (currentGlad === gladId && !rgbHex) {
+                grades[img.filename].color[bodyPart] = null;
+            } else {
+                // Store both GLAD and RGB (if auto-detected)
+                grades[img.filename].color[bodyPart] = rgbHex
+                    ? { glad: gladId, rgb: rgbHex, deltaE: Math.round(deltaE * 100) / 100 }
+                    : { glad: gladId };
+            }
+
+            saveGrades();
+            updateColorDisplay();
+        }
+
+        function updateColorDisplay() {
+            const img = images[currentIndex];
+            const gradeData = grades[img?.filename];
+            const colors = gradeData?.color || {};
+
+            ['head', 'mesosoma', 'gaster'].forEach(part => {
+                const partCapital = part.charAt(0).toUpperCase() + part.slice(1);
+                const box = document.getElementById(`colorSelected${partCapital}`);
+                const colorData = colors[part];
+                // Handle both new format {glad, rgb} and legacy format (just id)
+                const gladId = colorData?.glad || colorData;
+                const colorObj = GLAD_COLORS.find(c => c.id === gladId);
+
+                if (colorObj) {
+                    box.style.backgroundColor = colorObj.hex;
+                    box.textContent = '';
+                    box.classList.add('has-color');
+                    // Show RGB and deltaE if available
+                    const extra = colorData?.rgb ? ` | RGB: ${colorData.rgb} | ΔE: ${colorData.deltaE}` : '';
+                    box.title = `${colorObj.id}: ${colorObj.name}${extra}`;
+                } else {
+                    box.style.backgroundColor = '#1a1a2e';
+                    box.textContent = '—';
+                    box.classList.remove('has-color');
+                    box.title = 'Auto-detected when polygon drawn';
+                }
+            });
+        }
+
+        function autoExtractColor(bodyPart) {
+            const img = images[currentIndex];
+            if (!img) return;
+
+            // Check if we have an annotation for this body part
+            const imgAnnotations = annotations[img.filename];
+            if (!imgAnnotations) {
+                alert(`No annotations found. Draw a polygon around the ${bodyPart} first.`);
+                return;
+            }
+
+            // Find annotation for this part (cranium = head)
+            const partKey = bodyPart === 'head' ? 'cranium' : bodyPart;
+            const partAnnotations = imgAnnotations[partKey];
+            if (!partAnnotations || partAnnotations.length === 0) {
+                alert(`No ${bodyPart} annotation found. Draw a polygon around the ${bodyPart} first.`);
+                return;
+            }
+
+            // Get the first polygon annotation
+            const annotation = partAnnotations.find(a => a.type === 'poly');
+            if (!annotation) {
+                alert(`No polygon annotation for ${bodyPart}. Use polygon mode (Y) to draw around the ${bodyPart}.`);
+                return;
+            }
+
+            // Sample colors from the polygon region
+            const imgEl = document.getElementById('currentImage');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            canvas.width = imgEl.naturalWidth;
+            canvas.height = imgEl.naturalHeight;
+
+            try {
+                ctx.drawImage(imgEl, 0, 0);
+            } catch (e) {
+                console.error('Failed to draw image to canvas (CORS?):', e);
+                alert('Cannot extract color: image may be from a different origin.');
+                return;
+            }
+
+            // Shrink polygon inward to avoid sampling background at edges
+            const points = annotation.points;
+            const shrinkFactor = 0.50; // Shrink by 50% toward centroid (sample inner half)
+
+            // Calculate centroid
+            const centroidX = points.reduce((s, p) => s + p[0], 0) / points.length;
+            const centroidY = points.reduce((s, p) => s + p[1], 0) / points.length;
+
+            // Shrink each point toward centroid
+            const shrunkPoints = points.map(p => [
+                p[0] + (centroidX - p[0]) * shrinkFactor,
+                p[1] + (centroidY - p[1]) * shrinkFactor
+            ]);
+
+            // Get bounding box of shrunk polygon
+            const minX = Math.max(0, Math.floor(Math.min(...shrunkPoints.map(p => p[0]))));
+            const maxX = Math.min(canvas.width - 1, Math.ceil(Math.max(...shrunkPoints.map(p => p[0]))));
+            const minY = Math.max(0, Math.floor(Math.min(...shrunkPoints.map(p => p[1]))));
+            const maxY = Math.min(canvas.height - 1, Math.ceil(Math.max(...shrunkPoints.map(p => p[1]))));
+
+            console.log(`Sampling ${bodyPart}: shrunk bbox (${minX},${minY}) to (${maxX},${maxY}), image size: ${canvas.width}x${canvas.height}`);
+
+            // Sample pixels inside shrunk polygon (avoids background at edges)
+            const samples = [];
+            const step = 3; // Sample every 3rd pixel for performance
+
+            // Check if canvas is tainted
+            try {
+                ctx.getImageData(0, 0, 1, 1);
+            } catch (e) {
+                console.error('Canvas is tainted (CORS):', e);
+                alert('Cannot extract color: image origin prevents pixel access. Try using a local server.');
+                return;
+            }
+
+            for (let y = minY; y <= maxY; y += step) {
+                for (let x = minX; x <= maxX; x += step) {
+                    if (isPointInPolygon(x, y, shrunkPoints)) {
+                        const pixel = ctx.getImageData(x, y, 1, 1).data;
+                        samples.push([pixel[0], pixel[1], pixel[2]]);
+                    }
+                }
+            }
+
+            console.log(`Sampled ${samples.length} pixels from ${bodyPart}`);
+
+            if (samples.length === 0) {
+                alert('Could not sample colors from the region. Check the polygon annotation.');
+                return;
+            }
+
+            // Calculate average color
+            const avgR = Math.round(samples.reduce((s, p) => s + p[0], 0) / samples.length);
+            const avgG = Math.round(samples.reduce((s, p) => s + p[1], 0) / samples.length);
+            const avgB = Math.round(samples.reduce((s, p) => s + p[2], 0) / samples.length);
+
+            console.log(`Average color for ${bodyPart}: RGB(${avgR}, ${avgG}, ${avgB})`);
+
+            // Convert RGB to LAB for perceptual color matching
+            function rgbToLab(r, g, b) {
+                // RGB to XYZ
+                let rr = r / 255, gg = g / 255, bb = b / 255;
+                rr = rr > 0.04045 ? Math.pow((rr + 0.055) / 1.055, 2.4) : rr / 12.92;
+                gg = gg > 0.04045 ? Math.pow((gg + 0.055) / 1.055, 2.4) : gg / 12.92;
+                bb = bb > 0.04045 ? Math.pow((bb + 0.055) / 1.055, 2.4) : bb / 12.92;
+                let x = (rr * 0.4124 + gg * 0.3576 + bb * 0.1805) / 0.95047;
+                let y = (rr * 0.2126 + gg * 0.7152 + bb * 0.0722) / 1.00000;
+                let z = (rr * 0.0193 + gg * 0.1192 + bb * 0.9505) / 1.08883;
+                // XYZ to LAB
+                x = x > 0.008856 ? Math.pow(x, 1/3) : (7.787 * x) + 16/116;
+                y = y > 0.008856 ? Math.pow(y, 1/3) : (7.787 * y) + 16/116;
+                z = z > 0.008856 ? Math.pow(z, 1/3) : (7.787 * z) + 16/116;
+                return { L: (116 * y) - 16, a: 500 * (x - y), b: 200 * (y - z) };
+            }
+
+            const sampleLab = rgbToLab(avgR, avgG, avgB);
+            console.log(`LAB: L=${sampleLab.L.toFixed(1)}, a=${sampleLab.a.toFixed(1)}, b=${sampleLab.b.toFixed(1)}`);
+
+            // Find closest GLAD color using Delta E (CIE76) in LAB space
+            let closestColor = GLAD_COLORS[0];
+            let minDistance = Infinity;
+            GLAD_COLORS.forEach(c => {
+                const hex = c.hex;
+                const r = parseInt(hex.slice(1, 3), 16);
+                const g = parseInt(hex.slice(3, 5), 16);
+                const b = parseInt(hex.slice(5, 7), 16);
+                const colorLab = rgbToLab(r, g, b);
+                // Delta E (CIE76) - perceptual color difference
+                const dist = Math.sqrt(
+                    Math.pow(colorLab.L - sampleLab.L, 2) +
+                    Math.pow(colorLab.a - sampleLab.a, 2) +
+                    Math.pow(colorLab.b - sampleLab.b, 2)
+                );
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    closestColor = c;
+                }
+            });
+
+            console.log(`Closest match: ${closestColor.id} - ${closestColor.name} (${closestColor.hex}), ΔE: ${minDistance.toFixed(2)}`);
+
+            // Convert RGB to hex
+            const rgbHex = '#' + [avgR, avgG, avgB].map(c => c.toString(16).padStart(2, '0')).join('');
+
+            // Set the color with both values
+            setColor(bodyPart, closestColor.id, rgbHex, minDistance);
+        }
+
+        function isPointInPolygon(x, y, polygon) {
+            let inside = false;
+            for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+                const xi = polygon[i][0], yi = polygon[i][1];
+                const xj = polygon[j][0], yj = polygon[j][1];
+                if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) {
+                    inside = !inside;
+                }
+            }
+            return inside;
+        }
+
         // Navigate
         function navigate(direction) {
             const newIndex = currentIndex + direction;
@@ -1953,6 +2453,7 @@
                 case 'l': case 'L': selectPart('leg'); break;
                 case 't': case 'T': selectPart('sting'); break;
                 case 'i': case 'I': selectPart('wing'); break;
+                case 'c': case 'C': selectPart('ocelli'); break;
                 case 'r': case 'R': selectPart('scale'); break;
                 case 'x': case 'X': selectPart('ignore'); break;
                 case 'n': case 'N': selectPart('measurement'); break;
@@ -1963,7 +2464,8 @@
                 case 'y': case 'Y': setDrawMode('poly'); break;
                 case 'Delete': case 'Backspace': toggleDeleteMode(); break;
                 case 'Escape':
-                    if (deleteMode) toggleDeleteMode();
+                    if (editMode) toggleEditMode();
+                    else if (deleteMode) toggleDeleteMode();
                     else cancelDrawing();
                     break;
                 // Zoom shortcuts
@@ -1990,10 +2492,53 @@
             leg: '#ffff00',
             sting: '#ff0000',
             wing: '#00ffff',
+            ocelli: '#ff88ff',    // Light magenta for ocelli
             scale: '#ffffff',     // White for scale bars
             ignore: '#888888',    // Gray for ignore regions
             measurement: '#00ffaa' // Cyan-green for morphometric measurements
         };
+
+        // GLAD Color Wheel - 12 basic colors + 10 brown variations from trait-descriptions-globalants.pdf
+        // Colors 1-12 basic, 15-24 extended browns (page S15a and S15b)
+        const GLAD_COLORS = [
+            // Basic 12 colors
+            { id: 1, hex: '#0a0a0a', name: 'Black' },
+            { id: 2, hex: '#2d3436', name: 'Dark slate' },
+            { id: 3, hex: '#636e72', name: 'Gray' },
+            { id: 4, hex: '#2d3a0e', name: 'Dark olive' },
+            { id: 5, hex: '#a4b545', name: 'Yellow-green' },
+            { id: 6, hex: '#6b8e23', name: 'Olive green' },
+            { id: 7, hex: '#daa520', name: 'Goldenrod' },
+            { id: 8, hex: '#a0522d', name: 'Sienna/Brown' },
+            { id: 9, hex: '#d35400', name: 'Rust/Orange' },
+            { id: 10, hex: '#8b4513', name: 'Saddle brown' },
+            { id: 11, hex: '#3e2723', name: 'Dark brown' },
+            { id: 12, hex: '#1a237e', name: 'Navy/Blue' },
+            // Extended brown palette (15-24 from S15b)
+            { id: 15, hex: '#f5a623', name: 'Orange-tan' },
+            { id: 16, hex: '#e67e22', name: 'Carrot orange' },
+            { id: 17, hex: '#d4a05a', name: 'Tan' },
+            { id: 18, hex: '#f0d9b5', name: 'Light tan' },
+            { id: 19, hex: '#c0392b', name: 'Red-brown' },
+            { id: 20, hex: '#a93226', name: 'Dark red' },
+            { id: 21, hex: '#7b241c', name: 'Maroon' },
+            { id: 22, hex: '#6d4c41', name: 'Medium brown' },
+            { id: 23, hex: '#795548', name: 'Brown' },
+            { id: 24, hex: '#4e342e', name: 'Coffee' },
+            // Muted/gray-brown tones (common in ants)
+            { id: 25, hex: '#9e9e9e', name: 'Medium gray' },
+            { id: 26, hex: '#bdbdbd', name: 'Light gray' },
+            { id: 27, hex: '#8d8d8d', name: 'Stone gray' },
+            { id: 28, hex: '#8b7d6b', name: 'Taupe' },
+            { id: 29, hex: '#a89f91', name: 'Warm gray' },
+            { id: 30, hex: '#c8bfae', name: 'Beige' },
+            { id: 31, hex: '#d5cec3', name: 'Cream' },
+            { id: 32, hex: '#b5a191', name: 'Mushroom' },
+            { id: 33, hex: '#c9b99a', name: 'Sand' },
+            { id: 34, hex: '#a08060', name: 'Clay' },
+            { id: 35, hex: '#c4a77d', name: 'Fawn' },
+            { id: 36, hex: '#9c8b7a', name: 'Driftwood' }
+        ];
 
         // Morphometric measurements reference
         // Source: Csősz & Schulz (2010) - Revision of Tetramorium ferox complex, Zootaxa 2401
@@ -2214,6 +2759,13 @@
         let lineStart = null;   // Start point for line drawing
         let tempScaleLine = null; // Temporary scale line data before saving
 
+        // Edit mode state for vertex/corner/endpoint editing
+        let editMode = false;
+        let editingAnnotationIndex = null; // Index in currentAnnotations
+        let draggedVertexIndex = null; // Index in points/corners/endpoints
+        let draggedVertexType = null; // 'poly', 'box', or 'line'
+        let isDraggingVertex = false;
+
         // Zoom state
         let zoomLevel = 1;
         const ZOOM_MIN = 0.5;
@@ -2246,6 +2798,9 @@
             // Delete mode toggle
             document.getElementById('deleteAnnotBtn').addEventListener('click', toggleDeleteMode);
 
+            // Edit mode toggle
+            document.getElementById('editAnnotBtn').addEventListener('click', toggleEditMode);
+
             // Select to delete dropdown
             document.getElementById('selectDeleteBtn').addEventListener('click', toggleDeleteDropdown);
             document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDeleteSelected);
@@ -2268,18 +2823,23 @@
             // Part select change - auto-switch to line mode for scale/measurement
             document.getElementById('partSelect').addEventListener('change', (e) => {
                 const measurementSelect = document.getElementById('measurementSelect');
+                const freehandLabel = document.getElementById('freehandLabel');
                 if (e.target.value === 'scale') {
                     document.querySelector('input[name="drawMode"][value="line"]').checked = true;
                     measurementSelect.style.display = 'none';
+                    freehandLabel.style.display = 'none';
                 } else if (e.target.value === 'measurement') {
                     document.querySelector('input[name="drawMode"][value="line"]').checked = true;
                     measurementSelect.style.display = 'inline-block';
+                    freehandLabel.style.display = 'inline-block';
                 } else if (e.target.value !== 'ignore') {
-                    // Switch back to box mode for body parts
-                    document.querySelector('input[name="drawMode"][value="box"]').checked = true;
+                    // Switch back to poly mode for body parts
+                    document.querySelector('input[name="drawMode"][value="poly"]').checked = true;
                     measurementSelect.style.display = 'none';
+                    freehandLabel.style.display = 'none';
                 } else {
                     measurementSelect.style.display = 'none';
+                    freehandLabel.style.display = 'none';
                 }
                 // Hide scale inputs when not scale
                 if (e.target.value !== 'scale' && !tempScaleLine) {
@@ -2488,6 +3048,20 @@
             const dropdown = document.getElementById('deleteDropdown');
             if (dropdown) dropdown.style.display = 'none';
 
+            // Auto-extract colors for existing annotations if not already saved
+            const gradeData = grades[img.filename];
+            const savedColors = gradeData?.color || {};
+            setTimeout(() => {
+                ['head', 'mesosoma', 'gaster'].forEach(colorPart => {
+                    const partKey = colorPart === 'head' ? 'cranium' : colorPart;
+                    const hasAnnotation = currentAnnotations.some(a => a.part === partKey && a.type === 'poly');
+                    const hasColor = savedColors[colorPart]?.glad || savedColors[colorPart];
+                    if (hasAnnotation && !hasColor) {
+                        autoExtractColor(colorPart);
+                    }
+                });
+            }, 200);
+
             updateAnnotCount();
         }
 
@@ -2541,49 +3115,128 @@
                 ctx.fillStyle = color + '33'; // 20% opacity
 
                 if (a.type === 'box') {
+                    const isEditSelected = editMode && editingAnnotationIndex === idx;
+
+                    // Highlight selected box
+                    if (isEditSelected) {
+                        ctx.strokeStyle = '#fff';
+                        ctx.lineWidth = 3;
+                        ctx.strokeRect(a.x, a.y, a.w, a.h);
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 2;
+                    }
                     ctx.strokeRect(a.x, a.y, a.w, a.h);
+                    ctx.fillStyle = isEditSelected ? color + '55' : color + '33';
                     ctx.fillRect(a.x, a.y, a.w, a.h);
+
+                    // Draw corner handles in edit mode
+                    if (editMode) {
+                        const corners = [
+                            [a.x, a.y], [a.x + a.w, a.y],
+                            [a.x + a.w, a.y + a.h], [a.x, a.y + a.h]
+                        ];
+                        corners.forEach((c, ci) => {
+                            const isDragged = isEditSelected && draggedVertexIndex === ci && draggedVertexType === 'box';
+                            ctx.beginPath();
+                            ctx.rect(c[0] - (isDragged ? 5 : 4), c[1] - (isDragged ? 5 : 4), isDragged ? 10 : 8, isDragged ? 10 : 8);
+                            ctx.fillStyle = isEditSelected ? '#fff' : color;
+                            ctx.fill();
+                            ctx.strokeStyle = color;
+                            ctx.lineWidth = 2;
+                            ctx.stroke();
+                        });
+                    }
 
                     // Label
                     ctx.fillStyle = color;
                     ctx.font = '12px sans-serif';
                     ctx.fillText(a.part, a.x + 2, a.y - 4);
                 } else if (a.type === 'poly' && a.points.length > 1) {
+                    const isEditSelected = editMode && editingAnnotationIndex === idx;
+
                     ctx.beginPath();
                     ctx.moveTo(a.points[0][0], a.points[0][1]);
                     for (let i = 1; i < a.points.length; i++) {
                         ctx.lineTo(a.points[i][0], a.points[i][1]);
                     }
                     ctx.closePath();
+
+                    // Highlight selected polygon
+                    if (isEditSelected) {
+                        ctx.strokeStyle = '#fff';
+                        ctx.lineWidth = 3;
+                        ctx.stroke();
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 2;
+                    }
                     ctx.stroke();
-                    ctx.fillStyle = color + '33';
+                    ctx.fillStyle = isEditSelected ? color + '55' : color + '33';
                     ctx.fill();
+
+                    // Draw vertex handles in edit mode
+                    if (editMode) {
+                        a.points.forEach((p, vi) => {
+                            const isDragged = isEditSelected && draggedVertexIndex === vi;
+                            ctx.beginPath();
+                            ctx.arc(p[0], p[1], isDragged ? 8 : 6, 0, Math.PI * 2);
+                            ctx.fillStyle = isEditSelected ? '#fff' : color;
+                            ctx.fill();
+                            ctx.strokeStyle = color;
+                            ctx.lineWidth = 2;
+                            ctx.stroke();
+                        });
+                    }
 
                     // Label
                     ctx.fillStyle = color;
                     ctx.font = '12px sans-serif';
                     ctx.fillText(a.part, a.points[0][0] + 2, a.points[0][1] - 4);
                 } else if (a.type === 'line') {
-                    // Draw semi-transparent line
-                    ctx.strokeStyle = color + '99'; // 60% opacity
+                    const isEditSelected = editMode && editingAnnotationIndex === idx;
+
+                    // Draw line (highlighted if selected)
+                    if (isEditSelected) {
+                        ctx.strokeStyle = '#fff';
+                        ctx.lineWidth = 4;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x1, a.y1);
+                        ctx.lineTo(a.x2, a.y2);
+                        ctx.stroke();
+                    }
+                    ctx.strokeStyle = color + '99';
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     ctx.moveTo(a.x1, a.y1);
                     ctx.lineTo(a.x2, a.y2);
                     ctx.stroke();
 
-                    // Draw endpoint half-circles (outline only, facing outward)
+                    // Draw endpoint handles
                     const angle = Math.atan2(a.y2 - a.y1, a.x2 - a.x1);
-                    ctx.strokeStyle = color;
-                    ctx.lineWidth = 2;
-                    // Start point: half-circle facing away from end
-                    ctx.beginPath();
-                    ctx.arc(a.x1, a.y1, 6, angle + Math.PI / 2, angle + Math.PI * 1.5);
-                    ctx.stroke();
-                    // End point: half-circle facing away from start
-                    ctx.beginPath();
-                    ctx.arc(a.x2, a.y2, 6, angle - Math.PI / 2, angle + Math.PI / 2);
-                    ctx.stroke();
+                    const endpoints = [[a.x1, a.y1], [a.x2, a.y2]];
+
+                    if (editMode) {
+                        // Draw full circle handles in edit mode
+                        endpoints.forEach((ep, ei) => {
+                            const isDragged = isEditSelected && draggedVertexIndex === ei && draggedVertexType === 'line';
+                            ctx.beginPath();
+                            ctx.arc(ep[0], ep[1], isDragged ? 8 : 6, 0, Math.PI * 2);
+                            ctx.fillStyle = isEditSelected ? '#fff' : color;
+                            ctx.fill();
+                            ctx.strokeStyle = color;
+                            ctx.lineWidth = 2;
+                            ctx.stroke();
+                        });
+                    } else {
+                        // Normal half-circle endpoints
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.arc(a.x1, a.y1, 6, angle + Math.PI / 2, angle + Math.PI * 1.5);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(a.x2, a.y2, 6, angle - Math.PI / 2, angle + Math.PI / 2);
+                        ctx.stroke();
+                    }
 
                     // Label with value or measurement type
                     const midX = (a.x1 + a.x2) / 2;
@@ -2592,13 +3245,10 @@
                     ctx.font = '12px sans-serif';
                     let label;
                     if (a.part === 'measurement' && a.measurement) {
-                        // Morphometric measurement - show abbreviation and pixel length
                         label = `${a.measurement} (${a.pixelLength}px)`;
                     } else if (a.realValue && a.unit) {
-                        // Scale bar with real value
                         label = `${a.realValue}${a.unit}`;
                     } else {
-                        // Default - just pixel length
                         label = `${a.pixelLength}px`;
                     }
                     ctx.fillText(label, midX, midY - 8);
@@ -2773,6 +3423,32 @@
 
             const coords = getCanvasCoords(e);
 
+            // Edit mode: click on vertex/corner/endpoint to drag, click inside annotation to select
+            if (editMode) {
+                const vertex = findVertexAt(coords.x, coords.y);
+                if (vertex) {
+                    // Start dragging this vertex/corner/endpoint
+                    editingAnnotationIndex = vertex.annotationIndex;
+                    draggedVertexIndex = vertex.vertexIndex;
+                    draggedVertexType = vertex.type;
+                    isDraggingVertex = true;
+                    renderAnnotations();
+                    return;
+                }
+                // Check if clicking inside an annotation to select it
+                const annotIndex = findAnnotationAtPoint(coords.x, coords.y);
+                if (annotIndex !== null) {
+                    editingAnnotationIndex = annotIndex;
+                    draggedVertexIndex = null;
+                    renderAnnotations();
+                    return;
+                }
+                // Clicking elsewhere deselects
+                exitEditAnnotation();
+                renderAnnotations();
+                return;
+            }
+
             // Delete mode: click to delete annotation
             if (deleteMode) {
                 const clicked = findAnnotationAt(coords.x, coords.y);
@@ -2807,11 +3483,12 @@
                     lineStart = { x: coords.x, y: coords.y };
                     renderAnnotations();
                 } else {
-                    // Second click: complete the line with snap-to-axis
-                    const snapped = snapToAxis(lineStart.x, lineStart.y, coords.x, coords.y);
+                    // Second click: complete the line (with or without snapping)
+                    const freehand = document.getElementById('freehandMode').checked;
+                    const endPoint = freehand ? { x: coords.x, y: coords.y } : snapToAxis(lineStart.x, lineStart.y, coords.x, coords.y);
                     const pixelLength = Math.sqrt(
-                        Math.pow(snapped.x - lineStart.x, 2) +
-                        Math.pow(snapped.y - lineStart.y, 2)
+                        Math.pow(endPoint.x - lineStart.x, 2) +
+                        Math.pow(endPoint.y - lineStart.y, 2)
                     );
                     const selectedPart = getSelectedPart();
 
@@ -2828,8 +3505,8 @@
                             view: measurementInfo.view || 'unknown',
                             x1: Math.round(lineStart.x),
                             y1: Math.round(lineStart.y),
-                            x2: Math.round(snapped.x),
-                            y2: Math.round(snapped.y),
+                            x2: Math.round(endPoint.x),
+                            y2: Math.round(endPoint.y),
                             pixelLength: Math.round(pixelLength)
                         });
                         saveCurrentAnnotations();
@@ -2840,8 +3517,8 @@
                         tempScaleLine = {
                             x1: Math.round(lineStart.x),
                             y1: Math.round(lineStart.y),
-                            x2: Math.round(snapped.x),
-                            y2: Math.round(snapped.y),
+                            x2: Math.round(endPoint.x),
+                            y2: Math.round(endPoint.y),
                             pixelLength: Math.round(pixelLength)
                         };
                         // Show scale inputs and populate pixel length
@@ -2859,6 +3536,52 @@
             const coords = getCanvasCoords(e);
             const mode = getDrawMode();
 
+            // Edit mode: drag vertex/corner/endpoint
+            if (editMode && isDraggingVertex && editingAnnotationIndex !== null && draggedVertexIndex !== null) {
+                const annotation = currentAnnotations[editingAnnotationIndex];
+                if (!annotation) return;
+
+                const newX = Math.round(coords.x);
+                const newY = Math.round(coords.y);
+
+                if (draggedVertexType === 'poly') {
+                    annotation.points[draggedVertexIndex] = [newX, newY];
+                } else if (draggedVertexType === 'box') {
+                    // Box corners: 0=TL, 1=TR, 2=BR, 3=BL
+                    // Dragging a corner resizes the box
+                    const corners = [
+                        [annotation.x, annotation.y],
+                        [annotation.x + annotation.w, annotation.y],
+                        [annotation.x + annotation.w, annotation.y + annotation.h],
+                        [annotation.x, annotation.y + annotation.h]
+                    ];
+                    corners[draggedVertexIndex] = [newX, newY];
+                    // Recalculate box from corners (opposite corner stays fixed)
+                    const oppositeIdx = (draggedVertexIndex + 2) % 4;
+                    const [ox, oy] = corners[oppositeIdx];
+                    annotation.x = Math.min(newX, ox);
+                    annotation.y = Math.min(newY, oy);
+                    annotation.w = Math.abs(newX - ox);
+                    annotation.h = Math.abs(newY - oy);
+                } else if (draggedVertexType === 'line') {
+                    // Line endpoints: 0=start, 1=end
+                    if (draggedVertexIndex === 0) {
+                        annotation.x1 = newX;
+                        annotation.y1 = newY;
+                    } else {
+                        annotation.x2 = newX;
+                        annotation.y2 = newY;
+                    }
+                    // Recalculate pixel length
+                    annotation.pixelLength = Math.round(Math.sqrt(
+                        Math.pow(annotation.x2 - annotation.x1, 2) +
+                        Math.pow(annotation.y2 - annotation.y1, 2)
+                    ));
+                }
+                renderAnnotations();
+                return;
+            }
+
             if (mode === 'box' && isDrawing) {
                 drawStart.current = coords;
                 renderAnnotations();
@@ -2867,14 +3590,22 @@
                 polyMousePos = coords;
                 renderAnnotations();
             } else if (mode === 'line' && lineStart) {
-                // Track mouse for line preview with snap-to-axis
-                const snapped = snapToAxis(lineStart.x, lineStart.y, coords.x, coords.y);
-                polyMousePos = snapped;
+                // Track mouse for line preview (with or without snapping)
+                const freehand = document.getElementById('freehandMode').checked;
+                polyMousePos = freehand ? coords : snapToAxis(lineStart.x, lineStart.y, coords.x, coords.y);
                 renderAnnotations();
             }
         }
 
         function onCanvasMouseUp(e) {
+            // Edit mode: finish dragging vertex
+            if (editMode && isDraggingVertex) {
+                isDraggingVertex = false;
+                saveCurrentAnnotations();
+                renderAnnotations();
+                return;
+            }
+
             if (!isDrawing || getDrawMode() !== 'box') return;
 
             const coords = getCanvasCoords(e);
@@ -2908,12 +3639,19 @@
 
         function closePolygon() {
             if (polyPoints.length >= 3) {
+                const part = getSelectedPart();
                 currentAnnotations.push({
                     type: 'poly',
-                    part: getSelectedPart(),
+                    part: part,
                     points: polyPoints.map(p => [Math.round(p[0]), Math.round(p[1])])
                 });
                 saveCurrentAnnotations();
+
+                // Auto-detect color for head/mesosoma/gaster polygons
+                const colorPart = part === 'cranium' ? 'head' : part;
+                if (['head', 'mesosoma', 'gaster'].includes(colorPart)) {
+                    setTimeout(() => autoExtractColor(colorPart), 100);
+                }
             }
             polyPoints = [];
             polyMousePos = null;
@@ -3052,6 +3790,106 @@
                 btn.textContent = 'Delete Mode';
                 canvas.classList.remove('delete-mode');
             }
+        }
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            const btn = document.getElementById('editAnnotBtn');
+            const canvas = document.getElementById('annotationCanvas');
+
+            if (editMode) {
+                btn.classList.add('delete-mode-active');
+                btn.textContent = 'Exit Edit';
+                canvas.style.cursor = 'pointer';
+                // Exit delete mode if active
+                if (deleteMode) toggleDeleteMode();
+                // Cancel any drawing in progress
+                cancelDrawing();
+            } else {
+                btn.classList.remove('delete-mode-active');
+                btn.textContent = 'Edit Points';
+                canvas.style.cursor = 'crosshair';
+                exitEditAnnotation();
+            }
+            renderAnnotations();
+        }
+
+        function exitEditAnnotation() {
+            editingAnnotationIndex = null;
+            draggedVertexIndex = null;
+            draggedVertexType = null;
+            isDraggingVertex = false;
+        }
+
+        function findVertexAt(x, y, threshold = 10) {
+            // Find if click is near a vertex/corner/endpoint of any annotation
+            for (let i = 0; i < currentAnnotations.length; i++) {
+                const a = currentAnnotations[i];
+
+                if (a.type === 'poly') {
+                    for (let j = 0; j < a.points.length; j++) {
+                        const [vx, vy] = a.points[j];
+                        if (Math.sqrt(Math.pow(x - vx, 2) + Math.pow(y - vy, 2)) <= threshold) {
+                            return { annotationIndex: i, vertexIndex: j, type: 'poly' };
+                        }
+                    }
+                } else if (a.type === 'box') {
+                    // Box corners: 0=TL, 1=TR, 2=BR, 3=BL
+                    const corners = [
+                        [a.x, a.y],                 // 0: top-left
+                        [a.x + a.w, a.y],           // 1: top-right
+                        [a.x + a.w, a.y + a.h],     // 2: bottom-right
+                        [a.x, a.y + a.h]            // 3: bottom-left
+                    ];
+                    for (let j = 0; j < corners.length; j++) {
+                        const [vx, vy] = corners[j];
+                        if (Math.sqrt(Math.pow(x - vx, 2) + Math.pow(y - vy, 2)) <= threshold) {
+                            return { annotationIndex: i, vertexIndex: j, type: 'box' };
+                        }
+                    }
+                } else if (a.type === 'line') {
+                    // Line endpoints: 0=start, 1=end
+                    const endpoints = [[a.x1, a.y1], [a.x2, a.y2]];
+                    for (let j = 0; j < endpoints.length; j++) {
+                        const [vx, vy] = endpoints[j];
+                        if (Math.sqrt(Math.pow(x - vx, 2) + Math.pow(y - vy, 2)) <= threshold) {
+                            return { annotationIndex: i, vertexIndex: j, type: 'line' };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        function findAnnotationAtPoint(x, y) {
+            // Find if click is inside any annotation
+            for (let i = 0; i < currentAnnotations.length; i++) {
+                const a = currentAnnotations[i];
+                if (a.type === 'poly' && pointInPolygon(x, y, a.points)) {
+                    return i;
+                } else if (a.type === 'box') {
+                    if (x >= a.x && x <= a.x + a.w && y >= a.y && y <= a.y + a.h) {
+                        return i;
+                    }
+                } else if (a.type === 'line') {
+                    // Check if near the line (within threshold)
+                    const dist = pointToLineDistance(x, y, a.x1, a.y1, a.x2, a.y2);
+                    if (dist <= 8) return i;
+                }
+            }
+            return null;
+        }
+
+        function pointToLineDistance(px, py, x1, y1, x2, y2) {
+            const A = px - x1, B = py - y1, C = x2 - x1, D = y2 - y1;
+            const dot = A * C + B * D;
+            const lenSq = C * C + D * D;
+            let param = lenSq !== 0 ? dot / lenSq : -1;
+            let xx, yy;
+            if (param < 0) { xx = x1; yy = y1; }
+            else if (param > 1) { xx = x2; yy = y2; }
+            else { xx = x1 + param * C; yy = y1 + param * D; }
+            return Math.sqrt(Math.pow(px - xx, 2) + Math.pow(py - yy, 2));
         }
 
         function toggleDeleteDropdown() {
