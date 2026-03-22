@@ -271,7 +271,13 @@
         .annotation-wrapper {
             position: relative;
             display: inline-block;
-            transform-origin: center center;
+            transform-origin: 0 0;
+        }
+
+        /* When zoomed, don't center - allow natural scroll */
+        .image-container.zoomed {
+            justify-content: flex-start;
+            align-items: flex-start;
         }
 
         .image-container img {
@@ -1067,7 +1073,11 @@
                                     <option value="WL">WL - Weber's Length</option>
                                     <option value="ML">ML - Mesosoma Length</option>
                                     <option value="PW">PW - Pronotum Width</option>
+                                    <option value="PRH">PRH - Pronotum Height</option>
                                     <option value="MW">MW - Mesosoma Width</option>
+                                    <option value="MNH">MNH - Mesonotum Height</option>
+                                    <option value="MNW">MNW - Mesonotum Width</option>
+                                    <option value="PDW">PDW - Propodeum Width</option>
                                     <option value="SPL">SPL - Spiracle-Declivity</option>
                                     <option value="SPSP">SPSP - Propodeal Spine</option>
                                 </optgroup>
@@ -1228,6 +1238,13 @@
                         </div>
                     </div>
 
+                    <div class="section spines-section">
+                        <div class="spines-row-compact">
+                            <label>Sting:</label>
+                            <label class="checkbox-item" style="margin-left:0.5rem;" id="stingVisibleLabel"><input type="checkbox" id="stingVisible">Visible</label>
+                        </div>
+                    </div>
+
                     <div class="section color-section">
                         <h2>Dominant Color</h2>
                         <div class="color-row-inline">
@@ -1261,12 +1278,6 @@
                                     <label class="checkbox-item"><input type="checkbox" value="gaster">Gaster</label>
                                     <label class="checkbox-item"><input type="checkbox" value="head">Head</label>
                                     <label class="checkbox-item"><input type="checkbox" value="other">Other</label>
-                                </div>
-                            </div>
-                            <div class="checkbox-group">
-                                <div class="checkbox-group-title">Sting</div>
-                                <div class="checkbox-row" id="stingGroup">
-                                    <label class="checkbox-item"><input type="checkbox" value="visible">Visible</label>
                                 </div>
                             </div>
                             <div class="checkbox-group">
@@ -1530,19 +1541,13 @@
                     has_issues: true,
                     missing: getCheckedValues('missingGroup'),
                     affected_areas: getAffectedAreas(),
-                    severity_score: calculateSeverityScore(),
-                    sting_visible: getCheckedValues('stingGroup').includes('visible')
+                    severity_score: calculateSeverityScore()
                 };
             } else {
                 grades[img.filename].specimen_issues = null;
             }
-            // Save sting visibility even without issues
-            if (!grades[img.filename].specimen_issues) {
-                const stingVisible = getCheckedValues('stingGroup').includes('visible');
-                if (stingVisible) {
-                    grades[img.filename].sting_visible = true;
-                }
-            }
+            // Save sting visibility (independent of specimen issues)
+            grades[img.filename].sting_visible = document.getElementById('stingVisible').checked;
             saveGrades();
             updateStats();
         }
@@ -1799,24 +1804,14 @@
                 }
 
                 updateTabIndicators();
-
-                // Load sting visibility
-                if (si.sting_visible) {
-                    const stingCb = document.querySelector('#stingGroup input[value="visible"]');
-                    if (stingCb) {
-                        stingCb.checked = true;
-                        stingCb.closest('.checkbox-item').classList.add('checked');
-                    }
-                }
             }
 
-            // Load sting from top-level (when no issues)
-            if (gradeData?.sting_visible) {
-                const stingCb = document.querySelector('#stingGroup input[value="visible"]');
-                if (stingCb) {
-                    stingCb.checked = true;
-                    stingCb.closest('.checkbox-item').classList.add('checked');
-                }
+            // Load sting visibility (check both top-level and legacy si.sting_visible)
+            const stingVisible = gradeData?.sting_visible || gradeData?.specimen_issues?.sting_visible;
+            const stingCb = document.getElementById('stingVisible');
+            if (stingCb) {
+                stingCb.checked = !!stingVisible;
+                stingCb.closest('.checkbox-item').classList.toggle('checked', !!stingVisible);
             }
 
             // Nav buttons
@@ -2668,6 +2663,38 @@
                 description: 'The maximum length of propodeal teeth, measured in lateral view from the tip of spine to the propodeal spiracle.',
                 figure: 'Fig. 4'
             },
+            PRH: {
+                name: 'Pronotum Height',
+                abbrev: 'PRH',
+                body_part: 'mesosoma',
+                view: 'profile',
+                description: 'The maximum height of the pronotum measured in lateral view.',
+                figure: 'Fig. 3'
+            },
+            MNH: {
+                name: 'Mesonotum Height',
+                abbrev: 'MNH',
+                body_part: 'mesosoma',
+                view: 'profile',
+                description: 'The maximum height of the mesonotum measured in lateral view.',
+                figure: 'Fig. 3'
+            },
+            MNW: {
+                name: 'Mesonotum Width',
+                abbrev: 'MNW',
+                body_part: 'mesosoma',
+                view: 'dorsal',
+                description: 'The maximum width of the mesonotum measured from above.',
+                figure: 'Fig. 3'
+            },
+            PDW: {
+                name: 'Propodeum Width',
+                abbrev: 'PDW',
+                body_part: 'mesosoma',
+                view: 'dorsal',
+                description: 'The maximum width of the propodeum measured from above.',
+                figure: 'Fig. 3'
+            },
 
             // PETIOLE MEASUREMENTS
             NOH: {
@@ -2900,8 +2927,21 @@
         function applyZoom() {
             const wrapper = document.querySelector('.annotation-wrapper');
             const container = document.querySelector('.image-container');
+            const img = document.getElementById('currentImage');
 
             wrapper.style.transform = `scale(${zoomLevel})`;
+
+            // Set explicit dimensions so container overflow works correctly
+            // CSS transforms don't affect layout - we need real dimensions for scrolling
+            if (zoomLevel > 1 && img) {
+                wrapper.style.width = (img.offsetWidth * zoomLevel) + 'px';
+                wrapper.style.height = (img.offsetHeight * zoomLevel) + 'px';
+                container.classList.add('zoomed');
+            } else {
+                wrapper.style.width = '';
+                wrapper.style.height = '';
+                container.classList.remove('zoomed');
+            }
 
             // Update zoom level display
             document.getElementById('zoomLevel').textContent = `${Math.round(zoomLevel * 100)}%`;
@@ -2909,13 +2949,6 @@
             // Update button states
             document.getElementById('zoomInBtn').disabled = zoomLevel >= ZOOM_MAX;
             document.getElementById('zoomOutBtn').disabled = zoomLevel <= ZOOM_MIN;
-
-            // Add/remove zoomed class for cursor styling
-            if (zoomLevel > 1) {
-                container.classList.add('zoomed');
-            } else {
-                container.classList.remove('zoomed');
-            }
         }
 
         function zoomToFit() {
@@ -2934,27 +2967,29 @@
 
             const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
             const container = document.querySelector('.image-container');
-            const wrapper = document.querySelector('.annotation-wrapper');
-
-            // Get mouse position relative to container
             const rect = container.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left + container.scrollLeft;
-            const mouseY = e.clientY - rect.top + container.scrollTop;
 
-            // Calculate position in image space before zoom
-            const imgX = mouseX / zoomLevel;
-            const imgY = mouseY / zoomLevel;
+            // Mouse position in viewport (relative to container visible area)
+            const viewportX = e.clientX - rect.left;
+            const viewportY = e.clientY - rect.top;
+
+            // Content position under mouse before zoom (in original image coordinates)
+            const contentX = (container.scrollLeft + viewportX) / zoomLevel;
+            const contentY = (container.scrollTop + viewportY) / zoomLevel;
 
             // Apply new zoom
             const oldZoom = zoomLevel;
             setZoom(zoomLevel + delta);
 
-            // Adjust scroll to keep mouse position stable
+            // Adjust scroll to keep mouse over same content point
             if (zoomLevel !== oldZoom) {
-                const newMouseX = imgX * zoomLevel;
-                const newMouseY = imgY * zoomLevel;
-                container.scrollLeft += newMouseX - mouseX;
-                container.scrollTop += newMouseY - mouseY;
+                // Where that content point is now at new zoom level
+                const newContentX = contentX * zoomLevel;
+                const newContentY = contentY * zoomLevel;
+
+                // Scroll so mouse stays over that point
+                container.scrollLeft = newContentX - viewportX;
+                container.scrollTop = newContentY - viewportY;
             }
         }
 
@@ -3245,7 +3280,14 @@
                     ctx.font = '12px sans-serif';
                     let label;
                     if (a.part === 'measurement' && a.measurement) {
-                        label = `${a.measurement} (${a.pixelLength}px)`;
+                        // Find scale to convert pixels to real units
+                        const scale = currentAnnotations.find(s => s.part === 'scale' && s.pixelsPerUnit);
+                        if (scale) {
+                            const realLength = (a.pixelLength / scale.pixelsPerUnit).toFixed(2);
+                            label = `${a.measurement}: ${realLength}${scale.unit}`;
+                        } else {
+                            label = `${a.measurement} (${a.pixelLength}px)`;
+                        }
                     } else if (a.realValue && a.unit) {
                         label = `${a.realValue}${a.unit}`;
                     } else {
@@ -3616,15 +3658,25 @@
 
             // Only add if box is big enough
             if (w > 5 && h > 5) {
+                const part = getSelectedPart();
                 currentAnnotations.push({
                     type: 'box',
-                    part: getSelectedPart(),
+                    part: part,
                     x: Math.round(x),
                     y: Math.round(y),
                     w: Math.round(w),
                     h: Math.round(h)
                 });
                 saveCurrentAnnotations();
+
+                // Auto-tick STING-visible when a sting box is drawn
+                if (part === 'sting') {
+                    const stingCb = document.getElementById('stingVisible');
+                    if (stingCb && !stingCb.checked) {
+                        stingCb.checked = true;
+                        stingCb.closest('.checkbox-item').classList.add('checked');
+                    }
+                }
             }
 
             isDrawing = false;
@@ -3651,6 +3703,15 @@
                 const colorPart = part === 'cranium' ? 'head' : part;
                 if (['head', 'mesosoma', 'gaster'].includes(colorPart)) {
                     setTimeout(() => autoExtractColor(colorPart), 100);
+                }
+
+                // Auto-tick STING-visible when a sting polygon is drawn
+                if (part === 'sting') {
+                    const stingCb = document.getElementById('stingVisible');
+                    if (stingCb && !stingCb.checked) {
+                        stingCb.checked = true;
+                        stingCb.closest('.checkbox-item').classList.add('checked');
+                    }
                 }
             }
             polyPoints = [];
@@ -3901,12 +3962,19 @@
                 if (currentAnnotations.length === 0) {
                     list.innerHTML = '<div style="color:#888;padding:0.5rem;font-size:0.75rem;">No annotations</div>';
                 } else {
+                    // Find scale for converting measurements
+                    const scale = currentAnnotations.find(s => s.part === 'scale' && s.pixelsPerUnit);
                     list.innerHTML = currentAnnotations.map((a, i) => {
                         const color = PART_COLORS[a.part] || '#fff';
-                        // For measurement lines, show the measurement acronym
+                        // For measurement lines, show the measurement acronym and real value
                         let label;
                         if (a.part === 'measurement' && a.measurement) {
-                            label = `${a.measurement} - measurement line`;
+                            if (scale) {
+                                const realLength = (a.pixelLength / scale.pixelsPerUnit).toFixed(2);
+                                label = `${a.measurement}: ${realLength}${scale.unit}`;
+                            } else {
+                                label = `${a.measurement} (${a.pixelLength}px)`;
+                            }
                         } else if (a.part === 'scale' && a.realValue) {
                             label = `Scale: ${a.realValue}${a.unit}`;
                         } else {
