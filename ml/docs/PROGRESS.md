@@ -139,4 +139,4 @@ Training images sourced from [AntWeb.org](https://www.antweb.org) under CC BY li
 
 ---
 
-*This charter is auto-generated from `ml/progress.json`. Run `scripts/update_progress.py` to refresh.*
+*This charter is auto-generated from `ml/progress.json`. Run `local/scripts/update_progress.py` to refresh.*
