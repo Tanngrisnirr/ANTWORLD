@@ -20,7 +20,7 @@ $GLOBALS['aw_seo_defaults'] = [
 $GLOBALS['aw_seo_pages'] = [
     'index' => [
         'title' => 'AntWorld.org | Ant Identification for All Ecoregions',
-        'description' => 'Interactive identification keys for ants worldwide. Explore ant diversity, taxonomy, and distribution across Palearctic, Nearctic, Neotropical, Afrotropical, Indomalayan, Australasian, and Oceanian regions.',
+        'description' => 'Free interactive identification keys for ants worldwide. Identify species using visual morphology guides. 900+ species, 74 genera, open-source tools for researchers and enthusiasts.',
         'type' => 'website',
         'schema_type' => 'WebSite'
     ],
