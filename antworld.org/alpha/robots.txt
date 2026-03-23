@@ -4,6 +4,10 @@
 User-agent: *
 Allow: /
 
+# Block development and testing environments
+Disallow: /alpha/
+Disallow: /beta/
+
 # Block PHP includes and development areas
 Disallow: /php/
 Disallow: /news/test/
