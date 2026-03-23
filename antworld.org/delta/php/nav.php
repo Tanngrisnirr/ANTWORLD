@@ -54,7 +54,7 @@ $idPath = $toId;
 	<span class="icon icon-bug"></span><span class="scent"><?= t('nav.start_id') ?></span></a></li>
 <li class="worker"><a href="<?php echo $base; ?>morpho.html" title="Ant morphology guide">
 	<span class="icon icon-morpho"></span><span class="scent"><?= t('nav.morpho') ?></span></a></li>
-<li class="worker forager"><a href="<?php echo $base; ?>list_species.html" title="Data">
+<li class="worker forager"><a href="<?php echo $base; ?>diversity.html" title="Data">
 	<span class="icon icon-stats-dots"></span><span class="scent"><?= t('nav.data') ?></span></a>
 	<ul class="gallery">
 		<li><a href="<?php echo $base; ?>geo_diversity.html"><span class="icon icon-stats-bars"></span> <?= t('nav.geo_diversity') ?></a></li>

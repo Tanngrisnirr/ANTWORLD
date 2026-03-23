@@ -1,6 +1,6 @@
 <?php
 header ("Content-type: image/png");
-$image = imagecreatefrompng("../img/blanc.png");
+$image = imagecreatefrompng("../img/placeholder_ant.png");
 
 $orange = imagecolorallocate($image, 255, 128, 0);
 $bleu = imagecolorallocate($image, 0, 0, 255);

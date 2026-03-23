@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AntWorld.org | Ant Data & Diversity</title>
+    <meta name="description" content="Explore ant diversity data worldwide. Geographic distribution maps, taxonomic charts, and searchable species checklists across all ecoregions.">
+    <meta name="keywords" content="ant data, ant diversity, ant distribution, ant taxonomy, species checklist, Formicidae, myrmecology">
+    <?php include("php/ihead.php"); ?>
+    <style>
+    .data-hub {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .data-intro {
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 30px;
+    }
+    .data-intro h1 {
+        color: var(--accent-primary);
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+    .data-intro p {
+        color: var(--text-secondary);
+        font-size: 1.1em;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+    .data-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        padding: 20px 0;
+    }
+    .data-card {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 30px 25px;
+        border: 1px solid var(--border-color);
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        display: block;
+    }
+    .data-card:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px var(--shadow-color);
+        text-decoration: none;
+    }
+    .data-card-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+        display: block;
+        color: var(--accent-primary);
+    }
+    .data-card h2 {
+        color: var(--accent-primary);
+        font-size: 1.4em;
+        margin: 0 0 12px;
+    }
+    .data-card p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin: 0;
+        font-size: 0.95em;
+    }
+    .data-card-arrow {
+        display: inline-block;
+        margin-top: 15px;
+        color: var(--accent-secondary);
+        font-weight: bold;
+        font-size: 0.9em;
+    }
+    .data-card:hover .data-card-arrow {
+        color: var(--accent-primary);
+    }
+    </style>
+</head>
+<body>
+<article>
+<div class="data-hub">
+    <section class="data-intro">
+        <h1><?= lang() === 'fr' ? 'Donnees & Diversite' : 'Data & Diversity' ?></h1>
+        <p><?= lang() === 'fr'
+            ? 'Explorez les donnees sur la diversite des fourmis a travers le monde. Cartes de distribution, graphiques taxonomiques et listes d\'especes consultables.'
+            : 'Explore ant diversity data across all ecoregions. Interactive maps, taxonomic visualizations, and comprehensive species checklists.' ?></p>
+    </section>
+
+    <div class="data-cards">
+        <a href="geo_diversity.html" class="data-card">
+            <span class="data-card-icon icon icon-stats-bars"></span>
+            <h2><?= lang() === 'fr' ? 'Diversite Geographique' : 'Geographic Diversity' ?></h2>
+            <p><?= lang() === 'fr'
+                ? 'Cartes interactives et graphiques montrant la distribution des especes de fourmis par ecoregion et par pays.'
+                : 'Interactive maps and charts showing ant species distribution by ecoregion and country.' ?></p>
+            <span class="data-card-arrow"><?= lang() === 'fr' ? 'Explorer' : 'Explore' ?> &rarr;</span>
+        </a>
+
+        <a href="tax_diversity.html" class="data-card">
+            <span class="data-card-icon icon icon-pie-chart"></span>
+            <h2><?= lang() === 'fr' ? 'Diversite Taxonomique' : 'Taxonomic Diversity' ?></h2>
+            <p><?= lang() === 'fr'
+                ? 'Visualisations de la repartition des especes entre sous-familles, genres et tribus avec graphiques interactifs.'
+                : 'Visualizations of species distribution across subfamilies, genera, and tribes with interactive charts.' ?></p>
+            <span class="data-card-arrow"><?= lang() === 'fr' ? 'Explorer' : 'Explore' ?> &rarr;</span>
+        </a>
+
+        <a href="list_species.html" class="data-card">
+            <span class="data-card-icon icon icon-menu2"></span>
+            <h2><?= lang() === 'fr' ? 'Liste des Especes' : 'Species Checklist' ?></h2>
+            <p><?= lang() === 'fr'
+                ? 'Liste consultable de toutes les especes de fourmis. Filtrez par sous-famille, genre ou recherchez par nom.'
+                : 'Searchable checklist of all ant species. Filter by subfamily, genus, or search by name.' ?></p>
+            <span class="data-card-arrow"><?= lang() === 'fr' ? 'Explorer' : 'Explore' ?> &rarr;</span>
+        </a>
+    </div>
+</div>
+</article>
+<?php include("php/footer.php"); ?>
+</body>
+</html>

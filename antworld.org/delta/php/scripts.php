@@ -1,3 +1,13 @@
+<!-- SEO: Canonical URL for ID pages -->
+<?php
+
+if (!function_exists('aw_output_canonical')) {
+    include_once(__DIR__ . '/seo.php');
+}
+
+aw_output_canonical();
+?>
+
 <!-- jQuery 3.1.1 -->
 <?php
 $inSpecies = strpos($_SERVER['REQUEST_URI'], '/id/species/') !== false;

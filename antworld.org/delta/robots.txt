@@ -1,5 +1,5 @@
 # AntWorld.org robots.txt
-# Interactive identification keys for Palearctic ants
+# Interactive identification keys for ants worldwide
 
 User-agent: *
 Allow: /
@@ -7,6 +7,7 @@ Allow: /
 # Block PHP includes and development areas
 Disallow: /php/
 Disallow: /news/test/
+Disallow: /games/
 
 # Allow specific CSS and JS for rendering
 Allow: /css/

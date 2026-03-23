@@ -102,6 +102,7 @@ RewriteRule ^id/_ergate(\.html)?$ id/confirmed.ergate_id  [R=301,L]
 # ============================================
 
 # Delete the /index
+# RewriteBase: /alpha/ for dev, /beta/ for staging, / for production
 RewriteBase /alpha/
 
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s(.*?/+)index\.html(?:/(.*))?[\s?] [NC]

@@ -19,8 +19,8 @@ $GLOBALS['aw_seo_defaults'] = [
 // Keys are the page path without .html extension
 $GLOBALS['aw_seo_pages'] = [
     'index' => [
-        'title' => 'AntWorld.org | Ants of the Palearctic',
-        'description' => 'Interactive identification key for the ants of the Palearctic region. Explore ant diversity, taxonomy, and distribution.',
+        'title' => 'AntWorld.org | Ant Identification for All Ecoregions',
+        'description' => 'Interactive identification keys for ants worldwide. Explore ant diversity, taxonomy, and distribution across Palearctic, Nearctic, Neotropical, Afrotropical, Indomalayan, Australasian, and Oceanian regions.',
         'type' => 'website',
         'schema_type' => 'WebSite'
     ],
@@ -32,20 +32,26 @@ $GLOBALS['aw_seo_pages'] = [
         'schema_type' => 'Article'
     ],
     'list_species' => [
-        'title' => 'Palearctic Ant Species Checklist',
-        'description' => 'Complete checklist of 936 ant species across 74 genera found in the Palearctic region. Browse by subfamily, genus, or search by name.',
+        'title' => 'Ant Species Checklist | Global Coverage',
+        'description' => 'Searchable checklist of ant species across all ecoregions. Browse by subfamily, genus, or search by name.',
         'type' => 'article',
         'schema_type' => 'Dataset'
     ],
+    'diversity' => [
+        'title' => 'Ant Data & Diversity | AntWorld.org',
+        'description' => 'Explore ant diversity data worldwide. Geographic distribution maps, taxonomic charts, and searchable species checklists across all ecoregions.',
+        'type' => 'article',
+        'schema_type' => 'CollectionPage'
+    ],
     'geo_diversity' => [
-        'title' => 'Geographic Distribution of Palearctic Ants',
-        'description' => 'Interactive map and charts showing the geographic distribution of ant species across Palearctic regions including Europe, North Africa, and Asia.',
+        'title' => 'Geographic Distribution of Ants Worldwide',
+        'description' => 'Interactive map and charts showing ant species distribution across all ecoregions: Palearctic, Nearctic, Neotropical, Afrotropical, Indomalayan, Australasian, and Oceanian.',
         'type' => 'article',
         'schema_type' => 'Dataset'
     ],
     'tax_diversity' => [
-        'title' => 'Taxonomic Diversity of Palearctic Ants',
-        'description' => 'Explore the taxonomic diversity of Palearctic ants with interactive charts showing species distribution across subfamilies, genera, and tribes.',
+        'title' => 'Taxonomic Diversity of Ants | All Ecoregions',
+        'description' => 'Explore ant taxonomic diversity with interactive charts showing species distribution across subfamilies, genera, and tribes worldwide.',
         'type' => 'article',
         'schema_type' => 'Dataset'
     ],
@@ -76,7 +82,7 @@ $GLOBALS['aw_seo_pages'] = [
     // ID keys - default config for identification pages
     'id/confirmed.ergate_id' => [
         'title' => 'Ant Identification Key - Start Here',
-        'description' => 'Begin identifying worker ants of the Palearctic region with this interactive dichotomous key.',
+        'description' => 'Begin identifying worker ants with this interactive dichotomous key covering multiple ecoregions.',
         'type' => 'article',
         'schema_type' => 'Article'
     ]
@@ -134,7 +140,7 @@ function aw_get_seo_config() {
     if (strpos($page, 'id/') === 0) {
         $idConfig = [
             'title' => 'Ant Identification Key',
-            'description' => 'Interactive dichotomous key for identifying Palearctic ants.',
+            'description' => 'Interactive dichotomous key for ant identification across multiple ecoregions.',
             'type' => 'article',
             'schema_type' => 'Article'
         ];
@@ -144,7 +150,7 @@ function aw_get_seo_config() {
     // Default fallback
     return array_merge($defaults, [
         'title' => 'AntWorld.org',
-        'description' => 'Interactive identification keys for Palearctic ants.',
+        'description' => 'Interactive identification keys for ants worldwide.',
         'type' => 'website',
         'schema_type' => 'WebPage'
     ]);
@@ -224,7 +230,7 @@ function aw_output_jsonld() {
         '@id' => $config['site_url'] . '/#website',
         'name' => $config['site_name'],
         'url' => $config['site_url'],
-        'description' => 'Interactive identification keys for Palearctic ants',
+        'description' => 'Interactive identification keys for ants worldwide',
         'inLanguage' => ['en', 'fr'],
         'publisher' => ['@id' => $config['site_url'] . '/#organization']
     ];
@@ -255,7 +261,7 @@ function aw_output_jsonld() {
             'inLanguage' => ['en', 'fr'],
             'spatialCoverage' => [
                 '@type' => 'Place',
-                'name' => 'Palearctic region'
+                'name' => 'Global - All ecoregions'
             ]
         ];
     } elseif ($schemaType === 'Article') {

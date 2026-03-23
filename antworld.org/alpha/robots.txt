@@ -1,5 +1,5 @@
 # AntWorld.org robots.txt
-# Interactive identification keys for Palearctic ants
+# Interactive identification keys for ants worldwide
 
 User-agent: *
 Allow: /

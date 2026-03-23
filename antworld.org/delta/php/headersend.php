@@ -3,7 +3,7 @@
 <meta name="author" content="AntWorld.org">
 <link rel="stylesheet" href="../css/css_antworld.css"/>
 <link rel="stylesheet" href="../css/antworld-icons.css"/>
-<meta name="description" content="AntWorld Identification Keys">
+<!-- Page-specific description should be in the HTML file -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Theme Toggle Script - load early to prevent flash -->
 <script>

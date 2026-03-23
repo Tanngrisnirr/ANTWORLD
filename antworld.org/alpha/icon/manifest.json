@@ -1,7 +1,7 @@
 {
   "name": "AntWorld",
   "short_name": "AntWorld",
-  "description": "Interactive identification key for ants of the Palearctic region",
+  "description": "Interactive identification keys for ants worldwide",
   "icons": [
     {
       "src": "/icon/favicon-32x32.png",

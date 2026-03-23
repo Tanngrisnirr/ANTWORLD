@@ -16,7 +16,7 @@ if (strpos($_SERVER['REQUEST_URI'], '/id/species/') !== false) {
 <span class="sep">|</span>
 <a href="<?php echo $basePath; ?>privacy.html"><?= t('footer.privacy') ?></a>
 <span class="sep">|</span>
-<a href="<?php echo $basePath; ?>credits.html"><?= t('footer.credits') ?></a>
+<a href="https://github.com/Tanngrisnirr/ANTWORLD" target="_blank"><?= t('footer.credits') ?></a>
 <span class="sep">|</span>
 <span class="last-updated"><?= t('footer.updated') ?> <?php
 $lang = get_current_lang();

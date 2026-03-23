@@ -57,12 +57,12 @@ $(document).ready(function(){
 <?php include("top.php"); ?>
 <img id="english" src="../img/uk-us_flag_40x40.png" title="English"/>
 <img id="francais" src="../img/drapeau_francais_40x40.jpg" title="En Francais"/>
-<span class="en"><h2>How to contribute</h2>
+<span class="en"><h2>How to contribute</h1>
 <p>
 Once done, don't forget to log out !
 </p>
 </span>
-<span class="fr"><h2 class="h2one">Comment contribuer ?</h2>
+<span class="fr"><h1>Comment contribuer ?</h1>
 <p4>
 <span class="red">Une fois terminé, n'oublier pas de vous déconnecter ! </span>
 <?php include("sent.php"); ?>

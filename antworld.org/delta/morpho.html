@@ -880,7 +880,7 @@ h4.toggle-heading .toggle-label {
 <body>
 <article>
 <div class="morpho-container">
-<h2 class="h2one" data-en="Morphology and morphometry" data-fr="Morphologie et morphométrie">Morphology and morphometry</h2>
+<h1 data-en="Morphology and morphometry" data-fr="Morphologie et morphométrie">Morphology and morphometry</h1>
 
     
     <div class="morpho-tabs">
@@ -1343,6 +1343,9 @@ function translateSvgLabels(svgObject) {
 // Tab switching
 document.querySelectorAll('.morpho-tab').forEach(tab => {
     tab.addEventListener('click', function() {
+        // Skip external links (they open in new tab, don't switch content)
+        if (this.classList.contains('external')) return;
+
         // Update tab states
         document.querySelectorAll('.morpho-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
