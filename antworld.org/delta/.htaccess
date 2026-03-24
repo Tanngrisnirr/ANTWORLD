@@ -49,6 +49,7 @@
   RewriteRule ^ %1%2 [L,R]
 
   # Redirect /index to clean folder URL
+  RewriteRule ^index$ / [R=301,L]
   RewriteRule ^(.*)/index$ /$1/ [R=301,L]
 
   # Hotlinking Protection (SINGLE RULE - allows empty referer)
