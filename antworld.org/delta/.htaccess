@@ -22,6 +22,8 @@
   RewriteRule ^id/species/references/A\ new\ slave-making\ ant\ from\ Japan\ Yano\ 1911\.pdf$ "zdocs/Yano 1911 - A new slave-making ant from Japan.pdf" [R=301,L,B]
   RewriteRule ^id/species/references/Sociobiology\ of\ slave\ making\ ants\ -\ Patricia\ D\ 2001\.pdf$ "zdocs/D'Ettorre 2001 - Sociobiology of slave-making ants.pdf" [R=301,L,B]
   RewriteRule ^id/species/references/formica_slave_against_polyergus_rufescens_imago_gerhard_heller_2004\.pdf$ "zdocs/Heller 2004 - Formica sanguinea slave defense against Polyergus rufescens.pdf" [R=301,L,B]
+  RewriteRule ^id/species/references/polyergus_breviceps_johnson_et\ al_2001_jce\.pdf$ "zdocs/Johnson et al 2001 - Polyergus breviceps.pdf" [R=301,L,B]
+  RewriteRule ^id/species/references/mating\ and\ post-mating\ behavior\ of\ the\ european\ amazon\ ant\ polyergus\ rufescens\ 2013\.pdf$ "zdocs/Boi et al 2013 - Mating and post-mating behavior of Polyergus rufescens.pdf" [R=301,L,B]
 
   # Case/typo fixes for ID pages
   RewriteRule ^id/littleFormicinae_ergate(\.html)?$ id/littleformicinae_ergate [R=301,L]
