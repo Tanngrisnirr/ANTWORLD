@@ -1,6 +1,13 @@
 # mod_rewrite on
   RewriteEngine on
-  RewriteCond %{HTTPS} !on
+
+  # Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Force non-www
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
   # Delete the /index
   RewriteBase /
