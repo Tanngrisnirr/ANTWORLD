@@ -1,0 +1,7022 @@
+{
+  "version": "3.0",
+  "graded_at": "2026-03-21",
+  "total": 1428,
+  "graded": 52,
+  "with_issues": 50,
+  "annotated": 13,
+  "grades": {
+    "antweb_casent0106203_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "cut": {
+            "mesosoma": 2
+          },
+          "dust": {
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 4
+      },
+      "caste_source": "manual",
+      "subcaste": null,
+      "sculpturing": "1"
+    },
+    "antweb_casent0106203_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "antenna": {
+            "damage": "incomplete",
+            "severity": 3
+          }
+        }
+      },
+      "caste_source": "antweb",
+      "sculpturing": "1"
+    },
+    "antweb_casent0106203_p_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1,
+            "gaster": 3
+          }
+        },
+        "severity_score": 4,
+        "sting_visible": true
+      },
+      "caste_source": "antweb",
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0178755_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [
+          "leg",
+          "head"
+        ],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 2,
+            "gaster": 3
+          }
+        },
+        "severity_score": 5,
+        "sting_visible": false
+      },
+      "caste_source": "antweb",
+      "sculpturing": "1",
+      "color": {
+        "mesosoma": 23
+      }
+    },
+    "antweb_casent0178755_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [
+          "antenna"
+        ],
+        "affected_areas": {
+          "dust": {
+            "head": 2
+          }
+        },
+        "severity_score": 2
+      },
+      "caste_source": "antweb",
+      "sculpturing": "1",
+      "color": {
+        "head": 8
+      }
+    },
+    "antweb_casent0178755_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [
+          "leg",
+          "head"
+        ],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1,
+            "petiole": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 3,
+        "sting_visible": true
+      },
+      "caste": "ergate",
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0178870_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "male",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1
+          },
+          "folded": {
+            "wings": 3
+          }
+        },
+        "severity_score": 4
+      },
+      "caste_source": "manual",
+      "subcaste": "winged",
+      "sculpturing": "2"
+    },
+    "antweb_casent0178870_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "male",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "head": {
+            "damage": "dust",
+            "severity": 1
+          },
+          "antenna": {
+            "damage": "incomplete",
+            "severity": 2
+          }
+        }
+      },
+      "caste_source": "manual",
+      "sculpturing": "2.5"
+    },
+    "antweb_casent0178870_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "mesosoma": {
+            "damage": "dust",
+            "severity": 1
+          },
+          "wings": {
+            "damage": "incomplete",
+            "severity": 2
+          }
+        }
+      },
+      "caste": "male",
+      "caste_source": "manual",
+      "sculpturing": "2"
+    },
+    "antweb_casent0178871_d_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 2
+      },
+      "caste": "ergate",
+      "caste_source": "manual",
+      "sculpturing": "1"
+    },
+    "antweb_casent0178871_h_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1
+          }
+        },
+        "severity_score": 1
+      },
+      "caste": "ergate",
+      "caste_source": "manual",
+      "sculpturing": "1",
+      "color": {
+        "head": 23
+      }
+    },
+    "antweb_casent0178871_p_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 3,
+        "sting_visible": true
+      },
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0178881_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "female",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "mesosoma": {
+            "damage": "dust",
+            "severity": 1
+          },
+          "wings": {
+            "damage": "dust",
+            "severity": 2
+          }
+        }
+      },
+      "caste_source": "manual",
+      "subcaste": "winged",
+      "sculpturing": "1.5",
+      "color": {
+        "head": 35,
+        "mesosoma": 34
+      }
+    },
+    "antweb_casent0178881_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "female",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 2
+          },
+          "incomplete": {
+            "antenna": 2
+          }
+        },
+        "severity_score": 4
+      },
+      "caste_source": "manual",
+      "sculpturing": "1"
+    },
+    "antweb_casent0178881_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1,
+            "gaster": 1,
+            "wings": 1
+          }
+        },
+        "severity_score": 3,
+        "sting_visible": true
+      },
+      "caste": "female",
+      "caste_source": "manual",
+      "subcaste": "winged",
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0178882_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "mesosoma": 2,
+            "gaster": 3
+          }
+        },
+        "severity_score": 6
+      },
+      "caste_source": "manual",
+      "sculpturing": "1"
+    },
+    "antweb_casent0178882_h_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "incomplete": {
+            "antenna": 2
+          },
+          "dust": {
+            "head": 2
+          }
+        },
+        "severity_score": 4
+      },
+      "caste": "ergate",
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "1"
+    },
+    "antweb_casent0178882_p_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "subcaste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "mesosoma": 2,
+            "gaster": 2
+          }
+        },
+        "severity_score": 5,
+        "sting_visible": true
+      },
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0423526_d_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 3
+      },
+      "caste": "ergate",
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "1"
+    },
+    "antweb_casent0423526_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1
+          }
+        },
+        "severity_score": 1
+      },
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "1"
+    },
+    "antweb_casent0423526_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1
+          }
+        },
+        "severity_score": 1,
+        "sting_visible": true
+      },
+      "caste": "ergate",
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_1032553_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [
+          "antenna"
+        ],
+        "affected_areas": {
+          "dust": {
+            "head": 1
+          }
+        },
+        "severity_score": 1
+      },
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "3"
+    },
+    "antweb_1008608_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "male",
+      "subcaste": "winged",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "folded": {
+            "wings": 1
+          },
+          "dust": {
+            "mesosoma": 1
+          }
+        },
+        "severity_score": 2
+      },
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_1008608_p_1.jpg": {
+      "image_quality": "A",
+      "caste": "male",
+      "subcaste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1
+          }
+        },
+        "severity_score": 1
+      },
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_1060493_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "subcaste": null,
+      "specimen_issues": null,
+      "caste_source": "manual",
+      "sculpturing": "3"
+    },
+    "antweb_1060493_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "subcaste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [
+          "antenna"
+        ],
+        "affected_areas": null,
+        "severity_score": 0
+      },
+      "caste_source": "manual",
+      "sculpturing": "3"
+    },
+    "antweb_1060493_p_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "subcaste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1
+          }
+        },
+        "severity_score": 1
+      },
+      "caste_source": "manual",
+      "sculpturing": "3"
+    },
+    "antweb_casent0006079_d_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "gaster": 2
+          }
+        },
+        "severity_score": 2
+      },
+      "sculpturing": "3"
+    },
+    "antweb_casent0006079_h_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1
+          }
+        },
+        "severity_score": 1
+      },
+      "sculpturing": "3"
+    },
+    "antweb_casent0006079_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 3
+      },
+      "sculpturing": "3"
+    },
+    "antweb_casent0009854_d_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "subcaste": "unwinged",
+      "specimen_issues": null,
+      "sculpturing": "3"
+    },
+    "antweb_casent0009854_h_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "incomplete": {
+            "antenna": 2
+          },
+          "dust": {
+            "head": 3
+          }
+        },
+        "severity_score": 5
+      },
+      "sculpturing": "3"
+    },
+    "antweb_casent0009854_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "incomplete": {
+            "gaster": 2
+          },
+          "dust": {
+            "head": 3,
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 7
+      },
+      "subcaste": "unwinged",
+      "sculpturing": "3"
+    },
+    "antweb_1041467_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "male",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "folded": {
+            "wings": 3
+          },
+          "dust": {
+            "head": 1,
+            "mesosoma": 3,
+            "gaster": 3
+          }
+        },
+        "severity_score": 10
+      },
+      "subcaste": "winged",
+      "caste_source": "manual",
+      "sculpturing": "2"
+    },
+    "antweb_1041467_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "male",
+      "subcaste": "winged",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [
+          "antenna"
+        ],
+        "affected_areas": {
+          "dust": {
+            "head": 3
+          }
+        },
+        "severity_score": 3
+      },
+      "caste_source": "manual",
+      "sculpturing": "2"
+    },
+    "antweb_1041467_p_1.jpg": {
+      "image_quality": "A",
+      "caste": "male",
+      "subcaste": "winged",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "mesosoma": 2,
+            "gaster": 3
+          }
+        },
+        "severity_score": 6
+      },
+      "caste_source": "manual",
+      "sculpturing": "2"
+    },
+    "antweb_casent0007009_d_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 2,
+            "mesosoma": 1
+          }
+        },
+        "severity_score": 3
+      },
+      "sculpturing": "1"
+    },
+    "antweb_casent0007009_h_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "incomplete": {
+            "antenna": 1
+          },
+          "dust": {
+            "head": 2
+          }
+        },
+        "severity_score": 3
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0007009_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 2,
+            "mesosoma": 1
+          }
+        },
+        "severity_score": 3,
+        "sting_visible": true
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0052775_d_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "gaster": 2
+          }
+        },
+        "severity_score": 2
+      },
+      "sculpturing": "1"
+    },
+    "antweb_casent0052775_h_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "incomplete": {
+            "antenna": 3
+          },
+          "dust": {
+            "head": 1
+          }
+        },
+        "severity_score": 4
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0052775_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 2,
+        "sting_visible": true
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0102502_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 2
+          }
+        },
+        "severity_score": 2
+      },
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "1"
+    },
+    "antweb_casent0102502_h_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "subcaste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 2
+          }
+        },
+        "severity_score": 2
+      },
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0102502_p_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 2
+          }
+        },
+        "severity_score": 2,
+        "sting_visible": true
+      },
+      "caste": "ergate",
+      "subcaste": null,
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0107555_d_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1,
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 3,
+        "sting_visible": true
+      },
+      "sculpturing": "1"
+    },
+    "antweb_casent0107555_h_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 2
+          },
+          "incomplete": {
+            "antenna": 1
+          }
+        },
+        "severity_score": 3
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0107555_p_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "mesosoma": 1
+          }
+        },
+        "severity_score": 1,
+        "sting_visible": true
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0173505_d_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1
+          }
+        },
+        "severity_score": 1
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0173505_h_1.jpg": {
+      "image_quality": "A",
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1
+          },
+          "incomplete": {
+            "antenna": 1
+          }
+        },
+        "severity_score": 2
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0173505_p_1.jpg": {
+      "image_quality": "A",
+      "caste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "dust": {
+            "head": 1
+          }
+        },
+        "severity_score": 1,
+        "sting_visible": true
+      },
+      "sculpturing": "1.5"
+    },
+    "antweb_casent0246699_d_1.jpg": {
+      "image_quality": "A",
+      "caste": "ergate",
+      "subcaste": null,
+      "specimen_issues": {
+        "has_issues": true,
+        "missing": [],
+        "affected_areas": {
+          "discolored": {
+            "head": 3,
+            "antenna": 3,
+            "mesosoma": 3,
+            "petiole": 3,
+            "gaster": 3,
+            "legs": 3,
+            "wings": 3
+          },
+          "dust": {
+            "head": 1,
+            "mesosoma": 1,
+            "gaster": 1
+          }
+        },
+        "severity_score": 24
+      },
+      "caste_source": "manual",
+      "sculpturing": "1.5"
+    }
+  },
+  "annotations": {
+    "antweb_casent0106203_d_1.jpg": {
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              382,
+              256
+            ],
+            [
+              307,
+              368
+            ],
+            [
+              266,
+              394
+            ],
+            [
+              268,
+              462
+            ],
+            [
+              341,
+              508
+            ],
+            [
+              387,
+              565
+            ],
+            [
+              531,
+              570
+            ],
+            [
+              592,
+              512
+            ],
+            [
+              600,
+              304
+            ],
+            [
+              445,
+              256
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              704,
+              353
+            ],
+            [
+              715,
+              397
+            ],
+            [
+              725,
+              427
+            ],
+            [
+              726,
+              450
+            ],
+            [
+              710,
+              475
+            ],
+            [
+              712,
+              505
+            ],
+            [
+              880,
+              583
+            ],
+            [
+              1003,
+              521
+            ],
+            [
+              1034,
+              413
+            ],
+            [
+              1009,
+              321
+            ],
+            [
+              902,
+              248
+            ],
+            [
+              821,
+              260
+            ],
+            [
+              751,
+              327
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "box",
+          "x": 602,
+          "y": 355,
+          "w": 129,
+          "h": 140
+        }
+      ],
+      "antenna": [
+        {
+          "type": "box",
+          "x": 2,
+          "y": 62,
+          "w": 166,
+          "h": 214
+        },
+        {
+          "type": "box",
+          "x": 69,
+          "y": 546,
+          "w": 146,
+          "h": 141
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 834,
+          "y": 738,
+          "w": 216,
+          "h": 69
+        },
+        {
+          "type": "line",
+          "x1": 852,
+          "y1": 757,
+          "x2": 1036,
+          "y2": 757,
+          "pixelLength": 184,
+          "realValue": 0.5,
+          "unit": "mm",
+          "pixelsPerUnit": 368
+        }
+      ],
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              266,
+              162
+            ],
+            [
+              184,
+              176
+            ],
+            [
+              72,
+              232
+            ],
+            [
+              34,
+              333
+            ],
+            [
+              38,
+              441
+            ],
+            [
+              38,
+              579
+            ],
+            [
+              102,
+              590
+            ],
+            [
+              160,
+              666
+            ],
+            [
+              241,
+              715
+            ],
+            [
+              310,
+              634
+            ],
+            [
+              362,
+              577
+            ],
+            [
+              318,
+              489
+            ],
+            [
+              283,
+              466
+            ],
+            [
+              275,
+              410
+            ],
+            [
+              286,
+              383
+            ],
+            [
+              324,
+              359
+            ],
+            [
+              356,
+              310
+            ],
+            [
+              344,
+              228
+            ],
+            [
+              298,
+              183
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "PEW",
+          "measurementName": "Petiole Width",
+          "bodyPart": "petiole",
+          "view": "dorsal",
+          "x1": 664,
+          "y1": 364,
+          "x2": 664,
+          "y2": 489,
+          "pixelLength": 125
+        },
+        {
+          "type": "line",
+          "measurement": "PW",
+          "measurementName": "PW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 442,
+          "y1": 291,
+          "x2": 442,
+          "y2": 554,
+          "pixelLength": 263
+        }
+      ],
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              827,
+              169
+            ],
+            [
+              861,
+              237
+            ],
+            [
+              758,
+              343
+            ],
+            [
+              677,
+              382
+            ],
+            [
+              591,
+              379
+            ],
+            [
+              571,
+              348
+            ],
+            [
+              625,
+              290
+            ],
+            [
+              797,
+              162
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              501,
+              282
+            ],
+            [
+              446,
+              116
+            ],
+            [
+              405,
+              74
+            ],
+            [
+              268,
+              70
+            ],
+            [
+              247,
+              152
+            ],
+            [
+              283,
+              206
+            ],
+            [
+              296,
+              231
+            ],
+            [
+              356,
+              315
+            ],
+            [
+              373,
+              325
+            ],
+            [
+              381,
+              295
+            ],
+            [
+              416,
+              289
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              849,
+              623
+            ],
+            [
+              878,
+              584
+            ],
+            [
+              791,
+              518
+            ],
+            [
+              710,
+              489
+            ],
+            [
+              663,
+              492
+            ],
+            [
+              625,
+              504
+            ],
+            [
+              635,
+              545
+            ],
+            [
+              739,
+              629
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              422,
+              568
+            ],
+            [
+              322,
+              650
+            ],
+            [
+              303,
+              614
+            ],
+            [
+              324,
+              582
+            ],
+            [
+              338,
+              559
+            ],
+            [
+              334,
+              533
+            ],
+            [
+              323,
+              515
+            ],
+            [
+              349,
+              484
+            ],
+            [
+              371,
+              521
+            ],
+            [
+              380,
+              548
+            ],
+            [
+              404,
+              563
+            ]
+          ]
+        }
+      ]
+    },
+    "antweb_casent0106203_h_1.jpg": {
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              425,
+              548
+            ],
+            [
+              424,
+              499
+            ],
+            [
+              336,
+              496
+            ],
+            [
+              124,
+              656
+            ],
+            [
+              125,
+              803
+            ],
+            [
+              214,
+              804
+            ],
+            [
+              222,
+              724
+            ],
+            [
+              335,
+              593
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              715,
+              470
+            ],
+            [
+              688,
+              527
+            ],
+            [
+              750,
+              582
+            ],
+            [
+              811,
+              586
+            ],
+            [
+              919,
+              634
+            ],
+            [
+              936,
+              803
+            ],
+            [
+              1031,
+              802
+            ],
+            [
+              1027,
+              532
+            ],
+            [
+              852,
+              500
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "CL",
+          "measurementName": "Cephalic Length",
+          "bodyPart": "head",
+          "view": "full-face",
+          "x1": 552,
+          "y1": 568,
+          "x2": 552,
+          "y2": 88,
+          "pixelLength": 480
+        },
+        {
+          "type": "line",
+          "measurement": "CW",
+          "measurementName": "Cephalic Width",
+          "bodyPart": "head",
+          "view": "full-face",
+          "x1": 256,
+          "y1": 290,
+          "x2": 871,
+          "y2": 290,
+          "pixelLength": 615
+        },
+        {
+          "type": "line",
+          "measurement": "SL",
+          "measurementName": "Scape Length",
+          "bodyPart": "head",
+          "view": "full-face",
+          "x1": 150,
+          "y1": 675,
+          "x2": 349,
+          "y2": 530,
+          "pixelLength": 246
+        },
+        {
+          "type": "line",
+          "measurement": "MdL",
+          "measurementName": "MdL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 552,
+          "y1": 784,
+          "x2": 353,
+          "y2": 595,
+          "pixelLength": 274
+        },
+        {
+          "type": "line",
+          "measurement": "MdL",
+          "measurementName": "MdL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 558,
+          "y1": 776,
+          "x2": 755,
+          "y2": 610,
+          "pixelLength": 258
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 784,
+          "y": 743,
+          "w": 147,
+          "h": 62
+        },
+        {
+          "type": "line",
+          "x1": 800,
+          "y1": 758,
+          "x2": 922,
+          "y2": 758,
+          "pixelLength": 122,
+          "realValue": 0.2,
+          "unit": "mm",
+          "pixelsPerUnit": 610
+        }
+      ],
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              193,
+              3
+            ],
+            [
+              945,
+              5
+            ],
+            [
+              1045,
+              233
+            ],
+            [
+              989,
+              417
+            ],
+            [
+              915,
+              459
+            ],
+            [
+              659,
+              777
+            ],
+            [
+              575,
+              801
+            ],
+            [
+              431,
+              775
+            ],
+            [
+              143,
+              429
+            ],
+            [
+              87,
+              153
+            ],
+            [
+              181,
+              13
+            ]
+          ]
+        }
+      ],
+      "ignore": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              242,
+              355
+            ],
+            [
+              261,
+              407
+            ],
+            [
+              243,
+              437
+            ],
+            [
+              174,
+              429
+            ],
+            [
+              224,
+              569
+            ],
+            [
+              143,
+              632
+            ],
+            [
+              99,
+              380
+            ],
+            [
+              133,
+              328
+            ],
+            [
+              235,
+              335
+            ],
+            [
+              183,
+              344
+            ],
+            [
+              182,
+              356
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              802,
+              549
+            ],
+            [
+              777,
+              602
+            ],
+            [
+              770,
+              640
+            ],
+            [
+              797,
+              684
+            ],
+            [
+              686,
+              803
+            ],
+            [
+              849,
+              805
+            ],
+            [
+              916,
+              688
+            ],
+            [
+              910,
+              630
+            ],
+            [
+              891,
+              636
+            ],
+            [
+              845,
+              593
+            ],
+            [
+              807,
+              565
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              353,
+              636
+            ],
+            [
+              340,
+              566
+            ],
+            [
+              258,
+              708
+            ],
+            [
+              275,
+              805
+            ],
+            [
+              422,
+              805
+            ],
+            [
+              332,
+              709
+            ]
+          ]
+        }
+      ]
+    },
+    "antweb_casent0106203_p_1.jpg": {
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              396,
+              109
+            ],
+            [
+              445,
+              69
+            ],
+            [
+              592,
+              68
+            ],
+            [
+              681,
+              77
+            ],
+            [
+              753,
+              109
+            ],
+            [
+              676,
+              174
+            ],
+            [
+              659,
+              193
+            ],
+            [
+              674,
+              205
+            ],
+            [
+              666,
+              256
+            ],
+            [
+              645,
+              327
+            ],
+            [
+              550,
+              352
+            ],
+            [
+              499,
+              345
+            ],
+            [
+              510,
+              328
+            ],
+            [
+              489,
+              284
+            ],
+            [
+              425,
+              263
+            ],
+            [
+              417,
+              241
+            ],
+            [
+              426,
+              184
+            ],
+            [
+              421,
+              154
+            ]
+          ]
+        }
+      ],
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              390,
+              93
+            ],
+            [
+              360,
+              66
+            ],
+            [
+              189,
+              67
+            ],
+            [
+              134,
+              155
+            ],
+            [
+              127,
+              282
+            ],
+            [
+              137,
+              357
+            ],
+            [
+              167,
+              382
+            ],
+            [
+              185,
+              436
+            ],
+            [
+              229,
+              484
+            ],
+            [
+              277,
+              489
+            ],
+            [
+              292,
+              484
+            ],
+            [
+              279,
+              426
+            ],
+            [
+              308,
+              382
+            ],
+            [
+              356,
+              365
+            ],
+            [
+              406,
+              315
+            ],
+            [
+              422,
+              273
+            ],
+            [
+              426,
+              225
+            ],
+            [
+              420,
+              149
+            ],
+            [
+              402,
+              105
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              697,
+              330
+            ],
+            [
+              816,
+              143
+            ],
+            [
+              904,
+              167
+            ],
+            [
+              1055,
+              319
+            ],
+            [
+              1053,
+              469
+            ],
+            [
+              957,
+              624
+            ],
+            [
+              783,
+              678
+            ],
+            [
+              708,
+              637
+            ],
+            [
+              761,
+              381
+            ],
+            [
+              698,
+              354
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              754,
+              108
+            ],
+            [
+              812,
+              143
+            ],
+            [
+              757,
+              269
+            ],
+            [
+              732,
+              310
+            ],
+            [
+              679,
+              339
+            ],
+            [
+              647,
+              347
+            ],
+            [
+              636,
+              320
+            ],
+            [
+              650,
+              291
+            ],
+            [
+              663,
+              244
+            ],
+            [
+              665,
+              214
+            ],
+            [
+              670,
+              180
+            ],
+            [
+              684,
+              150
+            ]
+          ]
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              267,
+              330
+            ],
+            [
+              298,
+              316
+            ],
+            [
+              325,
+              326
+            ],
+            [
+              331,
+              362
+            ],
+            [
+              208,
+              586
+            ],
+            [
+              153,
+              594
+            ],
+            [
+              142,
+              550
+            ],
+            [
+              144,
+              495
+            ],
+            [
+              205,
+              404
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              169,
+              377
+            ],
+            [
+              187,
+              372
+            ],
+            [
+              199,
+              377
+            ],
+            [
+              200,
+              388
+            ],
+            [
+              159,
+              454
+            ],
+            [
+              65,
+              560
+            ],
+            [
+              26,
+              563
+            ],
+            [
+              12,
+              523
+            ],
+            [
+              9,
+              491
+            ],
+            [
+              31,
+              443
+            ],
+            [
+              78,
+              415
+            ],
+            [
+              131,
+              391
+            ],
+            [
+              153,
+              382
+            ]
+          ]
+        }
+      ],
+      "sting": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              745,
+              637
+            ],
+            [
+              711,
+              629
+            ],
+            [
+              688,
+              691
+            ],
+            [
+              680,
+              747
+            ],
+            [
+              685,
+              796
+            ],
+            [
+              702,
+              801
+            ],
+            [
+              717,
+              798
+            ],
+            [
+              716,
+              761
+            ],
+            [
+              728,
+              694
+            ]
+          ]
+        }
+      ],
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              515,
+              258
+            ],
+            [
+              444,
+              245
+            ],
+            [
+              427,
+              300
+            ],
+            [
+              370,
+              332
+            ],
+            [
+              337,
+              431
+            ],
+            [
+              294,
+              628
+            ],
+            [
+              362,
+              762
+            ],
+            [
+              443,
+              795
+            ],
+            [
+              510,
+              797
+            ],
+            [
+              642,
+              803
+            ],
+            [
+              684,
+              802
+            ],
+            [
+              683,
+              724
+            ],
+            [
+              697,
+              658
+            ],
+            [
+              758,
+              597
+            ],
+            [
+              803,
+              602
+            ],
+            [
+              876,
+              576
+            ],
+            [
+              888,
+              497
+            ],
+            [
+              833,
+              443
+            ],
+            [
+              775,
+              370
+            ],
+            [
+              688,
+              347
+            ],
+            [
+              630,
+              326
+            ],
+            [
+              541,
+              330
+            ]
+          ]
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 827,
+          "y": 712,
+          "w": 219,
+          "h": 85
+        },
+        {
+          "type": "line",
+          "x1": 851,
+          "y1": 744,
+          "x2": 1023,
+          "y2": 744,
+          "pixelLength": 172,
+          "realValue": 0.5,
+          "unit": "mm",
+          "pixelsPerUnit": 344
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "NOL",
+          "measurementName": "Petiolar Node Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 746,
+          "y1": 265,
+          "x2": 674,
+          "y2": 224,
+          "pixelLength": 83
+        },
+        {
+          "type": "line",
+          "measurement": "PEL",
+          "measurementName": "Petiole Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 681,
+          "y1": 239,
+          "x2": 740,
+          "y2": 275,
+          "pixelLength": 69
+        },
+        {
+          "type": "line",
+          "measurement": "NOH",
+          "measurementName": "Petiolar Node Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 685,
+          "y1": 238,
+          "x2": 712,
+          "y2": 195,
+          "pixelLength": 51
+        },
+        {
+          "type": "line",
+          "measurement": "PEH",
+          "measurementName": "Petiole Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 656,
+          "y1": 336,
+          "x2": 733,
+          "y2": 204,
+          "pixelLength": 154
+        },
+        {
+          "type": "line",
+          "measurement": "WL",
+          "measurementName": "WL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 644,
+          "y1": 313,
+          "x2": 407,
+          "y2": 136,
+          "pixelLength": 296
+        }
+      ],
+      "ignore": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              586,
+              374
+            ],
+            [
+              545,
+              412
+            ],
+            [
+              512,
+              429
+            ],
+            [
+              444,
+              497
+            ],
+            [
+              471,
+              587
+            ],
+            [
+              600,
+              568
+            ],
+            [
+              677,
+              532
+            ],
+            [
+              708,
+              493
+            ],
+            [
+              646,
+              449
+            ],
+            [
+              631,
+              410
+            ]
+          ]
+        }
+      ]
+    },
+    "antweb_casent0178755_d_1.jpg": {
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "PW",
+          "measurementName": "PW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 210,
+          "y1": 309,
+          "x2": 210,
+          "y2": 633,
+          "pixelLength": 324
+        },
+        {
+          "type": "line",
+          "measurement": "PEW",
+          "measurementName": "Petiole Width",
+          "bodyPart": "petiole",
+          "view": "dorsal",
+          "x1": 517,
+          "y1": 399,
+          "x2": 517,
+          "y2": 541,
+          "pixelLength": 141
+        }
+      ],
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              454,
+              365
+            ],
+            [
+              453,
+              619
+            ],
+            [
+              240,
+              685
+            ],
+            [
+              84,
+              565
+            ],
+            [
+              35,
+              489
+            ],
+            [
+              56,
+              412
+            ],
+            [
+              119,
+              368
+            ],
+            [
+              207,
+              263
+            ],
+            [
+              414,
+              309
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              569,
+              363
+            ],
+            [
+              602,
+              562
+            ],
+            [
+              701,
+              580
+            ],
+            [
+              794,
+              629
+            ],
+            [
+              900,
+              637
+            ],
+            [
+              1033,
+              549
+            ],
+            [
+              1060,
+              458
+            ],
+            [
+              1050,
+              347
+            ],
+            [
+              1002,
+              281
+            ],
+            [
+              914,
+              233
+            ],
+            [
+              837,
+              180
+            ],
+            [
+              758,
+              209
+            ],
+            [
+              684,
+              256
+            ],
+            [
+              629,
+              308
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              583,
+              372
+            ],
+            [
+              601,
+              545
+            ],
+            [
+              565,
+              575
+            ],
+            [
+              486,
+              552
+            ],
+            [
+              458,
+              528
+            ],
+            [
+              448,
+              418
+            ],
+            [
+              505,
+              377
+            ],
+            [
+              555,
+              370
+            ]
+          ]
+        }
+      ],
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              480,
+              304
+            ],
+            [
+              427,
+              387
+            ],
+            [
+              520,
+              393
+            ],
+            [
+              568,
+              352
+            ],
+            [
+              681,
+              234
+            ],
+            [
+              769,
+              156
+            ],
+            [
+              821,
+              70
+            ],
+            [
+              698,
+              66
+            ],
+            [
+              594,
+              167
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              327,
+              301
+            ],
+            [
+              207,
+              132
+            ],
+            [
+              98,
+              140
+            ],
+            [
+              48,
+              260
+            ],
+            [
+              68,
+              339
+            ],
+            [
+              149,
+              294
+            ],
+            [
+              181,
+              254
+            ],
+            [
+              236,
+              298
+            ],
+            [
+              311,
+              310
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              554,
+              546
+            ],
+            [
+              457,
+              510
+            ],
+            [
+              400,
+              599
+            ],
+            [
+              451,
+              620
+            ],
+            [
+              791,
+              660
+            ],
+            [
+              838,
+              667
+            ],
+            [
+              845,
+              618
+            ],
+            [
+              770,
+              576
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              259,
+              642
+            ],
+            [
+              210,
+              707
+            ],
+            [
+              226,
+              739
+            ],
+            [
+              302,
+              741
+            ],
+            [
+              339,
+              677
+            ],
+            [
+              358,
+              639
+            ],
+            [
+              359,
+              615
+            ]
+          ]
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 788,
+          "y": 711,
+          "w": 270,
+          "h": 84
+        },
+        {
+          "type": "line",
+          "x1": 810,
+          "y1": 743,
+          "x2": 1050,
+          "y2": 743,
+          "pixelLength": 240,
+          "realValue": 0.5,
+          "unit": "mm",
+          "pixelsPerUnit": 480
+        }
+      ],
+      "ignore": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              542,
+              250
+            ],
+            [
+              446,
+              371
+            ],
+            [
+              373,
+              307
+            ],
+            [
+              321,
+              284
+            ],
+            [
+              218,
+              131
+            ],
+            [
+              139,
+              84
+            ],
+            [
+              137,
+              64
+            ],
+            [
+              481,
+              65
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              511,
+              708
+            ],
+            [
+              517,
+              620
+            ],
+            [
+              472,
+              589
+            ],
+            [
+              410,
+              611
+            ],
+            [
+              402,
+              633
+            ],
+            [
+              384,
+              636
+            ],
+            [
+              400,
+              696
+            ],
+            [
+              477,
+              722
+            ]
+          ]
+        }
+      ]
+    },
+    "antweb_casent0178755_h_1.jpg": {
+      "scale": [
+        {
+          "type": "box",
+          "x": 867,
+          "y": 722,
+          "w": 171,
+          "h": 70
+        },
+        {
+          "type": "line",
+          "x1": 883,
+          "y1": 743,
+          "x2": 1022,
+          "y2": 743,
+          "pixelLength": 139,
+          "realValue": 0.2,
+          "unit": "mm",
+          "pixelsPerUnit": 695
+        }
+      ],
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              182,
+              33
+            ],
+            [
+              875,
+              30
+            ],
+            [
+              923,
+              208
+            ],
+            [
+              859,
+              440
+            ],
+            [
+              682,
+              713
+            ],
+            [
+              547,
+              777
+            ],
+            [
+              403,
+              710
+            ],
+            [
+              227,
+              413
+            ],
+            [
+              143,
+              217
+            ]
+          ]
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              215,
+              237
+            ],
+            [
+              255,
+              321
+            ],
+            [
+              251,
+              422
+            ],
+            [
+              135,
+              634
+            ],
+            [
+              43,
+              712
+            ],
+            [
+              6,
+              685
+            ],
+            [
+              7,
+              518
+            ],
+            [
+              159,
+              385
+            ],
+            [
+              162,
+              269
+            ]
+          ]
+        }
+      ],
+      "ignore": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              735,
+              642
+            ],
+            [
+              862,
+              453
+            ],
+            [
+              927,
+              444
+            ],
+            [
+              938,
+              388
+            ],
+            [
+              925,
+              325
+            ],
+            [
+              921,
+              262
+            ],
+            [
+              915,
+              92
+            ],
+            [
+              1035,
+              105
+            ],
+            [
+              1041,
+              538
+            ],
+            [
+              966,
+              694
+            ],
+            [
+              769,
+              717
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              26,
+              491
+            ],
+            [
+              147,
+              382
+            ],
+            [
+              155,
+              257
+            ],
+            [
+              131,
+              209
+            ],
+            [
+              161,
+              70
+            ],
+            [
+              3,
+              66
+            ],
+            [
+              6,
+              497
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              443,
+              739
+            ],
+            [
+              350,
+              632
+            ],
+            [
+              242,
+              440
+            ],
+            [
+              139,
+              636
+            ],
+            [
+              29,
+              732
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "HL",
+          "measurementName": "HL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 538,
+          "y1": 544,
+          "x2": 538,
+          "y2": 43,
+          "pixelLength": 501
+        },
+        {
+          "type": "line",
+          "measurement": "HW",
+          "measurementName": "HW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 218,
+          "y1": 259,
+          "x2": 867,
+          "y2": 259,
+          "pixelLength": 649
+        },
+        {
+          "type": "line",
+          "measurement": "MdL",
+          "measurementName": "MdL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 526,
+          "y1": 745,
+          "x2": 347,
+          "y2": 588,
+          "pixelLength": 238
+        }
+      ]
+    },
+    "antweb_casent0178755_p_1.jpg": {
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              561,
+              789
+            ],
+            [
+              634,
+              708
+            ],
+            [
+              645,
+              586
+            ],
+            [
+              716,
+              458
+            ],
+            [
+              761,
+              399
+            ],
+            [
+              759,
+              303
+            ],
+            [
+              699,
+              269
+            ],
+            [
+              563,
+              265
+            ],
+            [
+              507,
+              288
+            ],
+            [
+              420,
+              258
+            ],
+            [
+              324,
+              306
+            ],
+            [
+              261,
+              249
+            ],
+            [
+              199,
+              267
+            ],
+            [
+              198,
+              299
+            ],
+            [
+              176,
+              362
+            ],
+            [
+              150,
+              713
+            ],
+            [
+              191,
+              730
+            ],
+            [
+              231,
+              719
+            ],
+            [
+              261,
+              585
+            ],
+            [
+              366,
+              698
+            ],
+            [
+              447,
+              766
+            ]
+          ]
+        }
+      ],
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              53,
+              174
+            ],
+            [
+              54,
+              237
+            ],
+            [
+              141,
+              272
+            ],
+            [
+              198,
+              267
+            ],
+            [
+              260,
+              250
+            ],
+            [
+              324,
+              306
+            ],
+            [
+              422,
+              258
+            ],
+            [
+              420,
+              180
+            ],
+            [
+              386,
+              147
+            ],
+            [
+              385,
+              1
+            ],
+            [
+              121,
+              3
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              396,
+              170
+            ],
+            [
+              385,
+              156
+            ],
+            [
+              400,
+              81
+            ],
+            [
+              505,
+              66
+            ],
+            [
+              488,
+              220
+            ],
+            [
+              458,
+              272
+            ],
+            [
+              418,
+              256
+            ],
+            [
+              412,
+              182
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              482,
+              93
+            ],
+            [
+              489,
+              233
+            ],
+            [
+              517,
+              257
+            ],
+            [
+              574,
+              276
+            ],
+            [
+              638,
+              557
+            ],
+            [
+              697,
+              548
+            ],
+            [
+              769,
+              546
+            ],
+            [
+              828,
+              469
+            ],
+            [
+              856,
+              408
+            ],
+            [
+              878,
+              294
+            ],
+            [
+              882,
+              182
+            ],
+            [
+              846,
+              118
+            ],
+            [
+              782,
+              62
+            ],
+            [
+              722,
+              34
+            ],
+            [
+              506,
+              32
+            ]
+          ]
+        }
+      ],
+      "sting": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              650,
+              542
+            ],
+            [
+              697,
+              540
+            ],
+            [
+              716,
+              658
+            ],
+            [
+              761,
+              774
+            ],
+            [
+              737,
+              765
+            ]
+          ]
+        }
+      ],
+      "scale": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              759,
+              727
+            ],
+            [
+              750,
+              744
+            ],
+            [
+              766,
+              763
+            ],
+            [
+              799,
+              790
+            ],
+            [
+              906,
+              788
+            ],
+            [
+              949,
+              761
+            ],
+            [
+              952,
+              732
+            ]
+          ]
+        },
+        {
+          "type": "line",
+          "x1": 754,
+          "y1": 743,
+          "x2": 942,
+          "y2": 743,
+          "pixelLength": 188,
+          "realValue": 0.5,
+          "unit": "mm",
+          "pixelsPerUnit": 376
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "PEH",
+          "measurementName": "Petiole Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 440,
+          "y1": 260,
+          "x2": 440,
+          "y2": 111,
+          "pixelLength": 149
+        },
+        {
+          "type": "line",
+          "measurement": "NOH",
+          "measurementName": "Petiolar Node Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 411,
+          "y1": 156,
+          "x2": 411,
+          "y2": 110,
+          "pixelLength": 46
+        },
+        {
+          "type": "line",
+          "measurement": "NOL",
+          "measurementName": "Petiolar Node Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 403,
+          "y1": 139,
+          "x2": 486,
+          "y2": 139,
+          "pixelLength": 83
+        },
+        {
+          "type": "line",
+          "measurement": "PEL",
+          "measurementName": "Petiole Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 411,
+          "y1": 157,
+          "x2": 486,
+          "y2": 157,
+          "pixelLength": 75
+        },
+        {
+          "type": "line",
+          "measurement": "PEL",
+          "measurementName": "Petiole Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 102,
+          "y1": 187,
+          "x2": 417,
+          "y2": 259,
+          "pixelLength": 323
+        },
+        {
+          "type": "line",
+          "measurement": "HFL",
+          "measurementName": "HFL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 704,
+          "y1": 324,
+          "x2": 494,
+          "y2": 322,
+          "pixelLength": 210
+        }
+      ]
+    },
+    "antweb_casent0178870_d_1.jpg": {
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "HW",
+          "measurementName": "HW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 246,
+          "y1": 284,
+          "x2": 246,
+          "y2": 508,
+          "pixelLength": 224
+        },
+        {
+          "type": "line",
+          "measurement": "PW",
+          "measurementName": "PW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 365,
+          "y1": 268,
+          "x2": 365,
+          "y2": 496,
+          "pixelLength": 228
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 900,
+          "y": 726,
+          "w": 328,
+          "h": 75
+        },
+        {
+          "type": "line",
+          "x1": 916,
+          "y1": 741,
+          "x2": 1217,
+          "y2": 741,
+          "pixelLength": 301,
+          "realValue": 1,
+          "unit": "mm",
+          "pixelsPerUnit": 301
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              162,
+              356
+            ],
+            [
+              182,
+              351
+            ],
+            [
+              189,
+              339
+            ],
+            [
+              182,
+              321
+            ],
+            [
+              137,
+              272
+            ],
+            [
+              125,
+              228
+            ],
+            [
+              134,
+              215
+            ],
+            [
+              172,
+              206
+            ],
+            [
+              225,
+              211
+            ],
+            [
+              260,
+              203
+            ],
+            [
+              266,
+              178
+            ],
+            [
+              230,
+              154
+            ],
+            [
+              169,
+              148
+            ],
+            [
+              110,
+              162
+            ],
+            [
+              73,
+              191
+            ],
+            [
+              68,
+              241
+            ],
+            [
+              84,
+              296
+            ],
+            [
+              115,
+              339
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              190,
+              450
+            ],
+            [
+              166,
+              431
+            ],
+            [
+              112,
+              440
+            ],
+            [
+              133,
+              403
+            ],
+            [
+              113,
+              391
+            ],
+            [
+              53,
+              413
+            ],
+            [
+              20,
+              473
+            ],
+            [
+              13,
+              507
+            ],
+            [
+              37,
+              512
+            ],
+            [
+              72,
+              513
+            ],
+            [
+              121,
+              489
+            ],
+            [
+              160,
+              468
+            ]
+          ]
+        }
+      ],
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              354,
+              499
+            ],
+            [
+              407,
+              507
+            ],
+            [
+              408,
+              573
+            ],
+            [
+              391,
+              619
+            ],
+            [
+              343,
+              619
+            ],
+            [
+              333,
+              582
+            ],
+            [
+              345,
+              527
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              482,
+              496
+            ],
+            [
+              541,
+              623
+            ],
+            [
+              445,
+              644
+            ],
+            [
+              440,
+              690
+            ],
+            [
+              456,
+              705
+            ],
+            [
+              528,
+              687
+            ],
+            [
+              561,
+              697
+            ],
+            [
+              532,
+              736
+            ],
+            [
+              550,
+              772
+            ],
+            [
+              607,
+              778
+            ],
+            [
+              647,
+              747
+            ],
+            [
+              678,
+              704
+            ],
+            [
+              684,
+              659
+            ],
+            [
+              658,
+              623
+            ],
+            [
+              562,
+              512
+            ],
+            [
+              531,
+              484
+            ],
+            [
+              509,
+              476
+            ],
+            [
+              491,
+              475
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              677,
+              193
+            ],
+            [
+              681,
+              124
+            ],
+            [
+              614,
+              129
+            ],
+            [
+              557,
+              232
+            ],
+            [
+              556,
+              239
+            ],
+            [
+              608,
+              229
+            ],
+            [
+              666,
+              214
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              449,
+              258
+            ],
+            [
+              428,
+              160
+            ],
+            [
+              406,
+              153
+            ],
+            [
+              390,
+              166
+            ],
+            [
+              387,
+              200
+            ],
+            [
+              383,
+              266
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              346,
+              214
+            ],
+            [
+              299,
+              170
+            ],
+            [
+              273,
+              201
+            ],
+            [
+              272,
+              243
+            ],
+            [
+              282,
+              271
+            ],
+            [
+              297,
+              286
+            ],
+            [
+              307,
+              288
+            ],
+            [
+              346,
+              273
+            ],
+            [
+              378,
+              257
+            ]
+          ]
+        }
+      ],
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              257,
+              372
+            ],
+            [
+              284,
+              339
+            ],
+            [
+              300,
+              303
+            ],
+            [
+              288,
+              285
+            ],
+            [
+              258,
+              269
+            ],
+            [
+              232,
+              269
+            ],
+            [
+              212,
+              289
+            ],
+            [
+              188,
+              332
+            ],
+            [
+              181,
+              348
+            ],
+            [
+              169,
+              361
+            ],
+            [
+              158,
+              383
+            ],
+            [
+              156,
+              414
+            ],
+            [
+              159,
+              433
+            ],
+            [
+              170,
+              443
+            ],
+            [
+              178,
+              448
+            ],
+            [
+              189,
+              464
+            ],
+            [
+              196,
+              480
+            ],
+            [
+              207,
+              500
+            ],
+            [
+              241,
+              537
+            ],
+            [
+              257,
+              541
+            ],
+            [
+              279,
+              537
+            ],
+            [
+              293,
+              526
+            ],
+            [
+              307,
+              503
+            ],
+            [
+              309,
+              480
+            ],
+            [
+              308,
+              464
+            ],
+            [
+              300,
+              440
+            ],
+            [
+              288,
+              425
+            ],
+            [
+              273,
+              409
+            ],
+            [
+              261,
+              399
+            ]
+          ]
+        }
+      ],
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              296,
+              261
+            ],
+            [
+              274,
+              280
+            ],
+            [
+              271,
+              296
+            ],
+            [
+              276,
+              309
+            ],
+            [
+              284,
+              329
+            ],
+            [
+              259,
+              349
+            ],
+            [
+              255,
+              354
+            ],
+            [
+              252,
+              376
+            ],
+            [
+              256,
+              402
+            ],
+            [
+              262,
+              419
+            ],
+            [
+              270,
+              431
+            ],
+            [
+              296,
+              463
+            ],
+            [
+              307,
+              475
+            ],
+            [
+              314,
+              484
+            ],
+            [
+              344,
+              502
+            ],
+            [
+              363,
+              507
+            ],
+            [
+              388,
+              507
+            ],
+            [
+              404,
+              507
+            ],
+            [
+              415,
+              500
+            ],
+            [
+              441,
+              474
+            ],
+            [
+              455,
+              465
+            ],
+            [
+              474,
+              462
+            ],
+            [
+              502,
+              450
+            ],
+            [
+              523,
+              447
+            ],
+            [
+              545,
+              436
+            ],
+            [
+              580,
+              428
+            ],
+            [
+              569,
+              400
+            ],
+            [
+              571,
+              366
+            ],
+            [
+              570,
+              334
+            ],
+            [
+              532,
+              325
+            ],
+            [
+              499,
+              318
+            ],
+            [
+              471,
+              310
+            ],
+            [
+              444,
+              291
+            ],
+            [
+              425,
+              278
+            ],
+            [
+              398,
+              267
+            ],
+            [
+              373,
+              262
+            ],
+            [
+              346,
+              257
+            ],
+            [
+              323,
+              257
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              643,
+              352
+            ],
+            [
+              658,
+              367
+            ],
+            [
+              661,
+              384
+            ],
+            [
+              659,
+              397
+            ],
+            [
+              663,
+              415
+            ],
+            [
+              818,
+              397
+            ],
+            [
+              807,
+              369
+            ],
+            [
+              671,
+              361
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              587,
+              347
+            ],
+            [
+              572,
+              377
+            ],
+            [
+              574,
+              405
+            ],
+            [
+              585,
+              425
+            ],
+            [
+              604,
+              434
+            ],
+            [
+              655,
+              419
+            ],
+            [
+              662,
+              378
+            ],
+            [
+              634,
+              352
+            ]
+          ]
+        }
+      ],
+      "wing": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              457,
+              465
+            ],
+            [
+              428,
+              474
+            ],
+            [
+              428,
+              501
+            ],
+            [
+              457,
+              513
+            ],
+            [
+              478,
+              499
+            ],
+            [
+              552,
+              507
+            ],
+            [
+              631,
+              548
+            ],
+            [
+              735,
+              542
+            ],
+            [
+              890,
+              568
+            ],
+            [
+              1037,
+              580
+            ],
+            [
+              1115,
+              584
+            ],
+            [
+              1154,
+              553
+            ],
+            [
+              1193,
+              487
+            ],
+            [
+              1210,
+              454
+            ],
+            [
+              1219,
+              417
+            ],
+            [
+              1205,
+              371
+            ],
+            [
+              1039,
+              366
+            ],
+            [
+              957,
+              378
+            ],
+            [
+              918,
+              373
+            ],
+            [
+              870,
+              379
+            ],
+            [
+              836,
+              386
+            ],
+            [
+              723,
+              400
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              466,
+              264
+            ],
+            [
+              502,
+              262
+            ],
+            [
+              530,
+              239
+            ],
+            [
+              555,
+              235
+            ],
+            [
+              693,
+              208
+            ],
+            [
+              774,
+              195
+            ],
+            [
+              851,
+              214
+            ],
+            [
+              929,
+              237
+            ],
+            [
+              953,
+              249
+            ],
+            [
+              1051,
+              279
+            ],
+            [
+              1079,
+              282
+            ],
+            [
+              1204,
+              280
+            ],
+            [
+              1232,
+              290
+            ],
+            [
+              1246,
+              296
+            ],
+            [
+              1244,
+              324
+            ],
+            [
+              1210,
+              357
+            ],
+            [
+              1031,
+              368
+            ],
+            [
+              814,
+              375
+            ],
+            [
+              567,
+              343
+            ],
+            [
+              441,
+              311
+            ],
+            [
+              430,
+              279
+            ]
+          ]
+        }
+      ],
+      "ocelli": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              196,
+              430
+            ],
+            [
+              196,
+              363
+            ],
+            [
+              163,
+              347
+            ],
+            [
+              144,
+              415
+            ],
+            [
+              186,
+              451
+            ]
+          ]
+        }
+      ]
+    },
+    "antweb_casent0178870_h_1.jpg": {
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              189,
+              74
+            ],
+            [
+              99,
+              164
+            ],
+            [
+              74,
+              375
+            ],
+            [
+              106,
+              428
+            ],
+            [
+              251,
+              550
+            ],
+            [
+              370,
+              628
+            ],
+            [
+              461,
+              623
+            ],
+            [
+              697,
+              440
+            ],
+            [
+              730,
+              335
+            ],
+            [
+              704,
+              217
+            ],
+            [
+              664,
+              118
+            ],
+            [
+              543,
+              62
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "IOW",
+          "measurementName": "IOW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 205,
+          "y1": 334,
+          "x2": 595,
+          "y2": 334,
+          "pixelLength": 390
+        },
+        {
+          "type": "line",
+          "measurement": "HW",
+          "measurementName": "HW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 94,
+          "y1": 348,
+          "x2": 703,
+          "y2": 348,
+          "pixelLength": 609
+        },
+        {
+          "type": "line",
+          "measurement": "HL",
+          "measurementName": "HL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 394,
+          "y1": 69,
+          "x2": 394,
+          "y2": 415,
+          "pixelLength": 345
+        },
+        {
+          "type": "line",
+          "measurement": "ClyL",
+          "measurementName": "ClyL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 394,
+          "y1": 418,
+          "x2": 394,
+          "y2": 546,
+          "pixelLength": 129
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              337,
+              353
+            ],
+            [
+              355,
+              389
+            ],
+            [
+              283,
+              437
+            ],
+            [
+              1,
+              629
+            ],
+            [
+              5,
+              496
+            ],
+            [
+              209,
+              358
+            ],
+            [
+              279,
+              337
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              478,
+              343
+            ],
+            [
+              441,
+              393
+            ],
+            [
+              498,
+              451
+            ],
+            [
+              551,
+              578
+            ],
+            [
+              549,
+              688
+            ],
+            [
+              660,
+              687
+            ],
+            [
+              688,
+              619
+            ],
+            [
+              652,
+              494
+            ],
+            [
+              609,
+              409
+            ],
+            [
+              549,
+              344
+            ],
+            [
+              519,
+              327
+            ]
+          ]
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 579,
+          "y": 703,
+          "w": 203,
+          "h": 91
+        },
+        {
+          "type": "line",
+          "x1": 633,
+          "y1": 716,
+          "x2": 731,
+          "y2": 716,
+          "pixelLength": 99,
+          "realValue": 0.1,
+          "unit": "mm",
+          "pixelsPerUnit": 990
+        }
+      ],
+      "ocelli": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              277,
+              108
+            ],
+            [
+              275,
+              176
+            ],
+            [
+              386,
+              255
+            ],
+            [
+              536,
+              162
+            ],
+            [
+              535,
+              112
+            ],
+            [
+              504,
+              87
+            ],
+            [
+              322,
+              94
+            ]
+          ]
+        }
+      ]
+    },
+    "antweb_casent0178870_p_1.jpg": {
+      "ocelli": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              185,
+              197
+            ],
+            [
+              195,
+              164
+            ],
+            [
+              179,
+              156
+            ],
+            [
+              158,
+              168
+            ],
+            [
+              155,
+              198
+            ]
+          ]
+        }
+      ],
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              312,
+              182
+            ],
+            [
+              248,
+              122
+            ],
+            [
+              164,
+              138
+            ],
+            [
+              139,
+              201
+            ],
+            [
+              162,
+              248
+            ],
+            [
+              193,
+              248
+            ],
+            [
+              209,
+              267
+            ],
+            [
+              246,
+              308
+            ],
+            [
+              292,
+              327
+            ],
+            [
+              333,
+              318
+            ],
+            [
+              335,
+              292
+            ],
+            [
+              326,
+              259
+            ],
+            [
+              319,
+              196
+            ]
+          ]
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              191,
+              243
+            ],
+            [
+              207,
+              267
+            ],
+            [
+              133,
+              298
+            ],
+            [
+              83,
+              346
+            ],
+            [
+              69,
+              422
+            ],
+            [
+              83,
+              469
+            ],
+            [
+              134,
+              521
+            ],
+            [
+              168,
+              577
+            ],
+            [
+              106,
+              561
+            ],
+            [
+              37,
+              499
+            ],
+            [
+              19,
+              430
+            ],
+            [
+              28,
+              366
+            ],
+            [
+              53,
+              311
+            ],
+            [
+              87,
+              280
+            ],
+            [
+              140,
+              251
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              310,
+              484
+            ],
+            [
+              297,
+              445
+            ],
+            [
+              247,
+              410
+            ],
+            [
+              203,
+              364
+            ],
+            [
+              190,
+              298
+            ],
+            [
+              188,
+              274
+            ],
+            [
+              137,
+              284
+            ],
+            [
+              128,
+              331
+            ],
+            [
+              153,
+              405
+            ],
+            [
+              193,
+              458
+            ],
+            [
+              243,
+              491
+            ]
+          ]
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 636,
+          "y": 724,
+          "w": 188,
+          "h": 76
+        },
+        {
+          "type": "line",
+          "x1": 663,
+          "y1": 750,
+          "x2": 812,
+          "y2": 750,
+          "pixelLength": 149,
+          "realValue": 0.5,
+          "unit": "mm",
+          "pixelsPerUnit": 298
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "WL",
+          "measurementName": "WL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 266,
+          "y1": 129,
+          "x2": 523,
+          "y2": 286,
+          "pixelLength": 301
+        },
+        {
+          "type": "line",
+          "measurement": "PEH",
+          "measurementName": "Petiole Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 543,
+          "y1": 300,
+          "x2": 606,
+          "y2": 238,
+          "pixelLength": 88
+        },
+        {
+          "type": "line",
+          "measurement": "PEL",
+          "measurementName": "Petiole Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 568,
+          "y1": 242,
+          "x2": 614,
+          "y2": 288,
+          "pixelLength": 65
+        },
+        {
+          "type": "line",
+          "measurement": "NOH",
+          "measurementName": "Petiolar Node Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 567,
+          "y1": 265,
+          "x2": 599,
+          "y2": 233,
+          "pixelLength": 45
+        },
+        {
+          "type": "line",
+          "measurement": "NOL",
+          "measurementName": "Petiolar Node Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 568,
+          "y1": 266,
+          "x2": 602,
+          "y2": 298,
+          "pixelLength": 46
+        }
+      ],
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              249,
+              116
+            ],
+            [
+              279,
+              30
+            ],
+            [
+              413,
+              20
+            ],
+            [
+              515,
+              70
+            ],
+            [
+              577,
+              164
+            ],
+            [
+              569,
+              234
+            ],
+            [
+              531,
+              298
+            ],
+            [
+              361,
+              292
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              560,
+              238
+            ],
+            [
+              601,
+              222
+            ],
+            [
+              634,
+              234
+            ],
+            [
+              650,
+              258
+            ],
+            [
+              581,
+              318
+            ],
+            [
+              537,
+              308
+            ],
+            [
+              525,
+              286
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              645,
+              257
+            ],
+            [
+              709,
+              281
+            ],
+            [
+              789,
+              345
+            ],
+            [
+              802,
+              438
+            ],
+            [
+              791,
+              515
+            ],
+            [
+              715,
+              582
+            ],
+            [
+              664,
+              585
+            ],
+            [
+              551,
+              566
+            ],
+            [
+              546,
+              529
+            ],
+            [
+              560,
+              504
+            ],
+            [
+              569,
+              467
+            ],
+            [
+              576,
+              410
+            ],
+            [
+              581,
+              390
+            ],
+            [
+              590,
+              361
+            ],
+            [
+              569,
+              339
+            ],
+            [
+              577,
+              308
+            ],
+            [
+              649,
+              241
+            ]
+          ]
+        }
+      ],
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              327,
+              231
+            ],
+            [
+              331,
+              276
+            ],
+            [
+              333,
+              308
+            ],
+            [
+              342,
+              334
+            ],
+            [
+              316,
+              382
+            ],
+            [
+              303,
+              442
+            ],
+            [
+              305,
+              517
+            ],
+            [
+              356,
+              551
+            ],
+            [
+              400,
+              550
+            ],
+            [
+              421,
+              526
+            ],
+            [
+              437,
+              488
+            ],
+            [
+              420,
+              469
+            ],
+            [
+              401,
+              461
+            ],
+            [
+              373,
+              454
+            ],
+            [
+              369,
+              422
+            ],
+            [
+              381,
+              395
+            ],
+            [
+              391,
+              362
+            ],
+            [
+              397,
+              313
+            ],
+            [
+              432,
+              308
+            ],
+            [
+              442,
+              344
+            ],
+            [
+              448,
+              385
+            ],
+            [
+              474,
+              404
+            ],
+            [
+              500,
+              420
+            ],
+            [
+              506,
+              451
+            ],
+            [
+              507,
+              495
+            ],
+            [
+              504,
+              510
+            ],
+            [
+              501,
+              546
+            ],
+            [
+              479,
+              582
+            ],
+            [
+              457,
+              610
+            ],
+            [
+              369,
+              694
+            ],
+            [
+              376,
+              740
+            ],
+            [
+              406,
+              736
+            ],
+            [
+              435,
+              726
+            ],
+            [
+              457,
+              706
+            ],
+            [
+              477,
+              762
+            ],
+            [
+              508,
+              776
+            ],
+            [
+              519,
+              772
+            ],
+            [
+              548,
+              762
+            ],
+            [
+              566,
+              727
+            ],
+            [
+              588,
+              694
+            ],
+            [
+              637,
+              610
+            ],
+            [
+              643,
+              598
+            ],
+            [
+              685,
+              556
+            ],
+            [
+              663,
+              546
+            ],
+            [
+              632,
+              561
+            ],
+            [
+              608,
+              580
+            ],
+            [
+              562,
+              614
+            ],
+            [
+              537,
+              630
+            ],
+            [
+              535,
+              612
+            ],
+            [
+              545,
+              570
+            ],
+            [
+              561,
+              544
+            ],
+            [
+              564,
+              533
+            ],
+            [
+              568,
+              498
+            ],
+            [
+              572,
+              460
+            ],
+            [
+              573,
+              455
+            ],
+            [
+              573,
+              428
+            ],
+            [
+              586,
+              401
+            ],
+            [
+              598,
+              376
+            ],
+            [
+              592,
+              338
+            ],
+            [
+              590,
+              334
+            ]
+          ]
+        }
+      ]
+    },
+    "antweb_casent0178871_d_1.jpg": {
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              254,
+              90
+            ],
+            [
+              128,
+              113
+            ],
+            [
+              45,
+              175
+            ],
+            [
+              25,
+              247
+            ],
+            [
+              16,
+              468
+            ],
+            [
+              62,
+              582
+            ],
+            [
+              169,
+              624
+            ],
+            [
+              232,
+              616
+            ],
+            [
+              282,
+              597
+            ],
+            [
+              341,
+              555
+            ],
+            [
+              377,
+              511
+            ],
+            [
+              286,
+              467
+            ],
+            [
+              244,
+              418
+            ],
+            [
+              203,
+              372
+            ],
+            [
+              209,
+              326
+            ],
+            [
+              243,
+              271
+            ],
+            [
+              265,
+              235
+            ],
+            [
+              307,
+              205
+            ],
+            [
+              353,
+              194
+            ],
+            [
+              355,
+              172
+            ],
+            [
+              286,
+              121
+            ]
+          ]
+        }
+      ],
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              359,
+              189
+            ],
+            [
+              304,
+              216
+            ],
+            [
+              286,
+              231
+            ],
+            [
+              263,
+              250
+            ],
+            [
+              235,
+              301
+            ],
+            [
+              226,
+              350
+            ],
+            [
+              230,
+              391
+            ],
+            [
+              244,
+              445
+            ],
+            [
+              263,
+              468
+            ],
+            [
+              297,
+              490
+            ],
+            [
+              335,
+              505
+            ],
+            [
+              388,
+              506
+            ],
+            [
+              424,
+              498
+            ],
+            [
+              448,
+              475
+            ],
+            [
+              517,
+              472
+            ],
+            [
+              584,
+              457
+            ],
+            [
+              593,
+              439
+            ],
+            [
+              579,
+              399
+            ],
+            [
+              583,
+              340
+            ],
+            [
+              585,
+              308
+            ],
+            [
+              582,
+              283
+            ],
+            [
+              562,
+              252
+            ],
+            [
+              516,
+              237
+            ],
+            [
+              448,
+              215
+            ],
+            [
+              398,
+              188
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              588,
+              278
+            ],
+            [
+              574,
+              318
+            ],
+            [
+              571,
+              342
+            ],
+            [
+              570,
+              370
+            ],
+            [
+              570,
+              387
+            ],
+            [
+              578,
+              412
+            ],
+            [
+              590,
+              435
+            ],
+            [
+              613,
+              456
+            ],
+            [
+              637,
+              459
+            ],
+            [
+              651,
+              451
+            ],
+            [
+              663,
+              439
+            ],
+            [
+              671,
+              429
+            ],
+            [
+              681,
+              411
+            ],
+            [
+              689,
+              364
+            ],
+            [
+              693,
+              317
+            ],
+            [
+              678,
+              290
+            ],
+            [
+              641,
+              269
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              1055,
+              371
+            ],
+            [
+              1013,
+              268
+            ],
+            [
+              963,
+              209
+            ],
+            [
+              820,
+              178
+            ],
+            [
+              729,
+              201
+            ],
+            [
+              704,
+              218
+            ],
+            [
+              680,
+              282
+            ],
+            [
+              679,
+              335
+            ],
+            [
+              672,
+              433
+            ],
+            [
+              665,
+              468
+            ],
+            [
+              699,
+              533
+            ],
+            [
+              784,
+              566
+            ],
+            [
+              897,
+              569
+            ],
+            [
+              1001,
+              502
+            ],
+            [
+              1033,
+              445
+            ],
+            [
+              1053,
+              393
+            ]
+          ]
+        }
+      ],
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              304,
+              100
+            ],
+            [
+              341,
+              67
+            ],
+            [
+              416,
+              104
+            ],
+            [
+              477,
+              178
+            ],
+            [
+              487,
+              225
+            ],
+            [
+              487,
+              235
+            ],
+            [
+              378,
+              190
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              563,
+              234
+            ],
+            [
+              605,
+              92
+            ],
+            [
+              641,
+              76
+            ],
+            [
+              693,
+              66
+            ],
+            [
+              770,
+              82
+            ],
+            [
+              803,
+              115
+            ],
+            [
+              804,
+              174
+            ],
+            [
+              791,
+              199
+            ],
+            [
+              732,
+              203
+            ],
+            [
+              699,
+              242
+            ],
+            [
+              668,
+              282
+            ],
+            [
+              613,
+              279
+            ],
+            [
+              581,
+              275
+            ]
+          ]
+        },
+        {
+          "type": "poly",
+          "points": [
+            [
+              748,
+              539
+            ],
+            [
+              702,
+              517
+            ],
+            [
+              662,
+              467
+            ],
+            [
+              609,
+              441
+            ],
+            [
+              536,
+              473
+            ],
+            [
+              474,
+              475
+            ],
+            [
+              448,
+              482
+            ],
+            [
+              411,
+              536
+            ],
+            [
+              370,
+              629
+            ],
+            [
+              361,
+              693
+            ],
+            [
+              378,
+              714
+            ],
+            [
+              434,
+              709
+            ],
+            [
+              486,
+              681
+            ],
+            [
+              522,
+              720
+            ],
+            [
+              526,
+              736
+            ],
+            [
+              612,
+              781
+            ],
+            [
+              656,
+              767
+            ],
+            [
+              710,
+              716
+            ],
+            [
+              733,
+              601
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "PW",
+          "measurementName": "PW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 375,
+          "y1": 195,
+          "x2": 375,
+          "y2": 497,
+          "pixelLength": 302
+        },
+        {
+          "type": "line",
+          "measurement": "PEW",
+          "measurementName": "Petiole Width",
+          "bodyPart": "petiole",
+          "view": "dorsal",
+          "x1": 628,
+          "y1": 285,
+          "x2": 628,
+          "y2": 429,
+          "pixelLength": 144
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 790,
+          "y": 722,
+          "w": 277,
+          "h": 80
+        },
+        {
+          "type": "line",
+          "x1": 812,
+          "y1": 745,
+          "x2": 1040,
+          "y2": 745,
+          "pixelLength": 228,
+          "realValue": 0.5,
+          "unit": "mm",
+          "pixelsPerUnit": 456
+        }
+      ]
+    },
+    "antweb_casent0178871_h_1.jpg": {
+      "scale": [
+        {
+          "type": "box",
+          "x": 543,
+          "y": 748,
+          "w": 289,
+          "h": 56
+        },
+        {
+          "type": "line",
+          "x1": 554,
+          "y1": 759,
+          "x2": 822,
+          "y2": 759,
+          "pixelLength": 268,
+          "realValue": 0.5,
+          "unit": "mm",
+          "pixelsPerUnit": 536
+        }
+      ],
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              102,
+              21
+            ],
+            [
+              632,
+              20
+            ],
+            [
+              679,
+              189
+            ],
+            [
+              622,
+              352
+            ],
+            [
+              534,
+              417
+            ],
+            [
+              486,
+              513
+            ],
+            [
+              418,
+              604
+            ],
+            [
+              319,
+              622
+            ],
+            [
+              238,
+              573
+            ],
+            [
+              132,
+              457
+            ],
+            [
+              79,
+              345
+            ],
+            [
+              51,
+              266
+            ],
+            [
+              52,
+              201
+            ],
+            [
+              68,
+              102
+            ]
+          ]
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              531,
+              416
+            ],
+            [
+              494,
+              416
+            ],
+            [
+              459,
+              433
+            ],
+            [
+              455,
+              452
+            ],
+            [
+              502,
+              464
+            ],
+            [
+              538,
+              493
+            ],
+            [
+              568,
+              534
+            ],
+            [
+              606,
+              558
+            ],
+            [
+              647,
+              649
+            ],
+            [
+              691,
+              720
+            ],
+            [
+              714,
+              741
+            ],
+            [
+              776,
+              744
+            ],
+            [
+              762,
+              649
+            ],
+            [
+              738,
+              600
+            ],
+            [
+              712,
+              572
+            ],
+            [
+              736,
+              492
+            ],
+            [
+              716,
+              437
+            ],
+            [
+              666,
+              421
+            ],
+            [
+              618,
+              413
+            ],
+            [
+              571,
+              405
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "HL",
+          "measurementName": "HL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 339,
+          "y1": 465,
+          "x2": 339,
+          "y2": 96,
+          "pixelLength": 369
+        },
+        {
+          "type": "line",
+          "measurement": "HW",
+          "measurementName": "HW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 104,
+          "y1": 269,
+          "x2": 594,
+          "y2": 269,
+          "pixelLength": 489
+        },
+        {
+          "type": "line",
+          "measurement": "SL",
+          "measurementName": "Scape Length",
+          "bodyPart": "head",
+          "view": "full-face",
+          "x1": 484,
+          "y1": 433,
+          "x2": 654,
+          "y2": 512,
+          "pixelLength": 187
+        },
+        {
+          "type": "line",
+          "measurement": "MdL",
+          "measurementName": "MdL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 347,
+          "y1": 607,
+          "x2": 218,
+          "y2": 504,
+          "pixelLength": 165
+        }
+      ]
+    },
+    "antweb_casent0178871_p_1.jpg": {
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              282,
+              28
+            ],
+            [
+              152,
+              8
+            ],
+            [
+              49,
+              114
+            ],
+            [
+              52,
+              241
+            ],
+            [
+              101,
+              374
+            ],
+            [
+              172,
+              414
+            ],
+            [
+              249,
+              450
+            ],
+            [
+              269,
+              385
+            ],
+            [
+              292,
+              336
+            ],
+            [
+              318,
+              306
+            ],
+            [
+              328,
+              138
+            ],
+            [
+              293,
+              48
+            ]
+          ]
+        }
+      ],
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              340,
+              5
+            ],
+            [
+              278,
+              70
+            ],
+            [
+              277,
+              101
+            ],
+            [
+              318,
+              148
+            ],
+            [
+              320,
+              280
+            ],
+            [
+              361,
+              280
+            ],
+            [
+              396,
+              329
+            ],
+            [
+              448,
+              342
+            ],
+            [
+              495,
+              331
+            ],
+            [
+              549,
+              222
+            ],
+            [
+              606,
+              121
+            ],
+            [
+              534,
+              41
+            ]
+          ]
+        }
+      ],
+      "gaster": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              526,
+              350
+            ],
+            [
+              713,
+              258
+            ],
+            [
+              781,
+              350
+            ],
+            [
+              784,
+              528
+            ],
+            [
+              746,
+              633
+            ],
+            [
+              561,
+              724
+            ],
+            [
+              438,
+              665
+            ],
+            [
+              350,
+              540
+            ],
+            [
+              382,
+              480
+            ],
+            [
+              524,
+              390
+            ],
+            [
+              520,
+              368
+            ]
+          ]
+        }
+      ],
+      "petiole": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              578,
+              172
+            ],
+            [
+              656,
+              206
+            ],
+            [
+              688,
+              245
+            ],
+            [
+              691,
+              273
+            ],
+            [
+              539,
+              346
+            ],
+            [
+              491,
+              346
+            ],
+            [
+              552,
+              205
+            ]
+          ]
+        }
+      ],
+      "leg": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              498,
+              377
+            ],
+            [
+              504,
+              333
+            ],
+            [
+              440,
+              341
+            ],
+            [
+              393,
+              332
+            ],
+            [
+              368,
+              284
+            ],
+            [
+              325,
+              278
+            ],
+            [
+              324,
+              325
+            ],
+            [
+              285,
+              350
+            ],
+            [
+              269,
+              386
+            ],
+            [
+              257,
+              420
+            ],
+            [
+              253,
+              450
+            ],
+            [
+              244,
+              494
+            ],
+            [
+              233,
+              541
+            ],
+            [
+              249,
+              558
+            ],
+            [
+              244,
+              621
+            ],
+            [
+              233,
+              689
+            ],
+            [
+              254,
+              709
+            ],
+            [
+              292,
+              688
+            ],
+            [
+              312,
+              677
+            ],
+            [
+              317,
+              690
+            ],
+            [
+              296,
+              696
+            ],
+            [
+              277,
+              738
+            ],
+            [
+              305,
+              772
+            ],
+            [
+              368,
+              774
+            ],
+            [
+              402,
+              764
+            ],
+            [
+              428,
+              734
+            ],
+            [
+              429,
+              693
+            ],
+            [
+              433,
+              665
+            ],
+            [
+              453,
+              632
+            ],
+            [
+              418,
+              608
+            ],
+            [
+              460,
+              520
+            ],
+            [
+              477,
+              452
+            ],
+            [
+              481,
+              417
+            ]
+          ]
+        }
+      ],
+      "sting": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              195,
+              611
+            ],
+            [
+              255,
+              570
+            ],
+            [
+              253,
+              552
+            ],
+            [
+              242,
+              551
+            ],
+            [
+              205,
+              584
+            ]
+          ]
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              184,
+              375
+            ],
+            [
+              208,
+              366
+            ],
+            [
+              230,
+              368
+            ],
+            [
+              248,
+              383
+            ],
+            [
+              263,
+              403
+            ],
+            [
+              265,
+              435
+            ],
+            [
+              230,
+              546
+            ],
+            [
+              198,
+              618
+            ],
+            [
+              167,
+              631
+            ],
+            [
+              150,
+              617
+            ],
+            [
+              142,
+              602
+            ],
+            [
+              136,
+              580
+            ],
+            [
+              138,
+              552
+            ],
+            [
+              151,
+              521
+            ],
+            [
+              186,
+              472
+            ],
+            [
+              208,
+              456
+            ],
+            [
+              174,
+              410
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "PEH",
+          "measurementName": "Petiole Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 503,
+          "y1": 344,
+          "x2": 618,
+          "y2": 251,
+          "pixelLength": 148
+        },
+        {
+          "type": "line",
+          "measurement": "PEL",
+          "measurementName": "Petiole Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 568,
+          "y1": 274,
+          "x2": 599,
+          "y2": 320,
+          "pixelLength": 55
+        },
+        {
+          "type": "line",
+          "measurement": "NOL",
+          "measurementName": "Petiolar Node Length",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 565,
+          "y1": 238,
+          "x2": 616,
+          "y2": 304,
+          "pixelLength": 84
+        },
+        {
+          "type": "line",
+          "measurement": "NOH",
+          "measurementName": "Petiolar Node Height",
+          "bodyPart": "petiole",
+          "view": "profile",
+          "x1": 567,
+          "y1": 271,
+          "x2": 603,
+          "y2": 239,
+          "pixelLength": 48
+        },
+        {
+          "type": "line",
+          "measurement": "WL",
+          "measurementName": "WL",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 282,
+          "y1": 104,
+          "x2": 496,
+          "y2": 336,
+          "pixelLength": 315
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 606,
+          "y": 723,
+          "w": 217,
+          "h": 79
+        }
+      ]
+    },
+    "antweb_casent0178881_d_1.jpg": {
+      "cranium": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              197,
+              277
+            ],
+            [
+              82,
+              290
+            ],
+            [
+              26,
+              356
+            ],
+            [
+              27,
+              470
+            ],
+            [
+              58,
+              530
+            ],
+            [
+              118,
+              572
+            ],
+            [
+              157,
+              581
+            ],
+            [
+              195,
+              564
+            ],
+            [
+              219,
+              529
+            ],
+            [
+              216,
+              497
+            ],
+            [
+              185,
+              465
+            ],
+            [
+              162,
+              444
+            ],
+            [
+              160,
+              420
+            ],
+            [
+              165,
+              391
+            ],
+            [
+              201,
+              364
+            ],
+            [
+              212,
+              339
+            ],
+            [
+              215,
+              299
+            ]
+          ]
+        }
+      ],
+      "antenna": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              111,
+              546
+            ],
+            [
+              91,
+              532
+            ],
+            [
+              72,
+              548
+            ],
+            [
+              26,
+              537
+            ],
+            [
+              20,
+              581
+            ],
+            [
+              49,
+              596
+            ],
+            [
+              85,
+              603
+            ],
+            [
+              122,
+              603
+            ],
+            [
+              125,
+              586
+            ]
+          ]
+        }
+      ],
+      "mesosoma": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              248,
+              282
+            ],
+            [
+              202,
+              310
+            ],
+            [
+              203,
+              352
+            ],
+            [
+              175,
+              400
+            ],
+            [
+              170,
+              434
+            ],
+            [
+              190,
+              465
+            ],
+            [
+              218,
+              503
+            ],
+            [
+              278,
+              549
+            ],
+            [
+              351,
+              541
+            ],
+            [
+              376,
+              507
+            ],
+            [
+              435,
+              462
+            ],
+            [
+              465,
+              420
+            ],
+            [
+              468,
+              388
+            ],
+            [
+              457,
+              369
+            ],
+            [
+              402,
+              340
+            ],
+            [
+              347,
+              280
+            ],
+            [
+              276,
+              288
+            ]
+          ]
+        }
+      ],
+      "wing": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              362,
+              279
+            ],
+            [
+              349,
+              307
+            ],
+            [
+              372,
+              326
+            ],
+            [
+              440,
+              369
+            ],
+            [
+              471,
+              388
+            ],
+            [
+              472,
+              430
+            ],
+            [
+              387,
+              489
+            ],
+            [
+              338,
+              516
+            ],
+            [
+              311,
+              534
+            ],
+            [
+              329,
+              560
+            ],
+            [
+              701,
+              674
+            ],
+            [
+              957,
+              722
+            ],
+            [
+              999,
+              677
+            ],
+            [
+              1118,
+              670
+            ],
+            [
+              1175,
+              618
+            ],
+            [
+              1170,
+              561
+            ],
+            [
+              1154,
+              514
+            ],
+            [
+              1155,
+              467
+            ],
+            [
+              1179,
+              439
+            ],
+            [
+              1199,
+              399
+            ],
+            [
+              1203,
+              386
+            ],
+            [
+              1206,
+              337
+            ],
+            [
+              1190,
+              227
+            ],
+            [
+              1118,
+              199
+            ],
+            [
+              1018,
+              183
+            ],
+            [
+              851,
+              204
+            ],
+            [
+              801,
+              209
+            ],
+            [
+              792,
+              81
+            ],
+            [
+              808,
+              3
+            ],
+            [
+              697,
+              7
+            ],
+            [
+              429,
+              252
+            ]
+          ]
+        }
+      ],
+      "measurement": [
+        {
+          "type": "line",
+          "measurement": "PW",
+          "measurementName": "PW",
+          "bodyPart": "unknown",
+          "view": "unknown",
+          "x1": 285,
+          "y1": 295,
+          "x2": 285,
+          "y2": 537,
+          "pixelLength": 243
+        }
+      ],
+      "scale": [
+        {
+          "type": "box",
+          "x": 976,
+          "y": 724,
+          "w": 235,
+          "h": 76
+        },
+        {
+          "type": "line",
+          "x1": 994,
+          "y1": 745,
+          "x2": 1199,
+          "y2": 745,
+          "pixelLength": 205,
+          "realValue": 1,
+          "unit": "mm",
+          "pixelsPerUnit": 205
+        }
+      ],
+      "ocelli": [
+        {
+          "type": "poly",
+          "points": [
+            [
+              80,
+              382
+            ],
+            [
+              100,
+              397
+            ],
+            [
+              100,
+              438
+            ],
+            [
+              80,
+              462
+            ],
+            [
+              56,
+              447
+            ],
+            [
+              45,
+              427
+            ],
+            [
+              56,
+              385
+            ]
+          ]
+        }
+      ]
+    }
+  }
+}
