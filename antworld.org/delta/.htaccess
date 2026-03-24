@@ -5,6 +5,9 @@
   # Delete the /index
   RewriteBase /
 
+  # Old docs/ folder renamed to zdocs/
+  RewriteRule ^docs/(.*)$ zdocs/$1 [R=301,L]
+
   RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s(.*?/+)index\.html(?:/(.*))?[\s?] [NC]
   RewriteRule ^ %1%2 [L,R]
 
