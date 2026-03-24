@@ -12,6 +12,9 @@
   # Delete the /index
   RewriteBase /
 
+  # Deleted files - return 410 Gone
+  RewriteRule ^access\.php$ - [G,L]
+
   # Old docs/ folder renamed to zdocs/
   RewriteRule ^docs/(.*)$ zdocs/$1 [R=301,L]
 
