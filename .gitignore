@@ -6,6 +6,7 @@ CLAUDE.md
 # ML data (large training images)
 ml/data/
 ml/venv/
+ml/scans/
 
 # Academic PDFs (large, external content)
 **/docs/*.pdf
@@ -21,8 +22,9 @@ antworld.org/*/docs/*.pdf
 # Backup folders
 **/backup_svg/
 
-# Large image files (TIF)
+# Large image/3D files
 *.tif
+*.stl
 
 # Dashboard config files
 antworld.org/*/php/dashboard_*.json
