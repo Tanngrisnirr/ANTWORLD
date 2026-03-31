@@ -3,10 +3,11 @@ local/
 planning/
 CLAUDE.md
 
-# ML data (large training images)
+# ML data (large training images) and grader tool
 ml/data/
 ml/venv/
 ml/scans/
+ml/grader/
 
 # Academic PDFs (large, external content)
 **/docs/*.pdf
