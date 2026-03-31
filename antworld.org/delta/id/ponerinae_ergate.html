@@ -1,8 +1,9 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Ponerinae</title>
-		<meta name="description" content="">
-		<meta name="keywords" content="">
+    <head><title><?= lang() === "fr" ? "Clé d'identification Ponerinae" : "Ponerinae Identification Key" ?> | AntWorld</title>
+		<meta name="description" content="<?= lang() === "fr" ? "Identifiez les fourmis ponérines (sous-famille Ponerinae) à l'aide de caractères morphologiques. Couvre Probolomyrmex, Proceratium et autres genres ponéroïdes." : "Identify ponerine ants (Ponerinae subfamily) using morphological features. Covers Probolomyrmex, Proceratium, and other poneroid genera with diagnostic characters." ?>">
+		<meta name="keywords" content="Ponerinae, ponerine ants, Probolomyrmex, Proceratium, ant identification, dichotomous key, poneroid ants, morphology">
 <?php include("../php/headersend.php") ?>
     </head>
     <body>
@@ -10,8 +11,12 @@
 <article>
 <h1><?= lang() === "fr" ? "Ponéromorphes 1" : "Poneromorphs 1" ?></h1>
 
+<p class="intro"><?= lang() === "fr"
+    ? "Cette clé d'identification couvre les fourmis de type ponéroïde, caractérisées par un pétiole simple et souvent un aiguillon fonctionnel. Les genres Probolomyrmex et Proceratium sont des prédateurs spécialisés avec des yeux réduits et une morphologie distinctive. Examinez attentivement la fusion du pronotum, mésonotum et propodeum, ainsi que la forme du pétiole."
+    : "This identification key covers poneroid-type ants, characterized by a simple petiole and often a functional sting. The genera Probolomyrmex and Proceratium are specialized predators with reduced eyes and distinctive morphology. Carefully examine the fusion of pronotum, mesonotum and propodeum, as well as the petiole shape." ?></p>
 
-  <div class="icones"><a href="probolomyrmex_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Probolomyrmex" onclic="location.href='probolomyrmex_ergate.html';">
+
+  <div class="icones"><a href="probolomyrmex_ergate.html"></a><span class="dead-link">Probolomyrmex</span>
 <?php include("../php/CCblanc.php"); ?>
   <li><a title="Pronotum" style="cursor:help;"><b>PN</b></a>, <b>MN</b> & <a title="Propodeum" style="cursor:help;"><b>PP</b></a> <?= lang() === "fr" ? "légèrement fusionnés dorsalement" : "a little bit fused dorsally" ?></li>
   <li><?= lang() === "fr" ? "Seul" : "Only" ?> <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "fusionné au gastre" : "fused to gaster" ?></li>
@@ -25,7 +30,7 @@
 </div>
 
 
-<div class="icones"> <a href="proceratium_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Proceratium" onclic="location.href='proceratium_ergate.html';">
+<div class="icones"> <a href="proceratium_ergate.html"></a><span class="dead-link">Proceratium</span>
 <?php include("../php/CCblanc.php"); ?>
   <li><a title="Pronotum" style="cursor:help;"><b>PN</b></a>, <b>MN</b> & <a title="Propodeum" style="cursor:help;"><b>PP</b></a> <?= lang() === "fr" ? "bien fusionnés en vues dorsale et de profil" : "well fused in both dorsal and profile view" ?></li>
   <li><?= lang() === "fr" ? "Seul" : "Only" ?> <a title="<?= lang() === "fr" ? "Post-pétiole" : "Post Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "fusionné au gastre" : "fused to gaster" ?></li>
@@ -40,7 +45,7 @@
 </div>
 
 
-<div class="icones"><a href="_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Proceratium" onclick="location.href='_ergate.html';"></a>
+<div class="icones"><a href="_ergate.html"></a><span class="dead-link">Proceratium</span></a>
 <?php include("../php/CCblanc.php"); ?>
   <li></li>
   <li></li>

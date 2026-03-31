@@ -1,25 +1,30 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Rhyzomyrma2</title>
-		<meta name="description" content="Acropyga rhyzomyrma subgenus">
-		<meta name="keywords" content="Acropyga,ergate,Rhyzomyrma,kinomurai,yaeyamensis,guanxiensis,yunnanensis,China,Japan,Taiwan,Guangxi,Yunnan,Iriomote-jima,Ischigaki-jima">
+    <head><title><?= lang() === "fr" ? "Clé Acropyga (Rhizomyrma) partie 2" : "Acropyga (Rhizomyrma) Key part 2" ?> | AntWorld</title>
+		<meta name="description" content="<?= lang() === "fr" ? "Identifiez les fourmis souterraines Acropyga sous-genre Rhizomyrma. Ces Formicinae cryptiques vivent sous terre avec des cochenilles. Caractères clés : yeux réduits, vertex anguleux." : "Identify subterranean ants Acropyga subgenus Rhizomyrma. These cryptic formicines live underground with root-feeding mealybugs. Key features: reduced eyes, angular vertex." ?>">
+		<meta name="keywords" content="Acropyga, Rhizomyrma, subterranean ants, mealybug symbiosis, kinomurai, yaeyamensis, guanxiensis, yunnanensis, Japan, China, Taiwan, ant identification">
 <?php include("../php/headersend.php") ?>
 <?php include("../php/favicon.php"); ?><?php include("../php/scripts.php") ?>
 
-    </head> 
+    </head>
 <body>
 <?php include("../php/nav.php") ?>
 <article>
 <h1><i><strong>Rhyzomyrma</strong></i> <?= lang() === "fr" ? "Sous-genre : partie 2" : "Subgenus: part 2" ?></h1>
 
+<p class="intro"><?= lang() === "fr"
+    ? "Cette clé couvre les espèces du sous-genre Rhizomyrma (genre Acropyga), des fourmis souterraines qui vivent en symbiose obligatoire avec des cochenilles radicoles. Présentes au Japon (îles Ischigaki et Iriomote) et en Chine, ces fourmis ont des yeux réduits et un corps compact adapté à la vie hypogée. Examinez la largeur de la tête et la convexité du dos mésonotal."
+    : "This key covers species of subgenus Rhizomyrma (genus Acropyga), subterranean ants that live in obligate symbiosis with root-feeding mealybugs. Found in Japan (Ischigaki and Iriomote islands) and China, these ants have reduced eyes and a compact body adapted to underground life. Examine head width and mesonotal dorsum convexity." ?></p>
+
 <!--Kimurai-->
-  <div class="icones"><a hre="acropyga_kinomurai_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="kinomurai" onclic="location.href='acropyga_kinomurai_ergate.html';"></a>
+  <div class="icones"><a hre="acropyga_kinomurai_ergate.html"></a><span class="dead-link">kinomurai</span></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/formicinae/acropyga/acropyga_kinomurai_face.jpg" typeof="foaf:Image" alt="Acropyga kunomurai"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
   <li><?= lang() === "fr" ? "Tête nettement plus large que longue" : "Head distinctly wider than long" ?></li>
@@ -28,7 +33,7 @@
   <img class="limg" src="../img/id/formicinae/acropyga/acropyga_kinomurai_thorax.jpg" typeof="foaf:Image" alt="Acropyga kinomurai thorax lateral view"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
   <li><div class="region"><ul class="niveau1"><img src="../img/id/icons/region.png" typeof="foaf:based_near" alt="species menu" />
@@ -37,13 +42,13 @@
 </div>
 
 <!--Yamamensis-->
-  <div class="icones"> <a href="acropyga_yaeyamensis_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="yaeyamensis" onclic="location.href='acropyga_yaeyamensis_ergate.html';"></a>
+  <div class="icones"> <a href="acropyga_yaeyamensis_ergate.html"></a><span class="dead-link">yaeyamensis</span></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/formicinae/acropyga/acropyga_yaeyamensis_face.jpg" typeof="foaf:Image" alt="Acropyga yaeyamensis face"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
   <li><?= lang() === "fr" ? "Funicule avec 9 articles" : "Funiculus with 9 articles" ?></li>
@@ -53,7 +58,7 @@
   <img class="limg" src="../img/id/formicinae/acropyga/acropyga_yaeyamensis_thorax.jpg" typeof="foaf:Image" alt="Acropyga yaeyamensis thorax lateral view"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
   <li><div class="region"><ul class="niveau1"><img src="../img/id/icons/region.png" typeof="foaf:based_near" alt="species menu" />
@@ -62,13 +67,13 @@
 </div>
 
 <!--Guanxiensis-->
-  <div class="icones"><a href="acropyga_guanxiensis_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="guanxiensis" onclic="location.href='acropyga_guanxiensis_ergate.html';"></a>
+  <div class="icones"><a href="acropyga_guanxiensis_ergate.html"></a><span class="dead-link">guanxiensis</span></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/formicinae/acropyga/acropyga_guanxiensis_face.jpg" typeof="foaf:Image" alt="Acropyga guanxiensis face"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
 <li><?= lang() === "fr" ? "Œil composé d'une seule ommatidie" : "Eye consisting of a single ommatidium" ?></li>
@@ -78,7 +83,7 @@
   <img class="limg" src="../img/id/formicinae/acropyga/acropyga_guanxiensis_thorax.jpg" typeof="foaf:Image" alt="Acropyga guanxiensis thorax"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
   <li><div class="region"><ul class="niveau1"><img src="../img/id/icons/region.png" typeof="foaf:based_near" alt="species menu" />
@@ -87,13 +92,13 @@
 </div>
 
 <!--Yunnanensis-->
-  <div class="icones"> <a href="acropyga_yunnanensis_ergate.html"></a><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="yunnanensis" onclic="location.href='acropyga_yunnanensis_ergate.html';"></a>
+  <div class="icones"> <a href="acropyga_yunnanensis_ergate.html"></a><span class="dead-link">yunnanensis</span></a>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/formicinae/acropyga/acropyga_yunnanensis_face.jpg" typeof="foaf:Image" alt="Acropyga yunnanensis"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
 <li><?= lang() === "fr" ? "Œil composé de 4 ommatidies chacun" : "Eye consisting of 4 ommatidia each" ?></li>
@@ -103,7 +108,7 @@
   <img class="limg" src="../img/id/formicinae/acropyga/acropyga_yunnanensis_thorax.jpg" typeof="foaf:Image" alt="Acropyga yunnanensis"/>
 	</div>
 </div>
-<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank"title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
+<a class="caption simple-caption" href="../zdocs/Terayama 2002 - East Asian species of the genus Acropyga.pdf" target="_blank" title="Open in new tab" typeof="foaf:publications" alt="copyright link" >
     <p>Teramaya 2002</p></a>
 </div>
   <li><div class="region"><ul class="niveau1"><img src="../img/id/icons/region.png" typeof="foaf:based_near" alt="species menu" />

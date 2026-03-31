@@ -1,9 +1,10 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Lasiini</title>
+    <head><title><?= lang() === "fr" ? "Clé d'identification Tribu Lasiini" : "Lasiini Tribe Identification Key" ?> | AntWorld</title>
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
-		<meta name="description" content="Lasinii Tribe">
-		<meta name="keywords" content="Lasius,Lasius s. str.,ergate,Prenolepis,Acropyga,Anoplolepis,gracilipes,Austrolasius,Cautolasius,Chthonolasius,Dendrolasius,kinomurai,jiangxiensis,Japan,Asia,Taiwan,nipponensis,palearctica,sauteri,yaeyamensis">
+		<meta name="description" content="<?= lang() === "fr" ? "Identifiez les fourmis de la tribu Lasiini : Lasius, Acropyga, Prenolepis et Anoplolepis. Caractères clés : segments antennaires, forme du thorax, ratio de longueur du tibia." : "Identify ants of tribe Lasiini including Lasius, Acropyga, Prenolepis, and Anoplolepis. Key morphological features: antenna segments, thorax shape, tibia length ratios." ?>">
+		<meta name="keywords" content="Lasiini, Lasius, Acropyga, Prenolepis, Anoplolepis, Austrolasius, Cautolasius, Chthonolasius, Dendrolasius, ant identification, Formicinae, dichotomous key">
 		<meta name="author" content="AntWorld.org">
 		<link rel="stylesheet" href="../css/css_antworld.css"/>
 		<link rel="stylesheet" href="../css/antworld-icons.css"/>
@@ -19,7 +20,7 @@
 <h1><?= lang() === "fr" ? "Tribu des Lasiini" : "Lasiini Tribe" ?></h1>
 
 
- <div class="icones"><a href="anoplolepis.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="A. gracilipes" onclic="location.href='anoplolepis.html';"></a>
+ <div class="icones"><span class="dead-link">A. gracilipes</span>
 <div id="blind"> <div id="id2wrapper">
 	<div id="box-1" class="box">
   <img src="../img/id/formicinae/anoplolepis/anoplolepis_gracilipes_mini.png" typeof="foaf:Image" alt="Anoplolepis thorax">
@@ -72,7 +73,7 @@
   </div>
   
 
-  <div class="icones"><a href="prenolepis.html"><input type="button" class="long_button_no" disabled title="<?= lang() === "fr" ? "En construction" : "Under construction" ?>" value="Prenolepis" onclic="location.href='prenolepis.html';"></a>
+  <div class="icones"><span class="dead-link">Prenolepis</span>
 <?php include("../php/CCblanc.php") ?>
   <li><?= lang() === "fr" ? "Tibia postérieur court" : "Rear tibia not long" ?>: <br> <b>HTL/CW < 1,50</b></li>
   <li><?= lang() === "fr" ? "Scape très long" : "Scapus very long" ?>: <br> <b>SL/CL > 1,13</b></li>

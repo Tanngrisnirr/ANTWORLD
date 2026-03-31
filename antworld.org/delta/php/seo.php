@@ -85,6 +85,52 @@ $GLOBALS['aw_seo_pages'] = [
         'description' => 'Begin identifying worker ants with this interactive dichotomous key covering multiple ecoregions.',
         'type' => 'article',
         'schema_type' => 'Article'
+    ],
+
+
+    'id/ponerinae_ergate' => [
+        'title' => 'Ponerinae Identification Key | Poneroid Ants',
+        'description' => 'Identify ponerine ants (Ponerinae subfamily) using morphological features. Covers Probolomyrmex, Proceratium, and other poneroid genera with diagnostic characters.',
+        'type' => 'article',
+        'schema_type' => 'Article'
+    ],
+    'id/lasiini_ergate' => [
+        'title' => 'Lasiini Tribe Identification Key | Formicinae',
+        'description' => 'Identify ants of tribe Lasiini including Lasius, Acropyga, Prenolepis, and Anoplolepis. Key morphological features: antenna segments, thorax shape, tibia length ratios.',
+        'type' => 'article',
+        'schema_type' => 'Article'
+    ],
+    'id/crematogaster' => [
+        'title' => 'Crematogaster Identification Key | Acrobat Ants',
+        'description' => 'Identify Crematogaster species (acrobat ants) using morphological characters. Heart-shaped gaster, postpetiole attachment, and propodeal spines are key features.',
+        'type' => 'article',
+        'schema_type' => 'Article'
+    ],
+    'id/cerapachys&leptogenys_ergate' => [
+        'title' => 'Cerapachys & Leptogenys Identification Key',
+        'description' => 'Distinguish between Cerapachys and Leptogenys genera. Both are predatory ants with similar body forms but differ in mandible shape and petiole structure.',
+        'type' => 'article',
+        'schema_type' => 'Article'
+    ],
+    'id/acropyga_rhyzomyrma2_ergate' => [
+        'title' => 'Acropyga & Rhizomyrma Identification Key',
+        'description' => 'Identify subterranean ants of genera Acropyga and Rhizomyrma. These cryptic formicines live underground with root-feeding mealybugs. Key features: reduced eyes, angular vertex.',
+        'type' => 'article',
+        'schema_type' => 'Article'
+    ],
+    'id/polyrhachis2_4_ergate' => [
+        'title' => 'Polyrhachis Identification Key | Spiny Ants',
+        'description' => 'Identify Polyrhachis species (spiny ants) using propodeal and petiolar spine morphology. Covers Asian and Palearctic species with diagnostic spine configurations.',
+        'type' => 'article',
+        'schema_type' => 'Article'
+    ],
+
+
+    'id/species/discothyrea_kamiteta_ergate' => [
+        'title' => 'Discothyrea kamiteta | Spider Egg Predator',
+        'description' => 'Identification and biology of Discothyrea kamiteta, a specialized predator of spider eggs found in Japan. Distinctive morphology: small eyes, compact body, predatory mandibles.',
+        'type' => 'article',
+        'schema_type' => 'Article'
     ]
 ];
 

@@ -1,9 +1,10 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Crematogaster</title>
+    <head><title><?= lang() === "fr" ? "Clé d'identification Crematogaster" : "Crematogaster Identification Key" ?> | AntWorld</title>
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
-		<meta name="description" content=">
-		<meta name="keywords" content=">
+		<meta name="description" content="<?= lang() === "fr" ? "Identifiez les espèces de Crematogaster (fourmis acrobates) à l'aide de caractères morphologiques. Gastre en forme de cœur, attachement du postpétiole et épines propodéales sont des caractères clés." : "Identify Crematogaster species (acrobat ants) using morphological characters. Heart-shaped gaster, postpetiole attachment, and propodeal spines are key features." ?>">
+		<meta name="keywords" content="Crematogaster, acrobat ants, ant identification, Myrmicinae, heart-shaped gaster, postpetiole, dichotomous key">
 		<meta name="author" content="AntWorld.org">
 		<link rel="stylesheet" href="../css/css_antworld.css"/>
 		<link rel="stylesheet" href="../css/antworld-icons.css"/>
@@ -16,52 +17,26 @@
 <body>
 <?php include("../php/nav.php") ?>
 <article>
-<h1>Titre</h1>
+<h1><i><strong>Crematogaster</strong></i> <?= lang() === "fr" ? "Fourmis acrobates" : "Acrobat Ants" ?></h1>
 
-<!-- -->
-  <div class="icones3"><a href="_ergate.html"><input type="button" value=" onclick="location.href='_ergate.html';"></a>
-<?php include("../php/CCblanc.php") ?>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li>
-  <br><br><a href="_ergate.html"><i><strong><b></b></strong></i></a>
-  <br><a href="_ergate.html"><i><strong><b></b></strong></i></a>
-  <br><a href="_ergate.html"><i><strong><b></b></strong></i></a></li>
+<p class="intro"><?= lang() === "fr"
+    ? "Le genre Crematogaster (fourmis acrobates) comprend plus de 400 espèces dans le monde. Elles sont reconnaissables à leur gastre en forme de cœur (vue dorsale) attaché dorsalement au postpétiole, ce qui leur permet de relever l'abdomen au-dessus du thorax en cas de menace. Les caractères diagnostiques incluent la forme des épines propodéales, la sculpture céphalique et la pilosité."
+    : "The genus Crematogaster (acrobat ants) includes over 400 species worldwide. They are recognizable by their heart-shaped gaster (dorsal view) attached dorsally to the postpetiole, allowing them to raise the abdomen above the thorax when threatened. Diagnostic characters include propodeal spine shape, cephalic sculpture, and pilosity." ?></p>
+
+<div class="construction-notice" style="background: var(--bg-tertiary); border: 2px dashed var(--accent-primary); padding: 20px; margin: 20px 0; border-radius: 8px; text-align: center;">
+    <h2 style="color: var(--accent-primary); margin-top: 0;"><?= lang() === "fr" ? "Page en construction" : "Page Under Construction" ?></h2>
+    <p><?= lang() === "fr"
+        ? "Cette clé d'identification est en cours de développement. Les caractères morphologiques et les espèces seront ajoutés prochainement."
+        : "This identification key is currently being developed. Morphological characters and species will be added soon." ?></p>
+    <p><?= lang() === "fr"
+        ? "En attendant, consultez les ressources suivantes :"
+        : "In the meantime, consult these resources:" ?></p>
+    <ul style="list-style: none; padding: 0;">
+        <li><a href="https://www.antwiki.org/wiki/Crematogaster" target="_blank">AntWiki - Crematogaster</a></li>
+        <li><a href="https://www.antweb.org/browse.do?genus=crematogaster" target="_blank">AntWeb - Crematogaster images</a></li>
+    </ul>
 </div>
 
-<!-- -->
-<div class="icones3"> <a href="_ergate.html"></a><input type="button" value=" onclick="location.href='_ergate.html';"></a>
-<?php include("../php/CCblanc.php") ?>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li>
-  <br><br><a href="_ergate.html"><i><strong><b></b></strong></i></a>
-  <br><a href="_ergate.html"><i><strong><b></b></strong></i></a>
-  <br><a href="_ergate.html"><i><strong><b></b></strong></i></a></li>
-</div>
-
-<!-- -->
-<div class="icones3"><a href="_ergate.html"><input type="button" value=" onclick="location.href='_ergate.html';"></a>
-<?php include("../php/CCblanc.php") ?>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li>
-  <br><br><a href="_ergate.html"><i><strong><b></b></strong></i></a>
-  <br><a href="_ergate.html"><i><strong><b></b></strong></i></a>
-  <br><a href="_ergate.html"><i><strong><b></b></strong></i></a></li>
-</div>
 </article>
 <?php include("../php/footer.php"); ?>
      </body>

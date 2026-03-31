@@ -658,7 +658,19 @@ nav > .mandible { display: none; }
 .icon-circle-up:hover{text-shadow:0px 0px 30px var(--text-primary);}
 #francais{border-radius:25px; cursor:pointer;}
 #english{border-radius:25px;cursor:pointer;}
-.intro{width:95%;}
+/* Intro paragraphs for ID keys - important for SEO */
+.intro {
+    width: 95%;
+    max-width: 900px;
+    margin: 0 auto 25px auto;
+    padding: 15px 20px;
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--accent-primary);
+    border-radius: 0 8px 8px 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
 .all {display: inline-block; max-width:650px; 
         margin: 1% 0 0 0; /*entre les autres blocs de la division*/
         padding: 10px 0 0 0; /*entre blocs outside division*/ background-color: none; background:none; opacity:1;}
@@ -2706,6 +2718,23 @@ h4.toggle-heading {
 }
 h4.toggle-heading .toggle-label {
     font-size: 16px;
+}
+
+/* Dead links - non-clickable text for non-existent pages */
+/* Styled to match disabled buttons (button_no, long_button_no) */
+.dead-link {
+    display: block;
+    width: 100%;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    font-size: 1.5vw;
+    font-style: italic;
+    color: #888;
+    cursor: no-drop;
+    text-decoration: none;
+    background: none;
+    border: 0;
 }
 
 /* Morpho responsive */
