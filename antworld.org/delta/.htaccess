@@ -15,6 +15,14 @@
   # Deleted files - return 410 Gone
   RewriteRule ^access\.php$ - [G,L]
 
+  # Pages that never existed (GSC 404s 2026-03-31)
+  RewriteRule ^id/technomyrmex_ergate\.html$ - [G,L]
+  RewriteRule ^id/dendrolasius_nipponensis_ergate\.html$ - [G,L]
+  RewriteRule ^id/austrolasius\.html$ - [G,L]
+  RewriteRule ^id/anochetus_ergate\.html$ - [G,L]
+  RewriteRule ^id/cautolasius_ergate\.html$ - [G,L]
+  RewriteRule ^id/lasius_alienus_ergate/?$ - [G,L]
+
   # Old docs/ folder renamed to zdocs/
   RewriteRule ^docs/(.*)$ zdocs/$1 [R=301,L]
 
