@@ -10,6 +10,7 @@
 <script src="js/modules/offline-exporting.js"></script>
 </head>
     <body>
+<?php include("php/nav.php"); ?>
 <article>
 <h1><?= t('geo.title') ?></h1>
 
@@ -519,5 +520,6 @@ function downloadFile(content, filename, mimeType) {
 
 </article>
 <?php include("php/footer.php"); ?>
+<?php include("php/scripts.php"); ?>
 </body>
 </html>
