@@ -266,7 +266,7 @@ nav {
     position: relative;
 }
 nav a:hover { color: white; }
-nav a:active { color: grey; }
+nav a:active { color: white; }
 
 /* Hide checkbox toggle */
 nav > .mandible { display: none; }
@@ -417,13 +417,13 @@ nav > .mandible { display: none; }
 }
 /* Disabled/unavailable links in gallery */
 .nav-links .gallery li a.disabled {
-    color: #666 !important;
+    color: rgba(255,255,255,0.4) !important;
     cursor: not-allowed;
     pointer-events: none;
 }
 .nav-links .gallery li a.disabled:hover {
     background: none;
-    color: #666 !important;
+    color: rgba(255,255,255,0.4) !important;
 }
 .nav-links .gallery li a .icon {
     display: inline-block;
@@ -1296,7 +1296,8 @@ footer:not(.aw-footer) img:hover{box-shadow: 0px 0px 30px var(--text-primary); o
     box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.3);
 }
 .filter-input::placeholder {
-    color: var(--text-muted, #888);
+    color: #fff;
+    opacity: 0.7;
 }
 
 /* Filter sections and groups */
@@ -1478,7 +1479,7 @@ footer:not(.aw-footer) img:hover{box-shadow: 0px 0px 30px var(--text-primary); o
 }
 .link-pdf { color: #e74c3c; }
 .link-web { color: #2ecc71; }
-.link-none { color: #666; }
+.link-none { color: rgba(255,255,255,0.5); }
 .link-search { color: #f39c12; }
 .link-search:hover { color: #f5b041; }
 .author-col { width: 18%; font-weight: 500; color: #fff; }
@@ -1504,7 +1505,7 @@ footer:not(.aw-footer) img:hover{box-shadow: 0px 0px 30px var(--text-primary); o
     font-size: 16px;
 }
 .source-count {
-    color: #ccc;
+    color: #fff;
     font-size: 16px;
     margin-left: 15px;
 }
@@ -1533,7 +1534,7 @@ footer:not(.aw-footer) img:hover{box-shadow: 0px 0px 30px var(--text-primary); o
     background-color: rgba(180, 180, 210, 0.6);
 }
 .species-count {
-    color: var(--text-muted, #ccc);
+    color: var(--text-muted, #fff);
     font-size: 16px;
 }
 
@@ -2264,7 +2265,7 @@ body.has-enlarged-view {
 .view-btn.disabled, .view-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    color: #999;
+    color: #fff;
 }
 
 /* Feature list */
@@ -2736,7 +2737,7 @@ h4.toggle-heading .toggle-label {
     text-align: center;
     font-size: 1.5vw;
     font-style: italic;
-    color: #888;
+    color: rgba(255,255,255,0.5);
     cursor: no-drop;
     text-decoration: none;
     background: none;
