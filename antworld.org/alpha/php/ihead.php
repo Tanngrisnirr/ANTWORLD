@@ -19,4 +19,4 @@
     }
 })();
 </script>
-<?php include("php/nav.php"); ?><?php include("php/favicon.php"); ?><?php include("php/scripts.php") ?>
+<?php include("php/favicon.php"); ?>

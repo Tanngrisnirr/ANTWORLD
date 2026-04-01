@@ -1,7 +1,8 @@
 # mod_rewrite on
   RewriteEngine on
 
-  # Force HTTPS
+  # Force HTTPS (skip on localhost for development)
+  RewriteCond %{HTTP_HOST} !^localhost [NC]
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
@@ -10,7 +11,7 @@
   RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
   # Delete the /index
-  RewriteBase /
+  RewriteBase /alpha/
 
   # Deleted files - return 410 Gone
   RewriteRule ^access\.php$ - [G,L]
@@ -70,10 +71,16 @@
   # Hotlinking Protection (SINGLE RULE - allows empty referer)
   RewriteCond %{HTTP_REFERER} !^$
   RewriteCond %{HTTP_REFERER} !^https?://(www\.)?antworld\.org [NC]
+  RewriteCond %{HTTP_REFERER} !^https?://localhost [NC]
   RewriteRule \.(js|css|jpg|gif|png|bmp|mp4|3gp|m4a|m4r|aac|mp3|ogg|wave)$ - [F]
 
-  # PHP code in HTML file
-  AddType fcgid-script .php .htm .html .phtml
+  # PHP code in HTML file (conditional for different server configs)
+  <IfModule mod_fcgid.c>
+    AddType fcgid-script .php .htm .html .phtml
+  </IfModule>
+  <IfModule !mod_fcgid.c>
+    AddHandler application/x-httpd-php .html .htm
+  </IfModule>
 
   # Remove html extension
   RewriteCond %{REQUEST_FILENAME} !-f
