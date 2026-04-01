@@ -1,0 +1,51 @@
+{
+  "_comment": "Latin taxonomic names that must always be italicized. Used for text processing.",
+  "_usage": "Check if a word matches any entry here - if so, wrap in <i> tags",
+
+  "subfamilies": [
+    "Amblyoponinae", "Dolichoderinae", "Dorylinae", "Ectatomminae",
+    "Formicinae", "Leptanillinae", "Myrmicinae", "Ponerinae",
+    "Proceratiinae", "Pseudomyrmecinae"
+  ],
+
+  "tribes": [
+    "Camponotini", "Formicini", "Lasiini", "Melophorini", "Myrmecocystini",
+    "Plagiolepidini", "Attini", "Crematogastrini", "Myrmicini", "Pheidolini",
+    "Solenopsidini", "Stenammini", "Tetramoriini"
+  ],
+
+  "genera": [
+    "Acropyga", "Aenictus", "Amblyopone", "Anomalomyrma", "Anoplolepis",
+    "Aphaenogaster", "Camponotus", "Cardiocondyla", "Cataglyphis",
+    "Cerapachys", "Colobopsis", "Crematogaster", "Cryptopone",
+    "Discothyrea", "Dorylus", "Formica", "Lasius", "Leptanilla",
+    "Leptogenys", "Messor", "Monomorium", "Myrmica", "Myrmecocystus",
+    "Nylanderia", "Odontomachus", "Oecophylla", "Pheidole", "Plagiolepis",
+    "Polyergus", "Polyrhachis", "Ponera", "Prenolepis", "Prionopelta",
+    "Probolomyrmex", "Proceratium", "Protanilla", "Solenopsis",
+    "Stigmatomma", "Strumigenys", "Tapinoma", "Technomyrmex",
+    "Temnothorax", "Tetramorium", "Vollenhovia"
+  ],
+
+  "subgenera": [
+    "Rhizomyrma", "Austrolasius", "Cautolasius", "Chthonolasius",
+    "Dendrolasius"
+  ],
+
+  "species_epithets": [
+    "acutiventris", "algiricum", "alienus", "armata", "austriacus",
+    "bicolor", "biroi", "breviscapus", "brunneus", "burmanensis",
+    "capitatus", "carniolicus", "confucii", "daikoku", "debilis",
+    "denticulatum", "dives", "emeryi", "fuliginosus", "fulvida",
+    "furcata", "gaetulicum", "gibba", "gracilipes", "guanxiensis",
+    "hashimotoi", "humicola", "itoi", "japonicum", "japonica",
+    "jiangxiensis", "kamiteta", "kinomurai", "kraepelini", "kubotai",
+    "laevigata", "lamellidens", "longinodus", "lucidula", "melinum",
+    "moesta", "morimotoi", "morisitai", "murina", "nigerrimus",
+    "nipponensis", "nitens", "oceanica", "okinawensis", "paleartica",
+    "rastellata", "reginae", "revelierei", "rufescens", "rufipes",
+    "sakaii", "samurai", "sauteri", "septemstruma", "silvestrii",
+    "spathepus", "subpilosa", "tanakai", "teranishii", "thompsoni",
+    "thrinax", "vigilans", "watasei", "yaeyamensis", "yunnanensis"
+  ]
+}

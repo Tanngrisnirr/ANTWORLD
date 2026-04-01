@@ -660,9 +660,8 @@ nav > .mandible { display: none; }
 #english{border-radius:25px;cursor:pointer;}
 /* Intro paragraphs for ID keys - important for SEO */
 .intro {
-    width: 95%;
-    max-width: 900px;
-    margin: 0 auto 25px auto;
+    width: 100%;
+    margin: 0 0 25px 0;
     padding: 15px 20px;
     background: var(--bg-secondary);
     border-left: 4px solid var(--accent-primary);

@@ -1,6 +1,7 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Leptanilla</title>
+    <head><title><?= lang() === "fr" ? "Clé Leptanilla" : "Leptanilla Key" ?> | AntWorld</title>
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Leptanilla Genus">
 		<meta name="keywords" content="Leptanilla,ergate,oceanica,Leptanilla sp.,kubotai,tanakai,japonica,morimotoi,revelierie,okinawensis,Japan">
@@ -18,8 +19,11 @@
 <article>
 <h1><i><strong>Leptanilla</strong></i> <?= lang() === "fr" ? "genre" : "genus" ?></h1>
 
+<p class="intro"><?= lang() === "fr"
+    ? "<i>Leptanilla</i> sont parmi les plus petites fourmis au monde (1-2 mm). Aveugles et souterraines, elles se nourrissent d'hémolymphe de larves de centipèdes. Les larves nourrissent la reine par un organe spécialisé. Japon, Méditerranée."
+    : "<i>Leptanilla</i> are among the world's smallest ants (1-2 mm). Blind and subterranean, they feed on hemolymph of centipede larvae. Larvae feed the queen through a specialized organ. Japan, Mediterranean." ?></p>
 
-  <div class="icones"><span class="dead-link">oceanica</span>
+  <div class="icones"><span class="dead-link">L. oceanica</span>
 <?php include("../php/CCblanc.php"); ?>
 <li><?= lang() === "fr" ? "En vue dorsale, premier tergite gastral non rétréci antérieurement" : "In dorsal view, first gastral tergite not narrowed anteriorly" ?></li>
   <li><?= lang() === "fr" ? "Bord antérieur du clypéus droit, non projeté" : "Anterior margin of clypeus straight, not projecting" ?></li>
@@ -34,15 +38,15 @@
   <li><?= lang() === "fr" ? "Japon" : "Japan" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
-  <a href="leptanilla_sp_ergate.html"><i><strong><b>j</b>aponica</strong></i></a>
-  <br><a href="leptanilla_sp_ergate.html"><i><strong><b>m</b>orimotoi</strong></i></a>
-  <br><a href="leptanilla_revelierei_ergate.html"><i><strong><b>r</b>evelierei</strong></i></a>
-  <br><a href="leptanilla_sp_ergate.html"><i><strong><b>o</b>kinawensis</strong></i></a></li>
+  <a href="leptanilla_sp_ergate.html"><i><b>j</b>aponica</i></a>
+  <br><a href="leptanilla_sp_ergate.html"><i><b>m</b>orimotoi</i></a>
+  <br><a href="leptanilla_revelierei_ergate.html"><i><b>r</b>evelierei</i></a>
+  <br><a href="leptanilla_sp_ergate.html"><i><b>o</b>kinawensis</i></a></li>
 	</ul></ul></div></li>
   </div>
   
 
-  <div class="icones"><span class="dead-link">kubotai</span>
+  <div class="icones"><span class="dead-link">L. kubotai</span>
 <?php include("../php/CCblanc.php"); ?>
 <li><?= lang() === "fr" ? "En vue dorsale, premier tergite gastral nettement rétréci antérieurement" : "In dorsal view, first gastral tergite clearly narrowed anteriorly" ?></li>
   <li><a title="<?= lang() === "fr" ? "Post-pétiole" : "Post-Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "bord postérieur arrondi en vue dorsale, angles postéro-latéraux arrondis" : "posterior border rounded in dorsal view, posterolateral corners rounded" ?></li>
@@ -52,7 +56,7 @@
 </div>
 
 
-  <div class="icones"><span class="dead-link">tanakai</span>
+  <div class="icones"><span class="dead-link">L. tanakai</span>
 <?php include("../php/CCblanc.php"); ?>
 <li><?= lang() === "fr" ? "En vue dorsale, premier tergite gastral nettement rétréci antérieurement" : "In dorsal view, first gastral tergite clearly narrowed anteriorly" ?></li>
   <li><a title="<?= lang() === "fr" ? "Post-pétiole" : "Post-Petiole" ?>" style="cursor:help;"><b>PPE</b></a> <?= lang() === "fr" ? "bord postérieur droit en vue dorsale, angles postéro-latéraux anguleux" : "posterior border straight in dorsal view, posterolateral corners angulate" ?></li>
