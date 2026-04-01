@@ -79,21 +79,21 @@ $idPath = $toId;
 		<li class="category"><span class="icon icon-sort-amount-desc1"></span> <?= t('nav.genera') ?></li>
 		<li><a href="<?php echo $toId; ?>acropyga_ergate.html">Acropyga</a></li>
 		<li><a href="<?php echo $toId; ?>aenictinae_ergate.html">Aenictus</a></li>
-		<li><a href="<?php echo $toId; ?>amblyoponinae_ergate.html">Amblyopone</a></li>
-		<li><a href="<?php echo $toId; ?>leptanillinae_ergate.html">Anomalomyrma</a></li>
-		<li><a href="<?php echo $toId; ?>lasiini_ergate.html">Anoplolepis</a></li>
-		<li><a href="<?php echo $toId; ?>camponotini_ergate.html">Camponotus</a></li>
+		<li><a href="#" class="disabled">Amblyopone</a></li>
+		<li><a href="#" class="disabled">Anomalomyrma</a></li>
+		<li><a href="#" class="disabled">Anoplolepis</a></li>
+		<li><a href="#" class="disabled">Camponotus</a></li>
 		<li><a href="<?php echo $toId; ?>cerapachys_ergate.html">Cerapachys</a></li>
 		<li><a href="#" class="disabled">Dorylus</a></li>
 		<li><a href="<?php echo $toId; ?>lasius_ergate.html">Lasius</a></li>
 		<li><a href="<?php echo $toId; ?>leptanilla_ergate.html">Leptanilla</a></li>
-		<li><a href="<?php echo $toId; ?>littleformicinae_ergate.html">Plagiolepis</a></li>
+		<li><a href="#" class="disabled">Plagiolepis</a></li>
 		<li><a href="<?php echo $toId; ?>polyergus_ergate.html">Polyergus</a></li>
-		<li><a href="<?php echo $toId; ?>camponotini_ergate.html">Polyrhachis</a></li>
+		<li><a href="<?php echo $toId; ?>polyrhachis2_4_ergate.html">Polyrhachis</a></li>
 		<li><a href="#" class="disabled">Ponera</a></li>
-		<li><a href="<?php echo $toId; ?>lasiini_ergate.html">Prenolepis</a></li>
+		<li><a href="#" class="disabled">Prenolepis</a></li>
 		<li><a href="#" class="disabled">Proceratium</a></li>
-		<li><a href="<?php echo $toId; ?>leptanillinae_ergate.html">Protanilla</a></li>
+		<li><a href="#" class="disabled">Protanilla</a></li>
 	</ul></li>
 <li class="worker"><a href="<?php echo $base; ?>sources.html" title="Sources">
 	<span class="icon icon-books"></span><span class="scent"><?= t('nav.sources') ?></span></a></li>

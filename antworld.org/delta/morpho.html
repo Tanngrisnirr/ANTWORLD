@@ -7,16 +7,18 @@
     <?php include("php/ihead.php"); ?>
 </head>
 <body>
+<?php include("php/nav.php"); ?>
 <article>
 <div class="morpho-container">
-<h1 data-en="Morphology and morphometry" data-fr="Morphologie et morphométrie">Morphology and morphometry</h1>
+<h1 id="morpho-h1" data-en="Head View" data-fr="Vue de la tête">Head View</h1>
+<?php include("php/top.php"); ?>
 
     
     <div class="morpho-tabs">
-        <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tête">Head</button>
-        <button class="morpho-tab" data-section="mesosoma" data-en="Thorax" data-fr="Thorax">Thorax</button>
-        <button class="morpho-tab" data-section="metasoma" data-en="Abdomen" data-fr="Abdomen">Abdomen</button>
-        <button class="morpho-tab" data-section="measurements" data-en="Measurements" data-fr="Mesures">Measurements</button>
+        <button class="morpho-tab active" data-section="head" data-en="Head" data-fr="Tête" data-h1-en="Head View" data-h1-fr="Vue de la tête">Head</button>
+        <button class="morpho-tab" data-section="mesosoma" data-en="Thorax" data-fr="Thorax" data-h1-en="Thorax View" data-h1-fr="Vue du thorax">Thorax</button>
+        <button class="morpho-tab" data-section="metasoma" data-en="Abdomen" data-fr="Abdomen" data-h1-en="Abdomen View" data-h1-fr="Vue de l'abdomen">Abdomen</button>
+        <button class="morpho-tab" data-section="measurements" data-en="Morphometrics" data-fr="Morphométrie" data-h1-en="Morphometrics" data-h1-fr="Morphométrie">Morphometrics</button>
         <a href="https://biomedisa.info/antscan/" target="_blank" rel="noopener" class="morpho-tab external" data-en="3D Anatomy" data-fr="Anatomie 3D" title="Antscan - 792 species in 3D micro-CT">3D Anatomy</a>
     </div>
 
@@ -349,12 +351,12 @@
 
     
     <div class="diagram-section" id="section-measurements" data-print-title="MORPHOMETRIC MEASUREMENTS">
+        <label class="search-container" for="measurementSearch">
+            <span class="icon icon-search search-icon"></span>
+            <input type="text" id="measurementSearch" class="measurement-search" placeholder="Search..." data-placeholder-en="Search..." data-placeholder-fr="Rechercher...">
+        </label>
         <button class="measurements-download-btn" onclick="window.print()" title="Download as PDF">PDF</button>
         <div class="measurements-section">
-                <div class="measurements-header">
-                    <h3 data-en="Morphometric Definitions" data-fr="Définitions morphométriques">Morphometric Definitions</h3>
-                    <input type="text" id="measurementSearch" class="measurement-search" placeholder="Search..." data-placeholder-en="Search..." data-placeholder-fr="Rechercher...">
-                </div>
                 <div id="measurementsList">
 
 <div class="def-section"><div class="def-section-title" data-en="Head (Caput)" data-fr="Tête (Caput)">Head (Caput)</div>
@@ -478,6 +480,16 @@ document.querySelectorAll('.morpho-tab').forEach(tab => {
         // Update tab states
         document.querySelectorAll('.morpho-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
+
+        // Update h1 based on active tab
+        var h1 = document.getElementById('morpho-h1');
+        if (h1) {
+            var lang = document.documentElement.lang === 'fr' ? 'fr' : 'en';
+            var h1Key = 'h1' + lang.charAt(0).toUpperCase() + lang.slice(1);
+            h1.textContent = this.dataset[h1Key];
+            h1.dataset.en = this.dataset.h1En;
+            h1.dataset.fr = this.dataset.h1Fr;
+        }
 
         // Update section visibility
         const section = this.dataset.section;
@@ -2432,5 +2444,6 @@ document.querySelectorAll('.diagram-wrapper').forEach(function(wrapper) {
 
 <?php include("php/footer.php"); ?>
 </article>
+<?php include("php/scripts.php"); ?>
 </body>
 </html>

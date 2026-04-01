@@ -18,7 +18,7 @@ if (strpos($_SERVER['REQUEST_URI'], '/id/species/') !== false) {
 <span class="sep">|</span>
 <a href="https://github.com/Tanngrisnirr/ANTWORLD" target="_blank"><?= t('footer.credits') ?></a>
 <span class="sep">|</span>
-<span class="last-updated"><?= t('footer.updated') ?> <?php
+<a href="https://github.com/Tanngrisnirr/ANTWORLD" target="_blank" class="last-updated"><?= t('footer.updated') ?> <?php
 $lang = get_current_lang();
 if ($lang === 'fr') {
     $mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -26,5 +26,5 @@ if ($lang === 'fr') {
 } else {
     echo date('j F Y');
 }
-?></span>
+?></a>
 </footer>

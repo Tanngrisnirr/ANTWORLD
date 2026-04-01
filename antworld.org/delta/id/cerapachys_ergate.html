@@ -1,6 +1,7 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Cerapachys</title>
+    <head><title><?= lang() === "fr" ? "Clé Cerapachys" : "Cerapachys Key" ?> | AntWorld</title>
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Cerapachys Genus">
 		<meta name="keywords" content="Cerapachys,ergate,daikoku,humicola,biroi,hashimotoi,Japan">
@@ -18,8 +19,11 @@
 <article>
 <h1><i><strong>Cerapachys</strong></i> <?= lang() === "fr" ? "genre" : "genus" ?></h1>
 
+<p class="intro"><?= lang() === "fr"
+    ? "<i>Cerapachys</i> sont des fourmis prédatrices qui effectuent des raids sur d'autres colonies de fourmis, similaires aux fourmis légionnaires. Petites colonies nomades avec reines aptères. Présentes au Japon et en Asie tropicale."
+    : "<i>Cerapachys</i> are predatory ants that conduct raids on other ant colonies, similar to army ants. Small nomadic colonies with wingless queens. Found in Japan and tropical Asia." ?></p>
 
-  <div class="icones"><a href="cerapachys_daikoku_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="daikoku" onclic="location.href='cerapachys_daikoku_ergate.html';">
+  <div class="icones"><a href="cerapachys_daikoku_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="C. daikoku" onclic="location.href='cerapachys_daikoku_ergate.html';">
 <?php include("../php/CCblanc.php") ?>
   <li><i><strong><?= lang() === "fr" ? "Si" : "If" ?></strong></i> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "relativement large, angles antéro-dorsaux anguleux" : "relatively wide, anterodorsal corners angulate" ?></li>
   <li><?= lang() === "fr" ? "Corps entièrement noir" : "Whole body black" ?>: <a href="cerapachys_daikoku_ergate.html"><i><b>C</b>. daikoku</i></a></li>
@@ -27,7 +31,7 @@
 </div>
 
 
-<div class="icones"><a href="cerapachys_humicola_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="humicola" onclick="location.href='cerapachys_humicola_ergate.html';">
+<div class="icones"><a href="cerapachys_humicola_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="C. humicola" onclick="location.href='cerapachys_humicola_ergate.html';">
 <?php include("../php/CCblanc.php") ?>
   <li><i><strong><?= lang() === "fr" ? "Si" : "If" ?></strong></i> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "presque aussi long que large, angles antéro-dorsaux arrondis" : "nearly as long as wide, anterodorsal corners rounded" ?></li>
   <li><?= lang() === "fr" ? "Corps brun pâle à brun foncé" : "Body pale to dark brown" ?></li>
@@ -36,7 +40,7 @@
 </div>
 
 
-<div class="icones"><a href="cerapachys_biroi_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="biroi" onclick="location.href='cerapachys_biroi_ergate.html';">
+<div class="icones"><a href="cerapachys_biroi_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="C. biroi" onclick="location.href='cerapachys_biroi_ergate.html';">
 <?php include("../php/CCblanc.php") ?>
   <li><i><strong><?= lang() === "fr" ? "Si" : "If" ?></strong></i> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "presque aussi long que large, angles antéro-dorsaux arrondis" : "nearly as long as wide, anterodorsal corners rounded" ?></li>
   <li><?= lang() === "fr" ? "Corps brun pâle à brun foncé" : "Body pale to dark brown" ?></li>
@@ -46,7 +50,7 @@
 </div>
 
 
-<div class="icones"><a href="_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="hashimotoi" onclick="location.href='_ergate.html';">
+<div class="icones"><a href="_ergate.html"></a><input type="button" class="long_button"  style="cursor: pointer" value="C. hashimotoi" onclick="location.href='_ergate.html';">
 <?php include("../php/CCblanc.php") ?>
   <li><i><strong><?= lang() === "fr" ? "Si" : "If" ?></strong></i> <a title="<?= lang() === "fr" ? "Pétiole" : "Petiole" ?>" style="cursor:help;"><b>PE</b></a> <?= lang() === "fr" ? "presque aussi long que large, angles antéro-dorsaux arrondis" : "nearly as long as wide, anterodorsal corners rounded" ?></li>
   <li><?= lang() === "fr" ? "Corps brun pâle à brun foncé" : "Body pale to dark brown" ?></li>

@@ -1,6 +1,7 @@
+<?php include_once("../php/international.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head><title>Lasius</title>
+    <head><title><?= lang() === "fr" ? "Clé Lasius" : "Lasius Key" ?> | AntWorld</title>
         <meta charset="utf-8"/><meta http-equiv="language" content="english, en">
 		<meta name="description" content="Lasius Genus">
 		<meta name="keywords" content="Lasius,ergate,Austrolasius,Cauto-/Chthonolasius,Chthonolasius,Dendrolasius,sensu stricto,baodaoensis,septemstruma,sauteri,China,Japan,Taiwan,Hainan,Guangxi,Jiangxi,Yaku-shima,Kyushu,Shikoku,Mikura-jima,India,Sri Lanka,Indonesia,Singapor,Papua New Guinea,Solomon Island,Australia">
@@ -18,6 +19,9 @@
 <article>
 <h1><i><strong>Lasius</strong></i> <?= lang() === "fr" ? "sous-genres" : "subgenera" ?></h1>
 
+<p class="intro"><?= lang() === "fr"
+    ? "<i>Lasius</i> est divisé en sous-genres aux modes de vie distincts : <i>Lasius</i> s. str. (fourmis de jardin communes), <i>Chthonolasius</i> et <i>Dendrolasius</i> (parasites sociaux temporaires), et <i>Cautolasius</i> (espèces jaunes souterraines à odeur citronnée). Omniprésents en zone paléarctique."
+    : "<i>Lasius</i> is divided into subgenera with distinct lifestyles: <i>Lasius</i> s. str. (common garden ants), <i>Chthonolasius</i> and <i>Dendrolasius</i> (temporary social parasites), and <i>Cautolasius</i> (yellow subterranean species with citronella scent). Ubiquitous across the Palearctic." ?></p>
 
   <div class="icones"><span class="dead-link">Australo-</span>
 <?php include("../php/CCblanc.php"); ?>
@@ -29,9 +33,9 @@
   <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palearctic" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
-  <span class="dead-link"><i><b>a</b>ustriacus</i></span>
-  <br><span class="dead-link"><i><b>c</b>arniolicus</i></span>
-  <br><span class="dead-link"><i><b>r</b>eginae</i></span>
+  <span class="dead-link">L. <b>a</b>ustriacus</span>
+  <br><span class="dead-link">L. <b>c</b>arniolicus</span>
+  <br><span class="dead-link">L. <b>r</b>eginae</span>
 	</ul></ul></div></li>
   </div>
   
@@ -47,7 +51,7 @@
   <li><?= lang() === "fr" ? "Hongrie, sud de la Slovaquie, sud de l'Autriche" : "Hungary, South Slovakia, South Austria" ?><br>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
-  <span class="dead-link"><i><b>C</b>autolasius</i></span>
+  <span class="dead-link"><b>C</b>autolasius</span>
   <br><a href="cauto&chthonolasius_ergate.html"><i><b>C</b>hthonolasius</i></a>
 	</ul></ul></div></li>
   </div>
@@ -62,12 +66,12 @@
   <li><?= lang() === "fr" ? "Europe du Nord, Centrale et de l'Ouest" : "North, Central and West Europe" ?></li>
          <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
-  <span class="dead-link"><i><strong><b>c</b>apitatus</strong></i></span>
-  <br><span class="dead-link"><i><strong><b>f</b>uliginosus</strong></i></span>
-  <br><span class="dead-link"><i><strong><b>n</b>ipponensis</strong></i></span>
-  <br><span class="dead-link"><i><strong><b>m</b>orisitai</strong></i></span>
-  <br><span class="dead-link"><i><strong><b>s</b>pathepus</strong></i></span>
-  <br><span class="dead-link"><i><strong><b>t</b>eranishii</strong></i></span>
+  <span class="dead-link">L. <b>c</b>apitatus</span>
+  <br><span class="dead-link">L. <b>f</b>uliginosus</span>
+  <br><span class="dead-link">L. <b>n</b>ipponensis</span>
+  <br><span class="dead-link">L. <b>m</b>orisitai</span>
+  <br><span class="dead-link">L. <b>s</b>pathepus</span>
+  <br><span class="dead-link">L. <b>t</b>eranishii</span>
 	</ul></ul></div></li>
   </div>
 
@@ -82,9 +86,9 @@
   <li><?= lang() === "fr" ? "Paléarctique entier" : "Whole Palearctic" ?><br>
        <div class="speciesmenu"><ul class="niveau1"><img src="../img/id/icons/species.png" typeof="foaf:organism" alt="species menu"/>
   <ul class="niveau2">
-  <span class="dead-link"><i><strong><b>a</b>lienus</strong></i></span>
-  <br><span class="dead-link"><i><strong><b>b</b>reviscapus</strong></i></span>
-  <br><span class="dead-link"><i><strong><b>b</b>runneus</strong></i></span>
+  <span class="dead-link">L. <b>a</b>lienus</span>
+  <br><span class="dead-link">L. <b>b</b>reviscapus</span>
+  <br><span class="dead-link">L. <b>b</b>runneus</span>
 	</ul></ul></div></li>
   </div>
    </article>
