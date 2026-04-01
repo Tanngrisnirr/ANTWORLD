@@ -351,7 +351,10 @@
 
     <!-- MEASUREMENTS Section -->
     <div class="diagram-section" id="section-measurements" data-print-title="MORPHOMETRIC MEASUREMENTS">
-        <input type="text" id="measurementSearch" class="measurement-search" placeholder="Search..." data-placeholder-en="Search..." data-placeholder-fr="Rechercher...">
+        <label class="search-container" for="measurementSearch">
+            <span class="icon icon-search search-icon"></span>
+            <input type="text" id="measurementSearch" class="measurement-search" placeholder="Search..." data-placeholder-en="Search..." data-placeholder-fr="Rechercher...">
+        </label>
         <button class="measurements-download-btn" onclick="window.print()" title="Download as PDF">PDF</button>
         <div class="measurements-section">
                 <div id="measurementsList">

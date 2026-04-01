@@ -1238,7 +1238,8 @@ footer:not(.aw-footer) img:hover{box-shadow: 0px 0px 30px var(--text-primary); o
 .privacy-section li::before { content: ""; position: absolute; left: 0; top: 12px; width: 12px; height: 12px; border-radius: 50%; }
 .privacy-section .do-not li::before { background: #87CEEB; }
 .privacy-section .do li::before { background: #4a9cb8; }
-.last-updated { font-size: 0.9em; color: var(--text-secondary); margin-top: 40px; }
+.last-updated { font-size: 0.9em; color: var(--text-secondary); }
+footer.aw-footer .last-updated { margin: 0; padding: 5px 10px; }
 
 /* ============================================
    COMMON COMPONENTS (shared across pages)
@@ -2471,29 +2472,57 @@ body.has-enlarged-view {
 .measurements-header h3 {
     margin: 0;
 }
-/* Search field for measurements - fixed on right side */
-.measurement-search {
+/* Search container - icon that expands into search field */
+.search-container {
     position: fixed;
     top: calc(50% - 50px);
-    right: calc(50% - 600px - 60px);
+    right: calc(50% - 600px - 48px);
     transform: translateY(-50%);
-    padding: 8px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    font-size: 14px;
-    width: 80px;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    background: #2c5aa0;
+    border: 2px solid #4a7bc4;
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    transition: width 0.3s ease, border-radius 0.3s ease, right 0.3s ease;
+    cursor: pointer;
 }
-.measurement-search:focus {
+.search-container:focus-within {
+    width: 170px;
+    border-radius: 6px;
+    right: calc(50% - 600px - 178px);
+}
+.search-container .search-icon.icon.icon-search {
+    min-width: 40px;
+    text-align: center;
+    font-size: 18px;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cpath d='M21 21l-5-5'/%3E%3C/svg%3E") !important;
+}
+.light-mode .search-container .search-icon.icon.icon-search {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cpath d='M21 21l-5-5'/%3E%3C/svg%3E") !important;
+}
+.measurement-search {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 14px;
+    width: 0;
+    padding: 0;
     outline: none;
-    border-color: var(--accent-primary);
-    width: 150px;
-    right: calc(50% - 600px - 130px); /* Expand rightward: adjust right by 70px (150-80) */
+    transition: width 0.3s ease, padding 0.3s ease;
+    cursor: pointer;
+}
+.search-container:focus-within .measurement-search {
+    width: 120px;
+    padding: 8px 10px 8px 0;
+    cursor: text;
 }
 .measurement-search::placeholder {
-    color: #fff;
+    color: rgba(255,255,255,0.7);
 }
 
 /* PDF button for measurements */
@@ -2516,7 +2545,10 @@ body.has-enlarged-view {
     background: #3d6db8;
 }
 @media (max-width: 1300px) {
-    .measurement-search {
+    .search-container {
+        right: 10px;
+    }
+    .search-container:focus-within {
         right: 10px;
     }
     .measurements-download-btn {
