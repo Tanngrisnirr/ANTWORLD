@@ -99,7 +99,7 @@
     "sources_count": "sources",
     "legend_pdf": "PDF in library",
     "legend_web": "External website",
-    "legend_scholar": "Google Scholar search",
+    "legend_scholar": "Google Scholar Search",
     "legend_tip": "Click Source header to cycle: PDF → Scholar → Web",
     "table": {
       "author": "Author(s)",

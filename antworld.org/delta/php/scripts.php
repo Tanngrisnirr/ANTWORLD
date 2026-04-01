@@ -57,3 +57,18 @@ $(document).ready(function(){
 	$("#english").click(function(){ $(".fr").hide(); $(".en").fadeIn("slow"); });
 });
 </script>
+
+<!-- Service Worker Registration (PWA offline support) -->
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('[AW] Service Worker registered');
+            })
+            .catch(function(error) {
+                console.log('[AW] Service Worker registration failed:', error);
+            });
+    });
+}
+</script>
