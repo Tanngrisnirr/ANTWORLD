@@ -17,7 +17,7 @@
 <div id="active_test"><?php include("news/test/test1.php"); ?></div>
 
 
-<h3><span class="icon icon-bug"></span> <?= t('training.load_more') ?></h3>
+<h3 class="h2four" style="cursor: pointer;"><span class="icon icon-bug"></span> <?= t('training.load_more') ?></h3>
 <div class="group5">
 <ul>
 <li><div id="load2"><?= t('training.test') ?> 2</div></li>
@@ -28,20 +28,32 @@
 </div>
 
 </article>
+<?php include("php/footer.php"); ?>
+<?php include("php/scripts.php"); ?>
 <!-- Magnifying glass for training images -->
 <script src="js/magglass.js"></script>
-<!-- Only for the training section -->
+<!-- Only for the training section - MUST be after scripts.php loads jQuery -->
 <script>
 $(document).ready(function(){
-		$(".test2").hide();$(".test3").hide();$(".test4").hide();$(".test5").hide(); $(".group5").hide();
-		$("#load2").click(function(){$("#active_test").hide(); $(".test3").hide(); $(".test4").hide(); $(".test5").hide();$(".test2").fadeIn();});
-		$("#load3").click(function(){$("#active_test").hide(); $(".test2").hide(); $(".test4").hide(); $(".test5").hide();$(".test3").fadeIn();});
-		$("#load4").click(function(){$("#active_test").hide(); $(".test2").hide(); $(".test3").hide(); $(".test5").hide();$(".test4").fadeIn();});
-		$("#load5").click(function(){$("#active_test").hide(); $(".test2").hide(); $(".test3").hide(); $(".test4").hide();$(".test5").fadeIn();});
-		$(".h2four").click(function(){$(".group5").slideToggle("slow");});
+	// Hide tests 2-5 and load more section initially
+	$(".test2, .test3, .test4, .test5, .group5").hide();
+	// Hide all reveal solutions initially
+	$(".group3").hide();
+
+	// Test switchers
+	$("#load2").click(function(){$("#active_test").hide(); $(".test3, .test4, .test5").hide(); $(".test2").fadeIn();});
+	$("#load3").click(function(){$("#active_test").hide(); $(".test2, .test4, .test5").hide(); $(".test3").fadeIn();});
+	$("#load4").click(function(){$("#active_test").hide(); $(".test2, .test3, .test5").hide(); $(".test4").fadeIn();});
+	$("#load5").click(function(){$("#active_test").hide(); $(".test2, .test3, .test4").hide(); $(".test5").fadeIn();});
+
+	// Load more tests toggle
+	$(".h2four").click(function(){$(".group5").slideToggle("slow");});
+
+	// Reveal solution toggle - click h2 with spinner icon to show/hide answer
+	$("h2:has(.icon-spinner)").css("cursor", "pointer").click(function(){
+		$(this).next(".group3").slideToggle("slow");
+	});
 });
 </script>
-<?php include("php/footer.php"); ?>
-    <?php include("php/scripts.php"); ?>
 </body>
 </html>
