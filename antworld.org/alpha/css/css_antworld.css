@@ -784,6 +784,30 @@ box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 2px 2px rgba(0, 0, 0, 0.25)
 .small, .small-1, .small-2 {display: block;}
 /*------*/
 
+/* Training test navigation */
+.test-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+.test-nav a {
+    padding: 10px 20px;
+    background: var(--accent-primary);
+    color: #000;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+.test-nav a:hover {
+    background: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+/*------*/
+
 
 /*ARTICLE ID*/
 .copyright{position: absolute;  width: 30px; height: 30px; border-radius: 15px; z-index:900;

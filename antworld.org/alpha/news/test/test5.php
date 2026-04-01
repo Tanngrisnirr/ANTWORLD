@@ -1,4 +1,10 @@
 <h1>Ant of the week!</h1>
+<div class="test-nav">
+<a href="#" data-test="1">Test 1</a>
+<a href="#" data-test="2">Test 2</a>
+<a href="#" data-test="3">Test 3</a>
+<a href="#" data-test="4">Test 4</a>
+</div>
 <p class="left">
 Identify this ant up to the genus using the <a href="../id/confirmed.ergate_id" target="_blank">website&#39;s key</a>
 <br>
