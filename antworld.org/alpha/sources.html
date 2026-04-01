@@ -465,14 +465,14 @@ function downloadFile(content, filename, mimeType) {
     URL.revokeObjectURL(link.href);
 }
 
-// Initialize count and convert empty sources to Google Scholar search links
+// Initialize count and convert empty sources to Google Scholar Search links
 document.addEventListener("DOMContentLoaded", function() {
     var table = document.getElementById("sourcesTable");
     var rows = table.querySelectorAll("tbody tr");
     var count = rows.length;
     document.getElementById("sourceCount").textContent = count + " / " + count + " sources";
 
-    // Convert link-none cells to Google Scholar search links
+    // Convert link-none cells to Google Scholar Search links
     rows.forEach(function(row) {
         var sourceCell = row.querySelector("td.link-none");
         if (sourceCell) {
