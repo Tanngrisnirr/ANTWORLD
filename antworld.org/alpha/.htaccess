@@ -24,6 +24,10 @@
   RewriteRule ^id/lasius_alienus_ergate/?$ - [G,L]
 
   # Old docs/ folder renamed to zdocs/
+  # Specific PDF redirects (old filenames → new filenames)
+  RewriteRule ^docs/Schulz\ -\ 1994a\.\ Aphaenogaster\ graeca\ nova\ species\ aus\ dem\ Olymp-Gebirge\ und\ eine\ Gliederung\ der\ Gattung\ Aphaenogaster\.pdf$ "zdocs/Schulz 1994 - Aphaenogaster graeca nova species aus dem Olymp-Gebirge.pdf" [R=301,L,B]
+  RewriteRule ^docs/Cagniant\ -\ 1990a\.\ Contribution\ a\ la\ connaissance\ des\ fourmis\ marocaines\ Aphaenogaster\ gemella\.pdf$ "zdocs/Cagniant 1990a - Contribution a la connaissance des fourmis marocaines Aphaenogaster gemella.pdf" [R=301,L,B]
+  # General docs/ → zdocs/ redirect (for files with matching names)
   RewriteRule ^docs/(.*)$ zdocs/$1 [R=301,L]
 
   # Old id/species/references/ paths -> zdocs/
@@ -37,6 +41,7 @@
   RewriteRule ^id/littleFormicinae_ergate(\.html)?$ id/littleformicinae_ergate [R=301,L]
   RewriteRule ^id/lasinii_ergate(\.html)?$ id/lasiini_ergate [R=301,L]
   RewriteRule ^id/camponotinii_ergate(\.html)?$ id/camponotini_ergate [R=301,L]
+  RewriteRule ^id/camponotus_ergate(\.html)?$ id/formicinae_ergate [R=301,L]
   RewriteRule ^id/_ergate(\.html)?$ id/confirmed.ergate_id [R=301,L]
 
   # Genus/tribe redirects to parent key pages
