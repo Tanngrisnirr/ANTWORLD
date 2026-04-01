@@ -2720,6 +2720,13 @@ h4.toggle-heading .toggle-label {
     font-size: 16px;
 }
 
+/* Higher taxa - NOT italic (only genus/species are italic) */
+/* Use for: tribes (-ini), subfamilies (-inae), families (-idae) */
+/* Example: class="dead-link tribe" or class="long_button tribe" */
+.tribe {
+    font-style: normal !important;
+}
+
 /* Dead links - non-clickable text for non-existent pages */
 /* Styled to match disabled buttons (button_no, long_button_no) */
 .dead-link {
