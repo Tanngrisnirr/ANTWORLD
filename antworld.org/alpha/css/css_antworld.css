@@ -1295,9 +1295,9 @@ footer:not(.aw-footer) img:hover{box-shadow: 0px 0px 30px var(--text-primary); o
     border-color: var(--accent-primary);
     box-shadow: 0 0 0 2px rgba(135, 206, 235, 0.3);
 }
+/* RULE: No opacity on white text (dark background) - opacity makes white look grey */
 .filter-input::placeholder {
     color: #fff;
-    opacity: 0.7;
 }
 
 /* Filter sections and groups */
@@ -2459,6 +2459,9 @@ body.has-enlarged-view {
 .measurement-search:focus {
     outline: none;
     border-color: var(--accent-primary);
+}
+.measurement-search::placeholder {
+    color: #fff;
 }
 
 /* PDF button for measurements */
