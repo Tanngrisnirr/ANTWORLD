@@ -17,6 +17,9 @@ antworld.org/*/docs/*.pdf
 # Screenshots (temporary, root level)
 /*.png
 
+# Reference PDFs at root level
+/*.pdf
+
 # Backup folders
 **/backup_svg/
 

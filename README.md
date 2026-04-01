@@ -113,6 +113,8 @@ antworld/
 │   ├── alpha/              # Development version
 │   ├── beta/               # Minified, tested on staging
 │   └── delta/              # Production-ready
+├── docs/
+│   └── screenshots/        # README images (grader.png)
 ├── scripts/                # Build & deploy workflow
 │   ├── minify-to-beta.sh   # Strip comments, minify
 │   ├── promote-to-delta.sh # Push to production
