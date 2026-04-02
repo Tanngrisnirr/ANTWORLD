@@ -58,17 +58,4 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- Service Worker Registration (PWA offline support) -->
-<script>
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-                console.log('[AW] Service Worker registered');
-            })
-            .catch(function(error) {
-                console.log('[AW] Service Worker registration failed:', error);
-            });
-    });
-}
-</script>
+<!-- PWA removed: see planning/pwa-notes.md for history -->

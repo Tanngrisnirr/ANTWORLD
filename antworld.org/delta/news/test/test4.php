@@ -1,12 +1,12 @@
-<h1>Ant of the week!</h1>
+<h1><?php echo t('training.ant_of_week'); ?></h1>
 <div class="test-nav">
-<a href="#" data-test="1">Test 1</a>
-<a href="#" data-test="2">Test 2</a>
-<a href="#" data-test="3">Test 3</a>
-<a href="#" data-test="5">Test 5</a>
+<a href="#" data-test="1"><?php echo t('training.test'); ?> 1</a>
+<a href="#" data-test="2"><?php echo t('training.test'); ?> 2</a>
+<a href="#" data-test="3"><?php echo t('training.test'); ?> 3</a>
+<a href="#" data-test="5"><?php echo t('training.test'); ?> 5</a>
 </div>
 <p class="left">
-Identify this ant up to the genus using the <a href="../id/confirmed.ergate_id" target="_blank">website&#39;s key</a>
+<?php echo t('training.identify_instructions'); ?> <a href="../id/confirmed.ergate_id" target="_blank"><?php echo t('training.website_key'); ?></a>
 <br>
 </p>
 <!-- Working order mainwrapper, box, magnify, small, large, scripts, closing both div -->
@@ -33,8 +33,8 @@ Identify this ant up to the genus using the <a href="../id/confirmed.ergate_id" 
 
 </div> <!-- end of #mainwrapper -->
 <p4>
-<h2><span class="icon icon-spinner"> Reveal solution</span></h2>
+<h2><span class="icon icon-spinner"> <?php echo t('training.reveal_solution'); ?></span></h2>
 <div class="group3">
-<p4>Subfamily: Dolichoderinae &#8226; Genus: <i>Technomyrmex</i></p4>
+<p4><?php echo t('training.subfamily'); ?>: Dolichoderinae &#8226; <?php echo t('training.genus'); ?>: <i>Technomyrmex</i></p4>
 </div>
 </p4>

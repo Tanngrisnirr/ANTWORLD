@@ -114,7 +114,15 @@
   },
   "training": {
     "load_more": "Charger plus d'IDs",
-    "test": "Test"
+    "test": "Test",
+    "ant_of_week": "Fourmi de la semaine !",
+    "identify_instructions": "Identifiez cette fourmi jusqu'au genre en utilisant la",
+    "website_key": "clé du site",
+    "reveal_solution": "Révéler la solution",
+    "subfamily": "Sous-famille",
+    "genus": "Genre",
+    "genera": "Genres",
+    "tribe": "Tribu"
   },
   "geo": {
     "title": "Diversité des fourmis par pays",

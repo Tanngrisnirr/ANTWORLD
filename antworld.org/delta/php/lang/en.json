@@ -114,7 +114,15 @@
   },
   "training": {
     "load_more": "Load more IDs",
-    "test": "Test"
+    "test": "Test",
+    "ant_of_week": "Ant of the week!",
+    "identify_instructions": "Identify this ant up to the genus using the",
+    "website_key": "website's key",
+    "reveal_solution": "Reveal solution",
+    "subfamily": "Subfamily",
+    "genus": "Genus",
+    "genera": "Genera",
+    "tribe": "Tribe"
   },
   "geo": {
     "title": "Ant diversity by country",
