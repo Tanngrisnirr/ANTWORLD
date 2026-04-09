@@ -1,135 +1,156 @@
 /**
- * AntWorld Service Worker
- * Enables offline access for most of the site
- * EXCLUDES: /photo-id/ (image-based identification requires server ML processing)
+ * AntWorld Service Worker v11
+ * Precache ENTIRE site + better URL matching for back navigation
  */
 
-const CACHE_NAME = 'antworld-v1';
-const OFFLINE_URL = '/offline.html';
+const CACHE_NAME = 'antworld-v11';
+const OFFLINE_URL = '/offline';
 
-// Assets to cache on install
-const PRECACHE_ASSETS = [
+// ALL pages and assets to precache on install
+const PRECACHE = [
+  // Core pages (multiple URL formats for home)
   '/',
-  '/index.html',
-  '/morpho.html',
-  '/diversity.html',
-  '/sources.html',
-  '/training.html',
-  '/credits.html',
-  '/privacy.html',
+  '/index',
+  '/offline',
+  '/morpho',
+  '/diversity',
+  '/geo_diversity',
+  '/tax_diversity',
+  '/sources',
+  '/training',
+  '/credits',
+  '/privacy',
+  '/list_species',
+
+  // ID keys - main
+  '/id/formicinae_ergate',
+  '/id/myrmicinae_ergate',
+  '/id/ponerinae_ergate',
+  '/id/amblyoponinae_ergate',
+  '/id/aenictinae_ergate',
+  '/id/leptanillinae_ergate',
+
+  // ID keys - subfamilies/genera
+  '/id/acropyga_ergate',
+  '/id/acropyga_rhyzomyrma2_ergate',
+  '/id/camponotini_ergate',
+  '/id/cauto&chthonolasius_ergate',
+  '/id/cerapachys_ergate',
+  '/id/cerapachys&leptogenys_ergate',
+  '/id/confirmed.ergate_id',
+  '/id/crematogaster',
+  '/id/lasiini_ergate',
+  '/id/lasius_ergate',
+  '/id/leptanilla_ergate',
+  '/id/leptanilla_sp_ergate',
+  '/id/littleformicinae_ergate',
+  '/id/palm_ergate_id',
+  '/id/pdf_ergate',
+  '/id/polyergus_ergate',
+  '/id/polyrhachis1.1_ergate',
+  '/id/polyrhachis2_4_ergate',
+
+  // Species pages
+  '/id/species/discothyrea_kamiteta_ergate',
+  '/id/species/polyergus_nigerrimus_ergate',
+  '/id/species/polyergus_rufescens_ergate',
+  '/id/species/polyergus_samurai_ergate',
+
+  // CSS
   '/css/css_antworld.css',
   '/css/antworld-icons.css',
+
+  // JavaScript
   '/js/jquery-3.1.1.min.js',
   '/js/lang.js',
-  '/img/logo.png',
+  '/js/chart.min.js',
+  '/js/highcharts.js',
+  '/js/highmaps.js',
+  '/js/d3.min.js',
+  '/js/d3pie.min.js',
+  '/js/world.js',
+  '/js/magglass.js',
+  '/js/jszip.min.js',
+  '/js/modules/exporting.js',
+  '/js/modules/offline-exporting.js',
+  '/js/modules/data.js',
+
+  // Icons
   '/icon/favicon.ico',
   '/icon/favicon.svg'
 ];
 
-// Paths that should NEVER be cached (require live server)
-const NETWORK_ONLY_PATHS = [
-  '/photo-id',      // Future ML image identification
-  '/id-image',      // Alternative path for image ID
-  '/api/',          // Any API calls
-  '/upload'         // Image uploads
-];
+const SKIP_PATHS = ['/photo-id', '/api/', '/upload'];
 
-// Check if URL should skip cache
-function shouldSkipCache(url) {
-  const urlPath = new URL(url).pathname;
-  return NETWORK_ONLY_PATHS.some(path => urlPath.startsWith(path));
-}
-
-// Install event - precache core assets
+// Install: download and cache EVERYTHING
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[SW] Precaching core assets');
-        return cache.addAll(PRECACHE_ASSETS);
-      })
-      .then(() => self.skipWaiting())
-      .catch(err => console.log('[SW] Precache failed:', err))
+    caches.open(CACHE_NAME).then(cache => {
+      console.log('[SW] Downloading entire site...');
+      return Promise.all(
+        PRECACHE.map(url => cache.add(url).catch(() => console.log('[SW] Skip:', url)))
+      );
+    }).then(() => self.skipWaiting())
   );
 });
 
-// Activate event - clean old caches
+// Activate: clean old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('[SW] Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
 });
 
-// Fetch event - cache-first for most, network-only for excluded paths
+// Fetch: cache-first with smart URL matching
 self.addEventListener('fetch', event => {
-  const request = event.request;
+  const url = new URL(event.request.url);
 
-  // Only handle GET requests
-  if (request.method !== 'GET') return;
+  // Only handle same-origin GET requests
+  if (event.request.method !== 'GET') return;
+  if (url.origin !== location.origin) return;
+  if (SKIP_PATHS.some(p => url.pathname.startsWith(p))) return;
 
-  // Network-only for excluded paths (photo ID, API, etc.)
-  if (shouldSkipCache(request.url)) {
-    event.respondWith(
-      fetch(request).catch(() => {
-        // Return offline message for excluded paths
-        return new Response(
-          JSON.stringify({ error: 'offline', message: 'Image identification requires an internet connection' }),
-          { headers: { 'Content-Type': 'application/json' } }
-        );
-      })
-    );
-    return;
-  }
-
-  // Cache-first strategy for everything else
   event.respondWith(
-    caches.match(request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          // Return cached version, but also update cache in background
-          event.waitUntil(
-            fetch(request)
-              .then(response => {
-                if (response.ok) {
-                  caches.open(CACHE_NAME)
-                    .then(cache => cache.put(request, response));
-                }
-              })
-              .catch(() => {}) // Ignore network errors during background update
-          );
-          return cachedResponse;
+    caches.open(CACHE_NAME).then(async cache => {
+      // Normalize pathname for matching
+      let pathname = url.pathname;
+
+      // Try exact match first
+      let cached = await cache.match(event.request);
+
+      // Try variations if not found
+      if (!cached) {
+        const variations = [
+          pathname,
+          pathname.replace(/\.html$/, ''),           // without .html
+          pathname.replace(/\/$/, ''),               // without trailing slash
+          pathname === '/' ? '/index' : null,        // home as /index
+          pathname + '/',                            // with trailing slash
+        ].filter(Boolean);
+
+        for (const variant of variations) {
+          cached = await cache.match(url.origin + variant);
+          if (cached) break;
         }
+      }
 
-        // Not in cache - fetch from network and cache it
-        return fetch(request)
-          .then(response => {
-            // Don't cache non-OK responses or non-same-origin
-            if (!response.ok || response.type !== 'basic') {
-              return response;
-            }
+      if (cached) return cached;
 
-            // Clone and cache the response
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => cache.put(request, responseToCache));
-
-            return response;
-          })
-          .catch(() => {
-            // Offline fallback for HTML pages
-            if (request.headers.get('Accept').includes('text/html')) {
-              return caches.match(OFFLINE_URL);
-            }
-          });
-      })
+      // Not in cache: fetch and cache
+      try {
+        const response = await fetch(event.request);
+        if (response.ok) {
+          cache.put(event.request, response.clone());
+        }
+        return response;
+      } catch (e) {
+        if (event.request.mode === 'navigate') {
+          return cache.match(OFFLINE_URL);
+        }
+        throw e;
+      }
+    })
   );
 });
