@@ -51,6 +51,10 @@ We are building the world's first platform that combines:
 
 **Our model:** [Xeno-canto](https://xeno-canto.org) did it for bird sounds. We are doing it for ants looks.
 
+<p align="center">
+  <img src="docs/screenshots/antworld-morpho.png" alt="ANTWORLD Morphology Viewer" width="900"/>
+</p>
+
 ---
 
 ## Quick Start
@@ -228,7 +232,6 @@ We do not replace — we **connect**.
 - Podman/Docker
 
 **Development:**
-- AI-assisted design and website functionality (Claude)
 - TensorFlow / neural networks for species identification
 - Training data: AntWeb specimens (CC BY-SA 3.0)
 
